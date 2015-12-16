@@ -1,0 +1,80 @@
+.header{
+    height: 96px;
+    background-color: #2233b4;
+}
+.appname{
+    font-size: 24px;
+    color: white;
+    margin: 20px 5px;
+}
+.none{
+    display: inline-block;
+}
+.login{
+    font-size: 24px;
+    color: white;
+    margin: 20px 25px;
+}
+.quick{
+    box-shadow: 1px 1px 1px 1px rgba(142, 142, 142, 0.78);
+    padding: 16px 0px;
+    display: block;
+    margin: 24px;
+}
+.quick p{
+    text-align: center;   
+}
+.qorder {
+  background: url(../img/img.ico) center;
+  width: 60%;
+  height: 200px;
+  display: block;
+  margin: 16px auto;
+}
+.schedule{
+    box-shadow: 1px 1px 1px 1px rgba(142, 142, 142, 0.78);
+    padding: 16px 0px;
+    display: block;
+    margin: 24px;
+}
+.schedule p{
+    text-align: center;   
+}
+.sorder {
+  background: url(../img/img.ico) center;
+  width: 60%;
+  height: 200px;
+  display: block;
+  margin: 16px auto;
+}
+.footerdiv{
+     height: 200px;
+     background-color:  rgba(128, 128, 0, 0.27);
+}
+.footerdiv p{
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+}
+@media(min-width:992px){
+.appname{
+    margin-left: 20px;
+}
+.none{
+    display: none;
+}
+.login{
+    float: right;
+    margin-right: 15px;
+}
+    
+.quick{
+    display: block;
+    margin: 24px 0 24px 60px; 
+}
+.schedule{
+    display: block;
+    margin: 24px 0 24px 60px;
+}    
+    
+}

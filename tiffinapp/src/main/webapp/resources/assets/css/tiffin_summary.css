@@ -1,0 +1,100 @@
+/*Css of Order Summary Details Div*/
+
+.order_summary_heading {
+	font-size: 24px;
+	margin: 16px auto 0px;
+	color: rgba(0, 0, 0, 0.54);
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+}
+.order_details_card {
+	margin: 16px auto;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.26);
+	padding: 16px;
+	background-color: white;
+}
+.menu_list_title {
+	margin: 0px auto 16px;
+	font-size: 18px;
+}
+.order_details_title {
+	color: rgba(0, 0, 0, 0.87);
+	font-size: 18px;
+	margin: 0px auto 16px;
+}
+.order_details_sub_title,
+{
+	color: rgba(0, 0, 0, 0.54);
+	margin: 0px auto 16px;
+}
+.order_button{
+	color: white;
+	background-color: #FF5535;
+	text-transform: uppercase;
+}
+
+.order_button:hover{
+	color: white;
+	background-color: rgba(255, 85, 53, 0.70);
+}
+.order_bottom_div {
+	border-top: 1px solid rgba(0, 0, 0, 0.38);
+	margin-top: 16px;
+	position: relative;
+}
+.order_bottom_label {
+	margin-top: 16px;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.57);
+	font-weight: 500;
+}
+.edit_order_button
+ {
+	color: white;
+	background-color: #FF5535;
+	text-transform: uppercase;
+	margin: 8px auto 16px;
+}
+.edit_order_button:hover{
+	color: white;
+	background-color: rgba(255, 85, 53, 0.70);
+}
+
+.cancel_button{
+	color: white;
+	background-color: #FF5535;
+	text-transform: uppercase;
+	margin: 8px auto 16px;
+}
+
+.cancel_button:hover{
+	color: white;
+	background-color: rgba(255, 85, 53, 0.70);
+}
+
+.tiffin_box_img1{
+	height: 300px;
+/*	width: 70%;*/
+	display: block;
+	margin: auto;
+}
+
+/*End of Order Summary Details Div*/
+
+@media only screen and (min-width: 768px) {
+	.edit_order_button,
+	.edit_order_button:hover {
+		position: absolute;
+		bottom: 16px;
+		right: 112px;
+		margin: 0px;
+	}
+	
+	.cancel_button,.cancel_button:hover{
+		position: absolute;
+		bottom: 16px;
+		right: 16px;
+		margin: 0px;
+	
+	}
+}

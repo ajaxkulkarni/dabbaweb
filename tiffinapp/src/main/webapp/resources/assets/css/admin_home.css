@@ -1,0 +1,79 @@
+body{
+    font-family: 'Roboto', sans-serif;
+	background-color: rgb(255, 255, 255); 
+}
+
+
+
+/*---Css For Header-----*/
+
+.navbar-default{
+	padding: 8px;
+	background: #1C2C39;
+	margin: 0px;
+	border: 0px solid #1C2C39;
+	border-radius: 0px;
+}
+
+
+.navbar-brand{
+	margin-left: 54px;
+
+}
+
+.tiff{
+	color: #00AA44;
+	font-size: 32px;
+	margin: 0px;
+}
+
+.eat{
+	color:#ff5555; 
+	font-size: 32px;
+}
+
+/*---End-Header-----*/
+
+#order_list_div{
+	margin: 32px auto;
+	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.42);
+	padding: 16px;
+}
+
+#order_table1 td{
+	 font-family: 'Roboto', sans-serif;
+}
+
+
+
+
+#card_menu1{
+	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.42);
+	margin: 32px auto;
+	padding: 16px;
+	display: inline-block;
+}
+
+.view_order_btn,.view_order_btn:hover{
+	margin: 32px auto;	
+	background-color: #498BFA;
+	text-transform: uppercase;
+	color: white;
+}
+
+.view_order1_btn,.view_order1_btn:hover{	
+	background-color: #498BFA;
+	text-transform: uppercase;
+	color: white;
+}
+
+
+
+.add_vendor_btn,.add_vendor_btn:hover{
+	margin: 32px auto;	
+	background-color:#498BFA; 
+	text-transform: uppercase; 
+	color: white;
+}
+
+

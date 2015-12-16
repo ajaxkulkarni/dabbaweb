@@ -1,0 +1,85 @@
+/*CSS For payment details Div*/
+.payment_details_heading{
+	font-size: 24px;
+	margin: 16px auto 0px;
+	color: rgba(0, 0, 0, 0.54);
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+}
+
+.payment_details_card{
+	margin: 16px auto;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.26);
+	background-color: white;
+	padding: 16px;
+}
+
+.form-control{
+	margin: 16px auto;
+}
+
+#option_title{
+	margin:16px auto;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.67);
+}
+.option_radio{
+	margin:16px;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.67);
+}
+
+.chbox1{
+	margin:16px;
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.67);
+}
+
+.order_button,.order_button:hover{
+	color: white;
+	background-color: #FF5535;
+	text-transform: uppercase;
+	padding: 8px 16px;
+
+}
+
+
+.payment_method_icon{
+    height: 400px;
+/*    margin: 32px;*/
+}
+
+
+
+/*Css For Model*/
+
+a,a:hover{
+	text-decoration: none;
+	color: white;
+}
+
+
+.order_img1{
+    height:  200px;
+	margin: auto;
+}
+
+.order_label1{
+	margin-left: 32px;
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.59);
+	font-weight: 300;
+}
+
+/*End of css Model*/
+
+/*End of Css Payment Details*/
+
+@media only screen and (min-width: 768px) {
+
+	.order_button,.order_button:hover{
+/*	margin: 32px;*/
+
+}
+
+}

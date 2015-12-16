@@ -1,0 +1,51 @@
+body {
+    font-family: Roboto, Helvetica, sans-serif;
+    color: rgba(0, 0, 0, 0.87);
+    /*    font-size: 24px;*/
+}
+.inShortContent {
+    font-family: 'Roboto Slab', serif;
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 24px;
+    text-align: center;
+    margin: 24px auto 96px;
+}
+.inShortContentImages {
+    height: 96px;
+    display: block;
+    margin: 32px auto 0;
+}
+.FAQTitle {
+    font-size: 24px;
+    margin: 16px auto 0px;
+    color: rgba(0, 0, 0, 0.54);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+.FAQCard {
+    margin: 16px auto;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.26);
+    background-color: white;
+    padding: 16px;
+}
+.faq_question {
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 300;
+    font-size: 20px;
+}
+.faq_answer {
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+    max-width: 640px;
+    margin-bottom: 48px;
+}
+#final_answer {
+    margin-bottom: 16px;
+}
+.weAreFlattered {
+    font-family: 'Roboto Slab', serif;
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 24px;
+    text-align: center;
+    margin: 96px auto;
+}

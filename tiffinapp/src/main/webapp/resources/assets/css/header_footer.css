@@ -1,0 +1,46 @@
+
+.header{
+    height: 96px;
+    background-color: #2233b4;
+}
+.appname{
+    font-size: 24px;
+    color: white;
+    margin: 20px 5px;
+}
+.none{
+    display: inline-block;
+}
+.login{
+    font-size: 24px;
+    color: white;
+    margin: 20px 25px;
+}
+
+.footerdiv{
+     height: 200px;
+     background-color:  rgba(128, 128, 0, 0.27);
+}
+.footerdiv p{
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+}
+
+@media(min-width:500px){
+    .login{
+    float: right;
+}
+}
+
+@media(min-width:992px){
+    .none{
+    display: none;
+}
+.appname{
+    margin-left: 70px;
+}
+.login{
+    margin-right: 5px;
+}
+}

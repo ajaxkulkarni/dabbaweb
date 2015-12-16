@@ -1,0 +1,143 @@
+body{
+	
+}
+
+.main{
+    box-shadow: 1px 1px 1px 1px #a2a2a2;
+    width: 350px;
+    display: block;
+    margin: 15px auto;
+    padding: 20px;
+}
+.sub{
+    padding: 8px 0px;
+}
+.sub p{
+    margin-left: 3px;
+    padding: 4px 0 0 0 ;
+}
+.sub h4{
+    text-align: center;
+    padding: 0px 0 10px 0 ;
+}
+.submit_button{
+    display: block;
+    margin: 10px auto 10px;
+    padding: 5px 20px;
+    border: 0px;
+    background-color: #167716;
+    color: #e5e5e5;
+}
+.submit_button:hover{
+    background-color: #178b17;
+    transition-delay: 0.09s;
+    color: white;
+}
+@media(min-width:992px){
+.main{
+    width: 550px;
+    margin: 50px auto 0px;
+    height:520px;
+}
+    .sub p{
+    margin-left: 100px;
+    padding: 4px 0 0 0 ;
+}
+    .sub h4{
+    text-align: center;
+    padding: 0px 0 30px 0 ;
+}
+    .submit_button{
+    margin: 20px auto 10px;
+}
+}
+
+@media ( min-width :768px) {
+	header .container {
+		padding-top: 100px;
+		padding-bottom: 50px;
+	
+	}
+	header .intro-text .name {
+		font-size: 4.75em;
+	}
+	header .intro-text .skills {
+		font-size: 1.75em;
+	}
+}
+
+@media ( min-width :768px) {
+	.navbar-fixed-top {
+		padding: 12px 0;
+		-webkit-transition: padding .3s;
+		-moz-transition: padding .3s;
+		transition: padding .3s;
+		background: #1c2c39;
+		
+	}
+	.navbar-fixed-top .navbar-brand {
+		font-size: 2em;
+		-webkit-transition: all .3s;
+		-moz-transition: all .3s;
+		transition: all .3s;
+		color: #ffffff;
+		
+	}
+	.navbar-fixed-top.navbar-shrink {
+		padding: 10px 0;
+		
+		
+	}
+	.navbar-fixed-top.navbar-shrink .navbar-brand {
+		font-size: 1.5em;
+	
+	}
+	
+}
+
+.navbar {
+	/*text-transform: uppercase;*/
+	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 700;
+}
+
+.navbar a:focus {
+	outline: 0;
+}
+
+.navbar .navbar-nav {
+	letter-spacing: 1px;
+}
+
+.navbar .navbar-nav li a:focus {
+	outline: 0;
+}
+
+.navbar-default, .navbar-inverse {
+	border: 0;
+}
+
+.navbar-default{
+	padding: 12px;
+	background: #1C2C39;
+	margin: 0px;
+	border: 0px solid #1C2C39;
+	border-radius: 0px;
+}
+
+
+.navbar-brand{
+	margin-left: 54px;
+
+}
+
+.tiff{
+	color: #00AA44;
+	font-size: 32px;
+	margin: 0px;
+}
+
+.eat{
+	color:#ff5555; 
+	font-size: 32px;
+}

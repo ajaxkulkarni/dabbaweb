@@ -1,0 +1,82 @@
+body{
+    font-family: 'Roboto', sans-serif;
+	background-color: rgb(255, 255, 255); 
+}
+
+.hscroll{
+	width: 2600px; 
+	overflow-x: hidden;
+}
+
+/*---Css For Header-----*/
+
+.navbar-default{
+	padding: 8px;
+	background-color: #1C2C39;
+	margin: 0px;
+	border: 0px solid #1C2C39;
+	border-radius: 0px;
+
+}
+
+
+.navbar-brand{
+	margin-left: 54px;
+
+}
+
+.tiff{
+	color: #00AA44;
+	font-size: 32px;
+    margin: 0px;
+}
+
+.eat{
+	color:#ff5555; 
+	font-size: 32px;
+}
+
+/*---End-Header-----*/
+
+#view_order_div{
+	
+	margin: 32px auto;
+	padding: 16px;
+	
+}
+
+.back_btn1,.back_btn1:hover{
+	margin: 16px auto;	
+	background-color: #498BFA;
+	text-transform: uppercase;
+	color: white;
+}
+
+.filter_btn1,.filter_btn1:hover{
+/*	margin: 16px auto;	*/
+	background-color: #52a862;
+	text-transform: uppercase;
+	color: white;
+}
+
+.cancel_order_btn1,.cancel_order_btn1:hover{
+	background-color: #fa4950;
+	text-transform: uppercase;
+	color: white;
+}
+
+.deliver_tiffin_btn1,.deliver_tiffin_btn1:hover{
+	margin: 16px auto;	
+	background-color: #498BFA;
+	text-transform: uppercase;
+	color: white;
+	
+}
+
+.status_btn1,.status_btn1:hover,.generate_report_btn1,.generate_report_btn1:hover{
+	margin: 16px;	
+	background-color: #498BFA;
+	text-transform: uppercase;
+	color: white;
+	
+}

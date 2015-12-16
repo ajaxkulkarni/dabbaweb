@@ -1,0 +1,74 @@
+*{
+/*    border: 1px solid black;*/
+}
+.divspacing{
+    padding: 5px;
+    margin: 10px auto;
+}
+.container1 {
+  margin: 16px auto;
+}
+.list1{
+  padding: 16px 0px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.54);
+/*  background-image: url(../img/19-fast-food-hacks-that-will-change-the-way-you-order.jpg);*/
+/*  opacity: 0.8;*/ 
+}
+.lables{
+    font-size: 16px;
+}
+.check{
+    margin: 15px;
+/*    padding: 2px;*/
+}
+.check1{
+    font-size: 18px;   
+}
+.fields{
+    display: block;
+    margin: 5px auto;
+    width: 370px;
+}
+#option_title{
+  font-size: 18px;
+}
+.option{
+    margin: 10px auto;
+/*    color: white;*/
+}
+.order1{
+    display: block;
+    margin: 30px auto 20px;
+    border: 0px;
+    color: #e5e5e5;
+    background-color: #313e9f;
+    padding: 8px 16px;
+}
+.order1:hover{
+    color: white;
+    background-color: #2233b4;
+}
+@media only screen and (min-width: 768px) {
+list1{
+  margin: 20px auto;
+  padding: 16px 8px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.54);
+}
+  .container1 {
+    margin: 16px 100px;
+}
+#option_title{
+  font-size: 22px;
+}
+.option{
+  font-size: 22px;
+  margin: 8px;
+}
+    .check{
+    margin: 15px;
+    padding: 8px;
+}
+.check1{
+    font-size: 18px;   
+}
+}

@@ -1,0 +1,85 @@
+*{
+/*    border: 1px solid green;*/
+}
+.header{
+    height: 96px;
+    background-color: #2233b4;
+}
+.appname{
+    font-size: 24px;
+    color: white;
+    margin: 20px 5px;
+}
+.none{
+    display: inline-block;
+}
+.login{
+    font-size: 24px;
+    color: white;
+    margin: 20px 25px;
+}
+.main{
+    margin: 20px 5px;
+/*    box-shadow: 2px 2px 2px 2px rgba(165, 165, 165, 0.63);*/
+}
+.headtitle{
+    text-align: center;
+    font-size: 24px;
+    padding: 30px 0 5px;
+}
+.cards{
+     box-shadow: 2px 2px 2px 2px rgba(98, 98, 98, 0.63);
+}
+.top{
+    margin: 20px auto;
+    padding: 10px 0px;
+    border-bottom: 1px solid black;
+}
+.dt{
+    padding: 5px 0px;
+}
+.edit{
+    float: right;
+    margin-bottom: -15px;
+    background-color:  #2233b4;
+    border: 0px;
+    color: white;
+    padding: 5px 8px;
+}
+.cancel{
+     margin-top: 20px;
+    background-color:  #2233b4;
+    border: 0px;
+    color: white;
+    padding: 8px 20px;
+}
+.footerdiv{
+     height: 200px;
+    margin: 16px auto;
+     background-color:  rgba(128, 128, 0, 0.27);
+}
+.footerdiv p{
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+}
+
+@media(min-width:750px){
+.main{
+    margin: 20px 70px;
+}
+.none{
+    display: none;
+}
+.appname{
+    margin-left: 40px;
+}
+.login{
+    float: right;
+    margin-right: 55px;
+}
+    .edit{
+    float: right;
+    margin-top: 20px;
+    }
+}

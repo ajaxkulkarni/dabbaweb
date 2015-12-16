@@ -1,0 +1,26 @@
+body {
+    background-color: #f0f3f5;
+	font-family: 'Roboto';
+}
+
+.register_box {
+	background-color: #fff;
+	padding: 25px auto;
+	margin-top: 30px; /*Remove, its example*/
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.register_form{
+    padding: 16px;
+}
+.register_form_title{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.27);
+    padding:16px 0px;
+  
+}
+
+@media only screen and (min-width: 768px) {
+
+
+}

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>       
+  <session-factory>
+    <!-- Database connection settings -->
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/tiffin</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">'asd'</property>
+    <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+    <property name="show_sql">true</property>
+    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+     
+   <mapping class="com.rns.tiffeat.web.dao.domain.Vendor"/>
+   <mapping class="com.rns.tiffeat.web.dao.domain.Meal"/>
+   <mapping class="com.rns.tiffeat.web.dao.domain.Customer"/>
+   <mapping class="com.rns.tiffeat.web.dao.domain.DailyMeal"/>
+   <mapping class="com.rns.tiffeat.web.dao.domain.Order"/>
+   <mapping class="com.rns.tiffeat.web.dao.domain.CustomerMeal"/>
+    
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,36 @@
+body{
+	margin-bottom: 46px;
+}
+
+/*Css of Order Details Div*/
+.order_details_heading{
+font-size: 24px;
+	margin: 16px auto 0px;
+	color: rgba(0, 0, 0, 0.54);
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+}
+.order_details_card{
+	margin: 16px auto;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.26);
+	padding: 32px;
+	background-color: white;
+}
+.order_card_img{
+    height: 250px;
+}
+
+.order_details_title{
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.order_details_sub_title{
+	color: rgba(0, 0, 0, 0.67);
+}
+
+.order_button,.order_button:hover{
+	color: white;
+	background-color: #FF5535;
+	text-transform: uppercase;
+}
+/*End of Order Details Div*/
