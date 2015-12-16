@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500' rel='stylesheet' type='text/css'>
 <!-- ../../resources -->
-<%-- <link href="<c:url value = "/resources/css/aboutUs.css"/>" rel="stylesheet"> --%>
+<link href="<c:url value = "${resources}/css/aboutUs.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/contactUs.css"/>" rel="stylesheet">  
 <link href="<c:url value = "${resources}/css/home.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/tiffin_order.css"/>" rel="stylesheet">
