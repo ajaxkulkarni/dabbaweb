@@ -112,7 +112,7 @@
                     </p>
                 </p>
                 <p>
-                    1.4 The Services are also available apart from website on various operating systems, such as Android, Java, Blackberry, and IOS, Windows Phone / tablets/laptops inter alia.<strong> </strong>
+                    <strong>1.4 </strong> The Services are also available apart from website on various operating systems, such as Android, Java, Blackberry, and IOS, Windows Phone / tablets/laptops inter alia.<strong> </strong>
                     <p>
                     </p>
                 </p>
@@ -121,21 +121,21 @@
                     </p>
                 </p>
                 <p>
-                    1.5 TIFFEAT grants you the non-exclusive, non-transferable, non-sublicensable, limited right and license to install and use TIFFEAT Portal solely and exclusively for your personal use and the devices that you own or control. This license does not allow you to use the licensed application on any tablet, mobile Phone that you do not own or control, and you may not distribute or make the Licensed Application available over a network where it could be used by multiple devices at the same time.
+                    <strong>1.5 </strong> TIFFEAT grants you the non-exclusive, non-transferable, non-sublicensable, limited right and license to install and use TIFFEAT Portal solely and exclusively for your personal use and the devices that you own or control. This license does not allow you to use the licensed application on any tablet, mobile Phone that you do not own or control, and you may not distribute or make the Licensed Application available over a network where it could be used by multiple devices at the same time.
                     <p>
                     </p>
                 </p>
                 <p>
                 </p>
                 <p>
-                    <strong>1.4 </strong> Use of the Portal is offered to you conditioned on acceptance without modification of all the terms, conditions, Privacy Policy and notices contained in these Terms, as may be posted on the Portal from time to time. TIFFEAT at its sole discretion reserves the right not to accept a User from registering on the Portal without assigning any reason thereof.
+                    <strong>1.6 </strong> Use of the Portal is offered to you conditioned on acceptance without modification of all the terms, conditions, Privacy Policy and notices contained in these Terms, as may be posted on the Portal from time to time. TIFFEAT at its sole discretion reserves the right not to accept a User from registering on the Portal without assigning any reason thereof.
                     <p>
                     </p>
                 </p>
                 <p>
                 </p>
                 <p>
-                    <strong>1.5 </strong> Unless otherwise indicated or anything contained to the contrary or any proprietary material owned by a third party and so expressly mentioned, TIFFEAT owns all Intellectual Property Rights to and into the Portal, including, without limitation, any and all rights, title and interest in and to copyright, related rights, patents, utility models, trademarks, trade names, service marks, designs, know-how, trade secrets and inventions (whether patentable or not), goodwill, source code, meta tags, databases, text, content, graphics, icons, and hyperlinks. You acknowledge and agree that you shall not use, reproduce or distribute any content from the Portal belonging to www.TIFFEAT.com without obtaining authorization from TIFFEAT.
+                    <strong>1.7 </strong> Unless otherwise indicated or anything contained to the contrary or any proprietary material owned by a third party and so expressly mentioned, TIFFEAT owns all Intellectual Property Rights to and into the Portal, including, without limitation, any and all rights, title and interest in and to copyright, related rights, patents, utility models, trademarks, trade names, service marks, designs, know-how, trade secrets and inventions (whether patentable or not), goodwill, source code, meta tags, databases, text, content, graphics, icons, and hyperlinks. You acknowledge and agree that you shall not use, reproduce or distribute any content from the Portal belonging to www.TIFFEAT.com without obtaining authorization from TIFFEAT.
                     <p>
                     </p>
                 </p>

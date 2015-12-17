@@ -1,7 +1,7 @@
 body {
     font-family: Roboto, Helvetica, sans-serif;
     color: rgba(0, 0, 0, 0.87);
-    /*    font-size: 24px;*/
+       font-size: 24px;
 }
 .contactUsTitle {
     font-size: 24px;
@@ -21,6 +21,7 @@ body {
 }
 .contactUsCard>p {
     margin: 24px auto;
+    font-size:14px;
 }
 .contactUsCard>p>img {
     margin-right: 8px;
@@ -29,4 +30,5 @@ body {
     text-align: center;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.7);
+    font-size:15px;
 }

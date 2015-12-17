@@ -1,5 +1,6 @@
 body{
 	margin-bottom: 46px;
+
 }
 .meal_format_heading {
 	font-size: 24px;
@@ -84,6 +85,30 @@ box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.26);
  }
 
 
+.navbar-default{
+	padding: 8px;
+	background: #1C2C39;
+	margin: 0px;
+	border: 0px solid #1C2C39;
+	border-radius: 0px;
+}
+
+
+.navbar-brand{
+	margin-left: 54px;
+
+}
+
+.tiff{
+	color: #00AA44;
+	font-size: 32px;
+	margin: 0px;
+}
+
+.eat{
+	color:#ff5555; 
+	font-size: 32px;
+}
 
 
 

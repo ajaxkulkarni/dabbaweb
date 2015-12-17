@@ -1,7 +1,7 @@
 body {
     font-family: Roboto, Helvetica, sans-serif;
     color: rgba(0, 0, 0, 0.87);
-    /*    font-size: 24px;*/
+       font-size: 14px;
 }
 .inShortContent {
     font-family: 'Roboto Slab', serif;
