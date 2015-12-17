@@ -33,29 +33,25 @@
    </script>
 	
 </head>
-<body id="page-top" class="index">
+<body>
 
 
-	<nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-				<div class="col-lg-12">
-                <a class="navbar-brand" href="admin.htm">tiffEat</a>-->
-				<div class="username">
-				<a href="editVendor.htm?vendor=${vendor.email}">${vendor.name}</a>
-				<!--  </div>
-				</div>-->
-				
+<!--    Start of Navbar -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="">
+                <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
+            </a>
         </div>
-    </nav>
+    </div>
+</nav>
+<!--        End of Navbar part-->
 
 		
 		<br />
 		<br />
-		<br />
-		<br />
-		<br />
-		<br />
-		<br />
+	
 		
 	<div class="row">
 	<div class="col-lg-12">
@@ -63,6 +59,8 @@
 
 <div class="container add_meal">
  <a href="addNewMeal.htm" class="btn btn-default add_meal_btn">Add Meal</a>
+ <button value="LUNCH" class="btn btn-default add_meal_btn" onclick="showLunch()">LUNCH MEALS</button>
+ <button value="DINNER" class="btn btn-default add_meal_btn" onclick="showDinner()">DINNER MEALS</button>
  </div>
 </div>
  </div>
@@ -71,8 +69,7 @@
  <div class="container back">
  <a href="admin.htm" class="btn btn-default back_btn">Back</a>
  </div>
-	<button value="LUNCH" class="btn btn-default back_btn" onclick="showLunch()">LUNCH MEALS</button>
-    <button value="DINNER" class="btn btn-default back_btn" onclick="showDinner()">DINNER MEALS</button>
+	
 </div>
 </div>
 

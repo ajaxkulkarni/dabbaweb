@@ -5,8 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TiffEat | Who are we?</title>
-<link href="<c:url value = "${resources}/css/aboutUs.css"/>" rel="stylesheet">  
-<link href="<c:url value = "${resources}/css/style.css"/>" rel="stylesheet">  
+
 </head>
 <body class="drawer drawer-left">
 

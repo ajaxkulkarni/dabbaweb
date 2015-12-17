@@ -29,7 +29,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="">
-                    <h4 class='tiff'>Tiff<span class="eat">Eat</span>- Vendors</h4>
+                    <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
                 </a>
             </div>
         </div>

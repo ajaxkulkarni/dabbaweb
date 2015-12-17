@@ -30,6 +30,7 @@ header {
 header .container {
 	padding-top: 40px;
 	padding-bottom: 25px;
+	
 }
 
 header img {
@@ -469,11 +470,12 @@ width:180px;
 }
 
 .add_meal_btn,.add_meal_btn:hover{
-	margin: 2px 1px;	
+	padding-left: 155px;	
 	background-color:#498BFA; 
 	text-transform: uppercase; 
 	color: white;
 }
+
 
 
 .back_btn,.back_btn:hover{
@@ -514,3 +516,4 @@ width:180px;
 	color:#ff5555; 
 	font-size: 32px;
 }
+
