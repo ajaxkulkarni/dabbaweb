@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,7 +47,7 @@ import com.rns.tiffeat.web.util.PaymentUtils;
 @Controller
 public class CustomerControllerWeb implements Constants {
 
-
+	private static Logger logger = Logger.getLogger(CustomerControllerWeb.class.getName());
 	private CustomerBo customerBo;
 
 	@Autowired(required = true)
@@ -98,6 +99,7 @@ public class CustomerControllerWeb implements Constants {
 		}
 		List<Vendor> availableVendors = customerBo.getAvailableVendors(orderInProcess.getLocation().getAddress());
 		if(CollectionUtils.isEmpty(availableVendors)) {
+			logger.info("No Tiffins for:" + orderInProcess.getLocation().getAddress());
 			manager.setResult(ERROR_NO_TIFFINS_AVAILABLE);
 		}
 		return availableVendors;

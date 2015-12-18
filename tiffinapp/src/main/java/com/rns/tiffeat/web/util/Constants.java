@@ -17,7 +17,7 @@ public interface Constants {
     }});
 	
 	String PAYMENT_PREFIX = "T";
-	String HOST_URL = "192.168.0.3:8080/tiffeat-web";
+	String HOST_URL = "172.19.102.26:8080/tiffeat-web";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
 	String MERCHANT_KEY = "gtKFFx"; // DEV
@@ -99,6 +99,8 @@ public interface Constants {
 	String PARAMETER_APPENDER = "&";
 	String SPACE_CHAR = "%20";
 	BigDecimal MAX_DISTANCE_IN_METERS = new BigDecimal(10000);
+	String ADMIN_PASSWORD = "admin123";
+	String ADMIN_USERNAME = "admin";
 	
 	//5123456789012346
 	//quc1iGQZKN4HD

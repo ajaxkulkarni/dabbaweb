@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
-public class Admin {
+import com.rns.tiffeat.web.util.Constants;
+
+public class Admin implements Constants{
 	
+	private String username;
+	private String password;
 	List<CustomerOrder> todaysOrders;
 	int quickOrderCount;
 	int scheduledOrderCount;
@@ -84,6 +89,29 @@ public class Admin {
 				dinnerOrders.add(order);
 			}
 		}
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public boolean validateAdminDetails() {
+		if(StringUtils.equals(getUsername(), ADMIN_USERNAME) && StringUtils.equals(getPassword(), ADMIN_PASSWORD)) {
+			return true;
+		}
+		return false;
 	}
 
 }

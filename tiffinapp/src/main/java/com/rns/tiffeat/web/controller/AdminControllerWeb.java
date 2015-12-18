@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.api.SessionManager;
 import com.rns.tiffeat.web.bo.api.VendorBo;
+import com.rns.tiffeat.web.bo.domain.Admin;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.DailyContent;
 import com.rns.tiffeat.web.bo.domain.Meal;
@@ -72,8 +74,26 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/admin.htm", method = RequestMethod.GET)
 	public String initAdmin(ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		prepareAdminHome(model);
 		return "admin_home";
+	}
+	
+	@RequestMapping(value = "/adminLogin.htm", method = RequestMethod.GET)
+	public String adminLogin(ModelMap model) {
+		model.addAttribute(MODEL_ADMIN, new Admin());
+		return "admin_login";
+	}
+	
+	@RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
+	public RedirectView adminLogin(Admin admin,ModelMap model) {
+		if(!admin.validateAdminDetails()) {
+			return new RedirectView("adminLogin.htm");
+		}
+		manager.getAdmin().setUsername(admin.getUsername());
+		return new RedirectView("admin.htm");
 	}
 
 	private void prepareAdminHome(ModelMap model) {
@@ -87,6 +107,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/addVendor.htm", method = RequestMethod.GET)
 	public String initAddVendor(ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		model.addAttribute(MODEL_VENDOR, new Vendor());
 		model.addAttribute(MODEL_AREAS, AREAS);
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
@@ -95,6 +118,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/editVendor.htm", method = RequestMethod.GET)
 	public String initEditVendor(String vendor,ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		Vendor registeredVendor = new Vendor();
 		registeredVendor.setEmail(vendor);
 		model.addAttribute(MODEL_VENDOR, customerBo.getVendorWithMeals(registeredVendor));
@@ -127,6 +153,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/vendorDetails.htm", method = RequestMethod.GET)
 	public String viewVendorDetails(ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		Vendor vendorWithMeals = customerBo.getVendorWithMeals(manager.getAdmin().getCurrentVendor());
 		if(vendorWithMeals == null) {
 			prepareAdminHome(model);
@@ -142,6 +171,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/addNewMeal.htm", method = RequestMethod.GET)
 	public String initAddMeal(String vendorEmail,ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		Vendor registeredVendor = new Vendor();
 		registeredVendor.setEmail(vendorEmail);
 		model.addAttribute(MODEL_VENDOR, registeredVendor);
@@ -154,6 +186,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/editMeal.htm", method = RequestMethod.GET)
 	public String initEditMeal(long mealId,ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		Meal meal = new Meal();
 		meal.setId(mealId);
 		Meal mealToEdit = vendorBo.getMeal(meal);
@@ -190,6 +225,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/getMealOrders.htm", method = RequestMethod.GET)
 	public RedirectView getMealOrders(long mealId,MealType type ,ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return new RedirectView("adminLogin");
+		}
 		Meal meal = new Meal();
 		meal.setId(mealId);
 		CustomerOrder currentOrder = new CustomerOrder();
@@ -202,6 +240,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/allOrders.htm", method = RequestMethod.GET)
 	public RedirectView allOrders(ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return new RedirectView("adminLogin");
+		}
 		manager.getAdmin().setCurrentVendor(null);
 		manager.getAdmin().setCurrentOrder(null);
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
@@ -210,6 +251,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/orders.htm", method = RequestMethod.GET)
 	public String getOrders(ModelMap model,OrderStatus status,String dateRange) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		CustomerOrder currentOrder = manager.getAdmin().getCurrentOrder();
 		List<CustomerOrder> orders = new ArrayList<CustomerOrder>();
 		if(currentOrder!=null) {
@@ -231,6 +275,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/addDailyContent.htm", method = RequestMethod.GET)
 	public String initAddDailyContent(long mealId,MealType mealType,ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		model.addAttribute(MEAL_ID, mealId);
 		//model.addAttribute(MODEL_MEAL_TYPE, CommonUtil.getMealTypes());
 		CustomerOrder order = new CustomerOrder();
@@ -265,6 +312,9 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/updateDailyContent.htm", method = RequestMethod.GET)
 	public String initUpdateDailyContent(long contentId,MealType type, ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			return "admin_login";
+		}
 		DailyContent content = new DailyContent();
 		content.setId(contentId);
 		model.addAttribute(MODEL_MEAL_TYPE, type);
