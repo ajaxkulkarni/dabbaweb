@@ -17,9 +17,7 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
- 
-
+    
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
@@ -36,29 +34,24 @@
     </nav>
 
 <div class="main">
-		<form>
-    		<h1><lable> Login </lable> </h1>
+		<form action="adminLogin" method="post">
+    		<h1><lable>Admin Login </lable> </h1>
   			<div class="inset">
 	  			<p>
 	    		 <label for="email">Username</label>
-   	 			<input type="text" placeholder="" required/>
+   	 			<input type="text" placeholder="Username" name="username" required/>
 				</p>
   				<p>
 				    <label for="password">Password</label>
-				    <input type="password" placeholder="" required/>
+				    <input type="password" placeholder="Password" name="password" required/>
   				</p>
-				  <p>
-				    <input type="checkbox" name="remember" id="remember">
-				    <label for="remember">Remember me</label>
-				  </p>
+  				<input type="submit" value="Login"/>
  			 </div>
- 	 
-			  <p class="p-container">
-			    <span><a href="#">Forgot password ?</a></span>
-			    <input type="submit" value="Login">
-			  </p>
 		</form>
 	</div>  
 
+	
+	
+	
 </body>
 </html>

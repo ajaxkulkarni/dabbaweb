@@ -28,6 +28,7 @@
 <link href="<c:url value = "${resources}/css/FAQ.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/style.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/meal_format.css"/>" rel="stylesheet">
+
 <%-- <% } else {%>
 
 <link href="<c:url value = "../../resources/assets/css/style.css"/>" rel="stylesheet">
@@ -43,8 +44,8 @@
 <link href="<c:url value = "../../resources/assets/css/add_money.css"/>" rel="stylesheet">
 <link href="<c:url value = "../../resources/assets/css/contactUs.css"/>" rel="stylesheet">
 <link href="<c:url value = "../../resources/assets/css/FAQ.css"/>" rel="stylesheet">
-<link href="<c:url value = "${resources}/css/meal_format.css"/>" rel="stylesheet">
-
+<link href="<c:url value = "../../resources/assets/css/meal_format.css"/>" rel="stylesheet">
+<link href="<c:url value = "../../resources/assets/css/admin_login.css"/>" rel="stylesheet">
 <%} %> --%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

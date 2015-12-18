@@ -43,7 +43,14 @@
             <a class="navbar-brand" href="">
                 <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
             </a>
+            <div class="username">
+			<a href="editVendor.htm?vendor=${vendor.email}">${vendor.name}</a>
+			<!--  </div>
+			</div>-->
+			
+    </div>
         </div>
+    </div>
     </div>
 </nav>
 <!--        End of Navbar part-->

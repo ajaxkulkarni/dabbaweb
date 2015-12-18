@@ -17,10 +17,13 @@
     
     <%@include file="header.jsp" %>
     <div class="container order_summary_details_div">
-    	Balance : ${customer.balance}
+    
     	<form action="addMoneyToWallet.htm" method="get">
+    	<div class="balance">
         	<input type="submit" value="ADD TO WALLET" class="btn order_button"/>
-        </form>
+        	</form>
+        	Balance : ${customer.balance}
+       </div>
         <c:if test="${result != null }">
 			<div class="alert alert-danger">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
