@@ -99,6 +99,8 @@ public interface Constants {
 	String PARAMETER_APPENDER = "&";
 	String SPACE_CHAR = "%20";
 	BigDecimal MAX_DISTANCE_IN_METERS = new BigDecimal(10000);
+	String ADMIN_PASSWORD = "admin123";
+	String ADMIN_USERNAME = "admin";
 	
 	//5123456789012346
 	//quc1iGQZKN4HD

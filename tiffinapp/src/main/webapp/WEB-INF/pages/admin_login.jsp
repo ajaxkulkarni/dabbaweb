@@ -36,27 +36,19 @@
     </nav>
 
 <div class="main">
-		<form>
-    		<h1><lable> Login </lable> </h1>
+		<form action="adminLogin" method="post">
+    		<h1><lable>Admin Login </lable> </h1>
   			<div class="inset">
 	  			<p>
 	    		 <label for="email">Username</label>
-   	 			<input type="text" placeholder="" required/>
+   	 			<input type="text" placeholder="Username" name="username" required/>
 				</p>
   				<p>
 				    <label for="password">Password</label>
-				    <input type="password" placeholder="" required/>
+				    <input type="password" placeholder="Password" name="password" required/>
   				</p>
-				  <p>
-				    <input type="checkbox" name="remember" id="remember">
-				    <label for="remember">Remember me</label>
-				  </p>
+  				<input type="submit" value="Login"/>
  			 </div>
- 	 
-			  <p class="p-container">
-			    <span><a href="#">Forgot password ?</a></span>
-			    <input type="submit" value="Login">
-			  </p>
 		</form>
 	</div>  
 
