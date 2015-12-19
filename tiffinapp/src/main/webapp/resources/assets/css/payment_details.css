@@ -83,3 +83,25 @@ a,a:hover{
 }
 
 }
+
+.details{
+font-weight: bold;
+font-size:16px;
+}
+
+.details1{
+font-weight: bold;
+font-size:16px;
+}
+.divspacing{
+font-size:16px;
+
+}
+
+.universal_link{
+color:black;
+}
+
+.universal_link:hover{
+color:blue;
+}

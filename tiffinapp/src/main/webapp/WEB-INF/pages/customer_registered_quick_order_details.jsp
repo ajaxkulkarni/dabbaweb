@@ -51,9 +51,11 @@
 		  </c:if>
 		  <fmt:formatDate pattern="yyyy-MM-dd" value="${customerOrder.date}" var="orderDate" />
          <%--  Order Date : ${orderDate} <br/> --%>
-          Meal : ${customerOrder.meal.title}
+        
+          
             <div class="row">
                 <div class="col-md-6">
+                
                     <form action="quickOrder" id = "quickOrderForm" method="post" onsubmit="return showModal()">
                     	<input type="hidden" name="customer.id" value="${customerOrder.customer.id}"/>
                     	<input type="hidden" name="meal.price" value="${customerOrder.meal.price}"/>
@@ -62,14 +64,17 @@
                     	<input id="orderDate" type="hidden" name="orderDate" value="${customerOrder.date}"/>
                         <input class="form-control" type="hidden" readonly="readonly"  id="name1" name="customer.name" value="${customerOrder.customer.name}" placeholder="What's your name?" required="required" maxlength="50" />
                         <input class="form-control" type="hidden" readonly="readonly" id="email_id" name="customer.email" placeholder="EMAIL ID" value="${customerOrder.customer.email}"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="30" required="required"/>
-                  		Order for : ${customerOrder.customer.name} <br/>
+                        <div class="details">
+                        Meal : ${customerOrder.meal.title}<br/>
+                        Order for : ${customerOrder.customer.name} <br/>
                   		Email : ${customerOrder.customer.email} <br/>
                   		<%-- Area : ${customerOrder.area} <br/> --%>
                   		Location : ${customerOrder.location.address} <br/>
                   		Price : ${customerOrder.meal.price}
+                  		</div>
                   		<input class="form-control" type="text" maxlength="15" pattern="^(\+?\d{1,4}[\s-])?(?!0+\s+,?$)\d{10}\s*,?$" id="txtPhone" name="customer.phone" value="${customerOrder.customer.phone}" placeholder="MOBILE NUMBER" required="required"/>
                     	<textarea class="form-control" type="text" rows= "3" id="txtAddress" name="address"  text="${customerOrder.customer.previousOrders[0].address}" placeholder="ADDRESS" maxlength=150 minlength=10 required>${customerOrder.address}</textarea>
-                      	Meal timing :
+                      	<strong>Meal timing :</strong>
                       	<c:forEach var="type" items="${mealType}">
  					 		<label class="radio option_radio">
                       		<input type="radio" id="option-1" class="" name="mealType" value="${type.key}" required="required"/>
@@ -77,7 +82,7 @@
                       		<div id ="${type.key}" style="display:none"><fmt:formatDate pattern="yyyy-MM-dd" value="${type.value}"/></div> 
                     		</label>
 			      		</c:forEach>
-			      		Payment method : <br/>
+			      		<strong>Payment method :</strong> <br/>
 			      		<label class="radio option_radio">
                       		<input type="radio" id="option-1" class="" name="paymentType" value="ONLINE" required="required"/>
                       		<span class="">Online Payment</span>

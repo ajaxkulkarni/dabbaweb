@@ -67,10 +67,12 @@ function proceed() {
                   <input type="hidden" name="meal.title" value="${customerOrder.meal.title}"/>
                   <input type="hidden" name="id" value="${customerOrder.id}"/>
                   <input type="hidden" name="location.address" value="${customerOrder.location.address}"/>
+                  <div class="details">
                   Meal : ${customerOrder.meal.title} <br/>
                   Price : ${customerOrder.meal.price} <br/>
 			      Location: ${customerOrder.location.address} <br/>
 			      Timing : ${customerOrder.mealType} <br/>
+			      </div>
 			      <div class="divspacing">
                   		<textarea class="form-control" type="text" pattern="" id="txtAddress" name="address" value="${customerOrder.address}" placeholder="ADDRESS" required="required">${customerOrder.address}</textarea>
                   </div>

@@ -63,8 +63,10 @@ $(function(){
                         </div>
 						<button type="submit" class="btn btn-success col-md-4">Register</button>
                     </form>
-                    <a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt="" src="<c:url value = "${resources}/img/sign-in-with-google.png"/>" style="height:50px;width:400px;" ></a>
+                    <div class="google">
+                    <a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt="" src="<c:url value = "${resources}/img/sign-in-with-google.png"/>" style="height:40px;width:300px;" ></a>
             		</div>
+                    </div>
                 </div>
         	</form>
         </div>

@@ -44,7 +44,8 @@
                               <!-- <a href="" class="btn btn-default btn-block">Forgot Password</a> -->
                               </div>
 					</form>
-					<a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt="" src="<c:url value = "${resources}/img/sign-in-with-google.png"/>" style="height:50px;width:400px;" ></a>
+					
+					<a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt="" src="<c:url value = "${resources}/img/sign-in-with-google.png"/>" style="height:45px;width:415px;padding-left:2px;" ></a>
                     </div>   
                     <div class="col-md-6 register_card">
                     <p>Register now for <span class="text-success">FREE</span></p>

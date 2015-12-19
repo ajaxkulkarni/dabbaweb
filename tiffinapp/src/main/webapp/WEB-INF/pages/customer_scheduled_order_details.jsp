@@ -68,8 +68,10 @@ function proceed() {
                   <input type="hidden" name="area" value="${customerOrder.area}"/>
                    <input type="hidden" name="location.address" value="${customerOrder.location.address}"/>
                   <%-- <input type="hidden" name="date" value="${customerOrder.date}"/> --%>
+                  <div class="details1">
                   Scheduling for : ${customerOrder.customer.name} <br/>
                   Email : ${customerOrder.customer.email}
+                  
                   <div class="divspacing">
                     <!-- <input class="form-control" type="text"  placeholder="My Tiffin"/> -->
                     Meal : ${customerOrder.meal.title}
@@ -86,6 +88,7 @@ function proceed() {
 			      <br/> --%>
 			      Location: ${customerOrder.location.address} <br/>
 			      Scheduled From : ${orderDate}
+			      </div>
                   <div class="divspacing">
                       <input class="form-control" type="hidden" readonly="readonly" id="" name="customer.email" value="${customerOrder.customer.email}"/>
                   </div>
@@ -108,7 +111,8 @@ function proceed() {
                   		<textarea class="form-control" type="text" pattern="" id="" name="address" placeholder="ADDRESS" required="required">${customerOrder.address}</textarea>
                   </div>
                   <label class="checkbox chbox1">
-                            <input type="checkbox" value="agree" required>I agree to <a href = "terms.htm" style="color:black;" target="_blank">terms and conditions</a>
+                  <input type="checkbox" value="agree" required>I agree to <a href = "terms.htm" class="universal_link" target="_blank">terms and conditions</a>
+                           
                         </label>
                   <div class="submit_order">
                       <input type="submit" name="" value="ORDER" class="order_button">
