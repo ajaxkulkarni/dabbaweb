@@ -49,5 +49,5 @@ public interface CustomerBo {
 
 	DailyContent getDailyContentForMeal(Meal meal, MealType mealType);
 
-	boolean loginWithGoogle(Customer googleCustomer);
+	String loginWithGoogle(Customer googleCustomer);
 }

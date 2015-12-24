@@ -17,7 +17,7 @@ public interface Constants {
     }});
 	
 	String PAYMENT_PREFIX = "T";
-	String HOST_URL = "172.19.102.26:8080/tiffeat-web";
+	String HOST_URL = "localhost:8080/tiffeat-web";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
 	String MERCHANT_KEY = "gtKFFx"; // DEV
@@ -52,10 +52,13 @@ public interface Constants {
 	String ERROR_ALERADY_SCHEDULED = "Can't scheduled this meal!You already have lunch and dinner scheduled!";
 	String ERROR_NO_TIFFINS_AVAILABLE = "No Tiffins are currently available in this area.";
 	String ERROR_INVALID_ADDRESS_OR_LOCATION = "Invalid address or location!";
+	String ERROR_INVALID_CREDENTIALS = "Invalid credentials!";
 	
 	
 	String WARNING_DATE_CHANGED = "Date changed";
 	
+	String GOOGLE_CLIENT_ID = "915740607723-g31injd928voehja1gj3gf8hd14dm8bo.apps.googleusercontent.com";
+	String GOOGLE_CLIENT_SECRET = "44rD8Uvi-hcCV742H47H2Idl";
 	String GOOGLE_GET_USER_DATA_URL = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
 	String GOOGLE_ACCESS_TOKEN = "access_token";
 	String GOOGLE_GET_ACCESS_TOKEN_URL = "https://accounts.google.com/o/oauth2/token";
@@ -63,13 +66,26 @@ public interface Constants {
 			  "scope=email"
 			+ "&redirect_uri=http://"+ HOST_URL + "/getGoogleCode"
 			+ "&response_type=code"
+			+ "&client_id=" + GOOGLE_CLIENT_ID
+			+ "&approval_prompt=force";
+	
+	String GOOGLE_ACCESS_TOKEN_URL_PARAMS = "&client_id=" + GOOGLE_CLIENT_ID
+            				+ "&client_secret=" + GOOGLE_CLIENT_SECRET
+            				+ "&redirect_uri=http://" + HOST_URL + "/getGoogleCode"
+            				+ "&grant_type=authorization_code";
+	
+	/*String GOOGLE_GET_CODE_URL = "https://accounts.google.com/o/oauth2/auth?" +
+			  "scope=email"
+			+ "&redirect_uri=http://"+ HOST_URL + "/getGoogleCode"
+			+ "&response_type=code"
 			+ "&client_id=344058125654-48me3a50pah2mkgqmp710mto6a36msbi.apps.googleusercontent.com"
 			+ "&approval_prompt=force";
 	
 	String GOOGLE_ACCESS_TOKEN_URL_PARAMS = "&client_id=344058125654-48me3a50pah2mkgqmp710mto6a36msbi.apps.googleusercontent.com"
-            				+ "&client_secret=4gE9UVYBfJ3JGFR4uu_vnFxH"
-            				+ "&redirect_uri=http://" + HOST_URL + "/getGoogleCode"
-            				+ "&grant_type=authorization_code";
+          				+ "&client_secret=4gE9UVYBfJ3JGFR4uu_vnFxH"
+          				+ "&redirect_uri=http://" + HOST_URL + "/getGoogleCode"
+          				+ "&grant_type=authorization_code";*/
+	
 	
 	String GOOGLE_DISTANCE_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?";
 	
@@ -95,6 +111,7 @@ public interface Constants {
 	String MODEL_RESOURCES = "resources";
 	String MODEL_VENDOR_STATUS = "vendorStatus";
 	String MODEL_LOCATION = "location";
+	String MODEL_ERROR = "errorMsg";
 	
 	String PARAMETER_APPENDER = "&";
 	String SPACE_CHAR = "%20";

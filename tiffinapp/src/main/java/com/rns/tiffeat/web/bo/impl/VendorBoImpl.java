@@ -426,11 +426,12 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (vendor == null) {
 			return customerOrders;
 		}
-		List<DailyMeal> dailyMeals = dailyMealDao.getDailyMealsForVendor(vendor.getId(), new Date());
+		/*List<DailyMeal> dailyMeals = dailyMealDao.getDailyMealsForVendor(vendor.getId(), new Date());
 		if (CollectionUtils.isEmpty(dailyMeals)) {
 			return customerOrders;
-		}
-		List<Order> orders = orderDao.getVendorOrders(vendor.getId(), dailyMeals.get(0).getType());
+		}*/
+		List<Date> dates = extractDates(dateRange);
+		List<Order> orders = orderDao.getVendorOrdersInBetween(vendor.getId(), dates.get(0), dates.get(1));
 		if (CollectionUtils.isEmpty(orders)) {
 			return customerOrders;
 		}
@@ -551,7 +552,8 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (meal == null || type == null) {
 			return customerOrders;
 		}
-		List<Order> orders = orderDao.getMealOrders(meal.getId(), type.name());
+		List<Date> dates = extractDates(dateRange);
+		List<Order> orders = orderDao.getMealOrdersInBetween(meal.getId(), type.name(),dates.get(0), dates.get(1));
 		for (Order order : orders) {
 			customerOrders.add(DataToBusinessConverters.convertOrder(order));
 		}
@@ -561,29 +563,8 @@ public class VendorBoImpl implements VendorBo, Constants {
 	public List<CustomerOrder> getAllOrders(String dateRange) {
 		List<CustomerOrder> customerOrders = new ArrayList<CustomerOrder>();
 		List<Order> orders = new ArrayList<Order>();
-		if(StringUtils.isNotEmpty(dateRange)) {
-			String[] dates = StringUtils.split(dateRange, "to");
-			Date fromDate = null;
-			Date toDate = null;
-			if(dates != null && dates.length > 0) {
-				fromDate = CommonUtil.convertDate(dates[0]);
-				if(dates.length > 1) {
-					toDate = CommonUtil.convertDate(dates[1]);
-				}
-			}
-			if(fromDate == null) {
-				orders = orderDao.getOrdersForDate(new Date());
-			}
-			else if(toDate == null) {	
-				orders = orderDao.getOrdersForDate(fromDate);
-			}
-			else {
-				orders = orderDao.getOrdersBetween(fromDate,toDate);
-			}
-		}
-		else {
-			orders = orderDao.getOrdersForDate(new Date());
-		}
+		List<Date> dates = extractDates(dateRange);
+		orders = orderDao.getOrdersBetween(dates.get(0), dates.get(1));
 		if (CollectionUtils.isEmpty(orders)) {
 			return customerOrders;
 		}
@@ -591,6 +572,29 @@ public class VendorBoImpl implements VendorBo, Constants {
 			customerOrders.add(DataToBusinessConverters.convertOrder(order));
 		}
 		return customerOrders;
+	}
+
+	private List<Date> extractDates(String dateRange) {
+		//List<Order> orders = null;
+		List<Date> dateList = new ArrayList<Date>();
+		String[] dates = StringUtils.split(dateRange, "to");
+		Date fromDate = null;
+		Date toDate = null;
+		if(dates != null && dates.length > 0) {
+			fromDate = CommonUtil.convertDate(dates[0]);
+			if(dates.length > 1) {
+				toDate = CommonUtil.convertDate(dates[1]);
+			}
+		}
+		if(fromDate == null || toDate == null) {
+			dateList.add(new Date());
+			dateList.add(new Date());
+		}
+		else {
+			dateList.add(fromDate);
+			dateList.add(toDate);
+		}
+		return dateList;
 	}
 
 	public String cancelOrder(CustomerOrder order) {

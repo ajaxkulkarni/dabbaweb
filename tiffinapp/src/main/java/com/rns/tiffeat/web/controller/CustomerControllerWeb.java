@@ -15,14 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
@@ -419,13 +422,13 @@ public class CustomerControllerWeb implements Constants {
 	@RequestMapping(value = "/customerLogin", method = RequestMethod.POST)
 	public RedirectView customerLogin(Customer customer, ModelMap model) {
 		if (!customerBo.login(customer)) {
-			return postLoginFailure();
+			return postLoginFailure(ERROR_INVALID_CREDENTIALS);
 		}
 		return postLoginSuccess(customer);
 	}
 
-	private RedirectView postLoginFailure() {
-		manager.setResult("Invalid login credentials!");
+	private RedirectView postLoginFailure(String loginResult) {
+		manager.setResult(loginResult);
 		return new RedirectView("customerLogin.htm");
 	}
 
@@ -623,17 +626,32 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = "/getGoogleCode", method = RequestMethod.GET)
 	public RedirectView getGoogleCode(@RequestParam(value = "code") String code, ModelMap model) {
-		System.out.println("Code received :" + code);
+		String loginResult = "";
 		try {
 			Customer googleCustomer = GoogleUtil.getGoogleCustomer(code);
-			if (customerBo.loginWithGoogle(googleCustomer)) {
+			loginResult = customerBo.loginWithGoogle(googleCustomer);
+			if (RESPONSE_OK.equals(loginResult)) {
 				return postLoginSuccess(googleCustomer);
 			}
 		} catch (MalformedURLException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
-		return postLoginFailure();
+		return postLoginFailure(loginResult);
 	}
 
+	@ExceptionHandler(HibernateException.class)
+	public ModelAndView onHibernateException(HibernateException hibernateException) {
+		ModelAndView modelAndView = new ModelAndView("error");
+		modelAndView.addObject(MODEL_ERROR, "Error connecting to the database!!");
+		return modelAndView;
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public String onGenericException() {
+		return "error";
+	}
+	
 }

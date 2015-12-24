@@ -165,9 +165,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (customerDao.getCustomerByEmail(customer.getEmail()) != null) {
 			return ERROR_EMAIL_ADDRESS_ALREADY_PRESENT;
 		}
-		if (customerDao.getCustomerByPhone(customer.getPhone()) != null) {
+		/*if (customerDao.getCustomerByPhone(customer.getPhone()) != null) {
 			return ERROR_PHONE_NUMBER_ALREADY_PRESENT;
-		}
+		}*/
 		BusinessToDataConverters.convertCustomer(customerToBeAdded, customer);
 		return RESPONSE_OK;
 	}
@@ -684,16 +684,16 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return DataToBusinessConverters.convertDailyContent(dailyMeal);
 	}
 
-	public boolean loginWithGoogle(Customer googleCustomer) {
+	public String loginWithGoogle(Customer googleCustomer) {
 		if (googleCustomer == null) {
-			return false;
+			return ERROR_INVALID_CUSTOMER_DETAILS;
 		}
 		com.rns.tiffeat.web.dao.domain.Customer registeredCustomer = customerDao.getCustomerByEmail(googleCustomer.getEmail());
 		if (registeredCustomer == null) {
-			return false;
+			return register(googleCustomer);
 		}
 		googleCustomer.setId(registeredCustomer.getId());
-		return true;
+		return RESPONSE_OK;
 	}
 
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-OOOOPS!! You can't do that!! Goto <a href="home.htm">TiffEat Home</a>
+OOOOPS!! There was some problem!! ${errorMsg} Goto <a href="home.htm">TiffEat Home</a>
 
 </body>
 </html>

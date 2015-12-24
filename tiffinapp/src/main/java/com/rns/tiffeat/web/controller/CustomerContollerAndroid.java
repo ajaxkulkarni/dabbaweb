@@ -212,7 +212,7 @@ public class CustomerContollerAndroid implements Constants {
 	@RequestMapping(value = "/loginWithGoogleCustomerAndroid", method = RequestMethod.POST)
 	public @ResponseBody String loginGoogle(@RequestParam(value = MODEL_CUSTOMER) String customer, ModelMap model) {
 		Customer customerObject = new Gson().fromJson(customer, Customer.class);
-		if(!customerBo.loginWithGoogle(customerObject)) {
+		if(!RESPONSE_OK.equals(customerBo.loginWithGoogle(customerObject))) {
 			return ERROR_INVALID_CUSTOMER_DETAILS;
 		}
 		customerBo.setCurrentCustomer(customerObject);

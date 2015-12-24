@@ -187,5 +187,30 @@ public class OrderDaoImpl implements OrderDao {
 		return orders;
 	}
 
+	public List<Order> getMealOrdersInBetween(long id, String type, Date fromDate, Date toDate) {
+		List<Order> orders = new ArrayList<Order>();
+		Session session = this.sessionFactory.openSession();
+		Query createQuery = session.createQuery("from Order where customerMeal.meal.id=:id AND date>=:from_date AND date<=:to_date AND customerMeal.mealType=:type");
+		createQuery.setLong("id", id);
+		createQuery.setString("type", type);
+		createQuery.setDate("from_date", fromDate);
+		createQuery.setDate("to_date", toDate);
+		orders = createQuery.list();
+		session.close();
+		return orders;
+	}
+
+	public List<Order> getVendorOrdersInBetween(long id, Date fromDate, Date toDate) {
+		List<Order> orders = new ArrayList<Order>();
+		Session session = this.sessionFactory.openSession();
+		Query createQuery = session.createQuery("from Order where customerMeal.meal.vendor.id=:vendor_id AND customerMeal.mealType=:meal_type AND date>=:from_date AND date<=:to_date");
+		createQuery.setLong("vendor_id", id);
+		createQuery.setDate("from_date", fromDate);
+		createQuery.setDate("to_date", toDate);
+		orders = createQuery.list();
+		session.close();
+		return orders;
+	}
+
 
 }

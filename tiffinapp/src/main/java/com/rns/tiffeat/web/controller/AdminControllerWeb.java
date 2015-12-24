@@ -84,6 +84,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/adminLogin.htm", method = RequestMethod.GET)
 	public String adminLogin(ModelMap model) {
 		model.addAttribute(MODEL_ADMIN, new Admin());
+		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		return "admin_login";
 	}
 	
