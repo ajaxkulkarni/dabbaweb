@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -38,7 +37,6 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
-import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
 import com.rns.tiffeat.web.util.ImageUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
@@ -78,10 +76,7 @@ public class CustomerContollerAndroid implements Constants {
 	@RequestMapping(value = "/getVendorsForAreaAndroid", method = RequestMethod.POST)
 	public @ResponseBody String getVendors(@RequestParam(value = MODEL_PIN_CODE) String pinCode, ModelMap model) {
 		List<Vendor> vendors = new ArrayList<Vendor>();
-		String areaPinCode = CommonUtil.getPinCode(pinCode);
-		if (StringUtils.isNotEmpty(areaPinCode)) {
-			vendors = customerBo.getAvailableVendors(areaPinCode);
-		}
+		vendors = customerBo.getAvailableVendors(pinCode);
 		return new Gson().toJson(vendors);
 	}
 
