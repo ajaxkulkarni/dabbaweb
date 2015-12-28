@@ -33,7 +33,7 @@
                                  <!--  <label>
                                       <input type="checkbox" name="remember" id="remember"> Remember login
                                   </label> -->
-                                  <p class="">(if this is a private computer)</p>
+                                  <!--<p class="">(if this is a private computer)</p>-->
                                   <c:if test="${result != null }">
 									<div class="alert alert-danger">
 									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
