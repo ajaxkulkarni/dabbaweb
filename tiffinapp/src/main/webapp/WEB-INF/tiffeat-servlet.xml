@@ -40,8 +40,8 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/tiffin" />
         <property name="username" value="root" />
-        <property name="password" value="" />
-       <!--   <property name="url" value="jdbc:mysql://localhost:3306/tiffeat_tiffin" />
+        <property name="password" value="'asd'" />
+        <!-- <property name="url" value="jdbc:mysql://localhost:3306/tiffeat_tiffin" />
         <property name="username" value="tiffeat_admin" />
         <property name="password" value="eat123" /> -->
         <property name="testOnReturn" value="true" />

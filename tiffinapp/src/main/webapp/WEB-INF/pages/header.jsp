@@ -12,8 +12,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500' rel='stylesheet' type='text/css'>
 <!-- ../../resources -->
-<link href="<c:url value = "/resources/css/aboutUs.css"/>" rel="stylesheet"> 
-<%-- <% if(Constants.ASSETS_ROOT == "/resources" ) { %> --%>
+<link href="<c:url value = "${resources}/css/aboutUs.css"/>" rel="stylesheet"> 
 <link href="<c:url value = "${resources}/css/contactUs.css"/>" rel="stylesheet">  
 <link href="<c:url value = "${resources}/css/home.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/tiffin_order.css"/>" rel="stylesheet">
@@ -28,25 +27,6 @@
 <link href="<c:url value = "${resources}/css/FAQ.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/style.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/meal_format.css"/>" rel="stylesheet">
-
-<%-- <% } else {%>
-
-<link href="<c:url value = "../../resources/assets/css/style.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/home.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/tiffin_order.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/star-rating.min.css"/>" rel="stylesheet" media="all" rel="stylesheet" type="text/css"> 
-<link href="<c:url value = "../../resources/assets/css/quick_daily_order.css"/>" rel="stylesheet"> 
-<link href="<c:url value = "../../resources/assets/css/tiffin_summary.css"/>" rel="stylesheet"> 
-<link href="<c:url value = "../../resources/assets/css/payment_details.css"/>" rel="stylesheet"> 
-<link href="<c:url value = "../../resources/assets/css/login_page.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/register_page.css"/>" rel="stylesheet"> 
-<link href="<c:url value = "../../resources/assets/css/drawer.min.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/add_money.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/contactUs.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/FAQ.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/meal_format.css"/>" rel="stylesheet">
-<link href="<c:url value = "../../resources/assets/css/admin_login.css"/>" rel="stylesheet">
-<%} %> --%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 

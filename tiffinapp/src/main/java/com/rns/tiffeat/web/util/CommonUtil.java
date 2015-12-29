@@ -246,7 +246,8 @@ public class CommonUtil implements Constants {
 
 	public static MealType[] filterScheduledMealTypes(Customer customer, Map<MealType, Date> mealTypesMap) {
 		if (customer == null || CollectionUtils.isEmpty(customer.getScheduledOrder())) {
-			return availableMealTypes(mealTypesMap);
+			//return availableMealTypes(mealTypesMap);
+			return MealType.values();
 		}
 		if (customer.getScheduledOrder().size() > 1) {
 			return null;
@@ -266,6 +267,9 @@ public class CommonUtil implements Constants {
 		for (MealType mealType : mealTypesMap.keySet()) {
 			mealTypes[i] = mealType;
 			i++;
+		}
+		if(i == 2) {
+			mealTypes[i] = MealType.BOTH;
 		}
 		return mealTypes;
 	}

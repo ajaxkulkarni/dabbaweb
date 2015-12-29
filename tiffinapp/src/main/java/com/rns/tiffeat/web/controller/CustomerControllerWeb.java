@@ -494,6 +494,7 @@ public class CustomerControllerWeb implements Constants {
 			scheduledOrder.setMeal(customerOrder.getMeal());
 			scheduledOrder.setCustomer(customerOrder.getCustomer());
 			scheduledOrder.setDate(customerOrder.getDate());
+			scheduledOrder.setLocation(customerOrder.getLocation());
 			scheduledOrders.add(scheduledOrder);
 		}
 		scheduledOrders.add(customerOrder);
