@@ -68,7 +68,7 @@ public interface Constants {
 	String ERROR_NO_TIFFINS_AVAILABLE = "No Tiffins are currently available in this area.";
 	String ERROR_INVALID_ADDRESS_OR_LOCATION = "Invalid address or location!";
 	String ERROR_INVALID_CREDENTIALS = "Invalid credentials!";
-	
+	String ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING = "Meal not available for this timing!Please select different meal!";
 	
 	String WARNING_DATE_CHANGED = "Date changed";
 	

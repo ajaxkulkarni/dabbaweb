@@ -288,6 +288,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if(StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null) {
 			return ERROR_INVALID_ADDRESS_OR_LOCATION;
 		}
+		if(customerOrder.getMealType() == null) {
+			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
+		}
 		if (!checkIfMealTypeAvailableForDate(customerOrder)) {
 			return WARNING_DATE_CHANGED;
 		}
@@ -470,6 +473,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			}
 			if(StringUtils.isEmpty(order.getAddress()) || order.getLocation() == null) {
 				return ERROR_INVALID_ADDRESS_OR_LOCATION;
+			}
+			if(order.getMealType() == null) {
+				return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 			}
 			if (isAlreadyScheduled(order, scheduledMeals)) {
 				return ERROR_ALERADY_SCHEDULED_MEAL_TYPE;

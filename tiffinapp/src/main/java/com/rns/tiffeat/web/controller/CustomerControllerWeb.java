@@ -234,7 +234,13 @@ public class CustomerControllerWeb implements Constants {
 	}
 
 	private void handleAddMealForSelectedTime(ModelMap model, MealType[] mealTypes, Map<MealType, Date> mealTypesMap, MealType mealTypeSelected) {
-		mealTypes[0] = manager.getCustomer().getOrderInProcess().getMealType();
+		MealType mealType = manager.getCustomer().getOrderInProcess().getMealType();
+		if(mealTypesMap.get(mealType) == null) {
+			manager.setResult(ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING);
+			model.addAttribute(MODEL_MEAL_TYPE, null);
+			return;
+		}
+		mealTypes[0] = mealType;
 		model.addAttribute(MODEL_MEAL_TYPE, mealTypes);
 		if (!CommonUtil.checkIfToday(mealTypesMap.get(mealTypeSelected))) {
 			manager.getCustomer().getOrderInProcess().setDate(mealTypesMap.get(mealTypeSelected));
