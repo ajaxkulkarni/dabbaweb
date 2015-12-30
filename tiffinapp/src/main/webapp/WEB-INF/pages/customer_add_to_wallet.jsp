@@ -25,14 +25,13 @@
                     <form action="addMoneyToWallet" method="post">
                     	<input type="text" class="form-control" placeholder="Amount (Rs) " name="amount">
                     	<button type="submit" pattern = "[0-9.]*" maxlength="4" name="amount" class="btn  add_money_button">Add Money</button>
-					
+					</form>
 					<c:if test="${customer.balance > 100 }">
 					<form action="customerHome.htm" method="get">
 						<button type="submit" class="btn  add_money_button">Add Later</button>
 					</form>
 					</c:if>
                 </div>
-
             </div>
 
         </div>

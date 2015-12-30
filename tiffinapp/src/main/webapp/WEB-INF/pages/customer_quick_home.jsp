@@ -97,6 +97,7 @@
 						<input type="hidden" name="meal.description" value="${quickOrder.meal.description}" /> 
 						<input type="hidden" name="area" value="${quickOrder.area}" /> 
 						<input type="hidden" name="address" value="${quickOrder.address}" />
+						<input type="hidden" name="location.address" value="${quickOrder.location.address}" />
 						<input type="submit" name="" value="REPEAT?" class="btn order_button"/>
 					</form>
 				</div>
@@ -129,6 +130,7 @@
             	<input type="hidden" name="meal.description" value="${order.meal.description}" />
 				<input type="hidden" name="area" value="${order.area}" />
 				<input type="hidden" name="address" value="${order.address}" />
+				<input type="hidden" name="location.address" value="${order.location.address}" />
 				<button type="submit" class="btn order_button">Repeat Order</button>
 				</form>
 			</div>

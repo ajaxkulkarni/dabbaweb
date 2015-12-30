@@ -285,7 +285,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (customerOrder == null || customerOrder.getCustomer() == null || customerOrder.getMeal() == null || customerOrder.getDate() == null) {
 			return ERROR_INVALID_ORDER_DETAILS;
 		}
-		if(StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null) {
+		if(StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null || StringUtils.isEmpty(customerOrder.getLocation().getAddress())) {
 			return ERROR_INVALID_ADDRESS_OR_LOCATION;
 		}
 		if(customerOrder.getMealType() == null) {
@@ -525,6 +525,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 		if(StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null) {
 			return ERROR_INVALID_ADDRESS_OR_LOCATION;
+		}
+		Map<MealType, Date> availableMealTypeDates = getAvailableMealTypeDates(customerOrder);
+		if(availableMealTypeDates == null || availableMealTypeDates.get(customerOrder.getMealType()) == null) {
+			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
 		Meal oldMeal = mealDao.getMeal(customerOrder.getMeal().getId());
 		if (oldMeal == null) {
