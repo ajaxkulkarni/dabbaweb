@@ -71,8 +71,8 @@
                 	<div class="menu_card">
                     	<img src="getVendorProfilePic.htm?vendorEmail=${vendor.email}" class="menu_card_image img-responsive">
                     	<h4 class="menu_card_title">${vendor.name}</h4>
-                    	<h6 class="menu_card_sub_title">Veg, Non-Veg, Jain, Fast-Food</h6>
-                    	<!-- <input id="input-2a" value="4" class="rating" min="0" max="5" step="0.5" data-size="sm" data-symbol="&#xf005;" data-glyphicon="false" data-rating-class="rating-fa"> -->
+                    	<!-- <h6 class="menu_card_sub_title">Veg, Non-Veg, Jain, Fast-Food</h6>
+                    	<input id="input-2a" value="4" class="rating" min="0" max="5" step="0.5" data-size="sm" data-symbol="&#xf005;" data-glyphicon="false" data-rating-class="rating-fa"> -->
                 	</div>
             	</div>
          	</a>
