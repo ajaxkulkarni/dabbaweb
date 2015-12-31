@@ -120,9 +120,9 @@
 				<h6 class="menu_card_sub_title">${order.meal.vendor.name}</h6>
 				<h6 class="menu_card_sub_title">Price : ${order.meal.price}</h6>
 				<h6 class="menu_card_sub_title">Date : <fmt:formatDate value="${order.date}" pattern="yyyy-MM-dd"/></h6>
-				<input id="input-2a" class="rating" min="0" max="5" step="0.5"
+				<!--<input id="input-2a" class="rating" min="0" max="5" step="0.5"
 					data-size="sm" data-symbol="&#xf005;" data-glyphicon="false"
-					data-rating-class="rating-fa">
+					data-rating-class="rating-fa">-->
 				<form action="repeatOrder" method="post">
             	<input type="hidden" name="meal.id" value="${order.meal.id}" /> 
             	<input type="hidden" name="meal.title" value="${order.meal.title}" /> 
