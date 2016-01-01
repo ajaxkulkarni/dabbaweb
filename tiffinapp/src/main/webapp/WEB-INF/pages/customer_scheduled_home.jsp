@@ -43,9 +43,12 @@
                 		Today's order ${order.meal.title} for ${order.mealType} is not available.
                 	</c:when> --%>
                 	<c:when test="${order.status == 'PAYABLE'}">
-                		<h4 class="today">You won't receive ${order.mealType} meal for ${orderDate}
-                		<c:if test="${customer.balance < order.meal.price || customer.balance == null}">
-                		You are low on cash.Please <a href = "addMoneyToWallet.htm">add some money</a> into your wallet to continue ${order.meal.title} meal.
+                		<h4 class="today">You won't receive ${order.mealType} meal for ${orderDate}.
+                		<c:if test="${customer.balance < order.meal.price || customer.balance == null}"><br/>
+                		You are low on cash.
+                		<div class="add_wallet">
+                		Please <a href = "addMoneyToWallet.htm">add some money</a> into your wallet to continue ${order.meal.title} meal.
+                		</div>
                 		</c:if></h4>
                 	</c:when>
                 	<c:when test="${order.status == 'CANCELLED'}">

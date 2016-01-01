@@ -104,3 +104,11 @@ text-align:left;
 padding-top:15px;
 color:#00AA44;
 }
+
+.add_wallet a{
+color:red;
+}
+
+.add_wallet a:hover{
+color:red;
+}
