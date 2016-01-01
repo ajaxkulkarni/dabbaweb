@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.api.VendorBo;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -167,11 +165,17 @@ public class CustomerContollerAndroid implements Constants {
 	}
 	
 	@RequestMapping(value = "/scheduledOrderAndroid", method = RequestMethod.POST)
-	public @ResponseBody String scheduledOrder(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder,
-			ModelMap model) {
-		Type typelist=new TypeToken<ArrayList<CustomerOrder>>(){}.getType();
-		List<CustomerOrder> scheduledOrders = new Gson().fromJson(customerOrder, typelist);
-		return new Gson().toJson(customerBo.scheduledOrder(scheduledOrders));
+	public @ResponseBody String scheduledOrder(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder,ModelMap model) {
+		//Type typelist=new TypeToken<ArrayList<CustomerOrder>>(){}.getType();
+		CustomerOrder scheduledOrder = new Gson().fromJson(customerOrder, CustomerOrder.class);
+		return customerBo.scheduledOrder(scheduledOrder);
+	}
+	
+	@RequestMapping(value = "/validateScheduledOrderAndroid", method = RequestMethod.POST)
+	public @ResponseBody String validateScheduledOrder(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder,ModelMap model) {
+		//Type typelist=new TypeToken<ArrayList<CustomerOrder>>(){}.getType();
+		CustomerOrder scheduledOrder = new Gson().fromJson(customerOrder, CustomerOrder.class);
+		return customerBo.validateScheduledOrder(scheduledOrder);
 	}
 	
 	@RequestMapping(value = "/cancelOrderAndroid", method = RequestMethod.POST)

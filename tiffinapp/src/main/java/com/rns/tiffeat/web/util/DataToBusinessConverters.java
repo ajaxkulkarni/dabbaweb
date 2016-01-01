@@ -6,6 +6,7 @@ import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.DailyContent;
 import com.rns.tiffeat.web.bo.domain.Meal;
+import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.Vendor;
 import com.rns.tiffeat.web.dao.domain.CustomerMeal;
 import com.rns.tiffeat.web.dao.domain.DailyMeal;
@@ -61,6 +62,9 @@ public class DataToBusinessConverters implements Constants {
 		mealToBeAdded.setDinnerStatus(CommonUtil.getMealPhase(meal.getDinnerStatus()));
 		mealToBeAdded.setDescription(trimToEmpty(meal.getDescription()));
 		mealToBeAdded.setMealTime(CommonUtil.getMealType(meal.getType()));
+		if(mealToBeAdded.getMealTime() == null) {
+			mealToBeAdded.setMealTime(MealType.BOTH);
+		}
 		Vendor currentVendor = new Vendor();
 		DataToBusinessConverters.convertVendor(currentVendor, meal.getVendor());
 		mealToBeAdded.setVendor(currentVendor);

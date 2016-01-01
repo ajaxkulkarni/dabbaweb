@@ -12,6 +12,7 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.dao.domain.CustomerMeal;
 
 public interface CustomerBo {
 
@@ -29,8 +30,10 @@ public interface CustomerBo {
 	Map<MealType, Date> getAvailableMealTypeDates(CustomerOrder order);
 
 	String quickOrder(CustomerOrder customerOrder);
+	
+	String validateScheduledOrder(CustomerOrder order);
 
-	String scheduledOrder(List<CustomerOrder> customerOrders);
+	String scheduledOrder(CustomerOrder customerOrder);
 
 	String changeScheduledOrder(CustomerOrder customerOrder);
 

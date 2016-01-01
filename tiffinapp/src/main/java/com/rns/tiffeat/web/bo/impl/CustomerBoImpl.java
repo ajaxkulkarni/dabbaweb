@@ -118,27 +118,6 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	}
 
-	/*
-	 * public List<Vendor> getAvailableVendors(BigDecimal locationX, BigDecimal
-	 * locationY) { List<Vendor> vendors = vendorDao.getAllVendors();
-	 * List<Vendor> nearestVendors = new ArrayList<Vendor>(); double minDistance
-	 * = 10; for(Vendor vendor:vendors) { double calculatedDistance =
-	 * calculateDistance(vendor, locationX, locationY); if(calculatedDistance <
-	 * 0) { continue; } if(minDistance > calculatedDistance) {
-	 * nearestVendors.add(vendor); } } return nearestVendors; }
-	 */
-
-	/*
-	 * private double calculateDistance(Vendor vendor, BigDecimal locationX,
-	 * BigDecimal locationY) { if(vendor.getLocationX()==null ||
-	 * vendor.getLocationY()==null || locationX == null || locationY == null) {
-	 * return -1; } BigDecimal xDistance =
-	 * (vendor.getLocationX().subtract(locationX)).abs(); xDistance =
-	 * xDistance.multiply(xDistance); BigDecimal yDistance =
-	 * (vendor.getLocationX().subtract(locationX)).abs(); yDistance =
-	 * yDistance.multiply(yDistance); BigDecimal addition =
-	 * xDistance.add(yDistance); return Math.sqrt(addition.doubleValue()); }
-	 */
 
 	public CustomerDao getCustomerDao() {
 		return customerDao;
@@ -255,14 +234,6 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 	}
 
-	/*
-	 * private MealType[] getBothMealTypes() { MealType[] mealTypes = new
-	 * MealType[2]; mealTypes[0] = MealType.LUNCH; mealTypes[1] =
-	 * MealType.DINNER; return mealTypes; }
-	 * 
-	 * private MealType[] getOneMealType(MealType type) { MealType[] mealTypes =
-	 * new MealType[1]; mealTypes[0] = type; return mealTypes; }
-	 */
 
 	public String quickOrder(CustomerOrder customerOrder) {
 		String validationResult = validateQuickOrder(customerOrder);
@@ -455,38 +426,33 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		customerOrder.setContent(DataToBusinessConverters.convertDailyContent(dailyMeal));
 	}
 
-	public String scheduledOrder(List<CustomerOrder> customerOrders) {
-		if (CollectionUtils.isEmpty(customerOrders)) {
-			return ERROR_INVALID_ORDER_DETAILS;
-		}
-		if (customerOrders.get(0).getCustomer() == null) {
-			return ERROR_INVALID_USER_DETAILS;
-		}
-		List<CustomerMeal> scheduledMeals = customerMealDao.getScheduledMeals(customerOrders.get(0).getCustomer().getId());
-		if (CollectionUtils.isNotEmpty(scheduledMeals) && scheduledMeals.size() > 1) {
-			return ERROR_ALERADY_SCHEDULED;
-		}
+	public String scheduledOrder(CustomerOrder customerOrder) {
 		List<CustomerMeal> customerMealsToBeAdded = new ArrayList<CustomerMeal>();
-		for (CustomerOrder order : customerOrders) {
-			if (order == null || order.getCustomer() == null || order.getMeal() == null) {
-				return ERROR_INVALID_ORDER_DETAILS;
-			}
-			if(StringUtils.isEmpty(order.getAddress()) || order.getLocation() == null) {
-				return ERROR_INVALID_ADDRESS_OR_LOCATION;
-			}
-			if(order.getMealType() == null) {
-				return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
-			}
-			if (isAlreadyScheduled(order, scheduledMeals)) {
-				return ERROR_ALERADY_SCHEDULED_MEAL_TYPE;
-			}
+		String response = prepareScheduledOrders(customerMealsToBeAdded, customerOrder);
+		if(!RESPONSE_OK.equals(response)) {
+			return response;
+		}
+		customerOrder.setId(customerMealDao.addCustomerMeals(customerMealsToBeAdded));
+		MailUtil.sendMail(customerOrder);
+		return RESPONSE_OK;
+	}
+
+	public String prepareScheduledOrders(List<CustomerMeal> customerMealsToBeAdded, CustomerOrder orderInProcess) {
+		String response = validateScheduledOrder(orderInProcess);
+		if(!RESPONSE_OK.equals(response)) {
+			return response;
+		}
+		List<CustomerOrder> scheduledOrders = new ArrayList<CustomerOrder>();
+		scheduledOrders.add(orderInProcess);
+		if (MealType.BOTH.equals(orderInProcess.getMealType())) {
+			CustomerOrder scheduledOrder = prepareOtherScheduledOrder(orderInProcess);
+			scheduledOrders.add(scheduledOrder);
+		}
+		for (CustomerOrder order : scheduledOrders) {
 			CustomerMeal mealToBeAdded = new CustomerMeal();
 			mealToBeAdded.setFormat(MealFormat.SCHEDULED.name());
 			order.setMealFormat(MealFormat.SCHEDULED);
 			com.rns.tiffeat.web.dao.domain.Customer customer = customerDao.getCustomer(order.getCustomer().getId());
-			if (customer == null) {
-				return ERROR_INVALID_ORDER_DETAILS;
-			}
 			customer.setPhone(order.getCustomer().getPhone());
 			BusinessToDataConverters.convertCustomerMeal(customer, mealToBeAdded, order);
 			if (isOrdersGeneratedByVendor(order)) {
@@ -494,8 +460,50 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			}
 			customerMealsToBeAdded.add(mealToBeAdded);
 		}
-		customerOrders.get(0).setId(customerMealDao.addCustomerMeals(customerMealsToBeAdded));
-		MailUtil.sendMail(customerOrders.get(0));
+		return RESPONSE_OK;
+	}
+
+	private CustomerOrder prepareOtherScheduledOrder(CustomerOrder customerOrder) {
+		CustomerOrder scheduledOrder = new CustomerOrder();
+		scheduledOrder.setAddress(customerOrder.getAddress());
+		scheduledOrder.setArea(customerOrder.getArea());
+		customerOrder.setMealType(MealType.LUNCH);
+		scheduledOrder.setMealType(MealType.DINNER);
+		scheduledOrder.setMeal(customerOrder.getMeal());
+		scheduledOrder.setCustomer(customerOrder.getCustomer());
+		scheduledOrder.setDate(customerOrder.getDate());
+		scheduledOrder.setLocation(customerOrder.getLocation());
+		return scheduledOrder;
+	}
+	
+	public String validateScheduledOrder(CustomerOrder order) {
+		if (order == null || order.getCustomer() == null || order.getMeal() == null) {
+			return ERROR_INVALID_ORDER_DETAILS;
+		}
+		if(StringUtils.isEmpty(order.getAddress()) || order.getLocation() == null) {
+			return ERROR_INVALID_ADDRESS_OR_LOCATION;
+		}
+		if(order.getMealType() == null) {
+			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
+		}
+		Meal meal = mealDao.getMeal(order.getMeal().getId());
+		if (meal == null) {
+			return ERROR_INVALID_ORDER_DETAILS;
+		}
+		if (!isMealAvailableForMealType(meal, order.getMealType())) {
+			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
+		}
+		com.rns.tiffeat.web.dao.domain.Customer customer = customerDao.getCustomer(order.getCustomer().getId());
+		if (customer == null) {
+			return ERROR_INVALID_CUSTOMER_DETAILS;
+		}
+		List<CustomerMeal> scheduledMeals = customerMealDao.getScheduledMeals(order.getCustomer().getId());
+		if (CollectionUtils.isNotEmpty(scheduledMeals) && scheduledMeals.size() > 1) {
+			return ERROR_ALERADY_SCHEDULED;
+		}
+		if (isAlreadyScheduled(order, scheduledMeals)) {
+			return ERROR_ALERADY_SCHEDULED_MEAL_TYPE;
+		}
 		return RESPONSE_OK;
 	}
 

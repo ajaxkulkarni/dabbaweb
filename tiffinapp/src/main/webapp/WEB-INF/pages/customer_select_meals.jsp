@@ -22,7 +22,8 @@
 		        break;
 		    }
 		}
-    	var mealId = $("#mealId").val()
+    	var mealId = $("#mealId").val();
+        
         $.ajax({
         	type : "POST",
             url : 'getMenu',
@@ -55,6 +56,12 @@
     
     function showModal(mealId) {
 		$("#mealId").val(mealId);
+		$('#menuDate').text('');
+    	$('#menuMainItem').text('');
+        $('#menuSubItem1').text('');
+        $('#menuSubItem2').text('');
+        $('#menuSubItem3').text('');
+        $('#menuSubItem4').text('');
 		$("#menuModal").modal('show');
 		return false;
     }
@@ -81,6 +88,7 @@
                     <h3 class="order_details_title">${meal.title}</h3>
                     <h4 class="order_details_sub_title">${meal.description}</h4>
                     <h4 class="order_details_sub_title">Rs. ${meal.price}</h4>
+                    <h4 class="order_details_sub_title">Available for : ${meal.mealTime.description}</h4>
                     <div class="submit_order">
                         <button type="button" onclick="return showModal(${meal.id})" class="btn order_button">VIEW MENU</button>
                         <button type="submit" class="btn order_button">ORDER</button>

@@ -62,6 +62,7 @@ function proceed() {
               <div class="col-md-6">
                 <form action="scheduledOrder" id="scheduledOrderForm" method="post" onsubmit="return showModal()">
                   <input type="hidden" name="meal.id" value="${customerOrder.meal.id}"/>
+                  <input type="hidden" name="meal.price" value="${customerOrder.meal.price}"/>
                   <input type="hidden" name="meal.title" value="${customerOrder.meal.title}"/>
                   <input type="hidden" name="customer.id" value="${customerOrder.customer.id}"/>
                   <input type="hidden" name="customer.name" value="${customerOrder.customer.name}"/>

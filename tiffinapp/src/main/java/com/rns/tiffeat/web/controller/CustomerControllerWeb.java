@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +85,7 @@ public class CustomerControllerWeb implements Constants {
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		List<Vendor> latestVendors = getLatestVendors();
 		model.addAttribute(MODEL_VENDORS, latestVendors);
-		if(manager.getCustomer().getOrderInProcess().getLocation() != null) {
+		if (manager.getCustomer().getOrderInProcess().getLocation() != null) {
 			model.addAttribute(MODEL_LOCATION, manager.getCustomer().getOrderInProcess().getLocation().getAddress());
 		}
 		model.addAttribute(MODEL_RESULT, manager.getResult());
@@ -97,11 +96,11 @@ public class CustomerControllerWeb implements Constants {
 
 	private List<Vendor> getLatestVendors() {
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
-		if(orderInProcess.getLocation() == null || StringUtils.isEmpty(orderInProcess.getLocation().getAddress())) {
+		if (orderInProcess.getLocation() == null || StringUtils.isEmpty(orderInProcess.getLocation().getAddress())) {
 			return null;
 		}
 		List<Vendor> availableVendors = customerBo.getAvailableVendors(orderInProcess.getLocation().getAddress());
-		if(CollectionUtils.isEmpty(availableVendors)) {
+		if (CollectionUtils.isEmpty(availableVendors)) {
 			logger.info("No Tiffins for:" + orderInProcess.getLocation().getAddress());
 			manager.setResult(ERROR_NO_TIFFINS_AVAILABLE);
 		}
@@ -110,10 +109,12 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = "/getNearbyVendors", method = RequestMethod.POST)
 	public RedirectView getVendorsNearby(String address, ModelMap model) {
-		/*manager.setAvailableVendors(customerBo.getAvailableVendors(address));
-		if (CollectionUtils.isEmpty(manager.getAvailableVendors())) {
-			manager.setResult("No Tiffins are currently available in this area.");
-		}*/
+		/*
+		 * manager.setAvailableVendors(customerBo.getAvailableVendors(address));
+		 * if (CollectionUtils.isEmpty(manager.getAvailableVendors())) {
+		 * manager.
+		 * setResult("No Tiffins are currently available in this area."); }
+		 */
 		setCustomerOrderLocation(address);
 		return new RedirectView("home.htm");
 	}
@@ -126,10 +127,11 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = "/customerSelectVendor", method = RequestMethod.POST)
 	public RedirectView selectVendors(String pinCode, ModelMap model) {
-		/*if (StringUtils.isNotEmpty(pinCode)) {
-			manager.setAvailableVendors(customerBo.getAvailableVendors(pinCode));
-		}
-		manager.setResult(null);*/
+		/*
+		 * if (StringUtils.isNotEmpty(pinCode)) {
+		 * manager.setAvailableVendors(customerBo.getAvailableVendors(pinCode));
+		 * } manager.setResult(null);
+		 */
 		return new RedirectView("home.htm");
 	}
 
@@ -141,9 +143,10 @@ public class CustomerControllerWeb implements Constants {
 		}
 		Vendor vendor = new Vendor();
 		vendor.setEmail(vendorEmail);
-		//manager.getCustomer().getOrderInProcess().setArea(manager.getAvailableVendors().get(0).getPinCode());
+		// manager.getCustomer().getOrderInProcess().setArea(manager.getAvailableVendors().get(0).getPinCode());
 		model.addAttribute(MODEL_VENDOR, customerBo.getVendorWithMeals(vendor));
-		//model.addAttribute(MODEL_PIN_CODE, manager.getAvailableVendors().get(0).getPinCode());
+		// model.addAttribute(MODEL_PIN_CODE,
+		// manager.getAvailableVendors().get(0).getPinCode());
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
@@ -159,27 +162,22 @@ public class CustomerControllerWeb implements Constants {
 			if (customerOrder.getId() == 0) {
 				return new RedirectView("scheduledOrder.htm");
 			}
-			/*String changeScheduledOrderResult = customerBo.changeScheduledOrder(customerOrder);
-			if (!RESPONSE_OK.equals(changeScheduledOrderResult)) {
-				manager.setResult(changeScheduledOrderResult);
-			}
-			System.out.println("Result of change order :" + changeScheduledOrderResult);*/
 			return new RedirectView("changeOrder.htm");
 		}
 		model.addAttribute(MODEL_CUSTOMER_ORDER, customerOrder);
 		manager.setResult(null);
 		return new RedirectView("selectMealFormat.htm");
 	}
-	
+
 	@RequestMapping(value = "/changeOrder.htm", method = RequestMethod.GET)
 	public String initChangeOrder(ModelMap model) {
 		model.addAttribute(MODEL_CUSTOMER_ORDER, manager.getCustomer().getOrderInProcess());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		return "customer_change_scheduled_order_details";
 	}
-	
+
 	@RequestMapping(value = "/changeOrder", method = RequestMethod.POST)
-	public RedirectView changeOrder(CustomerOrder customerOrder,ModelMap model) {
+	public RedirectView changeOrder(CustomerOrder customerOrder, ModelMap model) {
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
 		orderInProcess.setAddress(customerOrder.getAddress());
 		String changeScheduledOrderResult = customerBo.changeScheduledOrder(orderInProcess);
@@ -235,7 +233,7 @@ public class CustomerControllerWeb implements Constants {
 
 	private void handleAddMealForSelectedTime(ModelMap model, MealType[] mealTypes, Map<MealType, Date> mealTypesMap, MealType mealTypeSelected) {
 		MealType mealType = manager.getCustomer().getOrderInProcess().getMealType();
-		if(mealTypesMap.get(mealType) == null) {
+		if (mealTypesMap.get(mealType) == null) {
 			manager.setResult(ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING);
 			model.addAttribute(MODEL_MEAL_TYPE, null);
 			return;
@@ -386,33 +384,50 @@ public class CustomerControllerWeb implements Constants {
 		RedirectView view = new RedirectView("customerHome.htm");
 		String paymentResult = request.getParameter("status");
 		System.out.println("Result of payment :" + paymentResult);
-		if (paymentResult != null && manager.getCustomer().getOrderInProcess().getMeal() == null) {
+		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
+		if (paymentResult != null && orderInProcess.getMeal() == null) {
 			return new RedirectView("paymentAndroidResult.htm?result=" + paymentResult);
 		}
-		manager.getCustomer().getOrderInProcess().setPaymentType(PaymentUtils.getPaymenType(request.getParameter("mode")));
+		orderInProcess.setPaymentType(PaymentUtils.getPaymenType(request.getParameter("mode")));
 		if (StringUtils.equalsIgnoreCase("success", paymentResult)) {
-			if (MealFormat.SCHEDULED.equals(manager.getCustomer().getOrderInProcess().getMealFormat())) {
-				String addMoneyToWalletResult = customerBo.addMoneyToWallet(manager.getCustomer());
-				if (!RESPONSE_OK.equals(addMoneyToWalletResult)) {
-					manager.setResult(addMoneyToWalletResult);
-					view = new RedirectView("addMoneyToWallet.htm");
-				}
+			if (MealFormat.SCHEDULED.equals(orderInProcess.getMealFormat())) {
+				view = processScheduledPayment(orderInProcess);
 			} else {
-				String quickOrderResult = customerBo.quickOrder(manager.getCustomer().getOrderInProcess());
-				if (!RESPONSE_OK.equals(quickOrderResult)) {
-					manager.setResult(quickOrderResult);
-					view = new RedirectView("quickOrder.htm");
-				}
+				view = processQuickOrderPayment(orderInProcess);
 			}
 		} else {
 			manager.setResult("Payment failed!!");
-			if (MealFormat.SCHEDULED.equals(manager.getCustomer().getOrderInProcess().getMealFormat())) {
+			if (MealFormat.SCHEDULED.equals(orderInProcess.getMealFormat())) {
 				view = new RedirectView("addMoneyToWallet.htm");
 			} else {
 				view = new RedirectView("quickOrder.htm");
 			}
 		}
-		MailUtil.sendMail(manager.getCustomer().getOrderInProcess());
+		MailUtil.sendMail(orderInProcess);
+		return view;
+	}
+
+	private RedirectView processQuickOrderPayment(CustomerOrder orderInProcess) {
+		String quickOrderResult = customerBo.quickOrder(orderInProcess);
+		if (!RESPONSE_OK.equals(quickOrderResult)) {
+			manager.setResult(quickOrderResult);
+			return new RedirectView("quickOrder.htm");
+		}
+		return new RedirectView("customerHome.htm");
+	}
+
+	private RedirectView processScheduledPayment(CustomerOrder orderInProcess) {
+		RedirectView view;
+		String addMoneyToWalletResult = customerBo.addMoneyToWallet(manager.getCustomer());
+		if (!RESPONSE_OK.equals(addMoneyToWalletResult)) {
+			manager.setResult(addMoneyToWalletResult);
+			view = new RedirectView("addMoneyToWallet.htm");
+		} else {
+			if (orderInProcess.getMeal() == null || orderInProcess.getMeal().getId() > 0) {
+				customerBo.scheduledOrder(orderInProcess);
+			}
+			view = new RedirectView("customerHome.htm");
+		}
 		return view;
 	}
 
@@ -487,26 +502,19 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = "/scheduledOrder", method = RequestMethod.POST)
 	public RedirectView scheduleOrder(CustomerOrder customerOrder, ModelMap model) {
-		List<CustomerOrder> scheduledOrders = new ArrayList<CustomerOrder>();
 		if (customerOrder.getDate() == null) {
 			customerOrder.setDate(manager.getCustomer().getOrderInProcess().getDate());
 		}
-		if (MealType.BOTH.equals(customerOrder.getMealType())) {
-			CustomerOrder scheduledOrder = new CustomerOrder();
-			scheduledOrder.setAddress(customerOrder.getAddress());
-			scheduledOrder.setArea(customerOrder.getArea());
-			customerOrder.setMealType(MealType.LUNCH);
-			scheduledOrder.setMealType(MealType.DINNER);
-			scheduledOrder.setMeal(customerOrder.getMeal());
-			scheduledOrder.setCustomer(customerOrder.getCustomer());
-			scheduledOrder.setDate(customerOrder.getDate());
-			scheduledOrder.setLocation(customerOrder.getLocation());
-			scheduledOrders.add(scheduledOrder);
-		}
-		scheduledOrders.add(customerOrder);
 		manager.getCustomer().setPhone(customerOrder.getCustomer().getPhone());
-		manager.getCustomer().setQuickOrders(scheduledOrders);
-		String scheduledOrderResult = customerBo.scheduledOrder(scheduledOrders);
+		// manager.getCustomer().setQuickOrders(scheduledOrders);
+		String scheduledOrderResult = "";
+		boolean walletRequired = false;
+		if (manager.getCustomer().getBalance() == null || manager.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0) {
+			scheduledOrderResult = customerBo.validateScheduledOrder(customerOrder);
+			walletRequired = true;
+		} else {
+			scheduledOrderResult = customerBo.scheduledOrder(customerOrder);
+		}
 		if (!RESPONSE_OK.equals(scheduledOrderResult)) {
 			manager.setResult(scheduledOrderResult);
 			return new RedirectView("scheduledOrder.htm");
@@ -514,7 +522,10 @@ public class CustomerControllerWeb implements Constants {
 		manager.setResult(null);
 		customerOrder.setMealFormat(MealFormat.SCHEDULED);
 		manager.getCustomer().setOrderInProcess(customerOrder);
-		return new RedirectView("addMoneyToWallet.htm");
+		if(walletRequired) {
+			return new RedirectView("addMoneyToWallet.htm");
+		}
+		return new RedirectView("customerHome.htm");
 	}
 
 	@RequestMapping(value = "/addMoneyToWallet.htm", method = RequestMethod.GET)
@@ -571,7 +582,7 @@ public class CustomerControllerWeb implements Constants {
 			return new RedirectView("customerHome.htm");
 		}
 		customerOrder.getContent().setDate(contentDate);
-		//manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
+		// manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
 		manager.getCustomer().setOrderInProcess(customerOrder);
 		return new RedirectView("home.htm");
 	}
@@ -592,7 +603,7 @@ public class CustomerControllerWeb implements Constants {
 		}
 		customerOrder.setMealFormat(MealFormat.SCHEDULED);
 		manager.getCustomer().setOrderInProcess(customerOrder);
-		//manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
+		// manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
 		return new RedirectView("home.htm");
 	}
 
@@ -655,10 +666,10 @@ public class CustomerControllerWeb implements Constants {
 		modelAndView.addObject(MODEL_ERROR, "Error connecting to the database!!");
 		return modelAndView;
 	}
-	
+
 	@ExceptionHandler(Exception.class)
 	public String onGenericException() {
 		return "error";
 	}
-	
+
 }

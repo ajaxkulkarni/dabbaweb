@@ -87,7 +87,7 @@
 	 <div class="row" id = "lunchMeals">
 	 	LUNCH MEALS
 	 	<c:forEach items="${vendor.meals}" var="meal">
-	 	<c:if test="${meal.mealTime == null || meal.mealTime == 'LUNCH' }">
+	 	<c:if test="${meal.mealTime == 'BOTH' || meal.mealTime == 'LUNCH' }">
         <div class="col-md-4">
 		<div class="demo-card">
     	<div class="card">
@@ -161,7 +161,7 @@
 	<div class="row" id = "dinnerMeals" style="display:none">
 		DINNER MEALS
 	 	<c:forEach items="${vendor.meals}" var="meal">
-	 	<c:if test="${meal.mealTime == null || meal.mealTime == 'DINNER' }">
+	 	<c:if test="${meal.mealTime == 'BOTH' || meal.mealTime == 'DINNER' }">
         <div class="col-md-4">
 		<div class="demo-card">
     	<div class="card">
