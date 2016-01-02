@@ -16,7 +16,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>TiffEat | Order tiffin online </title>
+<title>TiffEat | Order tiffin online, Order meal online, Order food online, Order online Pune </title>
 
 
 </head>
@@ -26,7 +26,7 @@
     
     <!--        Banner part-->
     <div class="container-fluid tiffin_banner">
-        <h3 class="banner_heading">Order tiffins Online from our vendors<br/>
+        <h3 class="banner_heading">Order tiffins online from our vendors<br/>
                 <span class="banner_sub_heading">and have a homemade meal wherever you are!</span></h3>
         <div class="container banner_sub_div">
             <h4 class="sub_div_heading">We currently serve in Pune</h4>
@@ -48,7 +48,7 @@
                     </select>
                 </div> -->
                 <div class="col-md-4">
-                    <button type="submit" class="btn loc_button">Find my tiffins</button>
+                    <button type="submit" class="btn loc_button">Find meals</button>
                 </div>
                 </form>
             </div>

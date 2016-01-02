@@ -43,7 +43,8 @@ body{
 	margin: 16px auto;
 }
 
-.loc_button:hover{
+.loc_button:hover,
+.loc_button:focus{
 	color: white;
     background-color: rgba(255, 85, 53, 0.70);
 }

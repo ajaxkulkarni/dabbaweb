@@ -73,12 +73,13 @@
         <div class="container">
             <div class="navbar-header">
 
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle_button1">
+              <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle_button1">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar">a</span>
+                    <span class="icon-bar">b</span>
+                    <span class="icon-bar">c</span>
                 </button>
+                -->
 
                 <a class="navbar-brand" href="home.htm">
                     <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
