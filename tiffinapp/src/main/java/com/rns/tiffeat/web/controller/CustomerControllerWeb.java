@@ -134,6 +134,12 @@ public class CustomerControllerWeb implements Constants {
 		 */
 		return new RedirectView("home.htm");
 	}
+	
+	@RequestMapping(value = "/makeNewOrder.htm", method = RequestMethod.GET)
+	public RedirectView makeNewOrder(ModelMap model) {
+		manager.getCustomer().setOrderInProcess(null);
+		return new RedirectView("home.htm");
+	}
 
 	@RequestMapping(value = "/getVendorMeals.htm", method = RequestMethod.GET)
 	public String getVendorMeals(String vendorEmail, ModelMap model) {

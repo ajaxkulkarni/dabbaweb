@@ -52,7 +52,7 @@
             		<li class="drawer-menu-item"><a href="customerLogin.htm" id="drawer_link1">Login</a></li>
                 	<!-- <li class="drawer-menu-item"><a href="registerCustomer.htm" id="drawer_link1">Register</a></li> -->
             	</c:if>
-            	<li class="drawer-menu-item"><a href="home.htm" id="drawer_link1">Make an Order</a></li>
+            	<li class="drawer-menu-item"><a href="makeNewOrder.htm" id="drawer_link1">Make an Order</a></li>
                 <li class="drawer-menu-item"><a href="terms.htm" id="drawer_link1">Privacy Policy</a></li>
                 <li class="drawer-menu-item"><a href="aboutUs.htm" id="drawer_link1">About Us</a></li>
                 <li class="drawer-menu-item"><a href="contactUs.htm" id="drawer_link1">Contact Us</a></li>

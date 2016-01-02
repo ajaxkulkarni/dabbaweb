@@ -24,7 +24,7 @@ public interface Constants {
 	//String MERCHANT_KEY = "SvGyqj";
 	String MERCHANT_SALT = "eCwWELxi"; // DEV
 	//String MERCHANT_SALT = "3pfnUWXj";
-	String ROOT_DIRECTORY = "D:/Resoneuronance/TiffEat/Data/Images/";
+	String ROOT_DIRECTORY = "F:/Resoneuronance/TiffEat/Data/Images/";
 	//String ROOT_DIRECTORY = "/home/tiffeat/Images/";
 	String ASSETS_ROOT = "/resources"; //DEV
 	//String ASSETS_ROOT = "../../resources/assets";
@@ -35,15 +35,10 @@ public interface Constants {
 	String HOST_URL = "www.tiffeat.com";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
-	//String MERCHANT_KEY = "gtKFFx"; // DEV
 	String MERCHANT_KEY = "SvGyqj";
-	//String MERCHANT_SALT = "eCwWELxi"; // DEV
 	String MERCHANT_SALT = "3pfnUWXj";
-	//String ROOT_DIRECTORY = "D:/Resoneuronance/TiffEat/Data/Images/";
-	String ROOT_DIRECTORY = "/home/tiffeat/Images/";
-	//String ASSETS_ROOT = "/resources"; //DEV
+	String ROOT_DIRECTORY = "F:/Resoneuronance/TiffEat/Data/Images/";
 	String ASSETS_ROOT = "../../resources/assets";
-	//String PAYMENT_URL = "https://test.payu.in/_payment"; //DEV
 	String PAYMENT_URL = "https://secure.payu.in/_payment";*/
 	
 	//Imp : Above fields affect the deployment
