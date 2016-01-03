@@ -4,10 +4,8 @@ body{
 }
 
 .hscroll{
-	width: 3000px; 
-	overflow-x: hidden;
+	display: inline-block;
 }
-
 /*---Css For Header-----*/
 
 .navbar-default{

@@ -127,7 +127,7 @@
 								Type</strong></td>
 
 						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								status</td>
+								status</td> 
 
 					</tr>
 					
