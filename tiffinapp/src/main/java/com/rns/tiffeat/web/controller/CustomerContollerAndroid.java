@@ -246,7 +246,7 @@ public class CustomerContollerAndroid implements Constants {
 	}
 	
 	@RequestMapping(value = "/getMenuAndroid", method = RequestMethod.POST)
-	public String getMenuAndroid(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder, ModelMap model) {
+	public @ResponseBody String getMenuAndroid(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder, ModelMap model) {
 		CustomerOrder order = new Gson().fromJson(customerOrder, CustomerOrder.class);
 		return new Gson().toJson(customerBo.getDailyContentForMeal(order.getMeal(), order.getMealType()));
 	}

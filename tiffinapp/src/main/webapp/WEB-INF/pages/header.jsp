@@ -52,7 +52,7 @@
             		<li class="drawer-menu-item"><a href="customerLogin.htm" id="drawer_link1">Login</a></li>
                 	<!-- <li class="drawer-menu-item"><a href="registerCustomer.htm" id="drawer_link1">Register</a></li> -->
             	</c:if>
-            	<li class="drawer-menu-item"><a href="home.htm" id="drawer_link1">Make an Order</a></li>
+            	<li class="drawer-menu-item"><a href="makeNewOrder.htm" id="drawer_link1">Make an Order</a></li>
                 <li class="drawer-menu-item"><a href="terms.htm" id="drawer_link1">Privacy Policy</a></li>
                 <li class="drawer-menu-item"><a href="aboutUs.htm" id="drawer_link1">About Us</a></li>
                 <li class="drawer-menu-item"><a href="contactUs.htm" id="drawer_link1">Contact Us</a></li>
@@ -73,12 +73,13 @@
         <div class="container">
             <div class="navbar-header">
 
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle_button1">
+              <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle_button1">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar">a</span>
+                    <span class="icon-bar">b</span>
+                    <span class="icon-bar">c</span>
                 </button>
+                -->
 
                 <a class="navbar-brand" href="home.htm">
                     <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>

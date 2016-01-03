@@ -65,7 +65,7 @@
 	<div class="wrapper">
 
 <div class="container add_meal">
- <a href="addNewMeal.htm" class="btn btn-default add_meal_btn">Add Meal</a>
+ <a href="addNewMeal.htm?vendorEmail=${vendor.email}" class="btn btn-default add_meal_btn">Add Meal</a>
  <button value="LUNCH" class="btn btn-default add_meal_btn" onclick="showLunch()">LUNCH MEALS</button>
  <button value="DINNER" class="btn btn-default add_meal_btn" onclick="showDinner()">DINNER MEALS</button>
  </div>
