@@ -1,0 +1,10 @@
+Orders flow and validation -->
+
+# Quick Order -- >
+  -- Inside a customer order object, following items should be present for order to be successful - 
+    - A valid customer (i.e. customer of particular ID should be present)
+    - A valid meal (i.e. meal of particular ID should be present)
+    - A valid address
+    - A valid google location
+    - A valid meal type
+  -- If meal type is not available for current date (i.e. meal is in cooking phase) the order date gets changed to next date.
