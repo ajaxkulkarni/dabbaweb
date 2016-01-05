@@ -227,7 +227,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/getMealOrders.htm", method = RequestMethod.GET)
 	public RedirectView getMealOrders(long mealId,MealType type ,ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
-			return new RedirectView("adminLogin");
+			return new RedirectView("adminLogin.htm");
 		}
 		Meal meal = new Meal();
 		meal.setId(mealId);
@@ -242,7 +242,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/allOrders.htm", method = RequestMethod.GET)
 	public RedirectView allOrders(ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
-			return new RedirectView("adminLogin");
+			return new RedirectView("adminLogin.htm");
 		}
 		manager.getAdmin().setCurrentVendor(null);
 		manager.getAdmin().setCurrentOrder(null);
