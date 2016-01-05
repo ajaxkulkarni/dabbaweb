@@ -24,9 +24,14 @@ Orders flow and validation -->
   -- If any of the meal type is not available for current date (i.e. meal is in cooking phase) the order date gets scheduled from next date.
 
 # Change order -- >
- -- For customer order to be changed from A to B - 
+  -- For customer order to be changed from A to B - 
     - A should be in prepare state
-    - B should be a valid customer order with valid meal,valid customer and valid location
+    - B should be a valid customer order (i.e. order of that ID is present) with valid meal,valid customer and valid location
     - Meal type selected of B should be available for that vendor i.e. vendor should provide meal for that meal type
     - B should be in prepare state of the same day (i.e. menu updated for that same day)
 
+# Cancel order -- >
+  -- For an order to be cancelled
+    - It should ve a valid customer order with valid meal
+    - Meal should be in prepare state
+    - A valid Daily content should be available for that meal type
