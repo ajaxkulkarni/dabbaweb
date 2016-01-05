@@ -43,7 +43,7 @@
                 </p>
                 </a>
 			<div class="desc">
-			This way, you choose to receive this tiffin daily, for lunch or for dinner,<br> or both.
+			This way, you choose to receive this tiffin daily, for lunch or for dinner,<br>or both.
             </div>
 </div>
 </div>
