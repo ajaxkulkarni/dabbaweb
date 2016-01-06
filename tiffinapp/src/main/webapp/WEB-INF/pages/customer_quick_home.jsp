@@ -98,6 +98,7 @@
 						<input type="hidden" name="area" value="${quickOrder.area}" /> 
 						<input type="hidden" name="address" value="${quickOrder.address}" />
 						<input type="hidden" name="location.address" value="${quickOrder.location.address}" />
+						<br/>
 						<input type="submit" name="" value="REPEAT?" class="btn order_button"/>
 					</form>
 				</div>

@@ -27,7 +27,7 @@
 <link href="<c:url value = "${resources}/css/FAQ.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/style.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/meal_format.css"/>" rel="stylesheet">
-
+<link href="<c:url value = "${resources}/css/terms_condition.css"/>" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <title>Header</title>
@@ -52,13 +52,13 @@
             		<li class="drawer-menu-item"><a href="customerLogin.htm" id="drawer_link1">Login</a></li>
                 	<!-- <li class="drawer-menu-item"><a href="registerCustomer.htm" id="drawer_link1">Register</a></li> -->
             	</c:if>
-            	<li class="drawer-menu-item"><a href="makeNewOrder.htm" id="drawer_link1">Make an Order</a></li>
+            	<li class="drawer-menu-item"><a href="makeNewOrder.htm" id="drawer_link1">Home</a></li>
                 <li class="drawer-menu-item"><a href="terms.htm" id="drawer_link1">Privacy Policy</a></li>
                 <li class="drawer-menu-item"><a href="aboutUs.htm" id="drawer_link1">About Us</a></li>
                 <li class="drawer-menu-item"><a href="contactUs.htm" id="drawer_link1">Contact Us</a></li>
                 <c:if test="${customer.email != null }">
                 	<li class="drawer-menu-item"><a href="logout.htm" id="drawer_link1">Logout</a></li>
-                	<li class="drawer-menu-item"><a href="customerHome.htm" id="drawer_link1">Home</a></li>
+                	<li class="drawer-menu-item"><a href="customerHome.htm" id="drawer_link1">Schedule Orders</a></li>
                 	<li class="drawer-menu-item"><a href="quickOrders.htm" id="drawer_link1">Quick Orders</a></li>
                 </c:if>
             </ul>

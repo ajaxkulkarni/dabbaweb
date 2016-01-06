@@ -39,7 +39,7 @@
                     </p>
                 </p>
                 <p>
-                    In these Terms, references to "you", "your" or "user" shall mean the end user accessing TIFFEAT, its contents and using the Services offered through TIFFEAT, and "we", "us" and "our" shall mean TIFFEAT, <a href="http://www.tiffeat.com/">www.tiffeat.com</a> and its affiliates. Portal shall mean and include Tiffeat Website, Mobile Application provided by TIFFEAT. "Participating Vendor" or "vendors" is a third party, which has agreed to co-operate with TIFFEAT to prepare and/or deliver the Goods or Services
+                    In these Terms, references to "you", "your" or "user" shall mean the end user accessing TIFFEAT, its contents and using the Services offered through TIFFEAT, and "we", "us" and "our" shall mean TIFFEAT, <strong><a href="http://www.tiffeat.com/">www.tiffeat.com</a></strong> and its affiliates. Portal shall mean and include Tiffeat Website, Mobile Application provided by TIFFEAT. "Participating Vendor" or "vendors" is a third party, which has agreed to co-operate with TIFFEAT to prepare and/or deliver the Goods or Services
                     <p>
                     </p>
                 </p>
