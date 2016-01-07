@@ -330,14 +330,6 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = "/quickOrder", method = RequestMethod.POST)
 	public RedirectView quickOrder(CustomerOrder customerOrder, String orderDate, ModelMap model) {
-
-		/*
-		 * if (customerBo.getAvailableMealType(customerOrder) == null) { return
-		 * new RedirectView("quickOrder.htm"); } if (customerOrder.getDate() ==
-		 * null) {
-		 * customerOrder.setDate(manager.getCustomer().getOrderInProcess(
-		 * ).getDate()); }
-		 */
 		customerOrder.setDate(CommonUtil.convertDate(orderDate));
 		if (PaymentType.CASH.equals(customerOrder.getPaymentType())) {
 			String result = customerBo.validateQuickOrder(customerOrder);
@@ -350,7 +342,7 @@ public class CustomerControllerWeb implements Constants {
 				return new RedirectView("quickOrder.htm");
 			}
 			customerBo.quickOrder(customerOrder);
-			return new RedirectView("customerHome.htm");
+			return new RedirectView("quickOrders.htm");
 		}
 
 		String result = customerBo.validateQuickOrder(customerOrder);
@@ -417,7 +409,7 @@ public class CustomerControllerWeb implements Constants {
 		String quickOrderResult = customerBo.quickOrder(orderInProcess);
 		if (!RESPONSE_OK.equals(quickOrderResult)) {
 			manager.setResult(quickOrderResult);
-			return new RedirectView("quickOrder.htm");
+			return new RedirectView("quickOrders.htm");
 		}
 		return new RedirectView("customerHome.htm");
 	}

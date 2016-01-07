@@ -16,6 +16,9 @@ import com.rns.tiffeat.web.google.Location;
 public class DataToBusinessConverters implements Constants {
 	
 	public static void convertVendor(Vendor currentVendor,com.rns.tiffeat.web.dao.domain.Vendor registeredVendor) {
+		if(registeredVendor == null) {
+			return;
+		}
 		currentVendor.setId(registeredVendor.getId());
 		currentVendor.setName(trimToEmpty(registeredVendor.getName()));
 		currentVendor.setEmail(trimToEmpty(registeredVendor.getEmail()));
@@ -29,6 +32,9 @@ public class DataToBusinessConverters implements Constants {
 	}
 	
 	public static void convertCustomer(com.rns.tiffeat.web.dao.domain.Customer registeredCustomer,Customer currentCustomer) {
+		if(registeredCustomer == null) {
+			return;
+		}
 		currentCustomer.setId(registeredCustomer.getId());
 		currentCustomer.setEmail(trimToEmpty(registeredCustomer.getEmail()));
 		currentCustomer.setName(trimToEmpty(registeredCustomer.getName()));
@@ -55,6 +61,9 @@ public class DataToBusinessConverters implements Constants {
 
 	public static Meal convertMeal(com.rns.tiffeat.web.dao.domain.Meal meal) {
 		com.rns.tiffeat.web.bo.domain.Meal mealToBeAdded = new com.rns.tiffeat.web.bo.domain.Meal();
+		if(meal == null) {
+			return mealToBeAdded;
+		}
 		mealToBeAdded.setId(meal.getId());
 		mealToBeAdded.setPrice(meal.getPrice());
 		mealToBeAdded.setTitle(trimToEmpty(meal.getTitle()));
@@ -98,7 +107,7 @@ public class DataToBusinessConverters implements Constants {
 		com.rns.tiffeat.web.bo.domain.Customer customer = new com.rns.tiffeat.web.bo.domain.Customer();
 		convertCustomer(order.getCustomerMeal().getCustomer(), customer);
 		convertCustomerOrder(order.getCustomerMeal(), customerOrder, customer);
-		customerOrder.setId(order.getId());
+		//customerOrder.setId(order.getId());
 		customerOrder.setDate(order.getDate());
 		customerOrder.setPaymentType(CommonUtil.getPaymentType(order.getPaymentType()));
 		customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));

@@ -185,10 +185,14 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (distance == null || MAX_DISTANCE_IN_METERS.compareTo(distance) < 0) {
 			return false;
 		}
-		if (VendorStatus.NA.equals(currentVendor.getStatus()) || VendorStatus.CLOSED.equals(currentVendor.getStatus())) {
+		if (isVendorClosed(currentVendor)) {
 			return false;
 		}
 		return true;
+	}
+
+	private boolean isVendorClosed(Vendor currentVendor) {
+		return VendorStatus.NA.equals(currentVendor.getStatus()) || VendorStatus.CLOSED.equals(currentVendor.getStatus());
 	}
 
 	public Vendor getVendorWithMeals(Vendor vendor) {
@@ -204,21 +208,6 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return vendor;
 	}
 
-	/*
-	 * public MealType[] getAvailableMealType(CustomerOrder order) { if (order
-	 * == null || order.getMeal() == null) { return null; } Meal meal =
-	 * mealDao.getMeal(order.getMeal().getId()); if (meal == null) { return
-	 * null; }
-	 * 
-	 * DailyMeal lunchMenu = dailyMealDao.getDailyMealsForMealType(meal.getId(),
-	 * MealType.LUNCH); List<MealType> mealTypesList = new
-	 * ArrayList<MealType>(); if (checkIfAvailable(meal, lunchMenu)) {
-	 * mealTypesList.add(MealType.LUNCH); } DailyMeal dinnerMenu =
-	 * dailyMealDao.getDailyMealsForMealType(meal.getId(), MealType.DINNER); if
-	 * (checkIfAvailable(meal, dinnerMenu)) {
-	 * mealTypesList.add(MealType.DINNER); } return (MealType[])
-	 * mealTypesList.toArray(new MealType[mealTypesList.size()]); }
-	 */
 
 	private boolean checkIfAvailable(Meal meal, DailyMeal menu) {
 		if (menu == null) {
@@ -275,6 +264,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 		if (!isMealAvailableForMealType(meal, customerOrder.getMealType())) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
+		}
+		Vendor currentVendor = new Vendor();
+		DataToBusinessConverters.convertVendor(currentVendor, meal.getVendor());
+		if(isVendorClosed(currentVendor)) {
+			return ERROR_VENDOR_NOT_AVAILABLE;
 		}
 		return RESPONSE_OK;
 	}
@@ -493,6 +487,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (!isMealAvailableForMealType(meal, order.getMealType())) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
 		}
+		Vendor currentVendor = new Vendor();
+		DataToBusinessConverters.convertVendor(currentVendor, meal.getVendor());
+		if(isVendorClosed(currentVendor)) {
+			return ERROR_VENDOR_NOT_AVAILABLE;
+		}
 		com.rns.tiffeat.web.dao.domain.Customer customer = customerDao.getCustomer(order.getCustomer().getId());
 		if (customer == null) {
 			return ERROR_INVALID_CUSTOMER_DETAILS;
@@ -695,10 +694,17 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	public DailyContent getDailyContentForMeal(com.rns.tiffeat.web.bo.domain.Meal meal, MealType mealType) {
-		if (meal == null) {
+		if (meal == null || mealType == null) {
 			return null;
 		}
-		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), mealType);
+		Meal currentMeal = mealDao.getMeal(meal.getId());
+		if(MealType.LUNCH.equals(mealType) && !StringUtils.equals(MealStatus.PREPARE.name(),(currentMeal.getLunchStatus()))) {
+			return null;
+		}
+		if(MealType.DINNER.equals(mealType) && !StringUtils.equals(MealStatus.PREPARE.name(),(currentMeal.getDinnerStatus()))) {
+			return null;
+		}
+		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(currentMeal.getId(), mealType);
 		return DataToBusinessConverters.convertDailyContent(dailyMeal);
 	}
 

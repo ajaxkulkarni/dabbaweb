@@ -102,7 +102,7 @@
 						<td class="table-sort" style="padding: 0 35px"><strong>Location</strong></td>
 
 						<td class="table-sort" style="padding: 0 35px"><strong>Address</strong></td>
-
+						
 						<td class="table-sort" style="padding: 0 35px"><strong>Order
 								date</strong></td>
 
@@ -150,7 +150,7 @@
 								<td style="padding: 0 35px">${order.location.address}</td>
 
 								<td style="padding: 0 35px">${order.address}</td>
-
+								
 								<td style="padding: 0 35px"><fmt:formatDate
 										value="${order.date}" pattern="yyyy-MM-dd" /></td>
 

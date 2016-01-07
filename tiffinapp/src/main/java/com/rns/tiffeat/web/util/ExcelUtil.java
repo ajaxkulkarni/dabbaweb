@@ -122,6 +122,9 @@ public class ExcelUtil {
 				if (order.getStatus() != null) {
 					aRow.createCell(14).setCellValue(order.getStatus().name());
 				}
+				if (order.getLocation() != null) {
+					aRow.createCell(15).setCellValue(order.getLocation().getAddress());
+				}
 			}
 		}
 

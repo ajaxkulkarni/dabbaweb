@@ -114,6 +114,7 @@
         <h4 class="prev_order_heading">Recent orders</h4>
 	<div class="row">
 		<c:forEach items="${customer.previousOrders}" var="order">
+		<c:if test="${order.meal.vendor.status != 'NA' && order.meal.vendor.status != 'CLOSED'  }">
 		<div class="col-md-3">
 			<div class="prev_order_card">
 				<img src="getMealImage.htm?mealId=${order.meal.id}" class="img-responsive" id = "prevOrderImage">
@@ -136,6 +137,7 @@
 				</form>
 			</div>
 		</div>
+		</c:if>
 		</c:forEach>
 	</div>
 	<br/>

@@ -80,7 +80,9 @@
         </div>
       </c:when>
       <c:otherwise>
+      	<c:if test="${result != 'OK' }">
       	<h4 class="menu_card_heading">${result}</h4>
+      	</c:if>
       </c:otherwise>
       </c:choose>
       </div>
