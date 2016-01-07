@@ -25,16 +25,8 @@ function showModal() {
     	}
     });
 	
-	var radios = document.getElementsByName('mealType');
-	var mealType;
-	for (var i = 0, length = radios.length; i < length; i++) {
-	    if (radios[i].checked) {
-	        mealType = radios[i].value;
-	        break;
-	    }
-	}
 	//alert("Here!" + mealType);
-	$("#modalMealType").text("Meal Type :" +mealType);
+	$("#modalMealType").text("Meal Type :" + $("#mealType").val());
 	$("#modalAddress").text("Address : " + $("#txtAddress").val());
 	$("#payment_Modal").modal('show');
 	return false;
@@ -67,6 +59,7 @@ function proceed() {
                   <input type="hidden" name="meal.title" value="${customerOrder.meal.title}"/>
                   <input type="hidden" name="id" value="${customerOrder.id}"/>
                   <input type="hidden" name="location.address" value="${customerOrder.location.address}"/>
+                  <input id="mealType" type="hidden" name="mealType" value="${customerOrder.mealType}"/>
                   <div class="details">
                   Meal : ${customerOrder.meal.title} <br/>
                   Price : ${customerOrder.meal.price} <br/>
