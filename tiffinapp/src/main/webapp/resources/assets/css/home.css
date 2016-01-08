@@ -1,6 +1,50 @@
 body{
 	background-color: white;
 }
+/*
+
+.navbar-nav a{
+font-size:20px;
+padding-top:10px;
+padding-left:20px;
+font-weight:bold;
+}
+
+.navbar-nav a:hover{
+font-size:20px;
+padding-top:10px;
+padding-left:20px;
+font-weight:bold;
+color: #fff;
+}
+*/
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    font-size:20px;
+    Padding-top:22px;
+    padding-left:16px;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: red;
+    font-size:20px;
+    Padding-top:22px;
+    padding-left:16px;
+}
+
+
+
+
+.navbar-text{
+padding-left:10px;
+padding-top:5px;
+font-size:30px;
+
+}
+
+
 
 /*Css for Banner*/
 .tiffin_banner{
@@ -25,6 +69,7 @@ body{
 	background-color: #8BC34A;
 	padding: 56px 32px;
 }
+
 
 .sub_div_heading{
 	font-weight: 400;
@@ -112,4 +157,23 @@ color:red;
 
 .add_wallet a:hover{
 color:red;
+}
+
+.price{
+padding-left:570px;
+font-weight:bold;
+font-size:18px;
+}
+
+.login a{
+font-size:30px;
+color:red;
+
+padding-right:30px;
+
+}
+.login a:hover{
+font-size:30px;
+color:red;
+
 }

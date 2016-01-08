@@ -32,67 +32,80 @@
 
 <title>Header</title>
 </head>
-<body class="drawer drawer-left" >
-
-<!--    Drawer navbar-->
-<header role="banner">
-    <div class="drawer-header">
-        <button type="button" class="drawer-toggle drawer-hamburger" id="drawer_button1">
-            <span class="sr-only">toggle navigation</span>
-            <span class="drawer-hamburger-icon"></span>
-        </button>
-    </div>
-
-    <div class="drawer-main drawer-default">
-        <nav class="drawer-nav" role="navigation">
-        <div class="drawer-brand"><a href="home.htm" id="drawer_link1"><span class="tiff">Tiff</span><span class="eat">Eat</span></a></div>
-
-            <ul class="drawer-menu">
-            	<c:if test="${customer.email == null }">
-            		<li class="drawer-menu-item"><a href="customerLogin.htm" id="drawer_link1">Login</a></li>
-                	<!-- <li class="drawer-menu-item"><a href="registerCustomer.htm" id="drawer_link1">Register</a></li> -->
-            	</c:if>
-            	<li class="drawer-menu-item"><a href="makeNewOrder.htm" id="drawer_link1">Home</a></li>
-                <li class="drawer-menu-item"><a href="terms.htm" id="drawer_link1">Privacy Policy</a></li>
-                <li class="drawer-menu-item"><a href="aboutUs.htm" id="drawer_link1">About Us</a></li>
-                <li class="drawer-menu-item"><a href="contactUs.htm" id="drawer_link1">Contact Us</a></li>
-                <c:if test="${customer.email != null }">
-                	<li class="drawer-menu-item"><a href="logout.htm" id="drawer_link1">Logout</a></li>
-                	<li class="drawer-menu-item"><a href="customerHome.htm" id="drawer_link1">Schedule Orders</a></li>
-                	<li class="drawer-menu-item"><a href="quickOrders.htm" id="drawer_link1">Quick Orders</a></li>
-                </c:if>
-            </ul>
-
-            <div class="drawer-footer"><span></span></div>
-        </nav>
-    </div>
-</header>
+<body>
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="home.htm">
+    <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
+</a>
     
-    <div class="drawer-overlay">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
+  
+  </div>
 
-              <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle_button1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar">a</span>
-                    <span class="icon-bar">b</span>
-                    <span class="icon-bar">c</span>
-                </button>
-                -->
-
-                <a class="navbar-brand" href="home.htm">
-                    <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
-                </a>
-            </div>
-            <c:if test="${customer.email != null }">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <p class="navbar-text navbar-right" id="navbar_link1">${customer.name}</p>
-            </div>
-            </c:if>
-        </div>
-    </nav>
-	</div>
-
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+     <!--<li class="active"><a href="customerLogin.htm">Login <span class="sr-only">(current)</span></a></li>-->
+     <c:if test="${customer.email == null }">
+      <li><a href="customerLogin.htm">Login/Register</a></li>
+      </c:if>
+      
+      <li><a href="makeNewOrder.htm">Home</a></li>
+      <li><a href="terms.htm">Privacy Policy</a></li>
+      <li><a href="aboutUs.htm">About Us</a></li>
+      <li><a href="contactUs.htm">Contact Us</a></li>
+      
+      <c:if test="${customer.email != null }">
+      <li><a href="customerHome.htm">Schedule Orders</a></li>
+      <li><a href="quickOrders.htm">Quick Orders</a></li>
+      <li><a href="logout.htm">Logout</a></li>
+      <p class="navbar-text" id="navbar_link1">Welcome ${customer.name}</p>
+      </c:if>
+      
+     
+      
+      <!--<li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">One more separated link</a></li>
+        </ul>
+      </li>
+    </ul>-->
+   <!-- <form class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>-->
+    <!--<ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Link</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a>privacy</li>
+          <li><a href="#">Something else here</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </li>
+    </ul>-->
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
 </body>
 </html>

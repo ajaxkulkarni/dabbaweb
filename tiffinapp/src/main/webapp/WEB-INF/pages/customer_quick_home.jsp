@@ -67,8 +67,10 @@
 												<td>Extra :</td>
 												<td>${quickOrder.content.subItem4}</td>
 											</tr>
+											
 									</table>
 								</div>
+								
 								<div class="col-md-6">
 									<%-- <h3 class="order_details_title">Your meal is ${quickOrder.meal.status}</h3> --%>
 									<c:choose>
@@ -90,6 +92,11 @@
 							</c:when>
 							</c:choose>
 					</div>
+					
+					<div class="price">
+					Price: ${quickOrder.meal.price}
+					</div>
+				
 					<form action="repeatOrder" method="post">
 						<input type="hidden" name="meal.id" value="${quickOrder.meal.id}" /> 
 						<input type="hidden" name="meal.title" value="${quickOrder.meal.title}" /> 
@@ -100,6 +107,7 @@
 						<input type="hidden" name="location.address" value="${quickOrder.location.address}" />
 						<br/>
 						<input type="submit" name="" value="REPEAT?" class="btn order_button"/>
+						
 					</form>
 				</div>
 			</c:forEach>
