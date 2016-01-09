@@ -95,8 +95,10 @@ public class MailUtil {
 				.append(CommonUtil.convertDateToString(order.getDate())).append(MAIL_NEW_LINE)
 				.append("Your order ID is - ").append(order.getId()).append(MAIL_NEW_LINE)
 				.append("You can track your order status from www.tiffeat.com").append(MAIL_NEW_LINE)
-				.append("Thank you for ordering tiffin from us!!").append(MAIL_NEW_LINE)
-				.append("For any queries please feel free to contact us at support@tiffeat.com or 8087538194");
+				.append("Thank you for ordering your meal from us!!").append(MAIL_NEW_LINE)
+				.append("For any queries please feel free to contact us at support@tiffeat.com or 8087538194").append(MAIL_NEW_LINE).append(MAIL_NEW_LINE)
+				.append("We would love it if you like us on Facebook at: https://www.facebook.com/tiffeat/").append(MAIL_NEW_LINE)
+				.append("We often post something that you will find interesting.");
 
 		return mailBuilder.toString();
 	}
