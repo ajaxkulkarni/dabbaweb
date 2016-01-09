@@ -29,8 +29,8 @@
     <!--    Start of Navbar -->
     <nav class="navbar navbar-default">
         <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="">
+            <div class="">
+                <a class="" href="vendorDetails.htm">
                     <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
                 </a>
             </div>
@@ -41,7 +41,7 @@
     <br /> 
         <form action="addMeal" method="post" enctype="multipart/form-data">
         <div class="container">
-        <div class="wow bounceInUp">
+        <div class="">
             <div class="main">
                 <div class="row sub">
                      <h4>Add New Meal</h4>

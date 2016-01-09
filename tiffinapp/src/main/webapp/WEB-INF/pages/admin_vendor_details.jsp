@@ -213,7 +213,7 @@
             			<a href="updateDailyContent.htm?contentId=${meal.dinnerMenu.id}" class="btn btn-primary">Edit Menu</a>
         		</div> --%>
 					</div>
-					<div class="row">
+					<div class="">
 						<div class="view_orders">
 							<a href="getMealOrders.htm?mealId=${meal.id}&type=DINNER">View
 								Orders</a>

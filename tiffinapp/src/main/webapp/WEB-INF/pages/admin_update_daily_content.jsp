@@ -23,8 +23,8 @@
 <body id="page-top" class="index">
 <nav class="navbar navbar-default">
         <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="">
+            <div class="">
+                <a class="" href="vendorDetails.htm">
                     <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
                 </a>
             </div>
@@ -47,7 +47,7 @@
                     </label>
 			      	</c:forEach> --%>
                     <div class="col-md-5 type">
-                         <p>${mealType}</p>
+                         <p>${dailyContent.mealType}</p>
                          	<input type="hidden" name="id" value="${dailyContent.id}"/>
                          	<%-- <input type="hidden" name="date" value="${dailyContent.date}"/> --%>
                             <div class="row rowdiv">
@@ -93,7 +93,7 @@
                             ${result}
                             <div class="row rowdiv">
                                 <div class="col-md-5">
-                                    <input type="submit" value="Add" class="form-control">
+                                    <input type="submit" value="Add" class="submit_button">
                                 </div>
                             </div>
                     </div> 
