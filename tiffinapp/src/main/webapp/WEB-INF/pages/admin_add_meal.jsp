@@ -37,8 +37,7 @@
         </div>
     </nav>
     <!--        End of Navbar part-->
-    <br />
-    <br /> 
+
         <form action="addMeal" method="post" enctype="multipart/form-data">
         <div class="container">
         <div class="">
