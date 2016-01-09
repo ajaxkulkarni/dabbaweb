@@ -465,6 +465,22 @@ public class CustomerControllerWeb implements Constants {
 		return new RedirectView("customerHome.htm");
 	}
 
+	
+	@RequestMapping(value = "/scheduledOrders.htm", method = RequestMethod.GET)
+	public String scheduledHomePage(ModelMap model) {
+		customerBo.setCurrentCustomer(manager.getCustomer());
+		manager.getCustomer().setOrderInProcess(null);
+		if (StringUtils.isEmpty(manager.getCustomer().getEmail())) {
+			prepareIndexPage(model);
+			return "index";
+		}
+		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
+		model.addAttribute(MODEL_RESULT, manager.getResult());
+		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
+		manager.setResult(null);
+		return "customer_scheduled_home";
+	}
+	
 	@RequestMapping(value = "/customerHome.htm", method = RequestMethod.GET)
 	public String customerHomePage(ModelMap model) {
 		customerBo.setCurrentCustomer(manager.getCustomer());

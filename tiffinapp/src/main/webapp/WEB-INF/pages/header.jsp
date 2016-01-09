@@ -64,8 +64,8 @@
       <li><a href="contactUs.htm">Contact Us</a></li>
       
       <c:if test="${customer.email != null }">
-      <li><a href="customerHome.htm">Schedule Orders</a></li>
-      <li><a href="quickOrders.htm">Quick Orders</a></li>
+      <li><a href="scheduledOrders.htm">My Scheduled Orders</a></li>
+      <li><a href="quickOrders.htm">My Quick Orders</a></li>
       <li><a href="logout.htm">Logout</a></li>
       <p class="navbar-text" id="navbar_link1">Welcome ${customer.name}</p>
       </c:if>

@@ -75,6 +75,8 @@ public class Admin implements Constants{
 		}
 		lunchOrders = new ArrayList<CustomerOrder>();
 		dinnerOrders = new ArrayList<CustomerOrder>();
+		quickOrderCount = 0;
+		scheduledOrderCount = 0;
 		for(CustomerOrder order:todaysOrders) {
 			if(MealFormat.QUICK.equals(order)) {
 				quickOrderCount++;

@@ -30,6 +30,9 @@
 				<!-- <strong>Danger!</strong> -->${result}
 			</div>
 		</c:if>
+		<c:if test="${fn:length(customer.scheduledOrder) == 0}">
+			You havent't scheduled any Tiffins right now. Schedule a Dinner or Lunch  tiffin to get a daily meal.
+		</c:if>
 		<c:forEach items="${customer.scheduledOrder}" var="order">
 		<fmt:formatDate pattern="EEE, d MMM yyyy" value="${order.content.date}" var="orderDate"/>
         <h4 class="order_summary_heading">You have scheduled to receive ${order.mealType} tiffin from ${order.meal.vendor.name} Tiffins.</h4>

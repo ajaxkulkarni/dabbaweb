@@ -75,6 +75,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/admin.htm", method = RequestMethod.GET)
 	public String initAdmin(ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		prepareAdminHome(model);
@@ -83,9 +84,13 @@ public class AdminControllerWeb implements Constants {
 	
 	@RequestMapping(value = "/adminLogin.htm", method = RequestMethod.GET)
 	public String adminLogin(ModelMap model) {
+		prepareAdminLogin(model);
+		return "admin_login";
+	}
+
+	private void prepareAdminLogin(ModelMap model) {
 		model.addAttribute(MODEL_ADMIN, new Admin());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
-		return "admin_login";
 	}
 	
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
@@ -109,6 +114,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/addVendor.htm", method = RequestMethod.GET)
 	public String initAddVendor(ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		model.addAttribute(MODEL_VENDOR, new Vendor());
@@ -120,6 +126,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/editVendor.htm", method = RequestMethod.GET)
 	public String initEditVendor(String vendor,ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		Vendor registeredVendor = new Vendor();
@@ -155,6 +162,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/vendorDetails.htm", method = RequestMethod.GET)
 	public String viewVendorDetails(ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		Vendor vendorWithMeals = customerBo.getVendorWithMeals(manager.getAdmin().getCurrentVendor());
@@ -173,6 +181,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/addNewMeal.htm", method = RequestMethod.GET)
 	public String initAddMeal(String vendorEmail,ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		Vendor registeredVendor = new Vendor();
@@ -188,6 +197,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/editMeal.htm", method = RequestMethod.GET)
 	public String initEditMeal(long mealId,ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		Meal meal = new Meal();
@@ -253,6 +263,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/orders.htm", method = RequestMethod.GET)
 	public String getOrders(ModelMap model,OrderStatus status,String dateRange) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		CustomerOrder currentOrder = manager.getAdmin().getCurrentOrder();
@@ -277,6 +288,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/addDailyContent.htm", method = RequestMethod.GET)
 	public String initAddDailyContent(long mealId,MealType mealType,ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		model.addAttribute(MEAL_ID, mealId);
@@ -314,6 +326,7 @@ public class AdminControllerWeb implements Constants {
 	@RequestMapping(value = "/updateDailyContent.htm", method = RequestMethod.GET)
 	public String initUpdateDailyContent(long contentId,MealType type, ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
 			return "admin_login";
 		}
 		DailyContent content = new DailyContent();
