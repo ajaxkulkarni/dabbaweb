@@ -15,39 +15,12 @@
 <meta name="author" content="">
 
 <title></title>
-<link rel="stylesheet" href="css/stylesheet.css">
-<link href='http://fonts.googleapis.com/css?family=Roboto'
-	rel='stylesheet' type='text/css'>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-<link href="<c:url value = "${resources}/css/animate.css"/>"
-	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/admin_edit_meal.css"/>"
-	rel="stylesheet">
-<script src="<c:url value="${resources}/js/jquery.min.js"/>"></script>
-
+	<!-- animate.css admin_edit_meal.css jquery.min.js -->
+	<link href="<c:url value = "${resources}/css/animate.css"/>" rel="stylesheet">  
+	<link href="<c:url value = "${resources}/css/admin_edit_meal.css"/>" rel="stylesheet">
 </head>
 <body>
-	<!--    Start of Navbar -->
-	<nav class="navbar navbar-default">
-		<div class="container">
-			<div class="">
-				<a class="" href="vendorDetails.htm">
-					<h4 class='tiff'>
-						Tiff<span class="eat">Eat</span>
-					</h4>
-				</a>
-			</div>
-		</div>
-	</nav>
-	<!--        End of Navbar part-->
+	<%@include file="admin_header.jsp" %>
 	<br />
 	<br />
 

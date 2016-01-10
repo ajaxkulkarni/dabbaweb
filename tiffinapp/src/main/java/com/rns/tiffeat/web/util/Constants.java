@@ -124,6 +124,7 @@ public interface Constants {
 	String MODEL_VENDOR_STATUS = "vendorStatus";
 	String MODEL_LOCATION = "location";
 	String MODEL_ERROR = "errorMsg";
+	String MODEL_MEALS = "meals";
 	
 	String PARAMETER_APPENDER = "&";
 	String SPACE_CHAR = "%20";

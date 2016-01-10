@@ -12,6 +12,7 @@ public class CustomerOrder implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long id;
+	private long customerOrderId;
 	private Meal meal;
 	private Date date;
 	private MealType mealType;
@@ -109,6 +110,12 @@ public class CustomerOrder implements Serializable {
 	}
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	public long getCustomerOrderId() {
+		return customerOrderId;
+	}
+	public void setCustomerOrderId(long customerOrderId) {
+		this.customerOrderId = customerOrderId;
 	}
 	
 }

@@ -10,28 +10,13 @@
 <head>
   <title>TiffEat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-<!--  <link rel="stylesheet" href="css/meals_select.css">-->
-  <link href="<c:url value = "${resources}/css/meals_select.css"/>" rel="stylesheet">  
+<!-- same as add_daily_content.jsp -->
+<link href="<c:url value = "${resources}/css/meals_select.css"/>" rel="stylesheet">
 </head>
 
 <body id="page-top" class="index">
-<nav class="navbar navbar-default">
-        <div class="container">
-            <div class="">
-                <a class="" href="vendorDetails.htm">
-                    <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
-                </a>
-            </div>
-        </div>
-    </nav>
 
-    
+    <%@include file="admin_header.jsp" %>
     <br />
     <br />
 
@@ -40,12 +25,6 @@
 	<form action="updateDailyContent" method="post">         
         <div class="main">
                 <div class="row Lunch">
-                    <%-- <c:forEach var="type" items="${mealType}">
- 					 <label class="options" for="option-1">
-                      <input type="radio" <c:if test="${dailyContent.mealType eq type}">checked</c:if> id="option-1" class="" name="mealType" value="${type}" autofocus/>
-                      <span class="">${type}</span>
-                    </label>
-			      	</c:forEach> --%>
                     <div class="col-md-5 type">
                          <p>${dailyContent.mealType}</p>
                          	<input type="hidden" name="id" value="${dailyContent.id}"/>

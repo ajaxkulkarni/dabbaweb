@@ -15,5 +15,6 @@ public interface MealDao {
 	
 	void editMeal(com.rns.tiffeat.web.dao.domain.Meal mealToCook, List<Order> orders);
 	void addCustomerMeals(List<CustomerMeal> meals, Meal meal);
+	List<Meal> getAllMeals();
 	
 }

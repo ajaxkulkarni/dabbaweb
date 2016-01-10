@@ -84,7 +84,7 @@ public class DataToBusinessConverters implements Constants {
 		if(latestMeal == null) {
 			return;
 		}
-		customerOrder.setId(latestMeal.getId());
+		customerOrder.setCustomerOrderId(latestMeal.getId());
 		customerOrder.setCustomer(currentCustomer);
 		customerOrder.setArea(AREAS.get(trimToEmpty(latestMeal.getPinCode())));
 		customerOrder.setAddress(trimToEmpty(latestMeal.getAddress()));
@@ -107,7 +107,7 @@ public class DataToBusinessConverters implements Constants {
 		com.rns.tiffeat.web.bo.domain.Customer customer = new com.rns.tiffeat.web.bo.domain.Customer();
 		convertCustomer(order.getCustomerMeal().getCustomer(), customer);
 		convertCustomerOrder(order.getCustomerMeal(), customerOrder, customer);
-		//customerOrder.setId(order.getId());
+		customerOrder.setId(order.getId());
 		customerOrder.setDate(order.getDate());
 		customerOrder.setPaymentType(CommonUtil.getPaymentType(order.getPaymentType()));
 		customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));

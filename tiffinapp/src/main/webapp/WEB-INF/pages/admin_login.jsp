@@ -10,28 +10,15 @@
  <html>
 <head>
 
- 	<link href="<c:url value="${resources}/css/bootstrap.min.css"/>" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="<c:url value="${resources}/css/admin_login.css"/>" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    
+<!-- admin_login.css -->    
+<link href="<c:url value="${resources}/css/admin_login.css"/>" rel="stylesheet">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 </head>
 <body>
-<nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="">
-                    <h4 class='tiff'>Tiff<span class="eat">Eat</span></h4>
-                </a>
-            </div>
-        </div>
-    </nav>
+
+<%@include file="admin_header.jsp" %>
 
 <div class="main">
 		<form action="adminLogin" method="post">

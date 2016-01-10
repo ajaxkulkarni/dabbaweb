@@ -84,5 +84,14 @@ public class MealDaoImpl implements MealDao {
 		meal.getCustomerMeals().addAll(meals);
 		session.close();
 	}
+
+	public List<Meal> getAllMeals() {
+		List<Meal> meals = new ArrayList<Meal>();
+		Session session = this.sessionFactory.openSession();
+		Query createQuery = session.createQuery("from Meal");
+		meals = createQuery.list();
+		session.close();
+		return meals;
+	}
 	
 }

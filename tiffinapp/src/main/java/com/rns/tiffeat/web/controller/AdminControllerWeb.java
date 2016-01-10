@@ -111,6 +111,18 @@ public class AdminControllerWeb implements Constants {
 		manager.getAdmin().setCurrentOrder(null);
 	}
 	
+	@RequestMapping(value = "/meals.htm", method = RequestMethod.GET)
+	public String initMeals(ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
+			return "admin_login";
+		}
+		manager.getAdmin().setCurrentVendor(null);
+		model.addAttribute(MODEL_MEALS, vendorBo.getAllMeals());
+		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
+		return "admin_meals";
+	}
+	
 	@RequestMapping(value = "/addVendor.htm", method = RequestMethod.GET)
 	public String initAddVendor(ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
@@ -231,7 +243,7 @@ public class AdminControllerWeb implements Constants {
 			manager.setResult(resultMsg);
 			return new RedirectView("editMeal.htm?vendorEmail=" +meal.getId());
 		}
-		return new RedirectView("vendorDetails.htm");
+		return redirectToMealsScreen();
 	}
 	
 	@RequestMapping(value = "/getMealOrders.htm", method = RequestMethod.GET)
@@ -320,6 +332,13 @@ public class AdminControllerWeb implements Constants {
 			manager.setResult(resultMsg);
 			return new RedirectView("addDailyContent.htm?mealId=" +mealId);
 		}
+		return redirectToMealsScreen();
+	}
+
+	private RedirectView redirectToMealsScreen() {
+		if(manager.getAdmin().getCurrentVendor() == null) {
+			return new RedirectView("meals.htm");
+		}
 		return new RedirectView("vendorDetails.htm");
 	}
 	
@@ -345,7 +364,7 @@ public class AdminControllerWeb implements Constants {
 			manager.setResult(resultMsg);
 			return new RedirectView("updateDailyContent.htm?mealId=" + dailyMeal.getId());
 		}
-		return new RedirectView("vendorDetails.htm");
+		return redirectToMealsScreen();
 	}
 	
 	@RequestMapping(value = "/startCooking", method = RequestMethod.GET)
@@ -353,7 +372,7 @@ public class AdminControllerWeb implements Constants {
 		Meal meal = new Meal();
 		meal.setId(mealId);
 		vendorBo.startCooking(meal,mealType);
-		return new RedirectView("vendorDetails.htm");
+		return redirectToMealsScreen();
 	}
 	
 	@RequestMapping(value = "/startDispatch", method = RequestMethod.GET)
@@ -361,7 +380,7 @@ public class AdminControllerWeb implements Constants {
 		Meal meal = new Meal();
 		meal.setId(mealId);
 		vendorBo.startDispatch(meal,mealType);
-		return new RedirectView("vendorDetails.htm");
+		return redirectToMealsScreen();
 	}
 	
 	@RequestMapping(value = "/delilverTiffins", method = RequestMethod.POST)
@@ -384,8 +403,6 @@ public class AdminControllerWeb implements Constants {
 		CustomerOrder orderToCancel = new CustomerOrder();
 		orderToCancel.setId(order);
 		return vendorBo.cancelOrder(orderToCancel);
-		/*manager.setResult(result);
-		return new RedirectView("orders.htm");*/
 	}
 	@RequestMapping(value = "/getVendorProfilePic.htm", method = RequestMethod.GET)
 	public void getVendorImage(String vendorEmail, HttpServletResponse response, ModelMap model) {

@@ -9,20 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link href="<c:url value = "${resources}/css/bootstrap.min.css"/>" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${resources}/tablesort.css">
-<link rel="stylesheet" type="text/css" href="${resources}/styles.css">
-<!-- Custom CSS -->
-<link href="<c:url value = "${resources}/css/admin_view_orders.css"/>" rel="stylesheet">
 
-<!-- Custom Fonts -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-<link href="<c:url value = "${resources}/css/daterangepicker.css" />" rel="stylesheet">
-<script type="text/javascript" src="<c:url value = "${resources}/js/jquery-1.11.2.min.js"/>"></script>
-<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script> -->
 <script type="text/javascript">
     function cancel(orderId) {
         $.ajax({
@@ -40,21 +27,13 @@
     }
 </script>
 
+<!-- daterangepicker.css admin_view_orders.css -->
+<link href="<c:url value = "${resources}/css/daterangepicker.css" />" rel="stylesheet">
+<link href="<c:url value = "${resources}/css/admin_view_orders.css"/>" rel="stylesheet">
+
 <body>
 
-<!--    Start of Navbar -->
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="">
-                    <h4 class='tiff'>Tiff<span class="eat">Eat</span>-Orders</h4>
-                </a>
-            </div>
-        </div>
-    </nav>
-    <!--        End of Navbar part-->
-
-
+	<%@include file="admin_header.jsp" %>
 	
 	<div class="container" id="view_order_div">
 			<a href = "admin.htm?vendorEmail=${vendor.email}" class="btn btn-default back_btn1">Back</a>
@@ -137,7 +116,7 @@
 							<tr>
 							
 								<div class="table-sort">
-								<td style="padding: 0 18px">${order.id}</td>
+								<td style="padding: 0 18px">${order.customerOrderId}</td>
 
 								<td style="padding: 0 35px">${order.customer.name}</td>
 
@@ -175,7 +154,7 @@
 									<td><input type="checkbox" name="orders"
 										value="${order.id}" />Deliver</td>
 								</c:if>
-								<c:if test="${order.status == 'ORDERED'}">
+								<c:if test="${order.status == 'ORDERED' && order.mealStatus == 'PREPARE'}">
 									<%-- <form action="cancelCustomerOrder" method="post"> --%>
 									<%-- <input type="hidden" name="id" value="${order.id}"/> --%>
 									<td><input type="button" value="Cancel"

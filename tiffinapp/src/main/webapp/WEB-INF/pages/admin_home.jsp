@@ -8,27 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<link href="<c:url value="${resources}/css/bootstrap.min.css"/>"
-	rel="stylesheet">
-<!-- Custom CSS -->
-<link href="<c:url value="${resources}/css/admin_home.css"/>"
-	rel="stylesheet">
-<!-- Custom Fonts -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css">
-<link
-	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css">
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<!--      DataTables javascript -->
-<script src="resources/assets/js/jquery-1.11.3.min.js"></script>
-<script src="resources/assets/js/dataTables.bootstrap.min.js"></script>
-<script src="resources/assets/js/jquery.dataTables.min.js"></script>
+<link href="<c:url value="${resources}/css/admin_home.css"/>" rel="stylesheet">
 <script>
 	$(document).ready(function() {
 		$('#order_table1').DataTable({
@@ -37,23 +17,17 @@
 	});
 </script>
 <body>
-	<!--    Start of Navbar -->
-	<nav class="navbar navbar-default">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="">
-				<h4 class='tiff'>
-					Tiff<span class="eat">Eat</span>- Vendors
-				</h4>
-			</a>
-		</div>
-	</div>
-	</nav>
-	<!--        End of Navbar part-->
+
+	<%@include file="admin_header.jsp" %>
 
 	<div class="container view_order">
 		<a href="allOrders.htm" class="btn btn-default view_order_btn">View
 			All Orders</a>
+	</div>
+	
+	<div class="container view_order">
+		<a href="meals.htm" class="btn btn-default view_order_btn">View
+			Meals</a>
 	</div>
 
 	<!--    vendor List Div-->

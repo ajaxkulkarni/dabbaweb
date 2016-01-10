@@ -8,20 +8,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="<c:url value="${resources}/css/bootstrap.min.css"/>"
-	rel="stylesheet">
-<!-- Custom CSS -->
-<link href="<c:url value="${resources}/css/freelancer.css"/>"
-	rel="stylesheet">
 
 
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css">
-<link
-	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Vendor Details</title>
 <script type="text/javascript">
@@ -36,27 +24,13 @@
 	}
 </script>
 
+	<!-- freelancer.css -->
+<link href="<c:url value="${resources}/css/freelancer.css"/>" rel="stylesheet">
 </head>
 <body>
 
-
-	<!--    Start of Navbar -->
-	<nav class="navbar navbar-default">
-	<div class="container">
-		<div class="">
-			<a class="" href="admin.htm">
-				<h4 class='tiff'>
-					Tiff<span class="eat">Eat</span>
-				</h4>
-			</a>
-		</div>
-		<div class="username">
-			<a href="editVendor.htm?vendor=${vendor.email}">${vendor.name}</a>
-		</div>
-	</div>
-	</nav>
-	<!--        End of Navbar part-->
-
+	<%@include file="admin_header.jsp" %>
+	
 	<div class="container">
 		<div class="wrapper1">
 			<div class="back">
@@ -121,21 +95,7 @@
 										class="btn btn-primary">Dispatch</a>
 								</div>
 							</c:when>
-							<%-- <c:when test="${meal.status == 'DISPATCH' && meal.lunchMenu.date}">
-					<div class="card-block">
-            			<a href="startDispatch.htm?mealId=${meal.id}" class="btn btn-primary">Dispatch</a>
-        			</div>
-				</c:when> --%>
-							<%-- <c:otherwise>
-					<div class="card-block">
-            			<a href="addDailyContent.htm?mealId=${meal.id}" class="btn btn-primary">Add Menu</a>
-        			</div>
-				</c:otherwise> --%>
 						</c:choose>
-						<%-- <div class="card-block">
-            			<a href="addDailyContent.htm?mealId=${meal.id}&mealType='LUNCH'" class="btn btn-primary">Add Menu</a>
-            			<a href="updateDailyContent.htm?contentId=${meal.lunchMenu.id}" class="btn btn-primary">Edit Menu</a>
-        		</div> --%>
 					</div>
 					<div class="row">
 						<div class="view_orders">
@@ -163,8 +123,6 @@
 						<div class="card-block">
 							<h4 class="card-title">
 								${meal.title}
-								<!--  <a href="welcome.html">
-			<img class="img-top" src="edit45.png">-->
 								</a>
 							</h4>
 
@@ -202,16 +160,7 @@
 										class="btn btn-primary">Dispatch</a>
 								</div>
 							</c:when>
-							<%-- <c:otherwise>
-					<div class="card-block">
-            			<a href="addDailyContent.htm?mealId=${meal.id}" class="btn btn-primary">Add Menu</a>
-        			</div>
-				</c:otherwise> --%>
 						</c:choose>
-						<%-- <div class="card-block">
-            			<a href="addDailyContent.htm?mealId=${meal.id}&mealType='DINNER'" class="btn btn-primary">Add Menu</a>
-            			<a href="updateDailyContent.htm?contentId=${meal.dinnerMenu.id}" class="btn btn-primary">Edit Menu</a>
-        		</div> --%>
 					</div>
 					<div class="">
 						<div class="view_orders">
@@ -231,16 +180,5 @@
 
 	<br />
 	<br />
-	<!-- <footer>
-	<div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                      Copyright &copy; 2015 tiffEat.com
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer> -->
 </body>
 </html>

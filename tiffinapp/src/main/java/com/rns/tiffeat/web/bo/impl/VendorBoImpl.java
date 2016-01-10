@@ -617,4 +617,17 @@ public class VendorBoImpl implements VendorBo, Constants {
 		return DataToBusinessConverters.convertMeal(mealDao.getMeal(meal.getId()));
 	}
 
+	public List<Meal> getAllMeals() {
+		List<com.rns.tiffeat.web.dao.domain.Meal> meals = mealDao.getAllMeals();
+		if(CollectionUtils.isEmpty(meals)) {
+			return null;
+		}
+		List<Meal> currentMeals = new ArrayList<Meal>();
+		for(com.rns.tiffeat.web.dao.domain.Meal meal:meals) {
+			currentMeals.add(DataToBusinessConverters.convertMeal(meal));
+		}
+		setDailyContents(currentMeals);
+		return currentMeals;
+	}
+
 }

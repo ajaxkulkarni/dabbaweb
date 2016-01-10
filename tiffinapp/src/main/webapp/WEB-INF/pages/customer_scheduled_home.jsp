@@ -31,7 +31,17 @@
 			</div>
 		</c:if>
 		<c:if test="${fn:length(customer.scheduledOrder) == 0}">
-			You havent't scheduled any Tiffins right now. Schedule a Dinner or Lunch  tiffin to get a daily meal.
+			<h4 class="order_summary_heading">You havent't scheduled any Tiffins right now. Schedule a Dinner or Lunch  tiffin to get a daily meal.</h4>
+			<form action="addScheduledOrder" method="post">
+            	<input type="hidden" name="mealType" value="LUNCH"/>
+            	<input type="hidden" name="area" value="">
+            	<input type="submit" value="ADD DINNER" class="btn order_button"/>
+            </form>
+            <form action="addScheduledOrder" method="post">
+            	<input type="hidden" name="mealType" value="DINNER"/>
+            	<input type="hidden" name="area" value="">
+            	<input type="submit" value="ADD LUNCH" class="btn order_button"/>
+            </form>
 		</c:if>
 		<c:forEach items="${customer.scheduledOrder}" var="order">
 		<fmt:formatDate pattern="EEE, d MMM yyyy" value="${order.content.date}" var="orderDate"/>

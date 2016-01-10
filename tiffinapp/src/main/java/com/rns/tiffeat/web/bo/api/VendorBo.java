@@ -47,5 +47,6 @@ public interface VendorBo {
 	List<CustomerOrder> getAllOrders(String dateRange);
 	
 	String cancelOrder(CustomerOrder order);
+	List<Meal> getAllMeals();
 	
 }
