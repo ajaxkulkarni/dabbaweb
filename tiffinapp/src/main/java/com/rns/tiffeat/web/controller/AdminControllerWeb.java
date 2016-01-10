@@ -123,6 +123,18 @@ public class AdminControllerWeb implements Constants {
 		return "admin_meals";
 	}
 	
+	@RequestMapping(value = "/customers.htm", method = RequestMethod.GET)
+	public String initCustomers(ModelMap model) {
+		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {
+			prepareAdminLogin(model);
+			return "admin_login";
+		}
+		manager.getAdmin().setCurrentVendor(null);
+		model.addAttribute(MODEL_CUSTOMERS, customerBo.getAllCustomers());
+		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
+		return "admin_customers";
+	}
+	
 	@RequestMapping(value = "/addVendor.htm", method = RequestMethod.GET)
 	public String initAddVendor(ModelMap model) {
 		if(StringUtils.isEmpty(manager.getAdmin().getUsername())) {

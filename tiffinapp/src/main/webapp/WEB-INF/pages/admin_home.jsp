@@ -21,15 +21,11 @@
 	<%@include file="admin_header.jsp" %>
 
 	<div class="container view_order">
-		<a href="allOrders.htm" class="btn btn-default view_order_btn">View
-			All Orders</a>
+		<a href="allOrders.htm" class="btn btn-default view_order_btn">View All Orders</a>
+		<a href="meals.htm" class="btn btn-default view_order_btn">View Meals</a>
+		<a href="customers.htm" class="btn btn-default view_order_btn">View Customers</a>
 	</div>
 	
-	<div class="container view_order">
-		<a href="meals.htm" class="btn btn-default view_order_btn">View
-			Meals</a>
-	</div>
-
 	<!--    vendor List Div-->
 
 	<div class="container">

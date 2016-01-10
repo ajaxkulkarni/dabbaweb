@@ -1,5 +1,7 @@
 package com.rns.tiffeat.web.dao.api;
 
+import java.util.List;
+
 import com.rns.tiffeat.web.dao.domain.Customer;
 
 public interface CustomerDao {
@@ -10,4 +12,5 @@ public interface CustomerDao {
 	Customer getCustomer(long id);
 	Customer getCustomerByEmail(String email);
 	Customer getCustomerByPhone(String phone);
+	List<Customer> getAllCustomers();
 }

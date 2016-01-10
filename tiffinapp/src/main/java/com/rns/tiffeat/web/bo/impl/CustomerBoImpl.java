@@ -720,4 +720,18 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return RESPONSE_OK;
 	}
 
+	public List<Customer> getAllCustomers() {
+		List<com.rns.tiffeat.web.dao.domain.Customer> customers = customerDao.getAllCustomers();
+		if(CollectionUtils.isEmpty(customers)) {
+			return null;
+		}
+		List<Customer> currentCustomers = new ArrayList<Customer>();
+		for(com.rns.tiffeat.web.dao.domain.Customer customer:customers) {
+			Customer currentCustomer = new Customer();
+			DataToBusinessConverters.convertCustomer(customer, currentCustomer);
+			currentCustomers.add(currentCustomer);
+		}
+		return currentCustomers;
+	}
+
 }

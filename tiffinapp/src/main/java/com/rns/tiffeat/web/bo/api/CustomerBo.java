@@ -15,6 +15,8 @@ import com.rns.tiffeat.web.bo.domain.Vendor;
 import com.rns.tiffeat.web.dao.domain.CustomerMeal;
 
 public interface CustomerBo {
+	
+	List<Customer> getAllCustomers();
 
 	// void submitFeedback(Meal meal);
 	String register(Customer customer);
