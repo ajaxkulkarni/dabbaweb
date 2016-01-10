@@ -12,7 +12,6 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
-import com.rns.tiffeat.web.dao.domain.CustomerMeal;
 
 public interface CustomerBo {
 	

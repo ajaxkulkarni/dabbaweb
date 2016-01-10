@@ -729,6 +729,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		for(com.rns.tiffeat.web.dao.domain.Customer customer:customers) {
 			Customer currentCustomer = new Customer();
 			DataToBusinessConverters.convertCustomer(customer, currentCustomer);
+			populateCustomerMeals(customer, currentCustomer);
 			currentCustomers.add(currentCustomer);
 		}
 		return currentCustomers;

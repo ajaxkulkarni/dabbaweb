@@ -42,7 +42,7 @@
 								<td>${customer.email}</td>
 								<td>${customer.name}</td>
 								<td>${customer.phone}</td>
-								<td>${fn:length(customer.quickOrders)}</td>
+								<td>${fn:length(customer.previousOrders)}</td>
 								<td>${fn:length(customer.scheduledOrder)}</td>
 								<td>${customer.balance}</td>
 						</tr>
