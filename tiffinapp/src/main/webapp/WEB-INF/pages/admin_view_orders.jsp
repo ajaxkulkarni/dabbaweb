@@ -135,7 +135,7 @@
 
 								<td style="padding: 0 35px">${order.mealFormat}</td>
 
-								<td style="padding: 0 35px">${order.meal.price}</td>
+								<td style="padding: 0 35px">${order.price}</td>
 
 								<td style="padding: 0 35px">${order.meal.title}</td>
 

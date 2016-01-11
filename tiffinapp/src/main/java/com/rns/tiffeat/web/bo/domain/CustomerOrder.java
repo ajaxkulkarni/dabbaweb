@@ -1,6 +1,7 @@
 package com.rns.tiffeat.web.bo.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.rns.tiffeat.web.google.Location;
@@ -26,6 +27,7 @@ public class CustomerOrder implements Serializable {
 	private String transactionId;
 	private MealStatus mealStatus;
 	private Location location;
+	private BigDecimal price;
 	
 	public String getArea() {
 		return area;
@@ -116,6 +118,12 @@ public class CustomerOrder implements Serializable {
 	}
 	public void setCustomerOrderId(long customerOrderId) {
 		this.customerOrderId = customerOrderId;
+	}
+	public BigDecimal getPrice() {
+		return price;
+	}
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 	
 }

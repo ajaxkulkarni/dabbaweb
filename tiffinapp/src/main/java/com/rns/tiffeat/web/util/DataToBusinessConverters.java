@@ -14,9 +14,9 @@ import com.rns.tiffeat.web.dao.domain.Order;
 import com.rns.tiffeat.web.google.Location;
 
 public class DataToBusinessConverters implements Constants {
-	
-	public static void convertVendor(Vendor currentVendor,com.rns.tiffeat.web.dao.domain.Vendor registeredVendor) {
-		if(registeredVendor == null) {
+
+	public static void convertVendor(Vendor currentVendor, com.rns.tiffeat.web.dao.domain.Vendor registeredVendor) {
+		if (registeredVendor == null) {
 			return;
 		}
 		currentVendor.setId(registeredVendor.getId());
@@ -30,9 +30,9 @@ public class DataToBusinessConverters implements Constants {
 		location.setAddress(registeredVendor.getLocation());
 		currentVendor.setLocation(location);
 	}
-	
-	public static void convertCustomer(com.rns.tiffeat.web.dao.domain.Customer registeredCustomer,Customer currentCustomer) {
-		if(registeredCustomer == null) {
+
+	public static void convertCustomer(com.rns.tiffeat.web.dao.domain.Customer registeredCustomer, Customer currentCustomer) {
+		if (registeredCustomer == null) {
 			return;
 		}
 		currentCustomer.setId(registeredCustomer.getId());
@@ -41,9 +41,9 @@ public class DataToBusinessConverters implements Constants {
 		currentCustomer.setPhone(trimToEmpty(registeredCustomer.getPhone()));
 		currentCustomer.setBalance(registeredCustomer.getBalance());
 	}
-	
+
 	public static DailyContent convertDailyContent(DailyMeal dailyMeal) {
-		if(dailyMeal == null) {
+		if (dailyMeal == null) {
 			return null;
 		}
 		DailyContent content = new DailyContent();
@@ -61,7 +61,7 @@ public class DataToBusinessConverters implements Constants {
 
 	public static Meal convertMeal(com.rns.tiffeat.web.dao.domain.Meal meal) {
 		com.rns.tiffeat.web.bo.domain.Meal mealToBeAdded = new com.rns.tiffeat.web.bo.domain.Meal();
-		if(meal == null) {
+		if (meal == null) {
 			return mealToBeAdded;
 		}
 		mealToBeAdded.setId(meal.getId());
@@ -71,7 +71,7 @@ public class DataToBusinessConverters implements Constants {
 		mealToBeAdded.setDinnerStatus(CommonUtil.getMealPhase(meal.getDinnerStatus()));
 		mealToBeAdded.setDescription(trimToEmpty(meal.getDescription()));
 		mealToBeAdded.setMealTime(CommonUtil.getMealType(meal.getType()));
-		if(mealToBeAdded.getMealTime() == null) {
+		if (mealToBeAdded.getMealTime() == null) {
 			mealToBeAdded.setMealTime(MealType.BOTH);
 		}
 		Vendor currentVendor = new Vendor();
@@ -79,9 +79,9 @@ public class DataToBusinessConverters implements Constants {
 		mealToBeAdded.setVendor(currentVendor);
 		return mealToBeAdded;
 	}
-	
+
 	public static void convertCustomerOrder(CustomerMeal latestMeal, CustomerOrder customerOrder, Customer currentCustomer) {
-		if(latestMeal == null) {
+		if (latestMeal == null) {
 			return;
 		}
 		customerOrder.setCustomerOrderId(latestMeal.getId());
@@ -97,11 +97,10 @@ public class DataToBusinessConverters implements Constants {
 		location.setAddress(latestMeal.getLocation());
 		customerOrder.setLocation(location);
 	}
-	
 
 	public static CustomerOrder convertOrder(Order order) {
 		CustomerOrder customerOrder = new CustomerOrder();
-		if(order == null ||order.getCustomerMeal() == null) {
+		if (order == null || order.getCustomerMeal() == null) {
 			return customerOrder;
 		}
 		com.rns.tiffeat.web.bo.domain.Customer customer = new com.rns.tiffeat.web.bo.domain.Customer();
@@ -112,6 +111,12 @@ public class DataToBusinessConverters implements Constants {
 		customerOrder.setPaymentType(CommonUtil.getPaymentType(order.getPaymentType()));
 		customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));
 		customerOrder.setTransactionId(order.getTransactionId());
+		if (customerOrder.getMeal() != null) {
+			customerOrder.setPrice(customerOrder.getMeal().getPrice());
+		}
+		if (order.getPrice() != null) {
+			customerOrder.setPrice(order.getPrice());
+		}
 		return customerOrder;
 	}
 

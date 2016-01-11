@@ -130,6 +130,9 @@ public class BusinessToDataConverters {
 		if (!CommonUtil.checkIfToday(order.getDate()) && MealFormat.SCHEDULED.name().equals(mealToBeAdded.getFormat())) {
 			return order;
 		}
+		if (mealToBeAdded != null && mealToBeAdded.getMeal() != null) {
+			order.setPrice(mealToBeAdded.getMeal().getPrice());
+		}
 		return order;
 	}
 

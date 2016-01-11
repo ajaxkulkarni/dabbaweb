@@ -233,6 +233,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		CustomerMeal mealToBeAdded = new CustomerMeal();
 		mealToBeAdded.setFormat(MealFormat.QUICK.name());
 		customerOrder.setMealFormat(MealFormat.QUICK);
+		customerOrder.setMeal(DataToBusinessConverters.convertMeal(mealDao.getMeal(customerOrder.getMeal().getId())));
 		customer.setPhone(customerOrder.getCustomer().getPhone());
 		BusinessToDataConverters.convertCustomerMeal(customer, mealToBeAdded, customerOrder);
 		addOrder(mealToBeAdded, customerOrder);
@@ -446,6 +447,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			CustomerMeal mealToBeAdded = new CustomerMeal();
 			mealToBeAdded.setFormat(MealFormat.SCHEDULED.name());
 			order.setMealFormat(MealFormat.SCHEDULED);
+			order.setMeal(DataToBusinessConverters.convertMeal(mealDao.getMeal(order.getMeal().getId())));
 			com.rns.tiffeat.web.dao.domain.Customer customer = customerDao.getCustomer(order.getCustomer().getId());
 			customer.setPhone(order.getCustomer().getPhone());
 			BusinessToDataConverters.convertCustomerMeal(customer, mealToBeAdded, order);

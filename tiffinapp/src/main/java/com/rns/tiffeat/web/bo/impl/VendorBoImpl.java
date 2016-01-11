@@ -202,7 +202,7 @@ public class VendorBoImpl implements VendorBo, Constants {
 	}
 
 	private Order prepareOrder(CustomerMeal mealToBeAdded, Date date) {
-		if (mealToBeAdded == null || mealToBeAdded.getCustomer() == null) {
+		if (mealToBeAdded == null || mealToBeAdded.getCustomer() == null || mealToBeAdded.getMeal() == null) {
 			return null;
 		}
 		Order existingOrder = orderDao.getCustomerScheduledOrder(mealToBeAdded.getCustomer().getId(), date,mealToBeAdded.getMealType());
@@ -219,6 +219,7 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (MealFormat.SCHEDULED.name().equals(mealToBeAdded.getFormat())) {
 			order.setDate(date);
 		}
+		order.setPrice(mealToBeAdded.getMeal().getPrice());
 		return order;
 	}
 

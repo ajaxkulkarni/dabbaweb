@@ -1,6 +1,7 @@
 package com.rns.tiffeat.web.dao.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -40,6 +41,9 @@ public class Order implements Serializable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date date;
 	
+	@Column(name = "price")
+	private BigDecimal price;
+	
 	@Column(name = "payment_type",length = 10)
 	private String paymentType;
 	
@@ -76,6 +80,14 @@ public class Order implements Serializable {
 	
 	public String getMealCode() {
 		return mealCode;
+	}
+	
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+	
+	public BigDecimal getPrice() {
+		return price;
 	}
 	
 	public void setPaymentType(String paymentType) {
