@@ -25,7 +25,7 @@
 		<a href="meals.htm" class="btn btn-default view_order_btn">View Meals</a>
 		<a href="customers.htm" class="btn btn-default view_order_btn">View Customers</a>
 	</div>
-	
+	<br/>
 	<!--    vendor List Div-->
 
 	<div class="container">

@@ -16,7 +16,7 @@
             <div class="contactUsCard">
                 <h3>You can contact us on:</h3>
                 <p><img src="<c:url value="${resources}/img/ic_email_24px.svg"/>"> <a href="mailto:contact@tiffeat.com" style="color:black;">contact@tiffeat.com</a></p>
-                <p><img src="<c:url value="${resources}/img/WhatsApp_Logo_3.svg"/>"> 7350182285</p>
+                <p><img src="<c:url value="${resources}/img/WhatsApp_Logo_3.svg"/>"> 8087538194, 7350182285</p>
                 <p><img src="<c:url value="${resources}/img/ic_location_on_24px.svg"/>">
                 	Resoneuronance Software solutions Pvt Ltd. <br/>
                 	Sr.No. 60/3, Shiv Nagari, Bijali Nagar <br/>

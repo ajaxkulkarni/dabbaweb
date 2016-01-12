@@ -24,7 +24,10 @@
 		<a href="allOrders.htm" class="btn btn-default view_order_btn">View
 			All Orders</a>
 	</div> -->
-
+	<div class="container view_order">
+	<a href="admin.htm" class="btn btn-default view_order_btn">Back</a>
+	</div>
+	<br/>
 	<!--    meals List Div-->
 
 	<div class="container">

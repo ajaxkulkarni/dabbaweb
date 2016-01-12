@@ -19,8 +19,10 @@
 </script>
 <body>
 	<%@include file="admin_header.jsp" %>
-
-
+	<div class="container view_order">
+	<a href="admin.htm" class="btn btn-default view_order_btn">Back</a>
+	</div>
+<br/>
 	<div class="container">
 		<div id="order_list_div">
 			<div class="table-responsive">
