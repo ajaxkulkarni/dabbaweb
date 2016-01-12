@@ -85,6 +85,9 @@ public class ExcelUtil {
 
 		header.createCell(14).setCellValue("Status");
 		header.getCell(14).setCellStyle(style);
+		
+		header.createCell(14).setCellValue("Location");
+		header.getCell(14).setCellStyle(style);
 
 		int rowCount = 1;
 

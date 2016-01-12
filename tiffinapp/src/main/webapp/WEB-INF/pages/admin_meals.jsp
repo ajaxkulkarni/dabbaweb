@@ -45,6 +45,7 @@
 					</thead>
 
 					<c:forEach items="${meals}" var="meal">
+						<c:if test="${meal.vendor.status == 'OPEN' }">
 						<tr>
 								<td>${meal.id}</td>
 								<td>${meal.title}</td>
@@ -124,6 +125,7 @@
 								</td>
 								<td><a href="editMeal.htm?mealId=${meal.id}">Edit Meal</a></td>
 						</tr>
+						</c:if>
 					</c:forEach>
 
 				</table>
