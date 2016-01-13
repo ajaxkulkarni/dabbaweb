@@ -8,6 +8,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+	<%@include file="admin_header.jsp" %>
+
 <title>TiffEat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- meals-select.css -->
@@ -16,7 +18,6 @@
 
 <body>
 
-	<%@include file="admin_header.jsp" %>
 	<div class="container">
 
 		<form action="addDailyContent" method="post">

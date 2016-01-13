@@ -9,7 +9,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="<c:url value="${resources}/css/admin_home.css"/>" rel="stylesheet">
+<%@include file="admin_header.jsp"%>
+<link href="<c:url value="${resources}/css/admin_home.css"/>"
+	rel="stylesheet">
 <script>
 	$(document).ready(function() {
 		$('#order_table1').DataTable({
@@ -19,17 +21,21 @@
 </script>
 
 <!-- daterangepicker.css admin_view_orders.css -->
-<link href="<c:url value = "${resources}/css/daterangepicker.css" />" rel="stylesheet">
-<link href="<c:url value = "${resources}/css/admin_view_orders.css"/>" rel="stylesheet">
+<link href="<c:url value = "${resources}/css/daterangepicker.css" />"
+	rel="stylesheet">
+<link href="<c:url value = "${resources}/css/admin_view_orders.css"/>"
+	rel="stylesheet">
 <body>
-	<%@include file="admin_header.jsp" %>
+
 
 	Billing for : ${invoices[0].dateRange}
-	
+
 	<div class="demo">
 		<form action="billing.htm" method="GET">
-		select date: <input id="date-range0" size="40" value="" name="dateRange"> 
-		<button type="submit" value="Filter By Date" class="btn btn-default filter_btn1">Generate</button>
+			select date: <input id="date-range0" size="40" value=""
+				name="dateRange">
+			<button type="submit" value="Filter By Date"
+				class="btn btn-default filter_btn1">Generate</button>
 		</form>
 	</div>
 
@@ -49,7 +55,8 @@
 
 					<c:forEach items="${invoices}" var="invoice">
 						<tr>
-							<td><a href="vendorOrders.htm?vendorId=${invoice.vendor.id}&dateRange=${invoice.dateRange}">${invoice.vendor.name}</a></td>
+							<td><a
+								href="vendorOrders.htm?vendorId=${invoice.vendor.id}&dateRange=${invoice.dateRange}">${invoice.vendor.name}</a></td>
 							<td>${fn:length(invoice.lunchOrders)}</td>
 							<td>${fn:length(invoice.dinnerOrders)}</td>
 							<td>${invoice.due}</td>
@@ -61,30 +68,32 @@
 		</div>
 	</div>
 	<!--    End of vendor list div-->
-	
+
 	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-	<script type="text/javascript" src="<c:url value = "${resources}/js/tablesort.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value = "${resources}/js/tablesort.js"/>"></script>
 	<script type="text/javascript">
-            // For Demo Purposes
-            $(function () {
-                $('table.table-sort').tablesort();
-                hljs.initHighlightingOnLoad(); // Syntax Hilighting
-            });
-        </script>
-        
-        <!-- for date range picker  -->
-			<script type="text/javascript" src="<c:url value = "${resources}/js/moment.min.js"/>"></script>
-			<script type="text/javascript" src="<c:url value = "${resources}/js/jquery.daterangepicker.js"/>"></script>
-			<script type="text/javascript" src="<c:url value = "${resources}/js/demo.js"/>"></script>       
-<script type="text/javascript">
-	$(function()
-	{
-		$('a.show-option').click(function(evt)
-		{
-			evt.preventDefault();
-			$(this).siblings('.options').slideToggle();
+		// For Demo Purposes
+		$(function() {
+			$('table.table-sort').tablesort();
+			hljs.initHighlightingOnLoad(); // Syntax Hilighting
 		});
-	})
+	</script>
+
+	<!-- for date range picker  -->
+	<script type="text/javascript"
+		src="<c:url value = "${resources}/js/moment.min.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value = "${resources}/js/jquery.daterangepicker.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value = "${resources}/js/demo.js"/>"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('a.show-option').click(function(evt) {
+				evt.preventDefault();
+				$(this).siblings('.options').slideToggle();
+			});
+		})
 	</script>
 
 </body>

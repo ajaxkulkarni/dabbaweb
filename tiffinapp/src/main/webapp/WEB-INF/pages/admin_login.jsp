@@ -9,6 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
  <html>
 <head>
+<%@include file="admin_header.jsp" %>
 
 <!-- admin_login.css -->    
 <link href="<c:url value="${resources}/css/admin_login.css"/>" rel="stylesheet">
@@ -18,7 +19,7 @@
 </head>
 <body>
 
-<%@include file="admin_header.jsp" %>
+
 
 <div class="main">
 		<form action="adminLogin" method="post">

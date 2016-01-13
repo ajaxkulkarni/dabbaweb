@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
+<%@include file="admin_header.jsp"%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Vendor Details</title>
@@ -24,13 +24,14 @@
 	}
 </script>
 
-	<!-- freelancer.css -->
-<link href="<c:url value="${resources}/css/freelancer.css"/>" rel="stylesheet">
+<!-- freelancer.css -->
+<link href="<c:url value="${resources}/css/freelancer.css"/>"
+	rel="stylesheet">
 </head>
 <body>
 
-	<%@include file="admin_header.jsp" %>
-	
+
+
 	<div class="container">
 		<div class="wrapper1">
 			<div class="back">
@@ -122,8 +123,7 @@
 						<img class="card-img-top" src="getMealImage.htm?mealId=${meal.id}">
 						<div class="card-block">
 							<h4 class="card-title">
-								${meal.title}
-								</a>
+								${meal.title} </a>
 							</h4>
 
 							<div class="price">

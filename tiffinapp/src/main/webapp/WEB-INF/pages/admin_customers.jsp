@@ -9,7 +9,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="<c:url value="${resources}/css/admin_home.css"/>" rel="stylesheet">
+<%@include file="admin_header.jsp"%>
+<link href="<c:url value="${resources}/css/admin_home.css"/>"
+	rel="stylesheet">
 <script>
 	$(document).ready(function() {
 		$('#order_table1').DataTable({
@@ -18,11 +20,11 @@
 	});
 </script>
 <body>
-	<%@include file="admin_header.jsp" %>
+
 	<div class="container view_order">
-	<a href="admin.htm" class="btn btn-default view_order_btn">Back</a>
+		<a href="admin.htm" class="btn btn-default view_order_btn">Back</a>
 	</div>
-<br/>
+	<br />
 	<div class="container">
 		<div id="order_list_div">
 			<div class="table-responsive">
@@ -41,12 +43,12 @@
 
 					<c:forEach items="${customers}" var="customer">
 						<tr>
-								<td>${customer.email}</td>
-								<td>${customer.name}</td>
-								<td>${customer.phone}</td>
-								<td>${fn:length(customer.previousOrders)}</td>
-								<td>${fn:length(customer.scheduledOrder)}</td>
-								<td>${customer.balance}</td>
+							<td>${customer.email}</td>
+							<td>${customer.name}</td>
+							<td>${customer.phone}</td>
+							<td>${fn:length(customer.previousOrders)}</td>
+							<td>${fn:length(customer.scheduledOrder)}</td>
+							<td>${customer.balance}</td>
 						</tr>
 					</c:forEach>
 

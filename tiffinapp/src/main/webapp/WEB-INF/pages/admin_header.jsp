@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Admin</title>
+<link href="<c:url value="${resources}/css/bootstrap.min.css"/>" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -24,7 +25,6 @@
 <script src="${resources}/js/dataTables.bootstrap.min.js"></script>
 <script src="${resources}/js/jquery.dataTables.min.js"></script>
 
-<link href="<c:url value="${resources}/css/bootstrap.min.css"/>" rel="stylesheet">
 
 <!-- Custom CSS -->
 <%-- <link href="<c:url value="${resources}/css/admin_home.css"/>" rel="stylesheet"> --%>

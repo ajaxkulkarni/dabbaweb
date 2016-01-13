@@ -8,6 +8,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<%@include file="admin_header.jsp" %>
   <title>TiffEat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- same as add_daily_content.jsp -->
@@ -16,9 +17,6 @@
 
 <body id="page-top" class="index">
 
-    <%@include file="admin_header.jsp" %>
-    <br />
-    <br />
 
     
 <div class="container">
