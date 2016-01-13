@@ -59,7 +59,7 @@ public interface Constants {
 	String ERROR_UPLOADING_IMAGE = "Error uploading Image!";
 	String ERROR_INVALID_VENDOR_DETAILS = "Invalid Vendor details!";
 	String ERROR_ALERADY_SCHEDULED_MEAL_TYPE = "Can't scheduled this Meal!You already have a meal scheduled for this timing!";
-	String ERROR_ALERADY_SCHEDULED = "Can't scheduled this meal!You already have lunch and dinner scheduled!";
+	String ERROR_ALERADY_SCHEDULED = "Can't schedule this meal!You already have lunch and dinner scheduled!";
 	String ERROR_NO_TIFFINS_AVAILABLE = "No Tiffins are currently available in this area.";
 	String ERROR_INVALID_ADDRESS_OR_LOCATION = "Invalid address or location!";
 	String ERROR_INVALID_CREDENTIALS = "Invalid credentials!";
@@ -126,12 +126,16 @@ public interface Constants {
 	String MODEL_ERROR = "errorMsg";
 	String MODEL_MEALS = "meals";
 	String MODEL_CUSTOMERS = "customers";
+	String MODEL_INVOICES = "invoices";
+	
 	
 	String PARAMETER_APPENDER = "&";
 	String SPACE_CHAR = "%20";
 	BigDecimal MAX_DISTANCE_IN_METERS = new BigDecimal(10000);
 	String ADMIN_PASSWORD = "admin123";
 	String ADMIN_USERNAME = "admin";
+	BigDecimal VENDOR_COMMISSION = new BigDecimal(0.7);
+	
 	
 	//5123456789012346
 	//quc1iGQZKN4HD

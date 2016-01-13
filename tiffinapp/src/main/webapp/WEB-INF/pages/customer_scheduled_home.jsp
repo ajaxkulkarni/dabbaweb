@@ -112,13 +112,13 @@
 									<c:choose>
 							<c:when test="${order.mealStatus == 'PREPARE'}">
 								<form action="cancelOrder" method="post" commandName="customerOrder" onsubmit="return confirmCancel()">
-									<input type="hidden" name="id" value="${order.id}"/> 
+									<input type="hidden" name="id" value="${order.customerOrderId}"/> 
 									<input type="hidden" name="mealType" value="${order.mealType}"/>
 									<input type="submit" value="CANCEL THIS MEAL" class="btn order_button">
 								</form>
 								<br/>
 								<form action="changeMeal" method="post">
-									<input type="hidden" name="id" value="${order.id}"/> 
+									<input type="hidden" name="id" value="${order.customerOrderId}"/> 
 									<input type="hidden" name="mealType" value="${order.mealType}"/>
 									<input type="hidden" name="meal.id" value="${order.meal.id}"/>
 									<input type="hidden" name="mealFormat" value="${order.mealFormat}"/>

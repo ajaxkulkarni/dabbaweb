@@ -48,7 +48,7 @@
 	<nav class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="">
+			<a class="navbar-brand" href="admin.htm">
 				<h4 class='tiff'>
 					Tiff<span class="eat">Eat</span>- Vendors
 				</h4>

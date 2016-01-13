@@ -12,6 +12,7 @@ import com.rns.tiffeat.web.bo.domain.DailyContent;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.bo.domain.VendorInvoice;
 import com.rns.tiffeat.web.dao.domain.DailyMeal;
 
 
@@ -48,5 +49,6 @@ public interface VendorBo {
 	
 	String cancelOrder(CustomerOrder order);
 	List<Meal> getAllMeals();
+	List<VendorInvoice> generateInvoices(String dateRange);
 	
 }

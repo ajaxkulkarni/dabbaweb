@@ -203,7 +203,7 @@ public class OrderDaoImpl implements OrderDao {
 	public List<Order> getVendorOrdersInBetween(long id, Date fromDate, Date toDate) {
 		List<Order> orders = new ArrayList<Order>();
 		Session session = this.sessionFactory.openSession();
-		Query createQuery = session.createQuery("from Order where customerMeal.meal.vendor.id=:vendor_id AND customerMeal.mealType=:meal_type AND date>=:from_date AND date<=:to_date");
+		Query createQuery = session.createQuery("from Order where customerMeal.meal.vendor.id=:vendor_id AND date>=:from_date AND date<=:to_date");
 		createQuery.setLong("vendor_id", id);
 		createQuery.setDate("from_date", fromDate);
 		createQuery.setDate("to_date", toDate);

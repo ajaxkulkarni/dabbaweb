@@ -4,7 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +25,8 @@ import com.rns.tiffeat.web.bo.domain.MealStatus;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.OrderStatus;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.bo.domain.VendorInvoice;
+import com.rns.tiffeat.web.bo.domain.VendorStatus;
 import com.rns.tiffeat.web.dao.api.CustomerMealDao;
 import com.rns.tiffeat.web.dao.api.DailyMealDao;
 import com.rns.tiffeat.web.dao.api.MealDao;
@@ -163,35 +169,25 @@ public class VendorBoImpl implements VendorBo, Constants {
 		return dailyMealDao.getDailyMealsForVendor(vendor.getId(), date);
 	}
 
-	/*public String generateCurrentOrder(com.rns.tiffeat.web.dao.domain.Meal meal, MealType mealType) {
-		if (meal == null || mealType == null) {
-			return ERROR_INVALID_MEAL_DETAILS;
-		}
-		List<CustomerMeal> scheduledMeals = customerMealDao.getScheduledMealsForMeal(meal.getId(), mealType);
-		if (CollectionUtils.isEmpty(scheduledMeals)) {
-			return RESPONSE_OK;
-		}
-		List<Order> orders = new ArrayList<Order>();
-		for (CustomerMeal scheduledMeal : scheduledMeals) {
-			if (!checkCustomerBalance(scheduledMeal)) {
-				continue;
-			}
-			if (MealType.BOTH.equals(scheduledMeal.getMealType())
-					|| mealType.name().equals(scheduledMeal.getMealType())) {
-				orders.add(prepareOrder(scheduledMeal));
-			}
-		}
-		if (CollectionUtils.isEmpty(orders)) {
-			return RESPONSE_OK;
-		}
-		orderDao.addOrders(orders);
-		return RESPONSE_OK;
-	}*/
+	/*
+	 * public String generateCurrentOrder(com.rns.tiffeat.web.dao.domain.Meal
+	 * meal, MealType mealType) { if (meal == null || mealType == null) { return
+	 * ERROR_INVALID_MEAL_DETAILS; } List<CustomerMeal> scheduledMeals =
+	 * customerMealDao.getScheduledMealsForMeal(meal.getId(), mealType); if
+	 * (CollectionUtils.isEmpty(scheduledMeals)) { return RESPONSE_OK; }
+	 * List<Order> orders = new ArrayList<Order>(); for (CustomerMeal
+	 * scheduledMeal : scheduledMeals) { if
+	 * (!checkCustomerBalance(scheduledMeal)) { continue; } if
+	 * (MealType.BOTH.equals(scheduledMeal.getMealType()) ||
+	 * mealType.name().equals(scheduledMeal.getMealType())) {
+	 * orders.add(prepareOrder(scheduledMeal)); } } if
+	 * (CollectionUtils.isEmpty(orders)) { return RESPONSE_OK; }
+	 * orderDao.addOrders(orders); return RESPONSE_OK; }
+	 */
 
 	private boolean checkCustomerBalance(CustomerMeal meal) {
 		Customer customer = meal.getCustomer();
-		if (customer == null || customer.getBalance() == null || meal.getMeal() == null
-				|| meal.getMeal().getPrice() == null) {
+		if (customer == null || customer.getBalance() == null || meal.getMeal() == null || meal.getMeal().getPrice() == null) {
 			return false;
 		}
 		if (customer.getBalance().compareTo(meal.getMeal().getPrice()) < 0) {
@@ -205,7 +201,7 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (mealToBeAdded == null || mealToBeAdded.getCustomer() == null || mealToBeAdded.getMeal() == null) {
 			return null;
 		}
-		Order existingOrder = orderDao.getCustomerScheduledOrder(mealToBeAdded.getCustomer().getId(), date,mealToBeAdded.getMealType());
+		Order existingOrder = orderDao.getCustomerScheduledOrder(mealToBeAdded.getCustomer().getId(), date, mealToBeAdded.getMealType());
 		if (existingOrder != null) {
 			return null;
 		}
@@ -256,7 +252,7 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (dailyMeal == null) {
 			return null;
 		}
-		if(MealStatus.DISPATCH.equals(CommonUtil.getMealStatus(mealType, meal)) && CommonUtil.checkIfToday(dailyMeal.getDate())) {
+		if (MealStatus.DISPATCH.equals(CommonUtil.getMealStatus(mealType, meal)) && CommonUtil.checkIfToday(dailyMeal.getDate())) {
 			return null;
 		}
 		return DataToBusinessConverters.convertDailyContent(dailyMeal);
@@ -404,8 +400,7 @@ public class VendorBoImpl implements VendorBo, Constants {
 		List<Order> delieveries = new ArrayList<Order>();
 		for (CustomerOrder order : orders) {
 			Order currentOrder = orderDao.getOrder(order.getId());
-			if (currentOrder == null || currentOrder.getCustomerMeal() == null
-					|| currentOrder.getCustomerMeal().getMeal() == null
+			if (currentOrder == null || currentOrder.getCustomerMeal() == null || currentOrder.getCustomerMeal().getMeal() == null
 					|| currentOrder.getCustomerMeal().getCustomer() == null) {
 				continue;
 			}
@@ -427,67 +422,20 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (vendor == null) {
 			return customerOrders;
 		}
-		/*List<DailyMeal> dailyMeals = dailyMealDao.getDailyMealsForVendor(vendor.getId(), new Date());
-		if (CollectionUtils.isEmpty(dailyMeals)) {
-			return customerOrders;
-		}*/
 		List<Date> dates = extractDates(dateRange);
 		List<Order> orders = orderDao.getVendorOrdersInBetween(vendor.getId(), dates.get(0), dates.get(1));
 		if (CollectionUtils.isEmpty(orders)) {
 			return customerOrders;
 		}
+		return prepareCustomerOrders(customerOrders, orders);
+	}
+
+	private List<CustomerOrder> prepareCustomerOrders(List<CustomerOrder> customerOrders, List<Order> orders) {
 		for (Order order : orders) {
 			customerOrders.add(DataToBusinessConverters.convertOrder(order));
 		}
 		return customerOrders;
 	}
-
-	/*
-	 * private CustomerOrder prepareCustomerOrder(Order order) {
-	 * if(order.getCustomerMeal() == null) { return null; } CustomerOrder
-	 * customerOrder = new CustomerOrder();
-	 * customerOrder.setAddress(order.getCustomerMeal().getAddress());
-	 * customerOrder.setArea(order.getCustomerMeal().getPinCode());
-	 * customerOrder.setId(order.getId());
-	 * customerOrder.setMeal(getMealDetails(order.getCustomerMeal().getMeal()));
-	 * customerOrder
-	 * .setCustomer(getCustomerDetails(order.getCustomerMeal().getCustomer()));
-	 * customerOrder.setDate(order.getDate());
-	 * customerOrder.setPaymentType(CommonUtil
-	 * .getPaymentType(order.getPaymentType()));
-	 * customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));
-	 * customerOrder
-	 * .setMealFormat(CommonUtil.getMealFormat(order.getCustomerMeal
-	 * ().getFormat()));
-	 * customerOrder.setMealType(CommonUtil.getMealType(order.getCustomerMeal
-	 * ().getMealType())); return customerOrder; }
-	 */
-
-	/*
-	 * private com.rns.tiffeat.web.bo.domain.Customer
-	 * getCustomerDetails(Customer customer) { if (customer == null) { return
-	 * null; } com.rns.tiffeat.web.bo.domain.Customer customerToBeAdded = new
-	 * com.rns.tiffeat.web.bo.domain.Customer();
-	 * customerToBeAdded.setEmail(customer.getEmail());
-	 * customerToBeAdded.setPassword(customer.getPassword());
-	 * customerToBeAdded.setPhone(customer.getPhone());
-	 * customerToBeAdded.setDeviceId(customer.getDeviceId());
-	 * customerToBeAdded.setRegId(customer.getRegId());
-	 * customerToBeAdded.setName(customer.getName()); return customerToBeAdded;
-	 * }
-	 */
-
-	/*
-	 * private com.rns.tiffeat.web.bo.domain.Meal
-	 * getMealDetails(com.rns.tiffeat.web.dao.domain.Meal meal) { if(meal ==
-	 * null) { return null; } com.rns.tiffeat.web.bo.domain.Meal mealToBeAdded =
-	 * new com.rns.tiffeat.web.bo.domain.Meal();
-	 * mealToBeAdded.setId(meal.getId());
-	 * mealToBeAdded.setPrice(meal.getPrice());
-	 * mealToBeAdded.setTitle(meal.getTitle());
-	 * mealToBeAdded.setStatus(CommonUtil.getMealPhase(meal.getStatus()));
-	 * mealToBeAdded.setVendor(currentVendor); return mealToBeAdded; }
-	 */
 
 	public List<Vendor> getAllVendors() {
 		List<com.rns.tiffeat.web.dao.domain.Vendor> allVendors = vendorDao.getAllVendors();
@@ -554,11 +502,8 @@ public class VendorBoImpl implements VendorBo, Constants {
 			return customerOrders;
 		}
 		List<Date> dates = extractDates(dateRange);
-		List<Order> orders = orderDao.getMealOrdersInBetween(meal.getId(), type.name(),dates.get(0), dates.get(1));
-		for (Order order : orders) {
-			customerOrders.add(DataToBusinessConverters.convertOrder(order));
-		}
-		return customerOrders;
+		List<Order> orders = orderDao.getMealOrdersInBetween(meal.getId(), type.name(), dates.get(0), dates.get(1));
+		return prepareCustomerOrders(customerOrders, orders);
 	}
 
 	public List<CustomerOrder> getAllOrders(String dateRange) {
@@ -569,29 +514,25 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (CollectionUtils.isEmpty(orders)) {
 			return customerOrders;
 		}
-		for (Order order : orders) {
-			customerOrders.add(DataToBusinessConverters.convertOrder(order));
-		}
-		return customerOrders;
+		return prepareCustomerOrders(customerOrders, orders);
 	}
 
 	private List<Date> extractDates(String dateRange) {
-		//List<Order> orders = null;
+		// List<Order> orders = null;
 		List<Date> dateList = new ArrayList<Date>();
 		String[] dates = StringUtils.split(dateRange, "to");
 		Date fromDate = null;
 		Date toDate = null;
-		if(dates != null && dates.length > 0) {
+		if (dates != null && dates.length > 0) {
 			fromDate = CommonUtil.convertDate(dates[0]);
-			if(dates.length > 1) {
+			if (dates.length > 1) {
 				toDate = CommonUtil.convertDate(dates[1]);
 			}
 		}
-		if(fromDate == null || toDate == null) {
+		if (fromDate == null || toDate == null) {
 			dateList.add(new Date());
 			dateList.add(new Date());
-		}
-		else {
+		} else {
 			dateList.add(fromDate);
 			dateList.add(toDate);
 		}
@@ -620,15 +561,96 @@ public class VendorBoImpl implements VendorBo, Constants {
 
 	public List<Meal> getAllMeals() {
 		List<com.rns.tiffeat.web.dao.domain.Meal> meals = mealDao.getAllMeals();
-		if(CollectionUtils.isEmpty(meals)) {
+		if (CollectionUtils.isEmpty(meals)) {
 			return null;
 		}
 		List<Meal> currentMeals = new ArrayList<Meal>();
-		for(com.rns.tiffeat.web.dao.domain.Meal meal:meals) {
+		for (com.rns.tiffeat.web.dao.domain.Meal meal : meals) {
 			currentMeals.add(DataToBusinessConverters.convertMeal(meal));
 		}
 		setDailyContents(currentMeals);
 		return currentMeals;
+	}
+
+	public List<VendorInvoice> generateInvoices(String dateRange) {
+		List<com.rns.tiffeat.web.dao.domain.Vendor> vendors = vendorDao.getAllVendors();
+		if (CollectionUtils.isEmpty(vendors)) {
+			return null;
+		}
+		List<Order> orders = new ArrayList<Order>();
+		List<Date> dates = new ArrayList<Date>();
+		if (StringUtils.isEmpty(dateRange)) {
+			dates = createDateRange();
+		} else {
+			dates = extractDates(dateRange);
+		}
+		List<VendorInvoice> vendorInvoices = new ArrayList<VendorInvoice>();
+		for (com.rns.tiffeat.web.dao.domain.Vendor vendor : vendors) {
+			if (VendorStatus.NA.name().equals(vendor.getPhase())) {
+				continue;
+			}
+			orders = orderDao.getVendorOrdersInBetween(vendor.getId(), dates.get(0), dates.get(1));
+			VendorInvoice invoice = prepareInvoice(orders, vendor);
+			invoice.setDateRange(dateRange);
+			if (StringUtils.isEmpty(dateRange)) {
+				invoice.setDateRange(createDateRange(dates));
+			}
+			vendorInvoices.add(invoice);
+		}
+
+		return vendorInvoices;
+	}
+
+	private String createDateRange(List<Date> dates) {
+		if (CollectionUtils.isEmpty(dates)) {
+			return null;
+		}
+		StringBuilder builder = new StringBuilder();
+		for (Date date : dates) {
+			builder.append(CommonUtil.convertDateToString(date));
+			if (!StringUtils.contains(builder, "to")) {
+				builder.append("to");
+			}
+		}
+		return builder.toString();
+	}
+
+	private VendorInvoice prepareInvoice(List<Order> orders, com.rns.tiffeat.web.dao.domain.Vendor vendor) {
+		List<CustomerOrder> customerOrders = new ArrayList<CustomerOrder>();
+		VendorInvoice invoice = new VendorInvoice();
+		Vendor currentVendor = new Vendor();
+		DataToBusinessConverters.convertVendor(currentVendor, vendor);
+		invoice.setVendor(currentVendor);
+		prepareCustomerOrders(customerOrders, orders);
+		for (CustomerOrder order : customerOrders) {
+			if (order.getPrice() == null) {
+				continue;
+			}
+			if(!OrderStatus.DELIVERED.equals(order.getStatus()) && !OrderStatus.ORDERED.equals(order.getStatus())) {
+				continue;
+			}
+			if (MealType.LUNCH.equals(order.getMealType())) {
+				invoice.getLunchOrders().add(order);
+			} else {
+				invoice.getDinnerOrders().add(order);
+			}
+			invoice.setDue(invoice.getDue().add(order.getPrice()));
+		}
+		if (invoice.getDue().compareTo(BigDecimal.ZERO) > 0) {
+			invoice.setProfit(invoice.getDue().multiply(BigDecimal.ONE.subtract(VENDOR_COMMISSION)).setScale(0, RoundingMode.HALF_UP));
+			invoice.setDue(invoice.getDue().multiply(VENDOR_COMMISSION).setScale(0, RoundingMode.HALF_UP));
+		}
+
+		return invoice;
+	}
+
+	private List<Date> createDateRange() {
+		List<Date> dates = new ArrayList<Date>();
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_MONTH, -7);
+		dates.add(calendar.getTime());
+		dates.add(new Date());
+		return dates;
 	}
 
 }

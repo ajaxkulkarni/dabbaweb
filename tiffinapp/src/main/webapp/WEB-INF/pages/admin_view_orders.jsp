@@ -72,41 +72,33 @@
 
 						<td class="table-sort" style="padding: 0 35px"><strong>Name</strong></td>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Email</strong></td>
-
 						<td class="table-sort" style="padding: 0 35px"><strong>Phone</strong></td>
-
-						<td class="table-sort" style="padding: 0 35px"><strong>Area</strong></td>
 						
+						<td class="table-sort" style="padding: 0 35px"><strong>Vendor</strong></td>
+
 						<td class="table-sort" style="padding: 0 35px"><strong>Location</strong></td>
 
 						<td class="table-sort" style="padding: 0 35px"><strong>Address</strong></td>
 						
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								date</strong></td>
+						<td class="table-sort" style="padding: 0 35px"><strong>Order date</strong></td>
+						
+						<td class="table-sort" style="padding: 0 35px"><strong>Order time</strong></td>
+						
+						<td class="table-sort" style="padding: 0 35px"><strong>Meal title</strong></td>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								format</strong></td>
+						<td class="table-sort" style="padding: 0 35px"><strong>Order format</strong></td>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								price</strong></td>
+						<td class="table-sort" style="padding: 0 35px"><strong>Order price</strong></td>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Meal
-								title</strong></td>
+						<td class="table-sort" style="padding: 0 35px"><strong>Meal code</strong></td>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Meal
-								code</strong></td>
+						<td class="table-sort" style="padding: 0 35px"><strong>Payment Type</strong></td>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Vendor</strong></td>
-
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								time</strong></td>
-
-						<td class="table-sort" style="padding: 0 35px"><strong>Payment
-								Type</strong></td>
-
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								status</td> 
+						<td class="table-sort" style="padding: 0 35px"><strong>Order status</td> 
+								
+						<td class="table-sort" style="padding: 0 35px"><strong>Area</strong></td>
+						
+						<td class="table-sort" style="padding: 0 35px"><strong>Email</strong></td>
 
 					</tr>
 					
@@ -120,30 +112,25 @@
 
 								<td style="padding: 0 35px">${order.customer.name}</td>
 
-								<td style="padding: 0 35px">${order.customer.email}</td>
-
 								<td style="padding: 0 35px">${order.customer.phone}</td>
-
-								<td style="padding: 0 35px">${order.meal.vendor.pinCode}</td>
 								
+								<td style="padding: 0 35px">${order.meal.vendor.name}</td>
+
 								<td style="padding: 0 35px">${order.location.address}</td>
 
 								<td style="padding: 0 35px">${order.address}</td>
 								
-								<td style="padding: 0 35px"><fmt:formatDate
-										value="${order.date}" pattern="yyyy-MM-dd" /></td>
-
+								<td style="padding: 0 35px"><fmt:formatDate value="${order.date}" pattern="yyyy-MM-dd" /></td>
+								
+								<td style="padding: 0 35px">${order.mealType}</td>
+								
+								<td style="padding: 0 35px">${order.meal.title}</td>
+								
 								<td style="padding: 0 35px">${order.mealFormat}</td>
 
 								<td style="padding: 0 35px">${order.price}</td>
 
-								<td style="padding: 0 35px">${order.meal.title}</td>
-
 								<td style="padding: 0 35px">${order.meal.id}</td>
-
-								<td style="padding: 0 35px">${order.meal.vendor.name}</td>
-
-								<td style="padding: 0 35px">${order.mealType}</td>
 
 								<td style="padding: 0 35px">${order.paymentType}</td>
 
@@ -161,6 +148,10 @@
 										onclick="cancel(${order.id})"></td>
 									<%-- </form> --%>
 								</c:if>
+								
+								<td style="padding: 0 35px">${order.meal.vendor.pinCode}</td>
+								
+								<td style="padding: 0 35px">${order.customer.email}</td>
 							</tr>
 							
 						</c:if>
