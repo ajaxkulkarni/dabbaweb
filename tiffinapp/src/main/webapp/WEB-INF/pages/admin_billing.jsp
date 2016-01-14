@@ -27,13 +27,14 @@
 	rel="stylesheet">
 <body>
 
-
+<br/>
 	Billing for : ${invoices[0].dateRange}
 
 	<div class="demo">
 		<form action="billing.htm" method="GET">
-			select date: <input id="date-range0" size="40" value=""
-				name="dateRange">
+		<br/>
+		<strong>Select Date:</strong> <input id="date-range0" size="40" value=""
+		name="dateRange">
 			<button type="submit" value="Filter By Date"
 				class="btn btn-default filter_btn1">Generate</button>
 		</form>

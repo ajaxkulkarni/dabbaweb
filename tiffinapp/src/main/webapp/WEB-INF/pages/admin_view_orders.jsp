@@ -34,6 +34,8 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/admin_view_orders.css"/>"
 	rel="stylesheet">
+<link href="<c:url value="${resources}/css/tablesort.css"/>"
+rel="stylesheet">
 <body>
 
 
@@ -57,62 +59,67 @@
 				</div>
 			</div>
 		</form>
-
+<br/>
 		<div class="demo">
 			<form action="orders.htm" method="GET">
-				select date: <input id="date-range0" size="40" value=""
+				<strong>Select Date:</strong> <input id="date-range0" size="40" value=""
 					name="dateRange">
 				<button type="submit" value="Filter By Date"
 					class="btn btn-default filter_btn1">Filter By Date</button>
 			</form>
 		</div>
-
+<br/>
 
 		<div class="hscroll">
 
 			<form action="delilverTiffins" method="post">
 				<table class="table-sort table-sort-search" border="1">
-					<tr>
+					
+				<thead>	
+			     <tr>
+					
+						<th class="table-sort" style="padding: 0 18px"><strong>ID</strong></th>
 
-						<td class="table-sort" style="padding: 0 18px"><strong>ID</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Name</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Name</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Phone</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Phone</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Vendor</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Vendor</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Location</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Location</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Address</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Address</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Order
+								date</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								date</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Order
+								time</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								time</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Meal
+								title</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Meal
-								title</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Order
+								format</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								format</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Order
+								price</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								price</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Meal
+								code</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Meal
-								code</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Payment
+								Type</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Payment
-								Type</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Order
+								status</th>
+						
+						<th class="table-sort" style="padding: 0 35px"><strong>Cancel Order
+						</th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Order
-								status</td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Area</strong></th>
 
-						<td class="table-sort" style="padding: 0 35px"><strong>Area</strong></td>
-
-						<td class="table-sort" style="padding: 0 35px"><strong>Email</strong></td>
+						<th class="table-sort" style="padding: 0 35px"><strong>Email</strong></th>
 
 					</tr>
 
@@ -120,7 +127,7 @@
 						<c:if test="${status == null || status == order.status}">
 
 							<tr>
-
+							</thead>
 								<div class="table-sort">
 									<td style="padding: 0 18px">${order.customerOrderId}</td>
 

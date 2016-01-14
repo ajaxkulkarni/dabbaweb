@@ -50,7 +50,7 @@
 		<div class="navbar-header">
 			<a class="navbar-brand" href="admin.htm">
 				<h4 class='tiff'>
-					Tiff<span class="eat">Eat</span>- Vendors
+					Tiff<span class="eat">Eat</span>
 				</h4>
 			</a>
 		</div>
