@@ -1,27 +1,48 @@
 body {
-    background-color: #f0f3f5;
+	background-color: #f0f3f5;
 	font-family: 'Roboto';
+}
+
+.register_form_title {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.27);
+	padding: 16px 0px;
+	font-size: 24px;
+	font-weight: 300;
 }
 
 .register_box {
 	background-color: #fff;
-	padding: 25px auto;
+	padding: 16px;
 	margin-top: 30px; /*Remove, its example*/
-	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 2px 6px #ccc;
 }
 
-
-.register_form{
-    padding: 16px;
+.register_form {
+	margin: 16px auto;
 }
-.register_form_title{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.27);
-    padding:16px 0px;
-  
+
+.register_form form {
+	display: block;
+	border: 1px solid black;
+}
+
+.register_form div {
+	max-width: 672px;
+}
+
+.register_button {
+	margin: 16px 0;
+}
+
+.google {
+	display: block;
+	margin: 16px 0;
+}
+
+.google img {
+	width: 191px;
+	height: 46px;
 }
 
 @media only screen and (min-width: 768px) {
-
-
 }
-

@@ -1,34 +1,40 @@
 body {
-    background-color: #f0f3f5;
+	background-color: #f0f3f5;
 	font-family: 'Roboto';
 }
 
 .login_box {
 	background-color: #fff;
-	padding: 25px auto;
+	padding: 16px;
 	margin-top: 30px; /*Remove, its example*/
-	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 2px 6px #ccc;
 }
 
-.login_form_title{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.27);
-    padding:16px 0px;
-  
+}
+.login_form_title {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.27);
+	padding: 16px 0px;
+	font-size: 24px;
+	font-weight: 300;
 }
 
-.login_form_card{
-    padding: 16px;
+.login_form_card {
+	padding: 16px;
 }
 
-.register_card{
-     padding: 16px;
+.register_card {
+	padding: 16px;
 }
 
-.reg_list{
-    line-height: 2;
+.reg_list {
+	line-height: 2;
 }
-
+.google {
+	margin: 16px 0;
+}
+.google img {
+	width: 191px;
+	height: 46px;
+}
 @media only screen and (min-width: 768px) {
-
-
 }
