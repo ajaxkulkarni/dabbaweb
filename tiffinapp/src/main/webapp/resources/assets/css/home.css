@@ -1,5 +1,5 @@
 body{
-	background-color: white;
+	background-color: #F8F6F1;
 }
 /*
 
@@ -56,7 +56,7 @@ font-size:30px;
 }
 
 .banner_heading{
-	font-size: 18px;
+	font-size: 24px;
 	color: white;
 	text-align: center;
 	margin: 24px auto;
@@ -67,25 +67,41 @@ font-size:30px;
 .banner_sub_div{
 	color: white;
 	background-color: #8BC34A;
-	padding: 56px 32px;
+	padding: 32px 16px;
 }
 
 
 .sub_div_heading{
 	font-weight: 400;
-	font-size: 22px;
+	font-size: 16px;
+	text-align: center;
+}
+.row {
+	text-align: center;
+}
+.location_div {
+	margin: auto;
+	display: inline-block;
 }
 
-
 .option_dropdown{
-	margin: 16px auto;
+	margin: 16px;
+	color:black;
+	padding: 8px;
+	border-radius: 3px;
+	border: 0;
+	outline: 0; 
+	width: 90%;
 }
 
 .loc_button{
 	color: white;
 	background-color: #FF5535;
 	text-transform: uppercase;
-	margin: 16px auto;
+	margin: 16px;
+	padding: 10px;
+	border:0;
+	outline: 0;
 }
 
 .loc_button:hover,
@@ -99,7 +115,7 @@ font-size:30px;
 
 .menu_card{
 	margin: 16px auto;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.26);
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.26);
 	padding: 32px;
 	background-color: white;
 }
@@ -115,7 +131,8 @@ font-size:30px;
 .menu_card_image{
 	display: block;
 	margin: auto;
-	border: 1px solid rgba(0, 0, 0, 0.53);
+	height:197px;
+	width:296px;
 }
 
 .menu_card_title{
@@ -135,13 +152,15 @@ font-size:30px;
 	
 .banner_heading{
 	font-size: 32px;
-	color: white;
-	text-align: center;
 	margin: 56px auto;
-	font-weight: 300;
 	
 }
-
+.sub_div_heading{
+	font-size: 20px;
+}
+.option_dropdown{
+	width: 384px;
+}
 }
 
 .balance{
