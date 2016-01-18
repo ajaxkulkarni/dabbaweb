@@ -36,8 +36,6 @@
 
 <link href="<c:url value = "${resources}/css/register_page.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/drawer.min.css"/>"
-	rel="stylesheet">
 
 
 <link href="<c:url value = "${resources}/css/style.css"/>"
