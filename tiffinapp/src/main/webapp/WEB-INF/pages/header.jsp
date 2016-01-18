@@ -35,22 +35,19 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/payment_details.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/login_page.css"/>"
-	rel="stylesheet">
+
 <link href="<c:url value = "${resources}/css/register_page.css"/>"
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/drawer.min.css"/>"
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/add_money.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/FAQ.css"/>"
-	rel="stylesheet">
+
 <link href="<c:url value = "${resources}/css/style.css"/>"
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/meal_format.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/terms_condition.css"/>"
-	rel="stylesheet">
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <title>Header</title>

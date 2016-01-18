@@ -16,6 +16,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link href="<c:url value = "${resources}/css/FAQ.css"/>"
+	rel="stylesheet">
 <title>TiffEat | Order tiffin online, Order meal online, Order
 	food online, Order online Pune</title>
 
