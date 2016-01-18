@@ -15,7 +15,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<link href="<c:url value = "${resources}/css/home.css"/>"
+	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/FAQ.css"/>"
 	rel="stylesheet">
 <title>TiffEat | Order tiffin online, Order meal online, Order

@@ -1,13 +1,10 @@
-body{
-    font-family: 'Roboto', sans-serif;
-	background-color: #F8F6F1; 
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: #F8F6F1;
 }
 
-
-
 /*---Css For Header-----*/
-
-.navbar-default{
+.navbar-default {
 	padding: 8px;
 	background-color: #1C2C39;
 	margin: 0px;
@@ -15,72 +12,95 @@ body{
 	border-radius: 0px;
 }
 
-
-.navbar-brand{
+.navbar-brand {
 	margin-left: 54px;
-
 }
 
-.tiff{
+.navbar-default .navbar-nav>li>a {
+	color: #fff;
+	font-size: 20px;
+	Padding-top: 22px;
+	padding-left: 16px;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
+	{
+	color: red;
+	font-size: 20px;
+	Padding-top: 22px;
+	padding-left: 16px;
+}
+
+.navbar-text {
+	padding-left: 10px;
+	padding-top: 5px;
+	font-size: 30px;
+}
+
+.tiff {
 	color: #00AA44;
 	font-size: 32px;
 	margin: 0px;
 }
 
-.eat{
-	color:#ff5555; 
+.eat {
+	color: #ff5555;
 	font-size: 32px;
 }
 
-.navbar-text{
+.navbar-text {
 	margin-right: 56px;
 }
 
-#navbar_link1{
+#navbar_link1 {
 	color: #00AA44;
 	text-decoration: none;
 	font-size: 16px;
 }
 
-#navbar_link1:hover{
+#navbar_link1:hover {
 	text-decoration: none;
 	color: rgb(0, 255, 102);
 }
 
-#toggle_button1{
+#toggle_button1 {
 	background-color: transparent;
 	border: 0px;
 }
-#toggle_button1:hover,#toggle_button1:focus{
+
+#toggle_button1:hover, #toggle_button1:focus {
 	background-color: rgba(255, 255, 255, 0.16);
 	border: 0px;
 }
 
-.navbar-collapse{
+.navbar-collapse {
 	border: 0px;
 }
 
 /*---End-Header-----*/
 
 /*CSS For Footer*/
-.footer{
+.footer {
 	padding: 16px;
-/*	border-top: 1px solid rgba(0, 0, 0, 0.26);*/
+	/*	border-top: 1px solid rgba(0, 0, 0, 0.26);*/
 	background-color: #232222;
 }
-.footer p{
+
+.footer p {
 	font-family: 'Roboto', sans-serif;
 	text-align: center;
 	font-size: 12px;
 	color: white;
 	margin: 0px;
 }
-.footer a{
+
+.footer a {
 	font-family: 'Roboto', sans-serif;
 	text-decoration: none;
 	color: #89c6eb;
 }
-.footer a:hover{
+
+.footer a:hover {
 	font-family: 'Roboto', sans-serif;
 	color: #6498ad;
 	text-decoration: none;
@@ -88,20 +108,18 @@ body{
 /*End of Css for Footer*/
 
 /*Css For Drawer*/
-#drawer_link1,#drawer_link1:hover{
+#drawer_link1, #drawer_link1:hover {
 	text-decoration: none;
 }
 
-#drawer_button1{
-position: absolute;
+#drawer_button1 {
+	position: absolute;
 	top: 0px;
 	left: 0px;
 }
 
 @media only screen and (min-width: 768px) {
-#navbar_link1{
-	float: right;
-}
-
-
+	#navbar_link1 {
+		float: right;
+	}
 }

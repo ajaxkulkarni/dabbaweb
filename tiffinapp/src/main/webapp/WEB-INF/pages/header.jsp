@@ -23,8 +23,7 @@
 	rel='stylesheet' type='text/css'>
 <!-- ../../resources -->
 
-<link href="<c:url value = "${resources}/css/home.css"/>"
-	rel="stylesheet">
+
 <link href="<c:url value = "${resources}/css/tiffin_order.css"/>"
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/star-rating.min.css"/>"
@@ -45,8 +44,7 @@
 
 <link href="<c:url value = "${resources}/css/style.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/meal_format.css"/>"
-	rel="stylesheet">
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
