@@ -30,8 +30,7 @@
 	rel="stylesheet" media="all" rel="stylesheet" type="text/css">
 <link href="<c:url value = "${resources}/css/quick_daily_order.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/tiffin_summary.css"/>"
-	rel="stylesheet">
+
 <link href="<c:url value = "${resources}/css/payment_details.css"/>"
 	rel="stylesheet">
 
@@ -39,8 +38,7 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/drawer.min.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/add_money.css"/>"
-	rel="stylesheet">
+
 
 <link href="<c:url value = "${resources}/css/style.css"/>"
 	rel="stylesheet">
