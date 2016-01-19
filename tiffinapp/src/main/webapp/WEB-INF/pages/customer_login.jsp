@@ -54,17 +54,16 @@
 							</c:if>
 							<div class=login_button>
 							<button type="submit" class="btn btn-success btn-block">Login</button>
-							
+							<p>OR</p>
 						</div>
 						</div>
-						
-					</form>
+						</form>
 
 					<div class="google">
 					<a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt=""
 					src="<c:url value = "${resources}/img/btn_google_signin_dark_normal_web@2x.png"/>"></a>
 					</div>
-					<a href="registerCustomer.htm" class="btn btn-info btn-block">Register
+					<a href="#register_box" class="btn btn-info btn-block">Register
 					Now</a>
 					</div>
 				<!--<div class="col-md-6 register_card">
@@ -82,7 +81,7 @@
 							checkout</li>
 					</ul>
 					<p>
-						<a href="registerCustomer.htm" class="btn btn-info btn-block">Register
+						<a href="#register_box" class="btn btn-info btn-block">Register
 							Now</a>-->
 					</p>
 				</div>
@@ -97,10 +96,10 @@
 		<div class="">
 			<form action="registerCustomer" method="post"
 				onsubmit="return checkPasswordMatch()">
-				<div class="register_box">
+				<div class="register_box" id="register_box">
 					<h4 class="register_form_title">Registration Form</h4>
-					<a href="customerLogin.htm" style="color: black;"><strong>Already
-							Registered? Login</strong></a>
+					<!--<a href="customerLogin.htm" style="color: black;"><strong>Already
+							Registered? Login</strong></a>-->
 					<c:if test="${result != null }">
 						<div class="alert alert-danger">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -142,10 +141,10 @@
 							</div>
 							<button type="submit" class="btn btn-success register_button">Register</button>
 						</form>
-						<div class="google">
+						<!--<div class="google">
 							<a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt="Google Login Button"
 								src="<c:url value = "${resources}/img/btn_google_signin_dark_normal_web@2x.png"/>"></a>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</form>

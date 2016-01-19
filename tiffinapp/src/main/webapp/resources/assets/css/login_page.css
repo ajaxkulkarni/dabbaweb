@@ -6,6 +6,12 @@ body {
 width:190px;
 }
 
+.login_button p{
+font-size:20px;
+margin-left:70px;
+padding:13px;
+}
+
 
 .login_box {
 	background-color: #fff;
@@ -19,7 +25,7 @@ width:190px;
 	height: 6px;
 }
 .google {
-	margin: 16px 0;
+	margin: 6px 0;
 }
 
 }
