@@ -1,23 +1,23 @@
 body{
 	background-color: #F8F6F1;
 }
-/*
 
+/*
 .navbar-nav a{
 font-size:20px;
-padding-top:10px;
+padding-top:15px;
 padding-left:20px;
 font-weight:bold;
 }
 
 .navbar-nav a:hover{
 font-size:20px;
-padding-top:10px;
+padding-top:15px;
 padding-left:20px;
 font-weight:bold;
 color: #fff;
-}
-*/
+}*/
+
 
 
 
@@ -75,8 +75,8 @@ color: #fff;
 	color: white;
 	background-color: #FF5535;
 	text-transform: uppercase;
-	margin: 16px;
-	padding: 10px;
+	
+	padding: 1px;
 	border:0;
 	outline: 0;
 }
@@ -152,7 +152,7 @@ color:red;
 }
 
 .add_wallet a:hover{
-color:red;
+color:red; 
 }
 
 .price{
@@ -164,10 +164,9 @@ font-size:18px;
 .login a{
 font-size:30px;
 color:red;
-
 padding-right:30px;
-
 }
+
 .login a:hover{
 font-size:30px;
 color:red;

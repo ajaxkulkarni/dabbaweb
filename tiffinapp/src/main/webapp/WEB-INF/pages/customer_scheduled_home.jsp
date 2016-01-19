@@ -28,6 +28,7 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/prev_order.css"/>"
 	rel="stylesheet">
+
 </head>
 <body>
 
