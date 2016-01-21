@@ -29,7 +29,7 @@
 
 	<div class="container demo_div">
 
-		<h4 class="demo_heading">Terms of use, privacy policy and
+		<h4 class="disclaimerTitle">Terms of use, privacy policy and
 			disclaimer</h4>
 		<div class="demo_card">
 
