@@ -23,6 +23,9 @@
 	rel='stylesheet' type='text/css'>
 <link href="<c:url value = "${resources}/css/login_page.css"/>"
 	rel="stylesheet">
+	
+<link href="<c:url value = "${resources}/css/register_page.css"/>"
+	rel="stylesheet">
 <title>TiffEat | Login</title>
 </head>
 <body>

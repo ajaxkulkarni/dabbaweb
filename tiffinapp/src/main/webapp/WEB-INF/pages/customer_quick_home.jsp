@@ -67,7 +67,7 @@
 							<c:when
 								test="${quickOrder.content  != null && quickOrder.status!='CANCELLED'}">
 								<div class="col-md-6">
-									<h3 class="menu_list_title">${quickOrder.mealType}menuof
+									<h3 class="menu_list_title">${quickOrder.mealType} menu of
 										Tiffin ${quickOrder.meal.title} for ${quickOrderDate} is:</h3>
 									<table class="table table-bordered menu_list_table">
 										<tr>

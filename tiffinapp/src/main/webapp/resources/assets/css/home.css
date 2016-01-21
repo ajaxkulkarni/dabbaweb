@@ -1,4 +1,4 @@
-body{
+body {
 	background-color: #F8F6F1;
 }
 
@@ -18,86 +18,75 @@ font-weight:bold;
 color: #fff;
 }*/
 
-
-
-
-
-
 /*Css for Banner*/
-.tiffin_banner{
-		background-color: #1C2C39;
-		margin-top: 0px;
-		padding: 54px 16px;
-        
-	
+.tiffin_banner {
+	background-color: #1C2C39;
+	margin-top: 0px;
+	padding: 54px 16px;
 }
 
-.banner_heading{
+.banner_heading {
 	font-size: 24px;
 	color: white;
 	text-align: center;
 	margin: 24px auto;
 	font-weight: 300;
-	
 }
 
-.banner_sub_div{
+.banner_sub_div {
 	color: white;
 	background-color: #8BC34A;
 	padding: 32px 16px;
 }
 
-
-.sub_div_heading{
+.sub_div_heading {
 	font-weight: 400;
 	font-size: 16px;
 	text-align: center;
 }
+
 .row {
 	text-align: center;
 }
+
 .location_div {
 	margin: auto;
 	display: inline-block;
 }
 
-.option_dropdown{
+.option_dropdown {
 	margin: 16px;
-	color:black;
+	color: black;
 	padding: 8px;
 	border-radius: 3px;
 	border: 0;
-	outline: 0; 
+	outline: 0;
 	width: 90%;
 }
 
-.loc_button{
+.loc_button {
 	color: white;
 	background-color: #FF5535;
 	text-transform: uppercase;
-	
-	padding: 1px;
-	border:0;
+	border: 0;
 	outline: 0;
 }
 
-.loc_button:hover,
-.loc_button:focus{
+.loc_button:hover, .loc_button:focus {
 	color: white;
-    background-color: rgba(255, 85, 53, 0.70);
+	background-color: rgba(255, 85, 53, 0.70);
 }
 /*End of css Banner*/
 
 /*CSS for menu list */
-
-.menu_card{
+.menu_card {
 	margin: 16px auto;
 	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.26);
 	padding: 32px;
 	background-color: white;
 }
 
-.menu_card_heading{
+.menu_card_heading {
 	font-size: 24px;
 	margin: 16px auto 0px;
 	color: rgba(0, 0, 0, 0.54);
@@ -105,70 +94,64 @@ color: #fff;
 	font-weight: 500;
 }
 
-.menu_card_image{
+.menu_card_image {
 	display: block;
 	margin: auto;
-	height:197px;
-	width:296px;
+	height: 197px;
+	width: 296px;
 }
 
-.menu_card_title{
+.menu_card_title {
 	font-size: 18px;
 	color: rgba(0, 0, 0, 0.87);
 }
 
-.menu_card_sub_title{
+.menu_card_sub_title {
 	font-size: 16px;
 	color: rgba(0, 0, 0, 0.57);
 }
 /*End of css menu list*/
-
-
-
 @media only screen and (min-width: 768px) {
-	
-.banner_heading{
-	font-size: 32px;
-	margin: 56px auto;
-	
-}
-.sub_div_heading{
-	font-size: 20px;
-}
-.option_dropdown{
-	width: 384px;
-}
+	.banner_heading {
+		font-size: 32px;
+		margin: 56px auto;
+	}
+	.sub_div_heading {
+		font-size: 20px;
+	}
+	.option_dropdown {
+		width: 384px;
+	}
 }
 
-.balance{
-font-size:25px;
-text-align:left;
-padding-top:15px;
-color:#00AA44;
+.balance {
+	font-size: 25px;
+	text-align: left;
+	padding-top: 15px;
+	color: #00AA44;
 }
 
-.add_wallet a{
-color:red;
+.add_wallet a {
+	color: red;
 }
 
-.add_wallet a:hover{
-color:red; 
+.add_wallet a:hover {
+	color: red;
 }
 
-.price{
-padding-left:570px;
-font-weight:bold;
-font-size:18px;
+.price {
+	padding-left: 570px;
+	font-weight: bold;
+	font-size: 18px;
 }
 
-.login a{
-font-size:30px;
-color:red;
-padding-right:30px;
+.login a {
+	font-size: 30px;
+	color: red;
+	padding-right: 30px;
 }
 
-.login a:hover{
-font-size:30px;
-color:red;
-
+.login a:hover {
+	font-size: 30px;
+	color: red;
 }

@@ -8,35 +8,19 @@
 <html>
 <head>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link
-	href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500'
-	rel='stylesheet' type='text/css'>
+
 <!-- ../../resources -->
 
 
 <link href="<c:url value = "${resources}/css/tiffin_order.css"/>"
 	rel="stylesheet">
+	
+<!-- Irrelevant CSS links
 <link href="<c:url value = "${resources}/css/star-rating.min.css"/>"
 	rel="stylesheet" media="all" rel="stylesheet" type="text/css">
 <link href="<c:url value = "${resources}/css/quick_daily_order.css"/>"
 	rel="stylesheet">
-
-<link href="<c:url value = "${resources}/css/payment_details.css"/>"
-	rel="stylesheet">
-
-<link href="<c:url value = "${resources}/css/register_page.css"/>"
-	rel="stylesheet">
-
+	-->
 
 <link href="<c:url value = "${resources}/css/style.css"/>"
 	rel="stylesheet">
