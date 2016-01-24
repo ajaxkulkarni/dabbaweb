@@ -96,6 +96,9 @@ public class DataToBusinessConverters implements Constants {
 		Location location = new Location();
 		location.setAddress(latestMeal.getLocation());
 		customerOrder.setLocation(location);
+		if (customerOrder.getMeal() != null) {
+			customerOrder.setPrice(customerOrder.getMeal().getPrice());
+		}
 	}
 
 	public static CustomerOrder convertOrder(Order order) {

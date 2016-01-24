@@ -12,19 +12,17 @@
 <%@include file="admin_header.jsp"%>
 <link href="<c:url value="${resources}/css/admin_home.css"/>"
 	rel="stylesheet">
-<script>
+<!-- <script>
 	$(document).ready(function() {
 		$('#order_table1').DataTable({
 			responsive : true
 		});
 	});
-</script>
+</script> -->
 
 <!-- daterangepicker.css admin_view_orders.css -->
-<link href="<c:url value = "${resources}/css/daterangepicker.css" />"
-	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/admin_view_orders.css"/>"
-	rel="stylesheet">
+<link href="<c:url value = "${resources}/css/daterangepicker.css" />" rel="stylesheet">
+<link href="<c:url value = "${resources}/css/admin_view_orders.css"/>" rel="stylesheet">
 <body>
 
 <br/>
@@ -33,10 +31,8 @@
 	<div class="demo">
 		<form action="billing.htm" method="GET">
 		<br/>
-		<strong>Select Date:</strong> <input id="date-range0" size="40" value=""
-		name="dateRange">
-			<button type="submit" value="Filter By Date"
-				class="btn btn-default filter_btn1">Generate</button>
+		<strong>Select Date:</strong> <input id="date-range0" size="40" value="" name="dateRange">
+			<button type="submit" value="Filter By Date" class="btn btn-default filter_btn1">Generate</button>
 		</form>
 	</div>
 
@@ -70,16 +66,17 @@
 	</div>
 	<!--    End of vendor list div-->
 
+	<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script> -->
 	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
 	<script type="text/javascript"
 		src="<c:url value = "${resources}/js/tablesort.js"/>"></script>
 	<script type="text/javascript">
-		// For Demo Purposes
-		$(function() {
-			$('table.table-sort').tablesort();
-			hljs.initHighlightingOnLoad(); // Syntax Hilighting
-		});
-	</script>
+            // For Demo Purposes
+            $(function () {
+                $('table.table-sort').tablesort();
+                hljs.initHighlightingOnLoad(); // Syntax Hilighting
+            });
+        </script>
 
 	<!-- for date range picker  -->
 	<script type="text/javascript"
@@ -89,12 +86,14 @@
 	<script type="text/javascript"
 		src="<c:url value = "${resources}/js/demo.js"/>"></script>
 	<script type="text/javascript">
-		$(function() {
-			$('a.show-option').click(function(evt) {
-				evt.preventDefault();
-				$(this).siblings('.options').slideToggle();
-			});
-		})
+	$(function()
+	{
+		$('a.show-option').click(function(evt)
+		{
+			evt.preventDefault();
+			$(this).siblings('.options').slideToggle();
+		});
+	})
 	</script>
 
 </body>

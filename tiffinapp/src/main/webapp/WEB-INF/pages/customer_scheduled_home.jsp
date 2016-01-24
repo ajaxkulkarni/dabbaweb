@@ -74,14 +74,14 @@
 						class="img-responsive tiffin_box_img1">
 				</div>
 				<c:choose>
-					<%-- <c:when test="${order.status == 'NA'}">
-                		Today's order ${order.meal.title} for ${order.mealType} is not available.
-                	</c:when> --%>
+					<c:when test="${order.status == 'NA'}">
+                		Today's order ${order.meal.title} for ${order.mealType} is not yet available.
+                	</c:when>
 					<c:when test="${order.status == 'PAYABLE'}">
 						<h4 class="today">
 							You won't receive ${order.mealType} meal for ${orderDate}.
 							<c:if
-								test="${customer.balance < order.meal.price || customer.balance == null}">
+								test="${customer.balance < order.price || customer.balance == null}">
 								<br />
                 		You are low on cash.
                 		<div class="add_wallet">
@@ -99,6 +99,10 @@
 						<h4 class="today">Your order ${order.meal.title} of
 							${order.mealType} for ${orderDate} has been delivered. Please
 							rate us!</h4>
+					</c:when>
+					<c:when test="${order.status == 'INVALID'}">
+						<h4 class="today">Your order ${order.meal.title} of
+							${order.mealType} is no longer available. Please select a different meal..</h4>
 					</c:when>
 					<c:when test="${order.content!=null}">
 						<div class="col-md-6">
@@ -188,15 +192,15 @@
 			</div>
 			<div class="order_bottom_div">
 				<p class="order_bottom_label">
+					Price :<span> ${order.meal.price}</span>
+				</p>
+				<p class="order_bottom_label">
 					Scheduled from:<span> <fmt:formatDate pattern="yyyy-MM-dd"
 							value="${order.date}" /></span>
 				</p>
 				<p class="order_bottom_label">
 					Tiffins remaining:${customer.noOfTiffinsRemaining }<span></span>
 				</p>
-
-				<!--  <button class="btn edit_order_button">Edit</button>
-                <button class="btn cancel_button">Cancel</button> -->
 			</div>
 		</div>
 	</c:forEach>

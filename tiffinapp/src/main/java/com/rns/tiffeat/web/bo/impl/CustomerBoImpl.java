@@ -118,7 +118,6 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	}
 
-
 	public CustomerDao getCustomerDao() {
 		return customerDao;
 	}
@@ -144,9 +143,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (customerDao.getCustomerByEmail(customer.getEmail()) != null) {
 			return ERROR_EMAIL_ADDRESS_ALREADY_PRESENT;
 		}
-		/*if (customerDao.getCustomerByPhone(customer.getPhone()) != null) {
-			return ERROR_PHONE_NUMBER_ALREADY_PRESENT;
-		}*/
+		/*
+		 * if (customerDao.getCustomerByPhone(customer.getPhone()) != null) {
+		 * return ERROR_PHONE_NUMBER_ALREADY_PRESENT; }
+		 */
 		BusinessToDataConverters.convertCustomer(customerToBeAdded, customer);
 		return RESPONSE_OK;
 	}
@@ -208,7 +208,6 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return vendor;
 	}
 
-
 	private boolean checkIfAvailable(Meal meal, DailyMeal menu) {
 		if (menu == null) {
 			return true;
@@ -222,7 +221,6 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return false;
 		}
 	}
-
 
 	public String quickOrder(CustomerOrder customerOrder) {
 		String validationResult = validateQuickOrder(customerOrder);
@@ -246,10 +244,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (customerOrder == null || customerOrder.getCustomer() == null || customerOrder.getMeal() == null || customerOrder.getDate() == null) {
 			return ERROR_INVALID_ORDER_DETAILS;
 		}
-		if(StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null || StringUtils.isEmpty(customerOrder.getLocation().getAddress())) {
+		if (StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null || StringUtils.isEmpty(customerOrder.getLocation().getAddress())) {
 			return ERROR_INVALID_ADDRESS_OR_LOCATION;
 		}
-		if(customerOrder.getMealType() == null) {
+		if (customerOrder.getMealType() == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
 		if (!checkIfMealTypeAvailableForDate(customerOrder)) {
@@ -268,7 +266,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 		Vendor currentVendor = new Vendor();
 		DataToBusinessConverters.convertVendor(currentVendor, meal.getVendor());
-		if(isVendorClosed(currentVendor)) {
+		if (isVendorClosed(currentVendor)) {
 			return ERROR_VENDOR_NOT_AVAILABLE;
 		}
 		return RESPONSE_OK;
@@ -372,11 +370,21 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return;
 		}
 		Order order = orderDao.getCustomerScheduledOrder(currentCustomer.getId(), date, customerOrder.getMealType().name());
-		if (order == null) {
+		setOrderStatus(customerOrder, order);
+	}
+
+	private void setOrderStatus(CustomerOrder customerOrder, Order order) {
+		if (isVendorClosed(customerOrder.getMeal().getVendor())) {
 			customerOrder.setStatus(OrderStatus.NA);
 			return;
 		}
-		customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));
+		if (customerOrder.getMealType().equals(customerOrder.getMeal().getMealTime()) || MealType.BOTH.equals(customerOrder.getMeal().getMealTime())) {
+			if (order != null) {
+				customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));
+			}
+		} else {
+			customerOrder.setStatus(OrderStatus.INVALID);
+		}
 	}
 
 	private void prepareQuickOrderDetails(Customer currentCustomer, CustomerOrder customerOrder) {
@@ -387,6 +395,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return;
 		}
 		customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));
+		if (order.getPrice() != null) {
+			customerOrder.setPrice(order.getPrice());
+		}
 	}
 
 	private List<CustomerOrder> getCustomerOrders(List<CustomerMeal> customerMeals, Customer currentCustomer) {
@@ -424,7 +435,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	public String scheduledOrder(CustomerOrder customerOrder) {
 		List<CustomerMeal> customerMealsToBeAdded = new ArrayList<CustomerMeal>();
 		String response = prepareScheduledOrders(customerMealsToBeAdded, customerOrder);
-		if(!RESPONSE_OK.equals(response)) {
+		if (!RESPONSE_OK.equals(response)) {
 			return response;
 		}
 		customerOrder.setId(customerMealDao.addCustomerMeals(customerMealsToBeAdded));
@@ -434,7 +445,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	public String prepareScheduledOrders(List<CustomerMeal> customerMealsToBeAdded, CustomerOrder orderInProcess) {
 		String response = validateScheduledOrder(orderInProcess);
-		if(!RESPONSE_OK.equals(response)) {
+		if (!RESPONSE_OK.equals(response)) {
 			return response;
 		}
 		List<CustomerOrder> scheduledOrders = new ArrayList<CustomerOrder>();
@@ -471,15 +482,15 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		scheduledOrder.setLocation(customerOrder.getLocation());
 		return scheduledOrder;
 	}
-	
+
 	public String validateScheduledOrder(CustomerOrder order) {
 		if (order == null || order.getCustomer() == null || order.getMeal() == null) {
 			return ERROR_INVALID_ORDER_DETAILS;
 		}
-		if(StringUtils.isEmpty(order.getAddress()) || order.getLocation() == null) {
+		if (StringUtils.isEmpty(order.getAddress()) || order.getLocation() == null) {
 			return ERROR_INVALID_ADDRESS_OR_LOCATION;
 		}
-		if(order.getMealType() == null) {
+		if (order.getMealType() == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
 		Meal meal = mealDao.getMeal(order.getMeal().getId());
@@ -491,7 +502,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 		Vendor currentVendor = new Vendor();
 		DataToBusinessConverters.convertVendor(currentVendor, meal.getVendor());
-		if(isVendorClosed(currentVendor)) {
+		if (isVendorClosed(currentVendor)) {
 			return ERROR_VENDOR_NOT_AVAILABLE;
 		}
 		com.rns.tiffeat.web.dao.domain.Customer customer = customerDao.getCustomer(order.getCustomer().getId());
@@ -532,11 +543,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (customerOrder.getCustomer() == null || customerOrder.getMeal() == null) {
 			return ERROR_INVALID_MEAL_DETAILS;
 		}
-		if(StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null) {
+		if (StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null) {
 			return ERROR_INVALID_ADDRESS_OR_LOCATION;
 		}
 		Map<MealType, Date> availableMealTypeDates = getAvailableMealTypeDates(customerOrder);
-		if(availableMealTypeDates == null || availableMealTypeDates.get(customerOrder.getMealType()) == null) {
+		if (availableMealTypeDates == null || availableMealTypeDates.get(customerOrder.getMealType()) == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
 		Meal oldMeal = mealDao.getMeal(customerOrder.getMeal().getId());
@@ -700,10 +711,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return null;
 		}
 		Meal currentMeal = mealDao.getMeal(meal.getId());
-		if(MealType.LUNCH.equals(mealType) && !StringUtils.equals(MealStatus.PREPARE.name(),(currentMeal.getLunchStatus()))) {
+		if (MealType.LUNCH.equals(mealType) && !StringUtils.equals(MealStatus.PREPARE.name(), (currentMeal.getLunchStatus()))) {
 			return null;
 		}
-		if(MealType.DINNER.equals(mealType) && !StringUtils.equals(MealStatus.PREPARE.name(),(currentMeal.getDinnerStatus()))) {
+		if (MealType.DINNER.equals(mealType) && !StringUtils.equals(MealStatus.PREPARE.name(), (currentMeal.getDinnerStatus()))) {
 			return null;
 		}
 		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(currentMeal.getId(), mealType);
@@ -724,11 +735,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	public List<Customer> getAllCustomers() {
 		List<com.rns.tiffeat.web.dao.domain.Customer> customers = customerDao.getAllCustomers();
-		if(CollectionUtils.isEmpty(customers)) {
+		if (CollectionUtils.isEmpty(customers)) {
 			return null;
 		}
 		List<Customer> currentCustomers = new ArrayList<Customer>();
-		for(com.rns.tiffeat.web.dao.domain.Customer customer:customers) {
+		for (com.rns.tiffeat.web.dao.domain.Customer customer : customers) {
 			Customer currentCustomer = new Customer();
 			DataToBusinessConverters.convertCustomer(customer, currentCustomer);
 			populateCustomerMeals(customer, currentCustomer);

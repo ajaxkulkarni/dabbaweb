@@ -43,6 +43,7 @@
 			<c:forEach items="${customer.quickOrders}" var="quickOrder">
 				<div class="order_details_card">
 					<div class="row">
+						${quickOrder.meal.vendor.name}
 						<div class="col-md-6">
 							<img alt="no_image"
 								src="getMealImage.htm?mealId=${quickOrder.meal.id}"
@@ -120,7 +121,7 @@
 						</c:choose>
 					</div>
 
-					<div class="price">Price: ${quickOrder.meal.price}</div>
+					<div class="price">Price: ${quickOrder.price}</div>
 
 					<form action="repeatOrder" method="post">
 						<input type="hidden" name="meal.id" value="${quickOrder.meal.id}" />
