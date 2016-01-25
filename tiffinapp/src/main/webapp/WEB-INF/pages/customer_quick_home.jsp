@@ -43,7 +43,6 @@
 			<c:forEach items="${customer.quickOrders}" var="quickOrder">
 				<div class="order_details_card">
 					<div class="row">
-					
 						<div class="col-md-6">
 							<img alt="no_image"
 								src="getMealImage.htm?mealId=${quickOrder.meal.id}"

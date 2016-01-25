@@ -84,6 +84,7 @@ public class DataToBusinessConverters implements Constants {
 		if (latestMeal == null) {
 			return;
 		}
+		customerOrder.setId(latestMeal.getId());
 		customerOrder.setCustomerOrderId(latestMeal.getId());
 		customerOrder.setCustomer(currentCustomer);
 		customerOrder.setArea(AREAS.get(trimToEmpty(latestMeal.getPinCode())));
