@@ -114,8 +114,7 @@ rel="stylesheet">
 						<th class="table-sort" style="padding: 0 35px"><strong>Order
 								status</th>
 						
-						<th class="table-sort" style="padding: 0 35px"><strong>Cancel Order
-						</th>
+						
 
 						<th class="table-sort" style="padding: 0 35px"><strong>Area</strong></th>
 
@@ -157,6 +156,11 @@ rel="stylesheet">
 									<td style="padding: 0 35px">${order.paymentType}</td>
 
 									<td style="padding: 0 35px">${order.status}</td>
+									
+									<td style="padding: 0 35px">${order.meal.vendor.pinCode}</td>
+
+									<td style="padding: 0 35px">${order.customer.email}</td>
+									
 								</div>
 								<c:if
 									test="${order.mealStatus == 'DISPATCH' && order.status == 'ORDERED'}">
@@ -172,9 +176,7 @@ rel="stylesheet">
 									<%-- </form> --%>
 								</c:if>
 
-								<td style="padding: 0 35px">${order.meal.vendor.pinCode}</td>
-
-								<td style="padding: 0 35px">${order.customer.email}</td>
+								
 							</tr>
 
 						</c:if>

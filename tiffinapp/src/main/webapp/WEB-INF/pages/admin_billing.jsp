@@ -26,16 +26,18 @@
 <body>
 
 <br/>
-	Billing for : ${invoices[0].dateRange}
-
+	
+<a href="admin.htm?vendorEmail=${vendor.email}"
+class="btn btn-default back_btn1">Back</a>
 	<div class="demo">
+	<h4>Billing for : ${invoices[0].dateRange}</h4>
 		<form action="billing.htm" method="GET">
 		<br/>
 		<strong>Select Date:</strong> <input id="date-range0" size="40" value="" name="dateRange">
 			<button type="submit" value="Filter By Date" class="btn btn-default filter_btn1">Generate</button>
 		</form>
 	</div>
-
+    <br/>
 	<div class="container">
 		<div id="order_list_div">
 			<div class="table-responsive">

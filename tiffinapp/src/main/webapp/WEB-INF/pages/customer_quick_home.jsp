@@ -43,7 +43,7 @@
 			<c:forEach items="${customer.quickOrders}" var="quickOrder">
 				<div class="order_details_card">
 					<div class="row">
-						${quickOrder.meal.vendor.name}
+					
 						<div class="col-md-6">
 							<img alt="no_image"
 								src="getMealImage.htm?mealId=${quickOrder.meal.id}"
@@ -68,6 +68,7 @@
 							<c:when
 								test="${quickOrder.content  != null && quickOrder.status!='CANCELLED'}">
 								<div class="col-md-6">
+								<h3 class="menu_list_title">Vendor Name: ${quickOrder.meal.vendor.name}</h3>
 									<h3 class="menu_list_title">${quickOrder.mealType} menu of
 										Tiffin ${quickOrder.meal.title} for ${quickOrderDate} is:</h3>
 									<table class="table table-bordered menu_list_table">
