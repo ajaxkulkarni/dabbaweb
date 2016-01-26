@@ -34,7 +34,7 @@ public class CommonUtil implements Constants {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 		Date parsedDate = new Date();
 		try {
-			parsedDate = sdf.parse(date);
+			parsedDate = sdf.parse(StringUtils.trimToEmpty(date));
 		} catch (ParseException e) {
 		}
 		return parsedDate;
