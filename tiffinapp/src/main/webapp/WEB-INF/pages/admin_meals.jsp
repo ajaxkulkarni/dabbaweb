@@ -11,6 +11,8 @@
 <head>
 <%@include file="admin_header.jsp" %>
 <link href="<c:url value="${resources}/css/admin_home.css"/>" rel="stylesheet">
+<link href="<c:url value="${resources}/css/admin_view_orders.css"/>" rel="stylesheet">
+
 <script>
 	$(document).ready(function() {
 		$('#order_table1').DataTable({
@@ -26,7 +28,8 @@
 			All Orders</a>
 	</div> -->
 	<div class="container view_order">
-	<a href="admin.htm" class="btn btn-default view_order_btn">Back</a>
+	<a href="admin.htm?vendorEmail=${vendor.email}"
+			class="btn btn-default back_btn1">Back</a>
 	</div>
 	<br/>
 	<!--    meals List Div-->
