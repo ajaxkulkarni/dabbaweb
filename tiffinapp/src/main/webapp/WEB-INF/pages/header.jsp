@@ -12,8 +12,6 @@
 <!-- ../../resources -->
 
 
-<link href="<c:url value = "${resources}/css/tiffin_order.css"/>"
-	rel="stylesheet">
 	
 <!-- Irrelevant CSS links
 <link href="<c:url value = "${resources}/css/star-rating.min.css"/>"

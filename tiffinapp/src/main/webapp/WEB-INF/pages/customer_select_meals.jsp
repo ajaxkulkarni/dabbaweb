@@ -22,6 +22,8 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500'
 	rel='stylesheet' type='text/css'>
+<link href="<c:url value = "${resources}/css/tiffin_order.css"/>"
+	rel="stylesheet">
 	<script type="text/javascript">
     function onViewMenu() {
     	var radios = document.getElementsByName('mealType');
