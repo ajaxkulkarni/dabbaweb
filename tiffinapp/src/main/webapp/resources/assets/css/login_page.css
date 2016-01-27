@@ -1,90 +1,66 @@
 body {
 	background-color: #f0f3f5;
 	font-family: 'Roboto';
-}
-.login_button{
-width:190px;
+	color: rgba(0, 0, 0, 0.87);
 }
 
-.login_button p{
-font-size:20px;
-margin-left:70px;
-padding:13px;
-}
-
-
-.login_box {
+.login_box, .register_box {
 	background-color: #fff;
 	padding: 16px;
-	margin-top: 30px; /*Remove, its example*/
 	box-shadow: 0 2px 6px #ccc;
-	width:700px;
+	margin: 32px 16px;
 }
+
+
+.login_form_title, .register_form_title {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+	padding: 0px 0px 16px;
+	font-size: 28px;
+	font-weight: 300;
+}
+
+label {
+	font-size: 16px;
+	font-weight: 400;
+	margin: 16px auto 4px;
+}
+
+.login_form_card p {
+	font-size: 20px;
+	text-align: center;
+}
+
 .google img {
 	width: 191px;
-	height: 6px;
+	height: 46px;
 }
+
 .google {
-	margin: 6px 0;
+	text-align: center;
+	margin: 16px auto;
 }
 
+.btn-block {
+	text-transform: uppercase;
+	margin:16px auto;
 }
-.login_form_title {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.27);
-	padding-top: 16px;
-	
-	font-size: 24px;
-	font-weight: 300;
-}
-
-.login_form_card {
-	padding: 16px;
-	
+#register_now {
+	display:block;
+	text-align:center;
+	margin-top: 24px; 
 }
 
-.register_card {
-	padding: 16px;
-}
-
-.reg_list {
-	line-height: 2;
-}
-
-
-@media only screen and (min-width: 768px) {
-}
-
-
-.register_form_title {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.27);
-	padding: 16px 0px;
-	font-size: 24px;
-	font-weight: 300;
-}
-
-.register_box {
-	background-color: #fff;
-	padding: 16px;
-	margin-top: 30px; /*Remove, its example*/
-	box-shadow: 0 2px 6px #ccc;
-	width:700px;
-}
-
+/*Copied from register_page.css PLEASE REMOVE THAT CSS FILE LATER */
 .register_form {
 	margin: 16px auto;
-	
-}
-
-.register_form form {
-	display: block;
-	border: 1px solid black;
-	width:300px;
-}
-
-.register_form div {
-	max-width: 72px;
 }
 
 .register_button {
 	margin: 16px 0;
+}
+@media only screen and (min-width:768px) {
+	.login_box, .register_box {
+	max-width: 480px;
+	margin: 32px auto;
+}
 }

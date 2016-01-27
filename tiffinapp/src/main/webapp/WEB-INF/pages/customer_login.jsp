@@ -23,25 +23,26 @@
 	rel='stylesheet' type='text/css'>
 <link href="<c:url value = "${resources}/css/login_page.css"/>"
 	rel="stylesheet">
-	
-<link href="<c:url value = "${resources}/css/register_page.css"/>"
-	rel="stylesheet">
+
+
 <title>TiffEat | Login</title>
 </head>
 <body>
 
 	<%@include file="header.jsp"%>
 
-	<div class="container">
-	
+	<div class="">
+
 		<div class="login_box">
+
 			<h4 class="login_form_title">Login Form</h4>
-			<div class="row">
-				<div class="col-md-6 login_form_card">
+
+			<div class="">
+				<div class=" login_form_card">
 					<form role="form" action="customerLogin" method="post">
 						<label for="username">Username</label> <input type="email"
-							class="form-control" id="username" name="email"> <label
-							for="password">Password</label> <input type="password"
+							class="form-control" id="username" name="email" autofocus>
+						<label for="password">Password</label> <input type="password"
 							class="form-control" id="password" name="password">
 						<div class="checkbox">
 							<!--  <label>
@@ -55,20 +56,23 @@
 									<!-- <strong>Danger!</strong> -->${result}
 								</div>
 							</c:if>
-							<div class=login_button>
-							<button type="submit" class="btn btn-success btn-block">Login</button>
-							<p>OR</p>
+							<div class="login_button">
+								<button type="submit" class="btn btn-success btn-block">Login</button>
+
+							</div>
 						</div>
-						</div>
-						</form>
+					</form>
+
+					<p>OR</p>
 
 					<div class="google">
-					<a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt=""
-					src="<c:url value = "${resources}/img/btn_google_signin_dark_normal_web@2x.png"/>"></a>
+						<a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt=""
+							src="<c:url value = "${resources}/img/btn_google_signin_dark_normal_web@2x.png"/>"></a>
 					</div>
-					<a href="#register_box" class="btn btn-info btn-block">Register
-					Now</a>
-					</div>
+
+
+					<a href="#registration_form" id="register_now">New User? Register Now.</a>
+				</div>
 				<!--<div class="col-md-6 register_card">
 					<p>
 						Register now for <span class="text-success">FREE</span>
@@ -86,17 +90,16 @@
 					<p>
 						<a href="#register_box" class="btn btn-info btn-block">Register
 							Now</a>-->
-					</p>
-				</div>
+				</p>
 			</div>
 		</div>
 	</div>
-	<%@include file="footer.jsp"%>
-	
-	
+	</div>
+
+
 	<div id="customerEmail">${customer.email}</div>
 	<div class="container">
-		<div class="">
+		<div id="registration_form">
 			<form action="registerCustomer" method="post"
 				onsubmit="return checkPasswordMatch()">
 				<div class="register_box" id="register_box">
@@ -114,7 +117,7 @@
 							<div class=" ">
 								<label for="firstName" class="">Full Name</label> <input
 									type="text" id="firstName" name="name" placeholder="Full Name"
-									class="form-control" autofocus required>
+									class="form-control" required>
 							</div>
 							<div class=" ">
 								<label for="email" class="">Email</label> <input type="email"
@@ -128,26 +131,22 @@
 							</div>
 
 							<div class=" ">
-								<label class="" for="password_confirm">Password
-									(Confirm)</label> <input type="password" id="password_confirm"
+								<label class="" for="password_confirm">Confirm Password
+								</label> <input type="password" id="password_confirm"
 									placeholder="Re-type Password" class="form-control" required>
 								<p class="error_alert" id="password_error"></p>
 							</div>
 
 							<div class=" ">
-								<input type="checkbox"
-									name="remember" id="remember" required><strong> I
-										accept all <a href="terms.htm" class="universal_link"
-										target="_blank">terms and conditions. 
-								</strong></a>
-								
+								<input type="checkbox" name="remember" id="remember" required>
+								I accept all <a href="terms.htm" class="universal_link"
+									target="_blank"><strong>terms and conditions. </strong></a>
+
 							</div>
-							<button type="submit" class="btn btn-success register_button">Register</button>
+							<div class="register_button">
+								<button type="submit" class="btn btn-success btn-block ">Register</button>
+							</div>
 						</form>
-						<!--<div class="google">
-							<a href="<%=Constants.GOOGLE_GET_CODE_URL%>"><img alt="Google Login Button"
-								src="<c:url value = "${resources}/img/btn_google_signin_dark_normal_web@2x.png"/>"></a>
-						</div>-->
 					</div>
 				</div>
 			</form>

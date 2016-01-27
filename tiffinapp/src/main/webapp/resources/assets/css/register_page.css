@@ -13,8 +13,9 @@ body {
 .register_box {
 	background-color: #fff;
 	padding: 16px;
-	margin-top: 30px; /*Remove, its example*/
 	box-shadow: 0 2px 6px #ccc;
+	max-width: 600px;
+	margin: 32px auto;
 }
 
 .register_form {
@@ -32,16 +33,6 @@ body {
 
 .register_button {
 	margin: 16px 0;
-}
-
-.google {
-	display: block;
-	margin: 16px 0;
-}
-
-.google img {
-	width: 191px;
-	height: 46px;
 }
 
 @media only screen and (min-width: 768px) {
