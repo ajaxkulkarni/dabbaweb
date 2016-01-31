@@ -68,7 +68,7 @@
 					or whatever it is you like to do.</p>
 			</div>
 			<p id="orderNow">
-				<a href="home.htm">Order Now!</a>
+				<a href="<%=Constants.INDEX_URL_GET%>">Order Now!</a>
 			</p>
 		</div>
 

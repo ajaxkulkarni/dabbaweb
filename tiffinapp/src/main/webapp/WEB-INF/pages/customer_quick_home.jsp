@@ -123,7 +123,7 @@
 
 					<div class="price">Price: ${quickOrder.price}</div>
 
-					<form action="repeatOrder" method="post">
+					<form action="<%=Constants.REPEAT_ORDER_URL_POST %>" method="post">
 						<input type="hidden" name="meal.id" value="${quickOrder.meal.id}" />
 						<input type="hidden" name="meal.title"
 							value="${quickOrder.meal.title}" /> <input type="hidden"
@@ -140,7 +140,7 @@
 				</div>
 			</c:forEach>
 		</c:if>
-		<form action="customerSelectVendor" method="POST">
+		<form action="<%=Constants.CUSTOMER_SELECT_VENDOR_URL_POST%>" method="POST">
 			<div class="submit_order">
 				<button type="submit" class="btn order_button">MAKE ANOTHER
 					ORDER</button>
@@ -164,10 +164,7 @@
 								Date :
 								<fmt:formatDate value="${order.date}" pattern="yyyy-MM-dd" />
 							</h6>
-							<!--<input id="input-2a" class="rating" min="0" max="5" step="0.5"
-					data-size="sm" data-symbol="&#xf005;" data-glyphicon="false"
-					data-rating-class="rating-fa">-->
-							<form action="repeatOrder" method="post">
+							<form action="<%=Constants.REPEAT_ORDER_URL_POST%>" method="post">
 								<input type="hidden" name="meal.id" value="${order.meal.id}" />
 								<input type="hidden" name="meal.title"
 									value="${order.meal.title}" /> <input type="hidden"

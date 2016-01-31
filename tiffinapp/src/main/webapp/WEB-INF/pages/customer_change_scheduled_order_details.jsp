@@ -1,3 +1,4 @@
+<%@page import="com.rns.tiffeat.web.util.Constants"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -32,7 +33,7 @@
 	function showModal() {
 		$.ajax({
 			type : "GET",
-			url : 'scheduledOrder.htm',
+			url : '<%=Constants.SCHEDULED_ORDER_URL_GET%>',
 			success : function(data) {
 			},
 			error : function(e) {
@@ -67,7 +68,7 @@
 			</c:if>
 			<div class="row">
 				<div class="col-md-6">
-					<form action="changeOrder" id="scheduledOrderForm" method="post"
+					<form action="<%=Constants.CHANGE_ORDER_URL_POST%>" id="scheduledOrderForm" method="post"
 						onsubmit="return showModal()">
 						<input type="hidden" name="customer.id"
 							value="${customerOrder.customer.id}" /> <input type="hidden"

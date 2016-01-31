@@ -86,18 +86,6 @@ public interface Constants {
             				+ "&redirect_uri=http://" + HOST_URL + "/getGoogleCode"
             				+ "&grant_type=authorization_code";
 	
-	/*String GOOGLE_GET_CODE_URL = "https://accounts.google.com/o/oauth2/auth?" +
-			  "scope=email"
-			+ "&redirect_uri=http://"+ HOST_URL + "/getGoogleCode"
-			+ "&response_type=code"
-			+ "&client_id=344058125654-48me3a50pah2mkgqmp710mto6a36msbi.apps.googleusercontent.com"
-			+ "&approval_prompt=force";
-	
-	String GOOGLE_ACCESS_TOKEN_URL_PARAMS = "&client_id=344058125654-48me3a50pah2mkgqmp710mto6a36msbi.apps.googleusercontent.com"
-          				+ "&client_secret=4gE9UVYBfJ3JGFR4uu_vnFxH"
-          				+ "&redirect_uri=http://" + HOST_URL + "/getGoogleCode"
-          				+ "&grant_type=authorization_code";*/
-	
 	
 	String GOOGLE_DISTANCE_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?";
 	
@@ -135,6 +123,66 @@ public interface Constants {
 	String ADMIN_PASSWORD = "admin123";
 	String ADMIN_USERNAME = "admin";
 	BigDecimal VENDOR_COMMISSION = new BigDecimal(0.7);
+	
+	String PAYMENT_RESULT_SUCCESS = "success";
+	String PAYMENT_MODE = "mode";
+	String PAYMENT_STATUS = "status";
+	String URL_PREFIX = "/";
+	
+	String CHECK_LOGGED_IN_URL_GET = "checkRegistration.htm";
+	String GET_VENDOR_MEALS_URL_GET = "getVendorMeals.htm";
+	String MAKE_NEW_ORDER_URL_GET = "makeNewOrder.htm";
+	String GET_GOOGLE_CODE_URL_GET = "getGoogleCode";
+	String CONTACT_US_URL_GET = "contactUs.htm";
+	String ABOUT_US_URL_GET = "aboutUs.htm";
+	String TERMS_URL_GET = "terms.htm";
+	String LOGOUT_URL_GET = "logout.htm";
+	String SCHEDULED_ORDERS_URL_GET = "scheduledOrders.htm";
+	String CUSTOMER_LOGIN_URL_GET = "customerLogin.htm";
+	String ADD_MONEY_TO_WALLET_URL_GET = "addMoneyToWallet.htm";
+	String PAYMENT_ANDROID_RESULT_GET_URL = "paymentAndroidResult.htm?result=";
+	String PAYMENT_URL_GET = "payment.htm";
+	String QUICK_ORDERS_HOME_URL_GET = "quickOrders.htm";
+	String QUICK_ORDER_URL_GET = "quickOrder.htm";
+	String REGISTER_CUSTOMER_URL_GET = "registerCustomer.htm";
+	String CUSTOMER_HOME_URL_GET = "customerHome.htm";
+	String SELECT_MEAL_FORMAT_URL_GET = "selectMealFormat.htm";
+	String CHANGE_ORDER_URL_GET = "changeOrder.htm";
+	String SCHEDULED_ORDER_URL_GET = "scheduledOrder.htm";
+	String INDEX_URL_GET = "home.htm";
+	
+	String REGISTER_CUSTOMER_URL_POST = "registerCustomer";
+	String QUICK_ORDER_URL_POST = "quickOrder";
+	String PAYMENT_RESULT_URL_POST = "paymentResult";
+	String SELECT_MEAL_FORMAT_URL_POST = "selectMealFormat";
+	String CUSTOMER_SELECT_VENDOR_URL_POST = "customerSelectVendor";
+	String GET_NEARBY_VENDORS_URL_POST = "getNearbyVendors";
+	String CHANGE_ORDER_URL_POST = "changeOrder";
+	String CUSTOMER_LOGIN_URL_POST = "customerLogin";
+	String GET_MENU_URL_POST = "getMenu";
+	String ADD_SCHEDULED_ORDER_URL_POST = "addScheduledOrder";
+	String REPEAT_ORDER_URL_POST = "repeatOrder";
+	String CHANGE_MEAL_URL_POST = "changeMeal";
+	String CANCEL_ORDER_URL_POST = "cancelOrder";
+	String ADD_MONEY_TO_WALLET_URL_POST = "addMoneyToWallet";
+	String SCHEDULED_ORDER_URL_POST = "scheduledOrder";
+	
+	String QUICK_HOME_PAGE = "customer_quick_home";
+	String SCHEDULED_HOME_PAGE = "customer_scheduled_home";
+	String ADD_TO_WALLET_PAGE = "customer_add_to_wallet";
+	String CUSTOMER_LOGIN_PAGE = "customer_login";
+	String PAYMENT_PAGE = "customer_payment";
+	String REGISTER_PAGE = "customer_register";
+	String ERROR_PAGE = "error";
+	String QUICK_ORDER_DETAILS_PAGE = "customer_registered_quick_order_details";
+	String SCHEDULED_ORDER_DETAILS_PAGE = "customer_scheduled_order_details";
+	String SELECT_MEAL_FORMAT_PAGE = "customer_meal_format";
+	String CHANGE_SCHEDULED_ORDER_DETAILS_PAGE = "customer_change_scheduled_order_details";
+	String INDEX_PAGE = "index";
+	String SELECT_MEALS_PAGE = "customer_select_meals";
+	String CONTACT_US_PAGE = "customer_contact_us";
+	String ABOUT_US_PAGE = "customer_about_us";
+	String TERMS_PAGE = "customer_terms";
 	
 	
 	//5123456789012346

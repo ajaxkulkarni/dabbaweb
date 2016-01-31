@@ -33,7 +33,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="demo-card">
-					<a href="checkRegistration.htm?format=<%=MealFormat.QUICK%>"
+					<a href="<%=Constants.CHECK_LOGGED_IN_URL_GET%>?format=<%=MealFormat.QUICK%>"
 						class="order_url"> <img
 						src="<c:url value = "${resources}/img/quick.svg"/>" alt="no-image"
 						class="img-responsive meal_format_img" />
@@ -50,7 +50,7 @@
 
 			<div class="col-md-6">
 				<div class="demo-card">
-					<a href="checkRegistration.htm?format=<%=MealFormat.SCHEDULED%>"
+					<a href="<%=Constants.CHECK_LOGGED_IN_URL_GET%>?format=<%=MealFormat.SCHEDULED%>"
 						class="order_url"> <img
 						src="<c:url value = "${resources}/img/scheduled.svg"/>"
 						alt="no-image" class="img-responsive meal_format_img" />

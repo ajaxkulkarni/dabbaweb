@@ -39,7 +39,7 @@
 
 			<div class="">
 				<div class=" login_form_card">
-					<form role="form" action="customerLogin" method="post">
+					<form role="form" action="<%=Constants.CUSTOMER_LOGIN_URL_POST %>" method="post">
 						<label for="username">Username</label> <input type="email"
 							class="form-control" id="username" name="email" autofocus>
 						<label for="password">Password</label> <input type="password"
@@ -73,23 +73,6 @@
 
 					<a href="#registration_form" id="register_now">New User? Register Now.</a>
 				</div>
-				<!--<div class="col-md-6 register_card">
-					<p>
-						Register now for <span class="text-success">FREE</span>
-					</p>
-					<ul class="list-unstyled reg_list">
-						<li><span class="fa fa-check text-success"></span> See all
-							your orders</li>
-						<li><span class="fa fa-check text-success"></span> Fast
-							re-order</li>
-						<li><span class="fa fa-check text-success"></span> Save your
-							favorites</li>
-						<li><span class="fa fa-check text-success"></span> Fast
-							checkout</li>
-					</ul>
-					<p>
-						<a href="#register_box" class="btn btn-info btn-block">Register
-							Now</a>-->
 				</p>
 			</div>
 		</div>
@@ -100,16 +83,13 @@
 	<div id="customerEmail">${customer.email}</div>
 	<div class="container">
 		<div id="registration_form">
-			<form action="registerCustomer" method="post"
+			<form action="<%=Constants.REGISTER_CUSTOMER_URL_POST %>" method="post"
 				onsubmit="return checkPasswordMatch()">
 				<div class="register_box" id="register_box">
 					<h4 class="register_form_title">Registration Form</h4>
-					<!--<a href="customerLogin.htm" style="color: black;"><strong>Already
-							Registered? Login</strong></a>-->
 					<c:if test="${result != null }">
 						<div class="alert alert-danger">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<!-- <strong>Danger!</strong> -->${result}
 						</div>
 					</c:if>
 					<div class="register_form">

@@ -48,7 +48,7 @@ import com.rns.tiffeat.web.util.PaymentUtils;
 
 @Controller
 public class CustomerControllerWeb implements Constants {
-
+	
 	private static Logger logger = Logger.getLogger(CustomerControllerWeb.class.getName());
 	private CustomerBo customerBo;
 
@@ -74,10 +74,10 @@ public class CustomerControllerWeb implements Constants {
 		this.customerBo = customerBo;
 	}
 
-	@RequestMapping(value = "/home.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + INDEX_URL_GET, method = RequestMethod.GET)
 	public String initPage(ModelMap model) {
 		prepareIndexPage(model);
-		return "index";
+		return INDEX_PAGE;
 	}
 
 	private void prepareIndexPage(ModelMap model) {
@@ -107,16 +107,10 @@ public class CustomerControllerWeb implements Constants {
 		return availableVendors;
 	}
 
-	@RequestMapping(value = "/getNearbyVendors", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + GET_NEARBY_VENDORS_URL_POST, method = RequestMethod.POST)
 	public RedirectView getVendorsNearby(String address, ModelMap model) {
-		/*
-		 * manager.setAvailableVendors(customerBo.getAvailableVendors(address));
-		 * if (CollectionUtils.isEmpty(manager.getAvailableVendors())) {
-		 * manager.
-		 * setResult("No Tiffins are currently available in this area."); }
-		 */
 		setCustomerOrderLocation(address);
-		return new RedirectView("home.htm");
+		return new RedirectView(INDEX_URL_GET);
 	}
 
 	private void setCustomerOrderLocation(String address) {
@@ -125,64 +119,56 @@ public class CustomerControllerWeb implements Constants {
 		manager.getCustomer().getOrderInProcess().setLocation(location);
 	}
 
-	@RequestMapping(value = "/customerSelectVendor", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + CUSTOMER_SELECT_VENDOR_URL_POST, method = RequestMethod.POST)
 	public RedirectView selectVendors(String pinCode, ModelMap model) {
-		/*
-		 * if (StringUtils.isNotEmpty(pinCode)) {
-		 * manager.setAvailableVendors(customerBo.getAvailableVendors(pinCode));
-		 * } manager.setResult(null);
-		 */
-		return new RedirectView("home.htm");
+		return new RedirectView(INDEX_URL_GET);
 	}
 	
-	@RequestMapping(value = "/makeNewOrder.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + MAKE_NEW_ORDER_URL_GET, method = RequestMethod.GET)
 	public RedirectView makeNewOrder(ModelMap model) {
 		manager.getCustomer().setOrderInProcess(null);
-		return new RedirectView("home.htm");
+		return new RedirectView(INDEX_URL_GET);
 	}
 
-	@RequestMapping(value = "/getVendorMeals.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + GET_VENDOR_MEALS_URL_GET, method = RequestMethod.GET)
 	public String getVendorMeals(String vendorEmail, ModelMap model) {
 		if (manager.getCustomer().getOrderInProcess().getLocation() == null) {
 			prepareIndexPage(model);
-			return "index";
+			return INDEX_PAGE;
 		}
 		Vendor vendor = new Vendor();
 		vendor.setEmail(vendorEmail);
-		// manager.getCustomer().getOrderInProcess().setArea(manager.getAvailableVendors().get(0).getPinCode());
 		model.addAttribute(MODEL_VENDOR, customerBo.getVendorWithMeals(vendor));
-		// model.addAttribute(MODEL_PIN_CODE,
-		// manager.getAvailableVendors().get(0).getPinCode());
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
-		return "customer_select_meals";
+		return SELECT_MEALS_PAGE;
 	}
 
-	@RequestMapping(value = "/selectMealFormat", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + SELECT_MEAL_FORMAT_URL_POST, method = RequestMethod.POST)
 	public RedirectView selectMealFormat(Meal meal, ModelMap model) {
 		CustomerOrder customerOrder = manager.getCustomer().getOrderInProcess();
 		customerOrder.setMeal(meal);
 		customerOrder.setCustomer(manager.getCustomer());
 		if (StringUtils.isNotEmpty(manager.getCustomer().getEmail()) && customerOrder != null && MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			if (customerOrder.getId() == 0) {
-				return new RedirectView("scheduledOrder.htm");
+				return new RedirectView(SCHEDULED_ORDER_URL_GET);
 			}
-			return new RedirectView("changeOrder.htm");
+			return new RedirectView(CHANGE_ORDER_URL_GET);
 		}
 		model.addAttribute(MODEL_CUSTOMER_ORDER, customerOrder);
 		manager.setResult(null);
-		return new RedirectView("selectMealFormat.htm");
+		return new RedirectView(SELECT_MEAL_FORMAT_URL_GET);
 	}
 
-	@RequestMapping(value = "/changeOrder.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + CHANGE_ORDER_URL_GET, method = RequestMethod.GET)
 	public String initChangeOrder(ModelMap model) {
 		model.addAttribute(MODEL_CUSTOMER_ORDER, manager.getCustomer().getOrderInProcess());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
-		return "customer_change_scheduled_order_details";
+		return CHANGE_SCHEDULED_ORDER_DETAILS_PAGE;
 	}
 
-	@RequestMapping(value = "/changeOrder", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + CHANGE_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView changeOrder(CustomerOrder customerOrder, ModelMap model) {
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
 		orderInProcess.setAddress(customerOrder.getAddress());
@@ -191,22 +177,22 @@ public class CustomerControllerWeb implements Constants {
 			manager.setResult(changeScheduledOrderResult);
 		}
 		System.out.println("Result of change order :" + changeScheduledOrderResult);
-		return new RedirectView("customerHome.htm");
+		return new RedirectView(CUSTOMER_HOME_URL_GET);
 	}
 
-	@RequestMapping(value = "/selectMealFormat.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + SELECT_MEAL_FORMAT_URL_GET, method = RequestMethod.GET)
 	public String initSelectMealFormat(ModelMap model) {
 		model.addAttribute(MODEL_CUSTOMER_ORDER, manager.getCustomer().getOrderInProcess());
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
-		return "customer_meal_format";
+		return SELECT_MEAL_FORMAT_PAGE;
 	}
 
-	@RequestMapping(value = "/scheduledOrder.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + SCHEDULED_ORDER_URL_GET, method = RequestMethod.GET)
 	public String scheduledOrder(ModelMap model) {
 		if (manager == null || StringUtils.isEmpty(manager.getCustomer().getEmail())) {
-			return "error";
+			return ERROR_PAGE;
 		}
 		prepareOrderDetails(manager.getCustomer().getOrderInProcess(), model);
 		MealType[] mealTypes = new MealType[1];
@@ -221,7 +207,7 @@ public class CustomerControllerWeb implements Constants {
 		model.addAttribute(MODEL_AREAS, Constants.AREAS);
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		manager.setResult(null);
-		return "customer_scheduled_order_details";
+		return SCHEDULED_ORDER_DETAILS_PAGE;
 	}
 
 	private void handleNewScheduledOrderScenario(ModelMap model, Map<MealType, Date> mealTypesMap) {
@@ -284,85 +270,85 @@ public class CustomerControllerWeb implements Constants {
 		}
 	}
 
-	@RequestMapping(value = "/quickOrder.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + QUICK_ORDER_URL_GET, method = RequestMethod.GET)
 	public String quickOrder(ModelMap model) {
 		if (manager == null || StringUtils.isEmpty(manager.getCustomer().getEmail())) {
-			return "error";
+			return ERROR_PAGE;
 		}
 		prepareOrderDetails(manager.getCustomer().getOrderInProcess(), model);
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		manager.setResult(null);
-		return "customer_registered_quick_order_details";
+		return QUICK_ORDER_DETAILS_PAGE;
 	}
 
-	@RequestMapping(value = "/registerCustomer", method = RequestMethod.POST)
-	public RedirectView registerCustomer(Customer customer/* ,CustomerOrder order */, ModelMap model) {
+	@RequestMapping(value = URL_PREFIX + REGISTER_CUSTOMER_URL_POST, method = RequestMethod.POST)
+	public RedirectView registerCustomer(Customer customer, ModelMap model) {
 		String result = customerBo.register(customer);
 		if (!RESPONSE_OK.equals(result)) {
 			manager.setResult(result);
-			return new RedirectView("registerCustomer.htm");
+			return new RedirectView(CUSTOMER_LOGIN_URL_GET);
 		}
 		return postLoginSuccess(customer);
 	}
 
-	@RequestMapping(value = "/registerCustomer.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + REGISTER_CUSTOMER_URL_GET, method = RequestMethod.GET)
 	public String initRegisterCustomer(ModelMap model) {
 		Customer customer = new Customer();
 		model.addAttribute(MODEL_CUSTOMER, customer);
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
-		return "customer_register";
+		return REGISTER_PAGE;
 	}
 
-	@RequestMapping(value = "/checkRegistration.htm", method = RequestMethod.GET)
-	public RedirectView checkRegistration(/* long mealId,String pinCode, */MealFormat format, ModelMap model) {
+	@RequestMapping(value = URL_PREFIX + CHECK_LOGGED_IN_URL_GET, method = RequestMethod.GET)
+	public RedirectView checkRegistration(MealFormat format, ModelMap model) {
 		customerBo.setCurrentCustomer(manager.getCustomer());
 		manager.getCustomer().getOrderInProcess().setMealFormat(format);
 		if (manager == null || StringUtils.isEmpty(manager.getCustomer().getEmail())) {
-			return new RedirectView("registerCustomer.htm");
+			return new RedirectView(CUSTOMER_LOGIN_URL_GET);
 		}
 		if (MealFormat.QUICK.equals(format)) {
-			return new RedirectView("quickOrder.htm");
+			return new RedirectView(QUICK_ORDER_URL_GET);
 		}
-		return new RedirectView("scheduledOrder.htm");
+		return new RedirectView(SCHEDULED_ORDER_URL_GET);
 	}
 
-	@RequestMapping(value = "/quickOrder", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + QUICK_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView quickOrder(CustomerOrder customerOrder, String orderDate, ModelMap model) {
 		customerOrder.setDate(CommonUtil.convertDate(orderDate));
 		if (PaymentType.CASH.equals(customerOrder.getPaymentType())) {
 			String result = customerBo.validateQuickOrder(customerOrder);
 			if (WARNING_DATE_CHANGED.equals(result)) {
 				manager.setResult("Today's meal for " + customerOrder.getMealType() + " is not available!" + "You can order for tomorrow.");
-				return new RedirectView("quickOrder.htm");
+				return new RedirectView(QUICK_ORDER_URL_GET);
 			}
 			if (!RESPONSE_OK.equals(result)) {
 				manager.setResult(result);
-				return new RedirectView("quickOrder.htm");
+				return new RedirectView(QUICK_ORDER_URL_GET);
 			}
 			customerBo.quickOrder(customerOrder);
-			return new RedirectView("quickOrders.htm");
+			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
 		}
 
 		String result = customerBo.validateQuickOrder(customerOrder);
 		if (WARNING_DATE_CHANGED.equals(result)) {
 			manager.setResult("Today's meal for " + customerOrder.getMealType() + " is not available!" + "You can order for tomorrow.");
-			return new RedirectView("quickOrder.htm");
+			return new RedirectView(QUICK_ORDER_URL_GET);
 		}
 		if (!RESPONSE_OK.equals(result)) {
 			manager.setResult(result);
-			return new RedirectView("quickOrder.htm");
+			return new RedirectView(QUICK_ORDER_URL_GET);
 		}
 		manager.setResult(result);
 		manager.getCustomer().setOrderInProcess(customerOrder);
-		return new RedirectView("payment.htm");
+		return new RedirectView(PAYMENT_URL_GET);
 	}
 
-	@RequestMapping(value = "/payment.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + PAYMENT_URL_GET, method = RequestMethod.GET)
 	public String payment(ModelMap model) {
 		if (StringUtils.isEmpty(manager.getCustomer().getEmail())) {
-			return "error";
+			return ERROR_PAGE;
 		}
 		try {
 			PayUDetails payUDetails = PaymentUtils.preparePayUDetails(manager.getCustomer().getOrderInProcess());
@@ -374,20 +360,20 @@ public class CustomerControllerWeb implements Constants {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		return "customer_payment";
+		return PAYMENT_PAGE;
 	}
 
-	@RequestMapping(value = "/paymentResult", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + PAYMENT_RESULT_URL_POST, method = RequestMethod.POST)
 	public RedirectView paymentResult(ModelMap model, HttpServletRequest request) {
-		RedirectView view = new RedirectView("customerHome.htm");
-		String paymentResult = request.getParameter("status");
+		RedirectView view = new RedirectView(CUSTOMER_HOME_URL_GET);
+		String paymentResult = request.getParameter(PAYMENT_STATUS);
 		System.out.println("Result of payment :" + paymentResult);
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
 		if (paymentResult != null && orderInProcess.getMeal() == null) {
-			return new RedirectView("paymentAndroidResult.htm?result=" + paymentResult);
+			return new RedirectView(PAYMENT_ANDROID_RESULT_GET_URL + paymentResult);
 		}
-		orderInProcess.setPaymentType(PaymentUtils.getPaymenType(request.getParameter("mode")));
-		if (StringUtils.equalsIgnoreCase("success", paymentResult)) {
+		orderInProcess.setPaymentType(PaymentUtils.getPaymenType(request.getParameter(PAYMENT_MODE)));
+		if (StringUtils.equalsIgnoreCase(PAYMENT_RESULT_SUCCESS, paymentResult)) {
 			if (MealFormat.SCHEDULED.equals(orderInProcess.getMealFormat())) {
 				view = processScheduledPayment(orderInProcess);
 			} else {
@@ -396,9 +382,9 @@ public class CustomerControllerWeb implements Constants {
 		} else {
 			manager.setResult("Payment failed!!");
 			if (MealFormat.SCHEDULED.equals(orderInProcess.getMealFormat())) {
-				view = new RedirectView("addMoneyToWallet.htm");
+				view = new RedirectView(ADD_MONEY_TO_WALLET_URL_GET);
 			} else {
-				view = new RedirectView("quickOrder.htm");
+				view = new RedirectView(QUICK_ORDER_URL_GET);
 			}
 		}
 		MailUtil.sendMail(orderInProcess);
@@ -409,9 +395,9 @@ public class CustomerControllerWeb implements Constants {
 		String quickOrderResult = customerBo.quickOrder(orderInProcess);
 		if (!RESPONSE_OK.equals(quickOrderResult)) {
 			manager.setResult(quickOrderResult);
-			return new RedirectView("quickOrders.htm");
+			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
 		}
-		return new RedirectView("customerHome.htm");
+		return new RedirectView(CUSTOMER_HOME_URL_GET);
 	}
 
 	private RedirectView processScheduledPayment(CustomerOrder orderInProcess) {
@@ -419,26 +405,26 @@ public class CustomerControllerWeb implements Constants {
 		String addMoneyToWalletResult = customerBo.addMoneyToWallet(manager.getCustomer());
 		if (!RESPONSE_OK.equals(addMoneyToWalletResult)) {
 			manager.setResult(addMoneyToWalletResult);
-			view = new RedirectView("addMoneyToWallet.htm");
+			view = new RedirectView(ADD_MONEY_TO_WALLET_URL_GET);
 		} else {
 			if (orderInProcess.getMeal() == null || orderInProcess.getMeal().getId() > 0) {
 				customerBo.scheduledOrder(orderInProcess);
 			}
-			view = new RedirectView("customerHome.htm");
+			view = new RedirectView(CUSTOMER_HOME_URL_GET);
 		}
 		return view;
 	}
 
-	@RequestMapping(value = "/customerLogin.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + CUSTOMER_LOGIN_URL_GET, method = RequestMethod.GET)
 	public String prepareCustomerLogin(ModelMap model) {
 		model.addAttribute(MODEL_CUSTOMER, new Customer());
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
-		return "customer_login";
+		return CUSTOMER_LOGIN_PAGE;
 	}
 
-	@RequestMapping(value = "/customerLogin", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + CUSTOMER_LOGIN_URL_POST, method = RequestMethod.POST)
 	public RedirectView customerLogin(Customer customer, ModelMap model) {
 		if (!customerBo.login(customer)) {
 			return postLoginFailure(ERROR_INVALID_CREDENTIALS);
@@ -448,7 +434,7 @@ public class CustomerControllerWeb implements Constants {
 
 	private RedirectView postLoginFailure(String loginResult) {
 		manager.setResult(loginResult);
-		return new RedirectView("customerLogin.htm");
+		return new RedirectView(CUSTOMER_LOGIN_URL_GET);
 	}
 
 	private RedirectView postLoginSuccess(Customer customer) {
@@ -457,64 +443,64 @@ public class CustomerControllerWeb implements Constants {
 		if (manager.getCustomer().getOrderInProcess() != null) {
 			customerBo.setCurrentCustomer(manager.getCustomer());
 			if (MealFormat.QUICK.equals(manager.getCustomer().getOrderInProcess().getMealFormat())) {
-				return new RedirectView("quickOrder.htm");
+				return new RedirectView(QUICK_ORDER_URL_GET);
 			} else if (MealFormat.SCHEDULED.equals(manager.getCustomer().getOrderInProcess().getMealFormat())) {
-				return new RedirectView("scheduledOrder.htm");
+				return new RedirectView(SCHEDULED_ORDER_URL_GET);
 			}
 		}
-		return new RedirectView("customerHome.htm");
+		return new RedirectView(CUSTOMER_HOME_URL_GET);
 	}
 
 	
-	@RequestMapping(value = "/scheduledOrders.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + SCHEDULED_ORDERS_URL_GET, method = RequestMethod.GET)
 	public String scheduledHomePage(ModelMap model) {
 		customerBo.setCurrentCustomer(manager.getCustomer());
 		manager.getCustomer().setOrderInProcess(null);
 		if (StringUtils.isEmpty(manager.getCustomer().getEmail())) {
 			prepareIndexPage(model);
-			return "index";
+			return INDEX_PAGE;
 		}
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
-		return "customer_scheduled_home";
+		return SCHEDULED_HOME_PAGE;
 	}
 	
-	@RequestMapping(value = "/customerHome.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + CUSTOMER_HOME_URL_GET, method = RequestMethod.GET)
 	public String customerHomePage(ModelMap model) {
 		customerBo.setCurrentCustomer(manager.getCustomer());
 		manager.getCustomer().setOrderInProcess(null);
 		if (StringUtils.isEmpty(manager.getCustomer().getEmail())) {
 			prepareIndexPage(model);
-			return "index";
+			return INDEX_PAGE;
 		}
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
 		if (CollectionUtils.isEmpty(manager.getCustomer().getScheduledOrder())) {
-			return "customer_quick_home";
+			return QUICK_HOME_PAGE;
 		}
-		return "customer_scheduled_home";
+		return SCHEDULED_HOME_PAGE;
 	}
 
-	@RequestMapping(value = "/quickOrders.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + QUICK_ORDERS_HOME_URL_GET, method = RequestMethod.GET)
 	public String showQuickOrders(ModelMap model) {
 		customerBo.setCurrentCustomer(manager.getCustomer());
 		manager.getCustomer().setOrderInProcess(null);
 		if (StringUtils.isEmpty(manager.getCustomer().getEmail())) {
 			prepareIndexPage(model);
-			return "index";
+			return INDEX_PAGE;
 		}
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
-		return "customer_quick_home";
+		return QUICK_HOME_PAGE;
 	}
 
-	@RequestMapping(value = "/scheduledOrder", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + SCHEDULED_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView scheduleOrder(CustomerOrder customerOrder, ModelMap model) {
 		if (customerOrder.getDate() == null) {
 			customerOrder.setDate(manager.getCustomer().getOrderInProcess().getDate());
@@ -531,21 +517,21 @@ public class CustomerControllerWeb implements Constants {
 		}
 		if (!RESPONSE_OK.equals(scheduledOrderResult)) {
 			manager.setResult(scheduledOrderResult);
-			return new RedirectView("scheduledOrder.htm");
+			return new RedirectView(SCHEDULED_ORDER_URL_GET);
 		}
 		manager.setResult(null);
 		customerOrder.setMealFormat(MealFormat.SCHEDULED);
 		manager.getCustomer().setOrderInProcess(customerOrder);
 		if(walletRequired) {
-			return new RedirectView("addMoneyToWallet.htm");
+			return new RedirectView(ADD_MONEY_TO_WALLET_URL_GET);
 		}
-		return new RedirectView("customerHome.htm");
+		return new RedirectView(CUSTOMER_HOME_URL_GET);
 	}
 
-	@RequestMapping(value = "/addMoneyToWallet.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + ADD_MONEY_TO_WALLET_URL_GET, method = RequestMethod.GET)
 	public String initAddToWallet(ModelMap model) {
 		if (StringUtils.isEmpty(manager.getCustomer().getEmail())) {
-			return "error";
+			return ERROR_PAGE;
 		}
 		if (manager.getCustomer().getBalance() == null) {
 			manager.getCustomer().setBalance(new BigDecimal(0));
@@ -554,10 +540,10 @@ public class CustomerControllerWeb implements Constants {
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
-		return "customer_add_to_wallet";
+		return ADD_TO_WALLET_PAGE;
 	}
 
-	@RequestMapping(value = "/addMoneyToWallet", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + ADD_MONEY_TO_WALLET_URL_POST, method = RequestMethod.POST)
 	public RedirectView addToWallet(BigDecimal amount, ModelMap model) {
 		manager.getCustomer().setBalance(amount);
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
@@ -568,24 +554,24 @@ public class CustomerControllerWeb implements Constants {
 		if (orderInProcess.getMeal() == null) {
 			orderInProcess.setMeal(new Meal());
 		}
-		return new RedirectView("payment.htm");
+		return new RedirectView(PAYMENT_URL_GET);
 	}
 
-	@RequestMapping(value = "/cancelOrder", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + CANCEL_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView cancelOrder(CustomerOrder customerOrder, ModelMap model) {
 		String result = customerBo.cancelScheduledOrder(customerOrder);
 		if (!RESPONSE_OK.equals(result)) {
 			manager.setResult(result);
 		}
-		return new RedirectView("customerHome.htm");
+		return new RedirectView(CUSTOMER_HOME_URL_GET);
 	}
 
-	@RequestMapping(value = "/changeMeal", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + CHANGE_MEAL_URL_POST, method = RequestMethod.POST)
 	public RedirectView changeMeal(CustomerOrder customerOrder, String menuDate, ModelMap model) {
 		if (StringUtils.isEmpty(menuDate)) {
 			System.out.println("Can't change this meal!!");
 			manager.setResult(ERROR_CANT_CHANGE_THE_MEAL);
-			return new RedirectView("customerHome.htm");
+			return new RedirectView(CUSTOMER_HOME_URL_GET);
 		}
 		Date contentDate = CommonUtil.convertDate(menuDate);
 		Map<MealType, Date> mealTypeDates = customerBo.getAvailableMealTypeDates(customerOrder);
@@ -593,22 +579,22 @@ public class CustomerControllerWeb implements Constants {
 		if (mealTypeAvailableDate == null || !DateUtils.isSameDay(mealTypeAvailableDate, contentDate)) {
 			System.out.println("Can't change this meal!!");
 			manager.setResult(ERROR_CANT_CHANGE_THE_MEAL);
-			return new RedirectView("customerHome.htm");
+			return new RedirectView(CUSTOMER_HOME_URL_GET);
 		}
 		customerOrder.getContent().setDate(contentDate);
 		// manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
 		manager.getCustomer().setOrderInProcess(customerOrder);
-		return new RedirectView("home.htm");
+		return new RedirectView(INDEX_URL_GET);
 	}
 
-	@RequestMapping(value = "/repeatOrder", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + REPEAT_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView repeat(CustomerOrder customerOrder/* ,Meal meal */, ModelMap model) {
 		// customerOrder.setMeal(meal);
 		manager.getCustomer().setOrderInProcess(customerOrder);
-		return new RedirectView("selectMealFormat.htm");
+		return new RedirectView(SELECT_MEAL_FORMAT_URL_GET);
 	}
 
-	@RequestMapping(value = "/addScheduledOrder", method = RequestMethod.POST)
+	@RequestMapping(value = URL_PREFIX + ADD_SCHEDULED_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView addScheduledOrder(CustomerOrder customerOrder, ModelMap model) {
 		if (MealType.LUNCH.equals(customerOrder.getMealType())) {
 			customerOrder.setMealType(MealType.DINNER);
@@ -618,10 +604,10 @@ public class CustomerControllerWeb implements Constants {
 		customerOrder.setMealFormat(MealFormat.SCHEDULED);
 		manager.getCustomer().setOrderInProcess(customerOrder);
 		// manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
-		return new RedirectView("home.htm");
+		return new RedirectView(INDEX_URL_GET);
 	}
 
-	@RequestMapping(value = "/getMenu", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = URL_PREFIX + GET_MENU_URL_POST, method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String initEditDepartment(long mealId, MealType mealType) {
 		Gson gson = new GsonBuilder().create();
 		Meal meal = new Meal();
@@ -629,34 +615,34 @@ public class CustomerControllerWeb implements Constants {
 		return gson.toJson(customerBo.getDailyContentForMeal(meal, mealType));
 	}
 
-	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + LOGOUT_URL_GET, method = RequestMethod.GET)
 	public RedirectView logout(ModelMap model) {
 		manager.logoutCustomer();
-		return new RedirectView("home.htm");
+		return new RedirectView(INDEX_URL_GET);
 	}
 
-	@RequestMapping(value = "/terms.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + TERMS_URL_GET, method = RequestMethod.GET)
 	public String terms(ModelMap model) {
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
-		return "customer_terms";
+		return TERMS_PAGE;
 	}
 
-	@RequestMapping(value = "/aboutUs.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + ABOUT_US_URL_GET, method = RequestMethod.GET)
 	public String aboutUs(ModelMap model) {
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
-		return "customer_about_us";
+		return ABOUT_US_PAGE;
 	}
 
-	@RequestMapping(value = "/contactUs.htm", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + CONTACT_US_URL_GET, method = RequestMethod.GET)
 	public String contactUs(ModelMap model) {
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
-		return "customer_contact_us";
+		return CONTACT_US_PAGE;
 	}
 
-	@RequestMapping(value = "/getGoogleCode", method = RequestMethod.GET)
+	@RequestMapping(value = URL_PREFIX + GET_GOOGLE_CODE_URL_GET, method = RequestMethod.GET)
 	public RedirectView getGoogleCode(@RequestParam(value = "code") String code, ModelMap model) {
 		String loginResult = "";
 		try {
@@ -676,14 +662,14 @@ public class CustomerControllerWeb implements Constants {
 
 	@ExceptionHandler(HibernateException.class)
 	public ModelAndView onHibernateException(HibernateException hibernateException) {
-		ModelAndView modelAndView = new ModelAndView("error");
+		ModelAndView modelAndView = new ModelAndView(ERROR_PAGE);
 		modelAndView.addObject(MODEL_ERROR, "Error connecting to the database!!");
 		return modelAndView;
 	}
 
 	@ExceptionHandler(Exception.class)
 	public String onGenericException() {
-		return "error";
+		return ERROR_PAGE;
 	}
 
 }

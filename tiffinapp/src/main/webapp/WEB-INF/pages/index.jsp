@@ -44,29 +44,16 @@
 		</h3>
 		<div class="container banner_sub_div">
 			<h4 class="sub_div_heading">We currently serve in Pune</h4>
-			<%-- <c:if test="${customer.orderInProcess.id == 0 }"> --%>
 			<div class="row">
-				<form action="getNearbyVendors" id="searchByArea"
+				<form action="<%=Constants.GET_NEARBY_VENDORS_URL_POST%>" id="searchByArea"
 					onsubmit="onSearchByVendors()" method="post">
 					<div class="location_div">
-						<%-- <select name="pinCode" class="form-control option_dropdown">
-                        <option value="">Where Do you Want Tiffin</option>
-                        <c:forEach items="${areas}" var="area">
-                        	<option value="${area.key}">${area.value}</option>
-                        </c:forEach> 
-                    </select> --%>
 						<input type="text" name="address" id="areas"
 							placeholder="Enter Your Location" value="${location}"
 							class="option_dropdown" />
 						<button type="submit" class="btn loc_button">Find meals</button>
 
 					</div>
-					<!-- <div class="col-md-4">
-                    <select name="" class="form-control option_dropdown">
-                        <option value="">Show Me Every Thing</option>
-                    </select>
-                </div> -->
-
 				</form>
 			</div>
 			<%--  </c:if> --%>

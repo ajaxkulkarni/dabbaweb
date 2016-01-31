@@ -1,3 +1,4 @@
+<%@page import="com.rns.tiffeat.web.util.Constants"%>
 <%@page import="com.rns.tiffeat.web.bo.domain.MealType"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -38,7 +39,7 @@
         
         $.ajax({
         	type : "POST",
-            url : 'getMenu',
+            url : '<%=Constants.GET_MENU_URL_POST%>',
             dataType: 'json',
             data: "mealId=" + mealId + "&mealType=" + mealType,
             success : function(data) {
@@ -88,7 +89,7 @@
         <c:forEach items="${vendor.meals}" var="meal">
         <div class="order_details_card">
             <div class="row">
-            <form action="selectMealFormat" method="post">
+            <form action="<%=Constants.SELECT_MEAL_FORMAT_URL_POST%>" method="post">
             	<input type="hidden" name="title" value="${meal.title}"/>
                 <input type="hidden" name="id" value="${meal.id}"/>
                	<input type="hidden" name="description" value="${meal.description}"/>

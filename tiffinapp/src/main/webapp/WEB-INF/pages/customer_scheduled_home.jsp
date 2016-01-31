@@ -35,7 +35,7 @@
 	<%@include file="header.jsp"%>
 	<div class="container order_summary_details_div">
 
-		<form action="addMoneyToWallet.htm" method="get">
+		<form action="<%=Constants.ADD_MONEY_TO_WALLET_URL_GET %>" method="get">
 			<div class="balance">
 				<input type="submit" value="ADD TO WALLET" class="btn order_button" />
 		</form>
@@ -51,12 +51,12 @@
 		<h4 class="order_summary_heading">You havent't scheduled any
 			Tiffins right now. Schedule a Dinner or Lunch tiffin to get a daily
 			meal.</h4>
-		<form action="addScheduledOrder" method="post">
+		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
 			<input type="hidden" name="mealType" value="LUNCH" /> <input
 				type="hidden" name="area" value=""> <input type="submit"
 				value="ADD DINNER" class="btn order_button" />
 		</form>
-		<form action="addScheduledOrder" method="post">
+		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
 			<input type="hidden" name="mealType" value="DINNER" /> <input
 				type="hidden" name="area" value=""> <input type="submit"
 				value="ADD LUNCH" class="btn order_button" />
@@ -85,7 +85,7 @@
 								<br />
                 		You are low on cash.
                 		<div class="add_wallet">
-									Please <a href="addMoneyToWallet.htm">add some money</a> into
+									Please <a href="<%=Constants.ADD_MONEY_TO_WALLET_URL_GET%>">add some money</a> into
 									your wallet to continue ${order.meal.title} meal.
 								</div>
 							</c:if>
@@ -153,7 +153,7 @@
 							</c:choose>
 							<c:choose>
 								<c:when test="${order.mealStatus == 'PREPARE'}">
-									<form action="cancelOrder" method="post"
+									<form action="<%=Constants.CANCEL_ORDER_URL_POST %>" method="post"
 										commandName="customerOrder" onsubmit="return confirmCancel()">
 										<input type="hidden" name="id"
 											value="${order.customerOrderId}" /> <input type="hidden"
@@ -162,7 +162,7 @@
 											class="btn order_button">
 									</form>
 									<br />
-									<form action="changeMeal" method="post">
+									<form action="<%=Constants.CHANGE_MEAL_URL_POST %>" method="post">
 										<input type="hidden" name="id"
 											value="${order.customerOrderId}" /> <input type="hidden"
 											name="mealType" value="${order.mealType}" /> <input
@@ -206,7 +206,7 @@
 	</c:forEach>
 	<c:if
 		test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'LUNCH'}">
-		<form action="addScheduledOrder" method="post">
+		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
 			<input type="hidden" name="mealType"
 				value="${customer.scheduledOrder[0].mealType}" /> <input
 				type="hidden" name="area" value="${customer.scheduledOrder[0].area}">
@@ -215,7 +215,7 @@
 	</c:if>
 	<c:if
 		test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'DINNER'}">
-		<form action="addScheduledOrder" method="post">
+		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
 			<input type="hidden" name="mealType"
 				value="${customer.scheduledOrder[0].mealType}" /> <input
 				type="hidden" name="area" value="${customer.scheduledOrder[0].area}">

@@ -42,14 +42,14 @@
 					<h6 class="wallet_balance1">
 						<label id="rupee_label"> Rs. </label> ${customer.balance}
 					</h6>
-					<form action="addMoneyToWallet" method="post">
+					<form action="<%=Constants.ADD_MONEY_TO_WALLET_URL_POST%>" method="post">
 						<input type="text" class="form-control" placeholder="Amount (Rs) "
 							name="amount">
 						<button type="submit" pattern="[0-9.]*" maxlength="4"
 							name="amount" class="btn  add_money_button">Add Money</button>
 					</form>
 					<c:if test="${customer.balance > 100 }">
-						<form action="customerHome.htm" method="get">
+						<form action="<%=Constants.CUSTOMER_HOME_URL_GET%>" method="get">
 							<button type="submit" class="btn  add_money_button">Add
 								Later</button>
 						</form>

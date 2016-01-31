@@ -69,7 +69,7 @@
 			<div class="row">
 				<div class="col-md-6">
 
-					<form action="quickOrder" id="quickOrderForm" method="post"
+					<form action="<%=Constants.QUICK_ORDER_URL_POST %>" id="quickOrderForm" method="post"
 						onsubmit="return showModal()">
 						<input type="hidden" name="customer.id"
 							value="${customerOrder.customer.id}" /> <input type="hidden"

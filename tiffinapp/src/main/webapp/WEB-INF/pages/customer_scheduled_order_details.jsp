@@ -32,7 +32,7 @@
 	function showModal() {
 		$.ajax({
 			type : "GET",
-			url : 'scheduledOrder.htm',
+			url : '<%=Constants.SCHEDULED_ORDER_URL_GET%>',
 			success : function(data) {
 			},
 			error : function(e) {
@@ -77,7 +77,7 @@
 				value="${customerOrder.date}" var="orderDate" />
 			<div class="row">
 				<div class="col-md-6">
-					<form action="scheduledOrder" id="scheduledOrderForm" method="post"
+					<form action="<%=Constants.SCHEDULED_ORDER_URL_POST %>" id="scheduledOrderForm" method="post"
 						onsubmit="return showModal()">
 						<input type="hidden" name="meal.id"
 							value="${customerOrder.meal.id}" /> <input type="hidden"
