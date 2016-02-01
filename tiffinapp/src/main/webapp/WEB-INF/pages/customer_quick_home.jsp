@@ -141,8 +141,9 @@
 			</c:forEach>
 		</c:if>
 		<form action="<%=Constants.CUSTOMER_SELECT_VENDOR_URL_POST%>" method="POST">
+		<br/>
 			<div class="submit_order">
-				<button type="submit" class="btn order_button">MAKE ANOTHER
+				<button type="submit" class="btn order_button">MAKE New
 					ORDER</button>
 			</div>
 			<input type="hidden" name="pinCode"

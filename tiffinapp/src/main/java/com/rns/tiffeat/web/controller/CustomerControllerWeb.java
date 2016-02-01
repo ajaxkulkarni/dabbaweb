@@ -397,7 +397,7 @@ public class CustomerControllerWeb implements Constants {
 			manager.setResult(quickOrderResult);
 			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
 		}
-		return new RedirectView(CUSTOMER_HOME_URL_GET);
+		return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
 	}
 
 	private RedirectView processScheduledPayment(CustomerOrder orderInProcess) {

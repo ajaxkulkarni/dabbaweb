@@ -56,6 +56,7 @@
 				type="hidden" name="area" value=""> <input type="submit"
 				value="ADD DINNER" class="btn order_button" />
 		</form>
+		<br/>
 		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
 			<input type="hidden" name="mealType" value="DINNER" /> <input
 				type="hidden" name="area" value=""> <input type="submit"
