@@ -81,15 +81,17 @@ public class CustomerControllerWeb implements Constants {
 	}
 
 	private void prepareIndexPage(ModelMap model) {
+		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
 		model.addAttribute(MODEL_AREAS, Constants.AREAS);
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
-		List<Vendor> latestVendors = getLatestVendors();
-		model.addAttribute(MODEL_VENDORS, latestVendors);
-		if (manager.getCustomer().getOrderInProcess().getLocation() != null) {
-			model.addAttribute(MODEL_LOCATION, manager.getCustomer().getOrderInProcess().getLocation().getAddress());
+		//List<Vendor> latestVendors = getLatestVendors();
+		//model.addAttribute(MODEL_VENDORS, latestVendors);
+		List<Meal> meals = customerBo.getAvailableMeals(orderInProcess);
+		model.addAttribute(MODEL_MEALS, meals);
+		if (orderInProcess.getLocation() != null) {
+			model.addAttribute(MODEL_LOCATION, orderInProcess.getLocation().getAddress());
 		}
 		model.addAttribute(MODEL_RESULT, manager.getResult());
-		manager.setResult(null);
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
 	}
@@ -108,8 +110,13 @@ public class CustomerControllerWeb implements Constants {
 	}
 
 	@RequestMapping(value = URL_PREFIX + GET_NEARBY_VENDORS_URL_POST, method = RequestMethod.POST)
-	public RedirectView getVendorsNearby(String address, ModelMap model) {
-		setCustomerOrderLocation(address);
+	public RedirectView getVendorsNearby(/* String address */CustomerOrder order, String orderDate, ModelMap model) {
+		// setCustomerOrderLocation(address);
+		order.setDate(new Date());
+		if ("tomorrow".equalsIgnoreCase(orderDate)) {
+			order.setDate(CommonUtil.addDay());
+		}
+		manager.getCustomer().setOrderInProcess(order);
 		return new RedirectView(INDEX_URL_GET);
 	}
 
@@ -158,7 +165,7 @@ public class CustomerControllerWeb implements Constants {
 		}
 		model.addAttribute(MODEL_CUSTOMER_ORDER, customerOrder);
 		manager.setResult(null);
-		return new RedirectView(SELECT_MEAL_FORMAT_URL_GET);
+		return new RedirectView(CHECK_LOGGED_IN_URL_GET);
 	}
 
 	@RequestMapping(value = URL_PREFIX + CHANGE_ORDER_URL_GET, method = RequestMethod.GET)
@@ -302,13 +309,13 @@ public class CustomerControllerWeb implements Constants {
 	}
 
 	@RequestMapping(value = URL_PREFIX + CHECK_LOGGED_IN_URL_GET, method = RequestMethod.GET)
-	public RedirectView checkRegistration(MealFormat format, ModelMap model) {
+	public RedirectView checkRegistration(/*MealFormat format*/ModelMap model) {
 		customerBo.setCurrentCustomer(manager.getCustomer());
-		manager.getCustomer().getOrderInProcess().setMealFormat(format);
+		//manager.getCustomer().getOrderInProcess().setMealFormat(format);
 		if (manager == null || StringUtils.isEmpty(manager.getCustomer().getEmail())) {
 			return new RedirectView(CUSTOMER_LOGIN_URL_GET);
 		}
-		if (MealFormat.QUICK.equals(format)) {
+		if (MealFormat.QUICK.equals(manager.getCustomer().getOrderInProcess().getMealFormat())) {
 			return new RedirectView(QUICK_ORDER_URL_GET);
 		}
 		return new RedirectView(SCHEDULED_ORDER_URL_GET);

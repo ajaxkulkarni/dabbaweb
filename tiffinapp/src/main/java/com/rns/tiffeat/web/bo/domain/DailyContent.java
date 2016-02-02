@@ -69,6 +69,9 @@ public class DailyContent {
 		this.id = id;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return mainItem + " along with " + subItem1 + " accompanied by " + subItem2 + " and " + subItem3 + ", Also " + subItem4;
+	}
 
 }

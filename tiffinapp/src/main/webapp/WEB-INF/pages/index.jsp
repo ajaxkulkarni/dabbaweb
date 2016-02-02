@@ -1,3 +1,5 @@
+<%@page import="com.rns.tiffeat.web.bo.domain.MealType"%>
+<%@page import="com.rns.tiffeat.web.bo.domain.MealFormat"%>
 <%@page import="com.rns.tiffeat.web.util.Constants"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -48,7 +50,19 @@
 				<form action="<%=Constants.GET_NEARBY_VENDORS_URL_POST%>" id="searchByArea"
 					onsubmit="onSearchByVendors()" method="post">
 					<div class="location_div">
-						<input type="text" name="address" id="areas"
+					<select name="mealFormat" class="option_dropdown">
+							<option value="<%=MealFormat.QUICK%>">Quick</option>
+							<option value="<%=MealFormat.SCHEDULED%>">Scheduled</option>
+						</select>
+						<select name="mealType" class="option_dropdown">
+							<option value="<%=MealType.LUNCH%>">Lunch</option>
+							<option value="<%=MealType.DINNER%>">Dinner</option>
+						</select> 
+						<select name="orderDate" class="option_dropdown">
+							<option value="today">Today</option>
+							<option value="tomorrow">Tomorrow</option>
+						</select> 
+						<input type="text" name="location.address" id="areas"
 							placeholder="Enter Your Location" value="${location}"
 							class="option_dropdown" />
 						<button type="submit" class="btn loc_button">Find meals</button>
@@ -66,21 +80,25 @@
 
 	<div class="container menu_cards_div" id="vendorsList">
 		<c:choose>
-			<c:when test="${fn:length(vendors) gt 0}">
+			<c:when test="${fn:length(meals) gt 0}">
 				<h4 class="menu_card_heading">Tiffins in Your Area</h4>
 				<div class="row">
-					<c:forEach items="${vendors}" var="vendor">
-						<a href="getVendorMeals.htm?vendorEmail=${vendor.email}">
+					<c:forEach items="${meals}" var="meal">
+						<form action="<%=Constants.SELECT_MEAL_FORMAT_URL_POST %>" method="post">
 							<div class="col-md-4">
 								<div class="menu_card">
-									<img src="getVendorProfilePic.htm?vendorEmail=${vendor.email}"
-										class="menu_card_image img-responsive">
-									<h4 class="menu_card_title">${vendor.name}</h4>
-									<!-- <h6 class="menu_card_sub_title">Veg, Non-Veg, Jain, Fast-Food</h6>
-                    	<input id="input-2a" value="4" class="rating" min="0" max="5" step="0.5" data-size="sm" data-symbol="&#xf005;" data-glyphicon="false" data-rating-class="rating-fa"> -->
+									<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
+									<h4 class="menu_card_title">${meal.title}</h4>
+									<h4 class="menu_card_title">${meal.vendor.name}</h4>
+									${meal.menu}
+									<input type="hidden" name="title" value="${meal.title}"/>
+                					<input type="hidden" name="id" value="${meal.id}"/>
+               						<input type="hidden" name="description" value="${meal.description}"/>
+                					<input type="hidden" name="price" value="${meal.price}"/>
+                					<button type="submit" class="btn order_button">ORDER</button>
 								</div>
 							</div>
-						</a>
+						</form>
 					</c:forEach>
 				</div>
 			</c:when>

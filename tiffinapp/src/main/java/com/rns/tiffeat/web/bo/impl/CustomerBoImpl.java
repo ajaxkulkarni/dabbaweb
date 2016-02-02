@@ -143,10 +143,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (customerDao.getCustomerByEmail(customer.getEmail()) != null) {
 			return ERROR_EMAIL_ADDRESS_ALREADY_PRESENT;
 		}
-		/*
-		 * if (customerDao.getCustomerByPhone(customer.getPhone()) != null) {
-		 * return ERROR_PHONE_NUMBER_ALREADY_PRESENT; }
-		 */
+
+		if (customerDao.getCustomerByPhone(customer.getPhone()) != null) {
+			return ERROR_PHONE_NUMBER_ALREADY_PRESENT;
+		}
+
 		BusinessToDataConverters.convertCustomer(customerToBeAdded, customer);
 		return RESPONSE_OK;
 	}
@@ -172,6 +173,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (currentVendor.getLocation() == null || StringUtils.isEmpty(currentVendor.getLocation().getAddress())) {
 			return false;
 		}
+		if (isVendorClosed(currentVendor)) {
+			return false;
+		}
 		BigDecimal distance = null;
 		try {
 			distance = GoogleUtil.getDistanceBetweenLocations(address, currentVendor.getLocation().getAddress());
@@ -183,9 +187,6 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			e.printStackTrace();
 		}
 		if (distance == null || MAX_DISTANCE_IN_METERS.compareTo(distance) < 0) {
-			return false;
-		}
-		if (isVendorClosed(currentVendor)) {
 			return false;
 		}
 		return true;
@@ -746,6 +747,41 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			currentCustomers.add(currentCustomer);
 		}
 		return currentCustomers;
+	}
+
+	public List<com.rns.tiffeat.web.bo.domain.Meal> getAvailableMeals(CustomerOrder order) {
+		if (order == null || order.getMealType() == null || order.getLocation() == null || order.getDate() == null) {
+			return null;
+		}
+		List<Meal> meals = mealDao.getAllMeals();
+		return filterAvailableMeals(meals, order);
+	}
+
+	private List<com.rns.tiffeat.web.bo.domain.Meal> filterAvailableMeals(List<Meal> meals, CustomerOrder order) {
+		List<com.rns.tiffeat.web.bo.domain.Meal> availableMeals = new ArrayList<com.rns.tiffeat.web.bo.domain.Meal>();
+		for (Meal meal : meals) {
+			com.rns.tiffeat.web.bo.domain.Meal availableMeal = DataToBusinessConverters.convertMeal(meal);
+			// Check if meal available for given timing
+			if (!order.getMealType().equals(availableMeal.getMealTime()) && !MealType.BOTH.equals(availableMeal.getMealTime())) {
+				continue;
+			}
+			// Check if not cooking or dispatch for given date
+			DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), order.getDate(), order.getMealType());
+			if (dailyMeal != null && !MealStatus.PREPARE.equals(CommonUtil.getMealStatus(order.getMealType(), availableMeal))) {
+				continue;
+			}
+			// Validate vendor
+			if (!isVendorAvailable(availableMeal.getVendor(), order.getLocation().getAddress())) {
+				continue;
+			}
+			if (dailyMeal == null) {
+				availableMeal.setMenu("Menu not available yet..");
+			} else {
+				availableMeal.setMenu(DataToBusinessConverters.convertDailyContent(dailyMeal).toString());
+			}
+			availableMeals.add(availableMeal);
+		}
+		return availableMeals;
 	}
 
 }

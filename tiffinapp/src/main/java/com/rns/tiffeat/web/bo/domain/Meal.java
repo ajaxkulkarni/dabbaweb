@@ -16,6 +16,7 @@ public class Meal {
 	private DailyContent lunchMenu;
 	private DailyContent dinnerMenu;
 	private MealType mealTime;
+	private String menu;
 	
 	public String getTitle() {
 		return title;
@@ -91,6 +92,12 @@ public class Meal {
 	}
 	public void setMealTime(MealType mealTime) {
 		this.mealTime = mealTime;
+	}
+	public String getMenu() {
+		return menu;
+	}
+	public void setMenu(String menu) {
+		this.menu = menu;
 	}
 	
 	

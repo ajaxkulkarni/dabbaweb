@@ -54,4 +54,6 @@ public interface CustomerBo {
 	DailyContent getDailyContentForMeal(Meal meal, MealType mealType);
 
 	String loginWithGoogle(Customer googleCustomer);
+	
+	List<Meal> getAvailableMeals(CustomerOrder order);
 }
