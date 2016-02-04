@@ -1,3 +1,4 @@
+<%@page import="com.rns.tiffeat.web.bo.domain.MealType"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -123,7 +124,7 @@
 
 					<div class="price">Price: ${quickOrder.price}</div>
 
-					<form action="<%=Constants.REPEAT_ORDER_URL_POST %>" method="post">
+					<%-- <form action="<%=Constants.REPEAT_ORDER_URL_POST %>" method="post">
 						<input type="hidden" name="meal.id" value="${quickOrder.meal.id}" />
 						<input type="hidden" name="meal.title"
 							value="${quickOrder.meal.title}" /> <input type="hidden"
@@ -136,7 +137,7 @@
 							value="${quickOrder.location.address}" /> <br /> <input
 							type="submit" name="" value="REPEAT?" class="btn order_button" />
 
-					</form>
+					</form> --%>
 				</div>
 			</c:forEach>
 		</c:if>
@@ -165,7 +166,7 @@
 								Date :
 								<fmt:formatDate value="${order.date}" pattern="yyyy-MM-dd" />
 							</h6>
-							<form action="<%=Constants.REPEAT_ORDER_URL_POST%>" method="post">
+							<%-- <form action="<%=Constants.REPEAT_ORDER_URL_POST%>" method="post">
 								<input type="hidden" name="meal.id" value="${order.meal.id}" />
 								<input type="hidden" name="meal.title"
 									value="${order.meal.title}" /> <input type="hidden"
@@ -178,7 +179,7 @@
 									value="${order.location.address}" />
 								<button type="submit" class="btn order_button">Repeat
 									Order</button>
-							</form>
+							</form> --%>
 						</div>
 					</div>
 				</c:if>
@@ -186,6 +187,7 @@
 		</div>
 		<br />
 	</div>
+	
 	<%@include file="footer.jsp"%>
 </body>
 </html>

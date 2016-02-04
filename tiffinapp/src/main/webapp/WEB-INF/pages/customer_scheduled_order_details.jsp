@@ -40,7 +40,7 @@
 			}
 		});
 
-		var radios = document.getElementsByName('mealType');
+		/* var radios = document.getElementsByName('mealType');
 		var mealType;
 		for (var i = 0, length = radios.length; i < length; i++) {
 			if (radios[i].checked) {
@@ -49,7 +49,7 @@
 			}
 		}
 		//alert("Here!" + mealType);
-		$("#modalMealType").text("Meal Type :" + mealType);
+		$("#modalMealType").text("Meal Type :" + mealType); */
 		$("#payment_Modal").modal('show');
 		return false;
 	}
@@ -90,26 +90,23 @@
 							name="area" value="${customerOrder.area}" /> <input type="hidden"
 							name="location.address" value="${customerOrder.location.address}" />
 						<%-- <input type="hidden" name="date" value="${customerOrder.date}"/> --%>
+						<input type="hidden" name="mealType" value="${customerOrder.mealType}"/>
 						<div class="details1">
 							Scheduling for : ${customerOrder.customer.name} <br /> Email :
 							${customerOrder.customer.email}
 
 							<div class="divspacing">
-								<!-- <input class="form-control" type="text"  placeholder="My Tiffin"/> -->
 								Meal : ${customerOrder.meal.title}
 							</div>
 							<div class="divspacing">
-								<!-- <input class="form-control" type="text" pattern="" id="" name="dabbawala" placeholder="Dabbawala"/> -->
 								${customerOrder.meal.vendor.name}
 							</div>
 							<div class="divspacing" id="price">
-								<!-- <input class="form-control" type="text" id="" name="" placeholder="ABC ABC"/> -->
 								Price : ${customerOrder.meal.price}
 							</div>
-							<%--  Area : ${customerOrder.area}
-			      <br/> --%>
-							Location: ${customerOrder.location.address} <br /> Scheduled From
-							: ${orderDate}
+							Location: ${customerOrder.location.address} <br /> 
+							Scheduled From : ${orderDate} <br/>
+							Meal timing : ${customerOrder.mealType.description}
 						</div>
 						<div class="divspacing">
 							<input class="form-control" type="hidden" readonly="readonly"
@@ -123,18 +120,15 @@
 								value="${customerOrder.customer.phone}"
 								placeholder="MOBILE NUMBER" required />
 						</div>
-						<!-- <div class="divspacing">
-                  		<input class="form-control" type="text" pattern="" id="" name="customer.balance" placeholder="ADD MONEY TO WALLET"/>
-                  </div> -->
-						<div class="option col-md-12">
+						<%-- <div class="option col-md-12">
 							<c:forEach var="type" items="${mealType}">
 								<label class="options" for="option-1"> <input
 									type="radio" id="${type}" class="" name="mealType"
 									value="${type}" autofocus required="required" /> <span class="">${type}</span>
 								</label>
 							</c:forEach>
-						</div>
-						<br />
+						</div> 
+						<br />--%>
 						<div class="divspacing">
 							<textarea class="form-control" type="text" pattern="" id=""
 								name="address" placeholder="ADDRESS" required="required">${customerOrder.address}</textarea>
@@ -170,7 +164,7 @@
 							<h6 class="order_label1">Meal : ${customerOrder.meal.title}</h6>
 							<h6 class="order_label1">Scheduled From : ${orderDate}</h6>
 							<h6 class="order_label1">
-								<div id="modalMealType"></div>
+								<div id="modalMealType">Meal timing : ${customerOrder.mealType}</div>
 							</h6>
 							<h6 class="order_label1">Location :
 								${customerOrder.location.address}</h6>
@@ -193,28 +187,6 @@
 		</div>
 	</div>
 
-	<script>
-		function confirmOrder(data) {
-			var array = data.split(',');
-			var radios = document.getElementsByName('mealType');
-			var mealType;
-			for (var i = 0, length = radios.length; i < length; i++) {
-				if (radios[i].checked) {
-					mealType = radios[i].value;
-					break;
-				}
-			}
-
-			if (mealType == 'BOTH') {
-				mealType = 'lunch and dinner';
-			}
-			var r = confirm("You have scheduled " + array[2]
-					+ " meal daily for " + mealType + " for Rs." + array[3]
-					+ " starting from " + array[0] + array[1]
-					+ ".\n Are you sure?");
-			return r;
-		}
-	</script>
 	<%@include file="footer.jsp"%>
 </body>
 </html>

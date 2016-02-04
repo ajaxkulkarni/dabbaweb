@@ -5,94 +5,60 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>TiffEat | Schedule a Tiffin</title>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>TiffEat | Change_order</title>
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link
 	href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500'
 	rel='stylesheet' type='text/css'>
-
-<link href="<c:url value = "${resources}/css/payment_details.css"/>"
-	rel="stylesheet">
+<link rel="stylesheet" href="<c:url value = "${resources}/css/star-rating.min.css"/>" media="all"
+	rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<c:url value = "${resources}/css/change_order.css"/>">
 </head>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script type="text/javascript">
-	function showModal() {
-		$.ajax({
-			type : "GET",
-			url : '<%=Constants.SCHEDULED_ORDER_URL_GET%>',
-			success : function(data) {
-			},
-			error : function(e) {
-				alert('Error: ' + e);
-			}
-		});
 
-		//alert("Here!" + mealType);
-		$("#modalMealType").text("Meal Type :" + $("#mealType").val());
-		$("#modalAddress").text("Address : " + $("#txtAddress").val());
-		$("#payment_Modal").modal('show');
-		return false;
-	}
 
-	function proceed() {
 
-		document.getElementById("scheduledOrderForm").submit();
-	}
-</script>
 <body>
-
 	<%@include file="header.jsp"%>
-
 	<div class="container payment_details_div">
 		<h4 class="payment_details_heading">Change Tiffin</h4>
 		<div class="payment_details_card">
-			<c:if test="${result != null }">
-				<div class="alert alert-danger">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<!-- <strong>Danger!</strong> -->${result}
-				</div>
-			</c:if>
 			<div class="row">
 				<div class="col-md-6">
-					<form action="<%=Constants.CHANGE_ORDER_URL_POST%>" id="scheduledOrderForm" method="post"
-						onsubmit="return showModal()">
-						<input type="hidden" name="customer.id"
-							value="${customerOrder.customer.id}" /> <input type="hidden"
-							name="content.id" value="${customerOrder.content.id}"> <input
-							type="hidden" name="meal.id" value="${customerOrder.meal.id}" />
-						<input type="hidden" name="meal.title"
-							value="${customerOrder.meal.title}" /> <input type="hidden"
-							name="id" value="${customerOrder.id}" /> <input type="hidden"
-							name="location.address" value="${customerOrder.location.address}" />
-						<input id="mealType" type="hidden" name="mealType"
-							value="${customerOrder.mealType}" />
-						<div class="details">
-							Meal : ${customerOrder.meal.title} <br /> Price :
-							${customerOrder.meal.price} <br /> Location:
-							${customerOrder.location.address} <br /> Timing :
-							${customerOrder.mealType} <br />
-						</div>
+					<div class="details">
+						Meal Type: ${customerOrder.mealType} <br /> <br /> Current Meal:
+						${customerOrder.meal.title} <br /> <br /> Vendor Name:
+						${customerOrder.meal.vendor.name} <br /> <br /> Location: <input
+							type="text" name="location.address" id="areas"
+							placeholder="Enter Your Location" value=""
+							class="option_dropdown" /> <br />
+					</div>
+					<form action="<%=Constants.GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST%>"
+						method="post">
+						<input type="hidden" name="id" value="${customerOrder.id}"/>
+						<input type="hidden" name="mealType"
+							value="${customerOrder.mealType}" /> <input type="hidden"
+							name="mealFormat" value="${customerOrder.mealFormat}" />
 						<div class="divspacing">
 							<textarea class="form-control" type="text" pattern=""
-								id="txtAddress" name="address" value="${customerOrder.address}"
-								placeholder="ADDRESS" required="required">${customerOrder.address}</textarea>
+								id="txtAddress" name="address" value="" placeholder="ADDRESS"
+								required="required"></textarea>
 						</div>
 						<div class="submit_order">
-							<input type="submit" name="" value="CHANGE ORDER"
+							<input type="submit" name="" value="Find Meals"
 								class="btn order_button">
 						</div>
 					</form>
@@ -101,48 +67,41 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="payment_Modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Order Details</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-6">
-							<h6 class="order_label1">Meal : ${customerOrder.meal.title}</h6>
-							<h6 class="order_label1">
-								<div id="modalMealType"></div>
-							</h6>
-							<h6 class="order_label1">Location :
-								${customerOrder.location.address}</h6>
-							<h6 class="order_label1">
-								<div id="modalAddress"></div>
-							</h6>
-							<h6 class="order_label1">Price:${customerOrder.meal.price}</h6>
+	<div class="container menu_cards_div" id="vendorsList">
+		<c:choose>
+			<c:when test="${fn:length(meals) gt 0}">
+				<h4 class="menu_card_heading">Tiffins in Your Area</h4>
+				<div class="row">
+					<c:forEach items="${meals}" var="meal">
+					<form action="<%=Constants.CHANGE_MEAL_URL_POST %>" method="post">
+					<div class="col-md-4">
+						<div class="menu_card">
+							<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
+							<h4 class="menu_card_title">${meal.title}</h4>
+							<h4 class="menu_card_title">${meal.vendor.name}</h4>
+							<input type="hidden" name="title" value="${meal.title}" /> 
+							<input type="hidden" name="id" value="${meal.id}" />
+							<button type="submit" class="btn order_button">ORDER</button>
 						</div>
-						<div class="col-md-6">
-							<img src="getMealImage.htm?mealId=${customerOrder.meal.id}"
-								alt="no_image" class="order_img1 img-responsive">
-						</div>
-
-
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							Cancel</button>
-						<button type="button" class="btn btn-primary" onclick="proceed()">Proceed</button>
-					</div>
+					</form>
+					</c:forEach>
 				</div>
-			</div>
-		</div>
+			</c:when>
+		</c:choose>
 	</div>
-
 	<%@include file="footer.jsp"%>
-</body>
+	<script
+		src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+	<script src="<c:url value="${resources}/js/jquery.geocomplete.js"/>"></script>
+	<script>
+		$(document).ready(function() {
+			$("#areas").geocomplete({
+				types : [ "geocode", "establishment" ],
+			});
+
+		});
+	</script>
+<body>
 </html>

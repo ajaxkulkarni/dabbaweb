@@ -572,7 +572,14 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		meal.setAddress(customerOrder.getAddress());
 		meal.setLocation(customerOrder.getLocation().getAddress());
 		customerMealDao.editCustomerMeal(meal);
+		updateOrderPrice(customerOrder);
 		return RESPONSE_OK;
+	}
+
+	private void updateOrderPrice(CustomerOrder order) {
+		Order scheduledOrder = orderDao.getCustomerScheduledOrder(order.getCustomer().getId(), order.getDate(), order.getMealType().name());
+		scheduledOrder.setPrice(order.getMeal().getPrice());
+		orderDao.editOrder(scheduledOrder);
 	}
 
 	public String cancelScheduledOrder(CustomerOrder customerOrder) {
@@ -765,10 +772,12 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			if (!order.getMealType().equals(availableMeal.getMealTime()) && !MealType.BOTH.equals(availableMeal.getMealTime())) {
 				continue;
 			}
-			// Check if not cooking or dispatch for given date
 			DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), order.getDate(), order.getMealType());
-			if (dailyMeal != null && !MealStatus.PREPARE.equals(CommonUtil.getMealStatus(order.getMealType(), availableMeal))) {
-				continue;
+			// Check if not cooking or dispatch for given date (Only for quick and change scheduled order cases)
+			if(!MealFormat.SCHEDULED.equals(order.getMealFormat()) || order.getId() != 0) {
+				if (dailyMeal != null && !MealStatus.PREPARE.equals(CommonUtil.getMealStatus(order.getMealType(), availableMeal))) {
+					continue;
+				}
 			}
 			// Validate vendor
 			if (!isVendorAvailable(availableMeal.getVendor(), order.getLocation().getAddress())) {

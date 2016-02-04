@@ -29,7 +29,7 @@
 	rel="stylesheet">
 <script type="text/javascript">
 	function showModal() {
-		var radios = document.getElementsByName('mealType');
+		/* var radios = document.getElementsByName('mealType');
 		var mealType;
 		for (var i = 0, length = radios.length; i < length; i++) {
 			if (radios[i].checked) {
@@ -37,10 +37,10 @@
 				break;
 			}
 		}
-		var date = document.getElementById(mealType).innerHTML;
-		$("#orderDate").val(date);
-		$("#modalDate").text("Order For :" + date);
-		$("#modalMealType").text("Meal Type :" + mealType);
+		var date = document.getElementById(mealType).innerHTML; */
+		//$("#orderDate").val(date);
+		//$("#modalDate").text("Order For :" + date);
+		//$("#modalMealType").text("Meal Type :" + mealType);
 		$("#modalAddress").text("Address : " + $("#txtAddress").val());
 		$("#modalPhone").text("Phone :" + $("#txtPhone").val());
 		$("#payment_Modal").modal('show');
@@ -87,6 +87,7 @@
 							placeholder="EMAIL ID" value="${customerOrder.customer.email}"
 							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="30"
 							required="required" />
+						<input type="hidden" name="mealType" value="${customerOrder.mealType}" />
 						<div class="details">
 							Meal : ${customerOrder.meal.title}<br /> Order for :
 							${customerOrder.customer.name} <br /> Email :
@@ -95,6 +96,7 @@
 							Location : ${customerOrder.location.address} <br /> Price :
 							${customerOrder.meal.price}
 						</div>
+						<strong>Meal timing : ${customerOrder.mealType}</strong>
 						<input class="form-control" type="text" maxlength="15"
 							pattern="^(\+?\d{1,4}[\s-])?(?!0+\s+,?$)\d{10}\s*,?$"
 							id="txtPhone" name="customer.phone"
@@ -104,8 +106,7 @@
 							id="txtAddress" name="address"
 							text="${customerOrder.customer.previousOrders[0].address}"
 							placeholder="ADDRESS" maxlength=150 minlength=10 required>${customerOrder.address}</textarea>
-						<strong>Meal timing :</strong>
-						<c:forEach var="type" items="${mealType}">
+						<%-- <c:forEach var="type" items="${mealType}">
 							<label class="radio option_radio"> <input type="radio"
 								id="option-1" class="" name="mealType" value="${type.key}"
 								required="required" /> <span class="">${type.key} for <fmt:formatDate
@@ -114,7 +115,7 @@
 									<fmt:formatDate pattern="yyyy-MM-dd" value="${type.value}" />
 								</div>
 							</label>
-						</c:forEach>
+						</c:forEach> --%>
 						<strong>Payment method :</strong> <br /> <label
 							class="radio option_radio"> <input type="radio"
 							id="option-1" class="" name="paymentType" value="ONLINE"
@@ -161,10 +162,10 @@
 						<div class="col-md-6">
 							<h6 class="order_label1">Meal : ${customerOrder.meal.title}</h6>
 							<h6 class="order_label1">
-								<div id="modalDate"></div>
+								<div id="modalDate">Date :${orderDate}</div>
 							</h6>
 							<h6 class="order_label1">
-								<div id="modalMealType"></div>
+								<div id="modalMealType">Timing :${customerOrder.mealType.description}</div>
 							</h6>
 							<h6 class="order_label1">Location :
 								${customerOrder.location.address}</h6>

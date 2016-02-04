@@ -116,7 +116,7 @@ public interface Constants {
 	String MODEL_CUSTOMERS = "customers";
 	String MODEL_INVOICES = "invoices";
 	
-	
+	String DAY_TOMORROW = "tomorrow";
 	String PARAMETER_APPENDER = "&";
 	String SPACE_CHAR = "%20";
 	BigDecimal MAX_DISTANCE_IN_METERS = new BigDecimal(10000);
@@ -149,6 +149,7 @@ public interface Constants {
 	String SELECT_MEAL_FORMAT_URL_GET = "selectMealFormat.htm";
 	String CHANGE_ORDER_URL_GET = "changeOrder.htm";
 	String SCHEDULED_ORDER_URL_GET = "scheduledOrder.htm";
+	String ADD_ORDER_URL_GET = "addOrder.htm";
 	String INDEX_URL_GET = "home.htm";
 	
 	String REGISTER_CUSTOMER_URL_POST = "registerCustomer";
@@ -157,6 +158,8 @@ public interface Constants {
 	String SELECT_MEAL_FORMAT_URL_POST = "selectMealFormat";
 	String CUSTOMER_SELECT_VENDOR_URL_POST = "customerSelectVendor";
 	String GET_NEARBY_VENDORS_URL_POST = "getNearbyVendors";
+	String GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST = "getNearbyVendorsForChangeOrder";
+	String GET_NEARBY_VENDORS_FOR_ADD_ORDER_URL_POST = "getNearbyVendorsForAddOrder";
 	String CHANGE_ORDER_URL_POST = "changeOrder";
 	String CUSTOMER_LOGIN_URL_POST = "customerLogin";
 	String GET_MENU_URL_POST = "getMenu";
@@ -178,6 +181,7 @@ public interface Constants {
 	String SCHEDULED_ORDER_DETAILS_PAGE = "customer_scheduled_order_details";
 	String SELECT_MEAL_FORMAT_PAGE = "customer_meal_format";
 	String CHANGE_SCHEDULED_ORDER_DETAILS_PAGE = "customer_change_scheduled_order_details";
+	String ADD_SCHEDULED_ORDER_DETAILS_PAGE = "customer_add_scheduled_order";
 	String INDEX_PAGE = "index";
 	String SELECT_MEALS_PAGE = "customer_select_meals";
 	String CONTACT_US_PAGE = "customer_contact_us";

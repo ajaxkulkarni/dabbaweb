@@ -164,13 +164,15 @@
 									</form>
 									<br />
 									<form action="<%=Constants.CHANGE_MEAL_URL_POST %>" method="post">
-										<input type="hidden" name="id"
+											<input type="hidden" name="meal.title" value="${order.meal.title}"/>
+											<input type="hidden" name="meal.vendor.name" value="${order.meal.vendor.name}"/>
+											<input type="hidden" name="id"
 											value="${order.customerOrderId}" /> <input type="hidden"
 											name="mealType" value="${order.mealType}" /> <input
 											type="hidden" name="meal.id" value="${order.meal.id}" /> <input
 											type="hidden" name="mealFormat" value="${order.mealFormat}" />
-										<input type="hidden" name="address" value="${order.address}" />
-										<input type="hidden" name="content.id"
+											<input type="hidden" name="address" value="${order.address}" />
+											<input type="hidden" name="content.id"
 											value="${order.content.id}" /> <input type="hidden"
 											name="location.address" value="${order.location.address}" />
 										<input type="hidden" name="menuDate"
