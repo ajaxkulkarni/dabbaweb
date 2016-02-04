@@ -41,6 +41,7 @@ color: #fff;
 
 .sub_div_heading {
 	font-weight: 400;
+	color: rgba(255, 255, 255, 0.7);
 	font-size: 16px;
 	text-align: center;
 }
@@ -51,21 +52,44 @@ color: #fff;
 
 .location_div {
 	margin: auto;
-	display: inline-block;
+	font-size: 16px;
+	line-height: 2;
+}
+
+.location_div p {
+	margin: 32px auto;
+	font-family: 'Roboto Slab', serif;
 }
 
 .option_dropdown {
-	margin: 16px;
-	color: black;
-	padding: 8px;
-	border-radius: 3px;
+	margin: 0px;
+	margin-right: 4px;
+	background-color: #8BC34A;
+	-moz-color: #fff;
+	padding: 0px;
 	border: 0;
+	border-bottom: 1px solid #fff;
 	outline: 0;
-	width: 90%;
+}
+
+::-webkit-input-placeholder {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+::-moz-placeholder {
+	color: rgba(255, 255, 255, 0.7);
+} /* firefox 19+ */
+:-ms-input-placeholder {
+	color: rgba(255, 255, 255, 0.7);
+} /* ie */
+input:-moz-placeholder {
+	color: rgba(255, 255, 255, 0.7);
 }
 
 .loc_button {
+	font-family: 'Roboto Slab', serif;
 	color: white;
+	letter-spacing: 2px;
 	background-color: #FF5535;
 	text-transform: uppercase;
 	border: 0;
@@ -116,11 +140,8 @@ color: #fff;
 		font-size: 32px;
 		margin: 56px auto;
 	}
-	.sub_div_heading {
+	.location_div {
 		font-size: 20px;
-	}
-	.option_dropdown {
-		width: 384px;
 	}
 }
 

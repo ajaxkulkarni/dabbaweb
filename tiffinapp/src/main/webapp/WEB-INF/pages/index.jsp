@@ -24,6 +24,7 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500'
 	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 <link href="<c:url value = "${resources}/css/home.css"/>"
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/FAQ.css"/>"
@@ -44,12 +45,30 @@
 				class="banner_sub_heading">and have a homemade meal wherever
 				you are!</span>
 		</h3>
+		<h4 class="sub_div_heading">We currently serve in Pune</h4>
 		<div class="container banner_sub_div">
-			<h4 class="sub_div_heading">We currently serve in Pune</h4>
+			
 			<div class="row">
 				<form action="<%=Constants.GET_NEARBY_VENDORS_URL_POST%>" id="searchByArea"
 					onsubmit="onSearchByVendors()" method="post">
 					<div class="location_div">
+						<p>I want to try a meal for  <select name="orderDate" class="option_dropdown">
+							<option value="today">Today's</option>
+							<option value="tomorrow">Tomorrow's</option>
+						</select>	
+						<select name="mealType" class="option_dropdown">
+							<option value="<%=MealType.LUNCH%>">Lunch</option>
+							<option value="<%=MealType.DINNER%>">Dinner</option>
+						</select>
+						</p>
+						<p>I live in <input type="text" name="location.address" id="areas"
+							placeholder="Enter Your Area" value="${location}"
+							class="option_dropdown" />
+						</p>
+						<button type="submit" class="btn loc_button">Find meals</button>
+						
+					
+					<!-- 
 					<select name="mealFormat" class="option_dropdown">
 							<option value="<%=MealFormat.QUICK%>">Quick</option>
 							<option value="<%=MealFormat.SCHEDULED%>">Scheduled</option>
@@ -66,7 +85,7 @@
 							placeholder="Enter Your Location" value="${location}"
 							class="option_dropdown" />
 						<button type="submit" class="btn loc_button">Find meals</button>
-
+					-->
 					</div>
 				</form>
 			</div>
@@ -138,8 +157,8 @@
 				brings you a meal from your chosen kitchen.</p>
 
 			<h3 class="faq_question">When do I get my meal?</h3>
-			<p class="faq_answer">We deliver your tiffin(s) for lunch between
-				12pm - 2pm and for dinner between 8pm - 10pm.</p>
+			<p class="faq_answer">We deliver your tiffin(s) for LUNCH between
+				12pm - 2pm and for DINNER between 8pm - 10pm.</p>
 
 			<h3 class="faq_question">Why do I need TiffEat?</h3>
 			<p class="faq_answer">Well, that's a subjective question. If you

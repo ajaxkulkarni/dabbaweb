@@ -34,11 +34,11 @@
 			<h3>You can contact us on:</h3>
 			<p>
 				<img src="<c:url value="${resources}/img/ic_email_24px.svg"/>">
-				<a href="mailto:contact@tiffeat.com" style="color: black;">contact@tiffeat.com</a>
+				<a href="mailto:contact@tiffeat.com">contact@tiffeat.com</a>
 			</p>
 			<p>
 				<img src="<c:url value="${resources}/img/WhatsApp_Logo_3.svg"/>">
-				8087538194, 7350182285
+				<a href="tel:8087538194">8087538194</a>, <a href="tel:7350182285">7350182285</a>
 			</p>
 			<p>
 				<img src="<c:url value="${resources}/img/ic_location_on_24px.svg"/>">
@@ -50,13 +50,12 @@
 
 		</div>
 
+		<p id="byResoneuronance">
+			TiffEat is a service registered under <a
+				href="http://resoneuronance.com" target="_blank">Resoneuronance</a>
+		</p>
 	</div>
 
-	<p id="byResoneuronance">
-		TiffEat is a service registered under <a
-			href="http://resoneuronance.com" target="_blank"
-			style="color: black;">Resoneuronance</a>
-	</p>
 
 
 	<%@include file="footer.jsp"%>
