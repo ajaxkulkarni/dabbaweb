@@ -10,6 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,14 +30,14 @@
 <link rel="stylesheet" href="css/star-rating.min.css" media="all"
 	rel="stylesheet" type="text/css" />
 
-<link rel="stylesheet" href="add lunch_dinner.css">
 
+<link href="<c:url value = "${resources}/css/add lunch_dinner.css"/>" rel="stylesheet">
 </head>
 
 
 
 <body>
-
+<%@include file="header.jsp" %>
 	<div class="container payment_details_div">
 		<h4 class="payment_details_heading">Schedule Lunch/Dinner</h4>
 		<div class="payment_details_card">
@@ -49,9 +50,9 @@
 						<div class="dropdown">
 							Schedule From: ${customerOrder.date}
 							</select>
-						</div>
+						</div><br/>
 						Location: <input type="text" name="location.address" id="areas" placeholder="Enter Your Location" value="" class="option_dropdown" /><br />
-					</div>
+					</div><br/>
 					<div class="divspacing">
 						<textarea class="form-control" type="text" pattern=""
 							id="txtAddress" name="address" value="" placeholder="ADDRESS"
@@ -93,7 +94,7 @@
 
 
 
-	​
+	
 <body>
 </html>
 
