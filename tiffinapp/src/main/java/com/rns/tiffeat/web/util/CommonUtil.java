@@ -17,7 +17,10 @@ import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.rns.tiffeat.web.bo.domain.Customer;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 import com.rns.tiffeat.web.bo.domain.MealStatus;
 import com.rns.tiffeat.web.bo.domain.MealType;
@@ -349,6 +352,18 @@ public class CommonUtil implements Constants {
 	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 	private static double rad2deg(double rad) {
 		return (rad * 180 / Math.PI);
+	}
+
+	public static CustomerOrder parseCustomerOrder(String order) {
+		CustomerOrder customerOrder = new CustomerOrder();
+		JsonObject object = new JsonParser().parse(order).getAsJsonObject();
+		customerOrder.setMealType(getMealType(object.get(MODEL_MEAL_TYPE).getAsString()));
+		customerOrder.setMealFormat(getMealFormat(object.get(MODEL_MEAL_FORMAT).getAsString()));
+		JsonObject locationJson =  object.get(MODEL_LOCATION).getAsJsonObject();
+		Location location = new Location();
+		location.setAddress(locationJson.get(MODEL_ADDRESS).getAsString());
+		customerOrder.setLocation(location);
+		return customerOrder;
 	}
 
 }

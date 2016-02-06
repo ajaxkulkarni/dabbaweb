@@ -16,8 +16,6 @@
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -37,16 +35,29 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/js/json2.js"/>"
 	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <title>TiffEat | Order tiffin online, Order meal online, Order
 	food online, Order online Pune</title>
 	
 <script type="text/javascript">
+$(document).ready(function(){
+	selected();
+	$("#resultText").hide();
+});
+
+
 	function selected() {
-		$("#orderDay").show();
-		$("#bothType").hide();
-		if($("#format").val() == "SCHEDULED") {
+		if($("#mealFormat").val() == "SCHEDULED") {
 			$("#orderDay").hide();
 			$("#bothType").show();
+		}
+		if($("#mealFormat").val() == "QUICK") {
+			$("#orderDay").show();
+			$("#bothType").hide();
+			if($("#mealType").val() == "BOTH") {
+				$("#mealType").val("LUNCH")
+			}
 		}
 	}
 	
@@ -54,39 +65,42 @@
 		//var order = "{date:\"\",mealType:" + $("#mealType").val() + ", mealFormat :" + $("#mealFormat").val()+", location:{address:" + $("#areas").val() + "}}";
 		var order = {date:"",mealType:$("#mealType").val(),mealFormat:$("#mealFormat").val(),location:{address:$("#areas").val()}};
 		var json = JSON.stringify(order);
+		$("#menuModal").modal('show');
 		alert(json);
 		$.ajax({
        	type : "POST",
            url : 'getMeals',
            dataType: 'json',
-           data: "order="+ order + "&orderDate=some",
-           success : function(data) {
-        	   alert(data);
+           data: "order="+ json + "&orderDate=" + $("#orderDay").val(),
+           success : function(meals) {
                //$('#result').html(data);
-              /*  $('#projectName').html(data.name);
-               $('#clientName').html(data.clientName);
-               $('#projectDescription').html(data.description);
-               $("#projectImage").attr("src","files/" + data.slides[0].id);
-               $("#projectCategory").html(data.categoryName);
-               $("#projectId").attr("value",data.id);
-               //alert(data.slides)
+               //alert(meals);
                var appendString = "";
-               $.each(data.slides,function(i,slide){
-               	//alert(slide);
-               	if(i == 0) {
-               		//$("#slide1").attr("src","files/" + slide);
-               		appendString = "<div class=\"item active\"><img src=\"files/" + slide.id +"\" alt=\"slide2\"></div>";
-               	}
-               	else {
-               	appendString = appendString + "<div class=\"item\"><img src=\"files/" + slide.id +"\" alt=\"slide2\"></div>";
-               	}
-               });
-               alert(appendString);
-               $("#slider").html(appendString); */
-               
+               var i;
+               for (i = 0; i < meals.length; i++) {
+            	   appendString = appendString + "<div class=\"col-md-4\"><div class=\"menu_card\">" +
+              		"<img src=\"getMealImage.htm?mealId=" +meals[i].id + "\" class=\"menu_card_image img-responsive\">" +
+              		"<h4 class=\"menu_card_title\">" +meals[i].title +"</h4>" +
+					"<h4 class=\"menu_card_title\">" +meals[i].vendor.name + "</h4>" +
+					"<h4 class=\"menu_card_title\">" +meals[i].price + "</h4>" +
+					"<form action=\"\" method=\"post\">" +
+					"<input type=\"hidden\" name=\"title\" value=" + meals[i].title + "/>" +
+					"<input type=\"hidden\" name=\"id\" value="+ meals[i].id + "/>" +
+					"<input type=\"hidden\" name=\"description\" value=" + meals[i].description + "/>" +
+					"<input type=\"hidden\" name=\"price\" value="+ meals[i].price +"/>" +
+					"<button type=\"submit\" class=\"btn order_button\">ORDER</button>" +
+					"</form></div></div>";
+				}
+               //alert(appendString);
+               $("#rows").html(appendString);
+               $("#menuModal").modal('hide');
+               $("#resultText").show();
            },
            error: function(e){
            	alert("Error: " + e);
+           	$("#menuModal").modal('hide');
+            $("#resultText").show();
+           	$("#resultText").html("No tiffins currently in your area!");
        	}
        }); 
    }
@@ -130,8 +144,8 @@
 							placeholder="Enter Your Area" value="${location}"
 							class="option_dropdown" />
 						</p>
-						<!-- onclick="getMeals()" --> 
-						<button type="submit" class="btn loc_button">Find meals</button>
+						<!--  --> 
+						<button type="button" onclick="getMeals()" class="btn loc_button">Find meals</button>
 					</div>
 				</form>
 			</div>
@@ -144,11 +158,11 @@
 	<!--        Start of menu list div-->
 
 	<div class="container menu_cards_div" id="vendorsList">
-		<c:choose>
-			<c:when test="${fn:length(meals) gt 0}">
-				<h4 class="menu_card_heading">Tiffins in Your Area</h4>
-				<div class="row">
-					<c:forEach items="${meals}" var="meal">
+		<%-- <c:choose>
+			<c:when test="${fn:length(meals) gt 0}"> --%>
+				<h4 class="menu_card_heading" id = "resultText">Tiffins in Your Area</h4>
+				<div class="row" id="rows">
+					<%-- <c:forEach items="${meals}" var="meal">
 						<form action="<%=Constants.SELECT_MEAL_FORMAT_URL_POST %>" method="post">
 							<div class="col-md-4">
 								<div class="menu_card">
@@ -165,15 +179,15 @@
 								</div>
 							</div>
 						</form>
-					</c:forEach>
+					</c:forEach> --%>
 				</div>
-			</c:when>
+			<%-- </c:when>
 			<c:otherwise>
 				<c:if test="${result != 'OK' }">
 					<h4 class="menu_card_heading">${result}</h4>
 				</c:if>
 			</c:otherwise>
-		</c:choose>
+		</c:choose> --%>
 	</div>
 
 	<div class="container">
@@ -251,6 +265,20 @@
 		<p class="weAreFlattered">Thank you for checking us out. We are
 			flattered!</p>
 	</div>
+
+	<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Getting nearby tiffins ..</h4>
+              </div>
+              <div class="modal-body">
+              </div>
+             </div>
+          </div>
+    </div>
+          
 
 
 	<%@include file="footer.jsp"%>

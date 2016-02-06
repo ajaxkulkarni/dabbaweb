@@ -93,6 +93,7 @@ public interface Constants {
 	String MODEL_RESULT = "result";
 	String MODEL_CUSTOMER = "customer";
 	String MODEL_MEAL_TYPE = "mealType";
+	String MODEL_MEAL_FORMAT = "mealFormat";
 	String MODEL_PAYMENT_TYPES = "paymentTypes";
 	String MODEL_CUSTOMER_ORDER = "customerOrder";
 	String MODEL_VENDOR = "vendor";
@@ -115,6 +116,7 @@ public interface Constants {
 	String MODEL_MEALS = "meals";
 	String MODEL_CUSTOMERS = "customers";
 	String MODEL_INVOICES = "invoices";
+	String MODEL_ADDRESS = "address";
 	
 	String DAY_TOMORROW = "tomorrow";
 	String PARAMETER_APPENDER = "&";

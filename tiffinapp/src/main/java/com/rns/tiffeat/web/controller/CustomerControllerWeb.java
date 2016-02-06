@@ -29,6 +29,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.api.SessionManager;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -75,16 +77,15 @@ public class CustomerControllerWeb implements Constants {
 	}
 	
 	@RequestMapping(value = "/getMeals", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody String getMeals(CustomerOrder order, String orderDate) {
+	public @ResponseBody String getMeals(String order, String orderDate) {
 		Gson gson = new GsonBuilder().create();
-		//CustomerOrder customerOrder = gson.fromJson(order, CustomerOrder.class);
-		/*customerOrder.setDate(new Date());
+		CustomerOrder customerOrder = CommonUtil.parseCustomerOrder(order);
+		customerOrder.setDate(new Date());
 		if (DAY_TOMORROW.equalsIgnoreCase(orderDate)) {
 			customerOrder.setDate(CommonUtil.addDay());
 		}
 		manager.getCustomer().setOrderInProcess(customerOrder);
-		return gson.toJson(customerBo.getAvailableMeals(customerOrder));*/
-		return null;
+		return gson.toJson(customerBo.getAvailableMeals(customerOrder));
 	}
 
 	@RequestMapping(value = URL_PREFIX + INDEX_URL_GET, method = RequestMethod.GET)
