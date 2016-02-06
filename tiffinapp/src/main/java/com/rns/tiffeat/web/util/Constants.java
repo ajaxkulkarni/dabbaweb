@@ -169,6 +169,7 @@ public interface Constants {
 	String CANCEL_ORDER_URL_POST = "cancelOrder";
 	String ADD_MONEY_TO_WALLET_URL_POST = "addMoneyToWallet";
 	String SCHEDULED_ORDER_URL_POST = "scheduledOrder";
+	String ADD_LUNCH_DINNER_URL_POST = "addLunchOrDinner";
 	
 	String QUICK_HOME_PAGE = "customer_quick_home";
 	String SCHEDULED_HOME_PAGE = "customer_scheduled_home";

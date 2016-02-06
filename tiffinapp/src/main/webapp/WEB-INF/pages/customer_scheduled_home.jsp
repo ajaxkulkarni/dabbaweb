@@ -41,7 +41,7 @@
 		</form>
 		Balance : ${customer.balance}
 	</div>
-	<c:if test="${result != null }">
+	<c:if test="${result != null && result!='OK' }">
 		<div class="alert alert-danger">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<!-- <strong>Danger!</strong> -->${result}

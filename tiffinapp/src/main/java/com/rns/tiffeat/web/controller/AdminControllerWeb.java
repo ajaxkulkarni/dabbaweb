@@ -3,7 +3,9 @@ package com.rns.tiffeat.web.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -336,7 +338,10 @@ public class AdminControllerWeb implements Constants {
 		DailyContent dailyContent = new DailyContent();
 		dailyContent.setMeal(meal);
 		dailyContent.setMealType(mealType);
-		dailyContent.setDate(customerBo.getAvailableMealTypeDates(order).get(mealType));
+		Map<MealType, Date> availableMealTypeDates = customerBo.getAvailableMealTypeDates(order);
+		if(availableMealTypeDates != null) {
+			dailyContent.setDate(availableMealTypeDates.get(mealType));
+		}
 		model.addAttribute(MODEL_DAILY_CONTENT, dailyContent);
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);

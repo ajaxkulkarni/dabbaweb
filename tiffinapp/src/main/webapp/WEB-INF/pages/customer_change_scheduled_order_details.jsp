@@ -41,21 +41,21 @@
 					<div class="details">
 						Meal Type: ${customerOrder.mealType} <br /> <br /> Current Meal:
 						${customerOrder.meal.title} <br /> <br /> Vendor Name:
-						${customerOrder.meal.vendor.name} <br /> <br /> Location: <input
-							type="text" name="location.address" id="areas"
-							placeholder="Enter Your Location" value=""
-							class="option_dropdown" /> <br />
+						${customerOrder.meal.vendor.name} <br /> <br /> Location: 
 					</div>
-					<form action="<%=Constants.GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST%>"
-						method="post">
+					<form action="<%=Constants.GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST%>" method="post">
+						<input
+							type="text" name="location.address" id="areas"
+							placeholder="Enter Your Location" value="${customerOrder.location.address}"
+							class="option_dropdown" /> <br />
 						<input type="hidden" name="id" value="${customerOrder.id}"/>
 						<input type="hidden" name="mealType"
 							value="${customerOrder.mealType}" /> <input type="hidden"
 							name="mealFormat" value="${customerOrder.mealFormat}" />
 						<div class="divspacing">
 							<textarea class="form-control" type="text" pattern=""
-								id="txtAddress" name="address" value="" placeholder="ADDRESS"
-								required="required"></textarea>
+								id="txtAddress" name="address" placeholder="ADDRESS"
+								required="required">${customerOrder.address}</textarea>
 						</div>
 						<div class="submit_order">
 							<input type="submit" name="" value="Find Meals"
@@ -73,14 +73,14 @@
 				<h4 class="menu_card_heading">Tiffins in Your Area</h4>
 				<div class="row">
 					<c:forEach items="${meals}" var="meal">
-					<form action="<%=Constants.CHANGE_MEAL_URL_POST %>" method="post">
+					<form action="<%=Constants.CHANGE_ORDER_URL_POST %>" method="post">
 					<div class="col-md-4">
 						<div class="menu_card">
 							<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
 							<h4 class="menu_card_title">${meal.title}</h4>
 							<h4 class="menu_card_title">${meal.vendor.name}</h4>
-							<input type="hidden" name="title" value="${meal.title}" /> 
-							<input type="hidden" name="id" value="${meal.id}" />
+							<input type="hidden" name="meal.title" value="${meal.title}" /> 
+							<input type="hidden" name="meal.id" value="${meal.id}" />
 							<button type="submit" class="btn order_button">ORDER</button>
 						</div>
 					</div>

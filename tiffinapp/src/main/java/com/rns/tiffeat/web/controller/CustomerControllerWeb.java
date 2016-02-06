@@ -73,6 +73,19 @@ public class CustomerControllerWeb implements Constants {
 	public void setCustomerBo(CustomerBo customerBo) {
 		this.customerBo = customerBo;
 	}
+	
+	@RequestMapping(value = "/getMeals", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String getMeals(CustomerOrder order, String orderDate) {
+		Gson gson = new GsonBuilder().create();
+		//CustomerOrder customerOrder = gson.fromJson(order, CustomerOrder.class);
+		/*customerOrder.setDate(new Date());
+		if (DAY_TOMORROW.equalsIgnoreCase(orderDate)) {
+			customerOrder.setDate(CommonUtil.addDay());
+		}
+		manager.getCustomer().setOrderInProcess(customerOrder);
+		return gson.toJson(customerBo.getAvailableMeals(customerOrder));*/
+		return null;
+	}
 
 	@RequestMapping(value = URL_PREFIX + INDEX_URL_GET, method = RequestMethod.GET)
 	public String initPage(ModelMap model) {
@@ -130,6 +143,9 @@ public class CustomerControllerWeb implements Constants {
 		CustomerOrder customerOrder = manager.getCustomer().getOrderInProcess();
 		customerOrder.setMeal(meal);
 		customerOrder.setCustomer(manager.getCustomer());
+		if(MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			setScheduledFrom(customerOrder);
+		}
 		/*if (StringUtils.isNotEmpty(manager.getCustomer().getEmail()) && customerOrder != null && MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			if (customerOrder.getId() == 0) {
 				return new RedirectView(SCHEDULED_ORDER_URL_GET);
@@ -139,6 +155,13 @@ public class CustomerControllerWeb implements Constants {
 		model.addAttribute(MODEL_CUSTOMER_ORDER, customerOrder);
 		manager.setResult(null);
 		return new RedirectView(CHECK_LOGGED_IN_URL_GET);
+	}
+
+	private void setScheduledFrom(CustomerOrder customerOrder) {
+		Map<MealType, Date> availableMealTypeDates = customerBo.getAvailableMealTypeDates(customerOrder);
+		if(availableMealTypeDates!=null) {
+			customerOrder.setDate(availableMealTypeDates.get(customerOrder.getMealType()));
+		}
 	}
 	
 	@RequestMapping(value = URL_PREFIX + CHECK_LOGGED_IN_URL_GET, method = RequestMethod.GET)
@@ -219,6 +242,10 @@ public class CustomerControllerWeb implements Constants {
 		// model.addAttribute(MODEL_MEAL_TYPE,
 		// customerBo.getAvailableMealType(order));
 		//model.addAttribute(MODEL_MEAL_TYPE, customerBo.getAvailableMealTypeDates(order));
+		Map<MealType, Date> availableMealTypeDates = customerBo.getAvailableMealTypeDates(order);
+		if(availableMealTypeDates != null) {
+			order.setDate(availableMealTypeDates.get(order.getMealType()));
+		}
 		model.addAttribute(MODEL_CUSTOMER_ORDER, order);
 		model.addAttribute(MODEL_PAYMENT_TYPES, PaymentType.values());
 		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
@@ -296,25 +323,28 @@ public class CustomerControllerWeb implements Constants {
 
 
 	@RequestMapping(value = URL_PREFIX + QUICK_ORDER_URL_POST, method = RequestMethod.POST)
-	public RedirectView quickOrder(CustomerOrder customerOrder, String orderDate, ModelMap model) {
-		customerOrder.setDate(CommonUtil.convertDate(orderDate));
-		if (PaymentType.CASH.equals(customerOrder.getPaymentType())) {
-			String result = customerBo.validateQuickOrder(customerOrder);
+	public RedirectView quickOrder(CustomerOrder customerOrder, ModelMap model) {
+		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
+		orderInProcess.setAddress(customerOrder.getAddress());
+		orderInProcess.setPaymentType(customerOrder.getPaymentType());
+		manager.getCustomer().setPhone(customerOrder.getCustomer().getPhone());
+		if (PaymentType.CASH.equals(orderInProcess.getPaymentType())) {
+			String result = customerBo.validateQuickOrder(orderInProcess);
 			if (WARNING_DATE_CHANGED.equals(result)) {
-				manager.setResult("Today's meal for " + customerOrder.getMealType() + " is not available!" + "You can order for tomorrow.");
+				manager.setResult("Today's meal for " + orderInProcess.getMealType() + " is not available!" + "You can order for tomorrow.");
 				return new RedirectView(QUICK_ORDER_URL_GET);
 			}
 			if (!RESPONSE_OK.equals(result)) {
 				manager.setResult(result);
 				return new RedirectView(QUICK_ORDER_URL_GET);
 			}
-			customerBo.quickOrder(customerOrder);
+			customerBo.quickOrder(orderInProcess);
 			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
 		}
 
-		String result = customerBo.validateQuickOrder(customerOrder);
+		String result = customerBo.validateQuickOrder(orderInProcess);
 		if (WARNING_DATE_CHANGED.equals(result)) {
-			manager.setResult("Today's meal for " + customerOrder.getMealType() + " is not available!" + "You can order for tomorrow.");
+			manager.setResult("Today's meal for " + orderInProcess.getMealType() + " is not available!" + "You can order for tomorrow.");
 			return new RedirectView(QUICK_ORDER_URL_GET);
 		}
 		if (!RESPONSE_OK.equals(result)) {
@@ -322,7 +352,6 @@ public class CustomerControllerWeb implements Constants {
 			return new RedirectView(QUICK_ORDER_URL_GET);
 		}
 		manager.setResult(result);
-		manager.getCustomer().setOrderInProcess(customerOrder);
 		return new RedirectView(PAYMENT_URL_GET);
 	}
 
@@ -449,30 +478,58 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = URL_PREFIX + SCHEDULED_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView scheduleOrder(CustomerOrder customerOrder, ModelMap model) {
-		if (customerOrder.getDate() == null) {
-			customerOrder.setDate(manager.getCustomer().getOrderInProcess().getDate());
-		}
-		manager.getCustomer().setPhone(customerOrder.getCustomer().getPhone());
-		// manager.getCustomer().setQuickOrders(scheduledOrders);
-		String scheduledOrderResult = "";
-		boolean walletRequired = false;
-		if (manager.getCustomer().getBalance() == null || manager.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0) {
-			scheduledOrderResult = customerBo.validateScheduledOrder(customerOrder);
-			walletRequired = true;
-		} else {
-			scheduledOrderResult = customerBo.scheduledOrder(customerOrder);
-		}
-		if (!RESPONSE_OK.equals(scheduledOrderResult)) {
-			manager.setResult(scheduledOrderResult);
+		boolean walletRequired = addScheduledOrder(customerOrder);
+		//manager.setResult(null);
+		if(!RESPONSE_OK.equals(manager.getResult())) {
 			return new RedirectView(SCHEDULED_ORDER_URL_GET);
 		}
-		manager.setResult(null);
-		customerOrder.setMealFormat(MealFormat.SCHEDULED);
-		manager.getCustomer().setOrderInProcess(customerOrder);
 		if(walletRequired) {
 			return new RedirectView(ADD_MONEY_TO_WALLET_URL_GET);
 		}
 		return new RedirectView(SCHEDULED_ORDERS_URL_GET);
+	}
+	
+	@RequestMapping(value = URL_PREFIX + ADD_LUNCH_DINNER_URL_POST, method = RequestMethod.POST)
+	public RedirectView addLunchOrDinner(CustomerOrder customerOrder, ModelMap model) {
+		boolean walletRequired = addScheduledOrder(customerOrder);
+		//manager.setResult(null);
+		//customerOrder.setMealFormat(MealFormat.SCHEDULED);
+		//customer.setOrderInProcess(customerOrder);
+		if(!RESPONSE_OK.equals(manager.getResult())) {
+			return new RedirectView(ADD_ORDER_URL_GET);
+		}
+		if(walletRequired) {
+			return new RedirectView(ADD_MONEY_TO_WALLET_URL_GET);
+		}
+		return new RedirectView(SCHEDULED_ORDERS_URL_GET);
+	}
+
+	private boolean addScheduledOrder(CustomerOrder customerOrder) {
+		Customer customer = manager.getCustomer();
+		CustomerOrder orderInProcess = customer.getOrderInProcess();
+		/*if (customerOrder.getDate() == null) {
+			customerOrder.setDate(orderInProcess.getDate());
+		}*/
+		if(customerOrder.getCustomer() !=null && StringUtils.isNotEmpty(customerOrder.getCustomer().getPhone())) {
+			customer.setPhone(customerOrder.getCustomer().getPhone());
+		}
+		if(orderInProcess.getMeal() == null) {
+			orderInProcess.setMeal(customerOrder.getMeal());
+		}
+		if(StringUtils.isEmpty(orderInProcess.getAddress())) {
+			orderInProcess.setAddress(customerOrder.getAddress());
+		}
+		orderInProcess.setCustomer(customer);
+		String scheduledOrderResult = "";
+		boolean walletRequired = false;
+		if (customer.getBalance() == null || customer.getBalance().compareTo(orderInProcess.getMeal().getPrice()) < 0) {
+			scheduledOrderResult = customerBo.validateScheduledOrder(orderInProcess);
+			walletRequired = true;
+		} else {
+			scheduledOrderResult = customerBo.scheduledOrder(orderInProcess);
+		}
+		manager.setResult(scheduledOrderResult);
+		return walletRequired;
 	}
 
 	@RequestMapping(value = URL_PREFIX + ADD_MONEY_TO_WALLET_URL_GET, method = RequestMethod.GET)
@@ -525,10 +582,12 @@ public class CustomerControllerWeb implements Constants {
 	@RequestMapping(value = URL_PREFIX + CHANGE_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView changeOrder(CustomerOrder customerOrder, ModelMap model) {
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
-		orderInProcess.setAddress(customerOrder.getAddress());
+		orderInProcess.setMeal(customerOrder.getMeal());
+		//orderInProcess.setAddress(customerOrder.getAddress());
 		String changeScheduledOrderResult = customerBo.changeScheduledOrder(orderInProcess);
 		if (!RESPONSE_OK.equals(changeScheduledOrderResult)) {
 			manager.setResult(changeScheduledOrderResult);
+			return new RedirectView(CHANGE_ORDER_URL_GET);
 		}
 		System.out.println("Result of change order :" + changeScheduledOrderResult);
 		return new RedirectView(CUSTOMER_HOME_URL_GET);
@@ -537,11 +596,12 @@ public class CustomerControllerWeb implements Constants {
 	@RequestMapping(value = URL_PREFIX + GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView getVendorsNearbyChangeOrder(CustomerOrder order, String orderDate, ModelMap model) {
 		// setCustomerOrderLocation(address);
-		order.setDate(new Date());
+		/*order.setDate(new Date());
 		if (DAY_TOMORROW.equalsIgnoreCase(orderDate)) {
 			order.setDate(CommonUtil.addDay());
-		}
-		manager.getCustomer().setOrderInProcess(order);
+		}*/
+		manager.getCustomer().getOrderInProcess().setLocation(order.getLocation());
+		manager.getCustomer().getOrderInProcess().setAddress(order.getAddress());
 		return new RedirectView(CHANGE_ORDER_URL_GET);
 	}
 
@@ -561,6 +621,8 @@ public class CustomerControllerWeb implements Constants {
 			return new RedirectView(CUSTOMER_HOME_URL_GET);
 		}
 		customerOrder.getContent().setDate(contentDate);
+		customerOrder.setDate(contentDate);
+		customerOrder.setCustomer(manager.getCustomer());
 		// manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
 		manager.getCustomer().setOrderInProcess(customerOrder);
 		return new RedirectView(CHANGE_ORDER_URL_GET);
@@ -576,9 +638,10 @@ public class CustomerControllerWeb implements Constants {
 	}
 	
 	@RequestMapping(value = URL_PREFIX + GET_NEARBY_VENDORS_FOR_ADD_ORDER_URL_POST, method = RequestMethod.POST)
-	public RedirectView getVendorsNearbyAddOrder(CustomerOrder order, String orderDate, ModelMap model) {
-		order.setDate(new Date());
-		manager.getCustomer().setOrderInProcess(order);
+	public RedirectView getVendorsNearbyAddOrder(CustomerOrder order, ModelMap model) {
+		//order.setDate(new Date());
+		manager.getCustomer().getOrderInProcess().setAddress(order.getAddress());
+		manager.getCustomer().getOrderInProcess().setLocation(order.getLocation());
 		return new RedirectView(ADD_ORDER_URL_GET);
 	}
 	
@@ -590,9 +653,10 @@ public class CustomerControllerWeb implements Constants {
 			customerOrder.setMealType(MealType.LUNCH);
 		}
 		customerOrder.setMealFormat(MealFormat.SCHEDULED);
+		customerOrder.setDate(new Date());
 		manager.getCustomer().setOrderInProcess(customerOrder);
 		// manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));
-		return new RedirectView(INDEX_URL_GET);
+		return new RedirectView(ADD_ORDER_URL_GET);
 	}
 
 	@RequestMapping(value = URL_PREFIX + GET_MENU_URL_POST, method = RequestMethod.POST, produces = "application/json")

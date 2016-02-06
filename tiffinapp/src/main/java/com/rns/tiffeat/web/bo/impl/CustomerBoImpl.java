@@ -14,6 +14,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -265,6 +267,15 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (!isMealAvailableForMealType(meal, customerOrder.getMealType())) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
 		}
+		Map<MealType, Date> availableMealTypeDates = getAvailableMealTypeDates(customerOrder);
+		if(availableMealTypeDates == null) {
+			return ERROR_INVALID_ORDER_DETAILS;
+		}
+		Date scheduledFrom = availableMealTypeDates.get(customerOrder.getMealType());
+		if(scheduledFrom == null) {
+			return ERROR_INVALID_ORDER_DETAILS;
+		}
+		customerOrder.setDate(scheduledFrom);
 		Vendor currentVendor = new Vendor();
 		DataToBusinessConverters.convertVendor(currentVendor, meal.getVendor());
 		if (isVendorClosed(currentVendor)) {
@@ -551,13 +562,16 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (availableMealTypeDates == null || availableMealTypeDates.get(customerOrder.getMealType()) == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
+		if(!DateUtils.isSameDay(availableMealTypeDates.get(customerOrder.getMealType()), customerOrder.getDate())) {
+			return ERROR_CANT_CHANGE_THE_MEAL;
+		}
 		Meal oldMeal = mealDao.getMeal(customerOrder.getMeal().getId());
 		if (oldMeal == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
 		}
-		if (!MealStatus.PREPARE.equals(CommonUtil.getMealStatus(customerOrder.getMealType(), oldMeal))) {
+		/*if (!MealStatus.PREPARE.equals(CommonUtil.getMealStatus(customerOrder.getMealType(), oldMeal))) {
 			return ERROR_CANT_CHANGE_THE_MEAL;
-		}
+		}*/
 		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(oldMeal.getId(), customerOrder.getMealType());
 		if (dailyMeal != null && !DateUtils.isSameDay(dailyMeal.getDate(), customerOrder.getContent().getDate())) {
 			return ERROR_CANT_CHANGE_THE_MEAL;
@@ -687,22 +701,29 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (meal == null) {
 			return null;
 		}
+		DailyMeal dailyMeal = null;
 		if (isMealAvailableForMealType(meal, MealType.LUNCH)) {
-			DailyMeal lunchMenu = dailyMealDao.getDailyMealsForMealType(meal.getId(), MealType.LUNCH);
-			if (checkIfAvailable(meal, lunchMenu)) {
+			dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), MealType.LUNCH);
+			if (checkIfAvailable(meal, dailyMeal)) {
 				mealTypeDates.put(MealType.LUNCH, CommonUtil.convertDate(new Date()));
 			} else {
 				mealTypeDates.put(MealType.LUNCH, CommonUtil.addDay());
 			}
 		}
 		if (isMealAvailableForMealType(meal, MealType.DINNER)) {
-			DailyMeal dinnerMenu = dailyMealDao.getDailyMealsForMealType(meal.getId(), MealType.DINNER);
-			if (checkIfAvailable(meal, dinnerMenu)) {
+			dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), MealType.DINNER);
+			if (checkIfAvailable(meal, dailyMeal)) {
 				mealTypeDates.put(MealType.DINNER, new Date());
 			} else {
 				mealTypeDates.put(MealType.DINNER, CommonUtil.addDay());
 			}
 		}
+		if (dailyMeal == null) {
+			order.getMeal().setMenu("Menu not available yet..");
+		} else {
+			order.getMeal().setMenu(DataToBusinessConverters.convertDailyContent(dailyMeal).toString());
+		}
+		mealTypeDates.put(MealType.BOTH, mealTypeDates.get(MealType.LUNCH));
 		return mealTypeDates;
 	}
 
@@ -768,8 +789,20 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		List<com.rns.tiffeat.web.bo.domain.Meal> availableMeals = new ArrayList<com.rns.tiffeat.web.bo.domain.Meal>();
 		for (Meal meal : meals) {
 			com.rns.tiffeat.web.bo.domain.Meal availableMeal = DataToBusinessConverters.convertMeal(meal);
+			CustomerOrder tempOrder = prepareTempOrder(availableMeal);
+			Map<MealType, Date> availableMealTypes =  getAvailableMealTypeDates(tempOrder);
+			Date mealTypeDate = null;
+			if(availableMealTypes != null) {
+				mealTypeDate = availableMealTypes.get(order.getMealType());
+			}
+			if(MealFormat.QUICK.equals(order.getMealFormat()) || order.getId() != 0) {
+				if(mealTypeDate == null || (!DateUtils.isSameDay(order.getDate(), mealTypeDate) && DateUtils.isSameDay(new Date(), order.getDate()))) {
+					continue;
+				}
+			}
+			availableMeal.setAvailableFrom(mealTypeDate);
 			// Check if meal available for given timing
-			if (!order.getMealType().equals(availableMeal.getMealTime()) && !MealType.BOTH.equals(availableMeal.getMealTime())) {
+			/*if (!order.getMealType().equals(availableMeal.getMealTime()) && !MealType.BOTH.equals(availableMeal.getMealTime())) {
 				continue;
 			}
 			DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), order.getDate(), order.getMealType());
@@ -778,19 +811,29 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 				if (dailyMeal != null && !MealStatus.PREPARE.equals(CommonUtil.getMealStatus(order.getMealType(), availableMeal))) {
 					continue;
 				}
-			}
+			}*/
+			
 			// Validate vendor
 			if (!isVendorAvailable(availableMeal.getVendor(), order.getLocation().getAddress())) {
 				continue;
 			}
-			if (dailyMeal == null) {
-				availableMeal.setMenu("Menu not available yet..");
-			} else {
-				availableMeal.setMenu(DataToBusinessConverters.convertDailyContent(dailyMeal).toString());
-			}
+			availableMeal.setMenu(tempOrder.getMeal().getMenu());
 			availableMeals.add(availableMeal);
 		}
 		return availableMeals;
 	}
 
+	private CustomerOrder prepareTempOrder(com.rns.tiffeat.web.bo.domain.Meal meal) {
+		CustomerOrder temp = new CustomerOrder();
+		temp.setMeal(meal);
+		return temp;
+	}
+
+	public static void main(String[] args) {
+		CustomerOrder order = new CustomerOrder();
+		order.setMealType(MealType.LUNCH);
+		order.setDate(new Date());
+		System.out.println(new Gson().toJson(order));
+	}
+	
 }

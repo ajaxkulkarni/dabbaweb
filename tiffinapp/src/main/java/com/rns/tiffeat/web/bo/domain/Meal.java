@@ -1,6 +1,7 @@
 package com.rns.tiffeat.web.bo.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Meal {
 
@@ -17,6 +18,7 @@ public class Meal {
 	private DailyContent dinnerMenu;
 	private MealType mealTime;
 	private String menu;
+	private Date availableFrom;
 	
 	public String getTitle() {
 		return title;
@@ -98,6 +100,12 @@ public class Meal {
 	}
 	public void setMenu(String menu) {
 		this.menu = menu;
+	}
+	public Date getAvailableFrom() {
+		return availableFrom;
+	}
+	public void setAvailableFrom(Date availableFrom) {
+		this.availableFrom = availableFrom;
 	}
 	
 	

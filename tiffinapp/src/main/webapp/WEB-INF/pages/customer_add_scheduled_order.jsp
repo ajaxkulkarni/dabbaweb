@@ -39,18 +39,12 @@
 <body>
 <%@include file="header.jsp" %>
 	<div class="container payment_details_div">
-		<h4 class="payment_details_heading">Schedule Lunch/Dinner</h4>
+		<h4 class="payment_details_heading">Schedule ${customerOrder.mealType.description}</h4>
 		<div class="payment_details_card">
 			<div class="row">
 				<div class="col-md-6">
-					<form action="" method="post">
-					<input type="hidden" name="mealFormat" value="${customerOrder.mealFormat}"/>
-					<input type="hidden" name="mealType" value="${customerOrder.mealType}"/>
+					<form action="<%=Constants.GET_NEARBY_VENDORS_FOR_ADD_ORDER_URL_POST%>" method="post">
 					<div class="details">
-						<div class="dropdown">
-							Schedule From: ${customerOrder.date}
-							</select>
-						</div><br/>
 						Location: <input type="text" name="location.address" id="areas" placeholder="Enter Your Location" value="" class="option_dropdown" /><br />
 					</div><br/>
 					<div class="divspacing">
@@ -74,14 +68,15 @@
 				<h4 class="menu_card_heading">Tiffins in Your Area</h4>
 				<div class="row">
 					<c:forEach items="${meals}" var="meal">
-					<form action="<%=Constants.CHANGE_MEAL_URL_POST %>" method="post">
+					<form action="<%=Constants.SCHEDULED_ORDER_URL_POST %>" method="post">
 					<div class="col-md-4">
 						<div class="menu_card">
 							<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
 							<h4 class="menu_card_title">${meal.title}</h4>
 							<h4 class="menu_card_title">${meal.vendor.name}</h4>
-							<input type="hidden" name="title" value="${meal.title}" /> 
-							<input type="hidden" name="id" value="${meal.id}" />
+							<input type="hidden" name="meal.title" value="${meal.title}" /> 
+							<input type="hidden" name="meal.id" value="${meal.id}" />
+							<input type="hidden" name="meal.price" value="${meal.price}" />
 							<button type="submit" class="btn order_button">ORDER</button>
 						</div>
 					</div>
@@ -91,7 +86,20 @@
 			</c:when>
 		</c:choose>
 	</div>
+	
+	<%@include file="footer.jsp" %>
+	<script
+		src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+	<script src="<c:url value="${resources}/js/jquery.geocomplete.js"/>"></script>
+	<script>
+		$(document).ready(function() {
+			$("#areas").geocomplete({
+				types : [ "geocode", "establishment" ],
+			});
 
+		});
+	</script>
 
 
 	

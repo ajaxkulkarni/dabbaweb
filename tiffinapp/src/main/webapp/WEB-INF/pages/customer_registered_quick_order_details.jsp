@@ -77,8 +77,8 @@
 							type="hidden" name="meal.title"
 							value="${customerOrder.meal.title}" /> <input type="hidden"
 							name="location.address" value="${customerOrder.location.address}" />
-						<input id="orderDate" type="hidden" name="orderDate"
-							value="${customerOrder.date}" /> <input class="form-control"
+						<%-- <input id="orderDate" type="hidden" name="orderDate"
+							value="${customerOrder.date}" /> --%> <input class="form-control"
 							type="hidden" readonly="readonly" id="name1" name="customer.name"
 							value="${customerOrder.customer.name}"
 							placeholder="What's your name?" required="required"

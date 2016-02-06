@@ -29,9 +29,68 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/FAQ.css"/>"
 	rel="stylesheet">
+	<link href="<c:url value = "${resources}/js/cycle.js"/>"
+	rel="stylesheet">
+	<link href="<c:url value = "${resources}/js/json_parse.js"/>"
+	rel="stylesheet">
+	<link href="<c:url value = "${resources}/js/json_parse_state.js"/>"
+	rel="stylesheet">
+<link href="<c:url value = "${resources}/js/json2.js"/>"
+	rel="stylesheet">
 <title>TiffEat | Order tiffin online, Order meal online, Order
 	food online, Order online Pune</title>
-
+	
+<script type="text/javascript">
+	function selected() {
+		$("#orderDay").show();
+		$("#bothType").hide();
+		if($("#format").val() == "SCHEDULED") {
+			$("#orderDay").hide();
+			$("#bothType").show();
+		}
+	}
+	
+	function getMeals() {
+		//var order = "{date:\"\",mealType:" + $("#mealType").val() + ", mealFormat :" + $("#mealFormat").val()+", location:{address:" + $("#areas").val() + "}}";
+		var order = {date:"",mealType:$("#mealType").val(),mealFormat:$("#mealFormat").val(),location:{address:$("#areas").val()}};
+		var json = JSON.stringify(order);
+		alert(json);
+		$.ajax({
+       	type : "POST",
+           url : 'getMeals',
+           dataType: 'json',
+           data: "order="+ order + "&orderDate=some",
+           success : function(data) {
+        	   alert(data);
+               //$('#result').html(data);
+              /*  $('#projectName').html(data.name);
+               $('#clientName').html(data.clientName);
+               $('#projectDescription').html(data.description);
+               $("#projectImage").attr("src","files/" + data.slides[0].id);
+               $("#projectCategory").html(data.categoryName);
+               $("#projectId").attr("value",data.id);
+               //alert(data.slides)
+               var appendString = "";
+               $.each(data.slides,function(i,slide){
+               	//alert(slide);
+               	if(i == 0) {
+               		//$("#slide1").attr("src","files/" + slide);
+               		appendString = "<div class=\"item active\"><img src=\"files/" + slide.id +"\" alt=\"slide2\"></div>";
+               	}
+               	else {
+               	appendString = appendString + "<div class=\"item\"><img src=\"files/" + slide.id +"\" alt=\"slide2\"></div>";
+               	}
+               });
+               alert(appendString);
+               $("#slider").html(appendString); */
+               
+           },
+           error: function(e){
+           	alert("Error: " + e);
+       	}
+       }); 
+   }
+</script>
 
 </head>
 
@@ -52,40 +111,27 @@
 				<form action="<%=Constants.GET_NEARBY_VENDORS_URL_POST%>" id="searchByArea"
 					onsubmit="onSearchByVendors()" method="post">
 					<div class="location_div">
-						<p>I want to try a meal for  <select name="orderDate" class="option_dropdown">
+						<p>I want to  
+						<select name="mealFormat" id="mealFormat" class="option_dropdown" onchange="selected()" id="format">
+							<option value="<%=MealFormat.QUICK%>">try a meal</option>
+							<option value="<%=MealFormat.SCHEDULED%>">Start daily tiffin service</option>
+						</select>
+						for  <select name="orderDate" class="option_dropdown" id = "orderDay">
 							<option value="today">Today's</option>
 							<option value="tomorrow">Tomorrow's</option>
 						</select>	
-						<select name="mealType" class="option_dropdown">
+						<select name="mealType" class="option_dropdown" id="mealType">
 							<option value="<%=MealType.LUNCH%>">Lunch</option>
 							<option value="<%=MealType.DINNER%>">Dinner</option>
+							<option value="<%=MealType.BOTH%>" id="bothType">Both</option>
 						</select>
 						</p>
 						<p>I live in <input type="text" name="location.address" id="areas"
 							placeholder="Enter Your Area" value="${location}"
 							class="option_dropdown" />
 						</p>
+						<!-- onclick="getMeals()" --> 
 						<button type="submit" class="btn loc_button">Find meals</button>
-						
-					
-					<!-- 
-					<select name="mealFormat" class="option_dropdown">
-							<option value="<%=MealFormat.QUICK%>">Quick</option>
-							<option value="<%=MealFormat.SCHEDULED%>">Scheduled</option>
-						</select>
-						<select name="mealType" class="option_dropdown">
-							<option value="<%=MealType.LUNCH%>">Lunch</option>
-							<option value="<%=MealType.DINNER%>">Dinner</option>
-						</select> 
-						<select name="orderDate" class="option_dropdown">
-							<option value="today">Today</option>
-							<option value="tomorrow">Tomorrow</option>
-						</select> 
-						<input type="text" name="location.address" id="areas"
-							placeholder="Enter Your Location" value="${location}"
-							class="option_dropdown" />
-						<button type="submit" class="btn loc_button">Find meals</button>
-					-->
 					</div>
 				</form>
 			</div>
@@ -110,6 +156,7 @@
 									<h4 class="menu_card_title">${meal.title}</h4>
 									<h4 class="menu_card_title">${meal.vendor.name}</h4>
 									${meal.menu}
+									<br/>
 									<input type="hidden" name="title" value="${meal.title}"/>
                 					<input type="hidden" name="id" value="${meal.id}"/>
                						<input type="hidden" name="description" value="${meal.description}"/>
