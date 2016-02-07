@@ -29,8 +29,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.api.SessionManager;
 import com.rns.tiffeat.web.bo.domain.Customer;

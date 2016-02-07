@@ -579,9 +579,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (availableMealTypeDates == null || availableMealTypeDates.get(customerOrder.getMealType()) == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
-		if(!DateUtils.isSameDay(availableMealTypeDates.get(customerOrder.getMealType()), customerOrder.getDate())) {
+		/*if(!DateUtils.isSameDay(availableMealTypeDates.get(customerOrder.getMealType()), customerOrder.getDate())) {
 			return ERROR_CANT_CHANGE_THE_MEAL;
-		}
+		}*/
 		Meal oldMeal = mealDao.getMeal(customerOrder.getMeal().getId());
 		if (oldMeal == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;

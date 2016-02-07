@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.api.VendorBo;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -35,6 +36,7 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
 import com.rns.tiffeat.web.util.ImageUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
@@ -97,26 +99,6 @@ public class CustomerContollerAndroid implements Constants {
 		return new Gson().toJson(result);
 	}
 
-	// LUNCH/DINNER.. which is available
-
-	/*@RequestMapping(value = "/getAvailableMealTypeAndroid", method = RequestMethod.POST)
-	public @ResponseBody String getAvailableMealFormat(
-			@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder, ModelMap model) {
-		CustomerOrder customerOrderObject = new Gson().fromJson(customerOrder, CustomerOrder.class);
-		MealType[] availableMealTypes = customerBo.getAvailableMealType(customerOrderObject);
-		List<MealType> mealTypes = new ArrayList<MealType>();
-		if(availableMealTypes != null && availableMealTypes.length > 0) {
-			mealTypes = Arrays.asList(availableMealTypes);
-		}
-		if(customerOrderObject.getDate() == null) {
-			customerOrderObject.setDate(new Date());
-		}
-		Map<String,Object> availableMealsMap = new HashMap<String, Object>();
-		removeCircularReferences(customerOrderObject);
-		availableMealsMap.put(MODEL_CUSTOMER_ORDER, new Gson().toJson(customerOrderObject));
-		availableMealsMap.put(MODEL_MEAL_TYPE, mealTypes);
-		return new Gson().toJson(availableMealsMap);
-	}*/
 	
 	@RequestMapping(value = "/getAvailableMealTypeDatesAndroid", method = RequestMethod.POST)
 	public @ResponseBody String getAvailableMealFormatDates(
@@ -320,6 +302,14 @@ public class CustomerContollerAndroid implements Constants {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/*New Flow methods*/
+	
+	@RequestMapping(value = "/getMealsAndroid", method = RequestMethod.POST)
+	public @ResponseBody String getMeals(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder) {
+		List<Meal> availableMeals = customerBo.getAvailableMeals(new Gson().fromJson(customerOrder, CustomerOrder.class));
+		return new Gson().toJson(availableMeals);
 	}
 	
 }
