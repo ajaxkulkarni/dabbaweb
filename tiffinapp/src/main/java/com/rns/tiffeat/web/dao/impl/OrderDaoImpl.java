@@ -162,7 +162,7 @@ public class OrderDaoImpl implements OrderDao {
 		return orders;
 	}
 
-	public Order getCustomerQuickOrder(long id) {
+	public List<Order> getCustomerQuickOrder(long id) {
 		List<Order> orders = new ArrayList<Order>();
 		Session session = this.sessionFactory.openSession();
 		Query createQuery = session.createQuery("from Order where customerMeal.id=:orderId AND customerMeal.format=:quick order by id DESC");
@@ -170,10 +170,7 @@ public class OrderDaoImpl implements OrderDao {
 		createQuery.setLong("orderId", id);
 		orders = createQuery.list();
 		session.close();
-		if(CollectionUtils.isEmpty(orders)) {
-			return null;
-		}
-		return orders.get(0);
+		return orders;
 	}
 
 	public List<Order> getOrdersBetween(Date fromDate, Date toDate) {

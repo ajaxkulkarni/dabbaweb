@@ -35,8 +35,8 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/js/json2.js"/>"
 	rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <title>TiffEat | Order tiffin online, Order meal online, Order
 	food online, Order online Pune</title>
 	
@@ -61,12 +61,22 @@ $(document).ready(function(){
 		}
 	}
 	
+	function scrollDown() {
+	    $('html, body').animate({
+	        scrollTop: $("#vendorsList").offset().top
+	    }, 1000);
+	}
+	
+	function showError() {
+	   $("#menuModal").modal('hide');
+  	   $("#resultText").show();
+       $("#resultText").html("No tiffins currently available in your area for " + $("#orderDay").val() + "'s " + $("#mealType").val());
+	}
+	
 	function getMeals() {
-		//var order = "{date:\"\",mealType:" + $("#mealType").val() + ", mealFormat :" + $("#mealFormat").val()+", location:{address:" + $("#areas").val() + "}}";
 		var order = {date:"",mealType:$("#mealType").val(),mealFormat:$("#mealFormat").val(),location:{address:$("#areas").val()}};
 		var json = JSON.stringify(order);
 		$("#menuModal").modal('show');
-		alert(json);
 		$.ajax({
        	type : "POST",
            url : 'getMeals',
@@ -74,7 +84,12 @@ $(document).ready(function(){
            data: "order="+ json + "&orderDate=" + $("#orderDay").val(),
            success : function(meals) {
                //$('#result').html(data);
-               //alert(meals);
+               scrollDown();
+               if(meals == null || meals.length == 0) {
+            	   showError();
+                   return;
+               }
+               
                var appendString = "";
                var i;
                for (i = 0; i < meals.length; i++) {
@@ -83,27 +98,40 @@ $(document).ready(function(){
               		"<h4 class=\"menu_card_title\">" +meals[i].title +"</h4>" +
 					"<h4 class=\"menu_card_title\">" +meals[i].vendor.name + "</h4>" +
 					"<h4 class=\"menu_card_title\">" +meals[i].price + "</h4>" +
-					"<form action=\"\" method=\"post\">" +
-					"<input type=\"hidden\" name=\"title\" value=" + meals[i].title + "/>" +
-					"<input type=\"hidden\" name=\"id\" value="+ meals[i].id + "/>" +
-					"<input type=\"hidden\" name=\"description\" value=" + meals[i].description + "/>" +
-					"<input type=\"hidden\" name=\"price\" value="+ meals[i].price +"/>" +
-					"<button type=\"submit\" class=\"btn order_button\">ORDER</button>" +
+					"<form action=\"selectMealFormat\" method=\"post\">" +
+					"<input type=\"hidden\"  name=\"title\" value=" + meals[i].title + "/>" +
+					"<input type=\"hidden\"  name=\"id\" value="+ meals[i].id + "/>" +
+					"<input type=\"hidden\"  name=\"description\" value=" + meals[i].description + "/>" +
+					"<input type=\"hidden\"  name=\"price\" value="+ meals[i].price +"/>" +
+					"<button type=\"button\" class=\"btn order_button\" onclick=\"chooseMeal(" + meals[i].id +")\" >ORDER</button>" +
 					"</form></div></div>";
 				}
-               //alert(appendString);
                $("#rows").html(appendString);
                $("#menuModal").modal('hide');
                $("#resultText").show();
+               $("#resultText").html("Tiffins in Your Area");
            },
            error: function(e){
            	alert("Error: " + e);
-           	$("#menuModal").modal('hide');
-            $("#resultText").show();
-           	$("#resultText").html("No tiffins currently in your area!");
+           	showError();
        	}
        }); 
    }
+	
+   function chooseMeal(mealId) {
+	  $.ajax({
+       	type : "POST",
+           url : 'setMeal',
+           data: "mealId=" + mealId,
+           success : function(response) {
+        	   window.location.href = "checkRegistration.htm";
+           },
+           error: function(e){
+           		alert("Error: " + e);
+       		}
+       }); 
+   } 
+   
 </script>
 
 </head>
@@ -119,7 +147,7 @@ $(document).ready(function(){
 				you are!</span>
 		</h3>
 		<h4 class="sub_div_heading">We currently serve in Pune</h4>
-		<div class="container banner_sub_div">
+		<div class="container banner_sub_div" id="top">
 			
 			<div class="row">
 				<form action="<%=Constants.GET_NEARBY_VENDORS_URL_POST%>" id="searchByArea"

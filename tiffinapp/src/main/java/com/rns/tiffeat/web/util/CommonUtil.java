@@ -71,6 +71,9 @@ public class CommonUtil implements Constants {
 		if (MealType.DINNER.name().equals(mealType)) {
 			return MealType.DINNER;
 		}
+		if (MealType.BOTH.name().equals(mealType)) {
+			return MealType.BOTH;
+		}
 		return null;
 	}
 
@@ -366,4 +369,19 @@ public class CommonUtil implements Constants {
 		return customerOrder;
 	}
 
+	public static float calculatePrice(CustomerOrder order) {
+		float amount = new Float(0);;
+		if (order.getMeal().getPrice() == null) {
+			return amount;
+		}
+		if (order.getQuantity() == null) {
+			amount = order.getMeal().getPrice().floatValue();
+			return amount;
+		}
+		for (int i = 0; i < order.getQuantity(); i++) {
+			amount = (Float.sum(order.getMeal().getPrice().floatValue(), amount));
+		}
+		return amount;
+	}
+	
 }

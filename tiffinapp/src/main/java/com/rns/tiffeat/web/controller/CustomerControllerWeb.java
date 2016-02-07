@@ -85,7 +85,19 @@ public class CustomerControllerWeb implements Constants {
 			customerOrder.setDate(CommonUtil.addDay());
 		}
 		manager.getCustomer().setOrderInProcess(customerOrder);
-		return gson.toJson(customerBo.getAvailableMeals(customerOrder));
+		List<Meal> availableMeals = customerBo.getAvailableMeals(customerOrder);
+		return gson.toJson(availableMeals);
+	}
+	
+	@RequestMapping(value = "/setMeal", method = RequestMethod.POST)
+	public @ResponseBody String setMeal(int mealId) {
+		CustomerOrder customerOrder = manager.getCustomer().getOrderInProcess();
+		customerOrder.setMeal(customerBo.getMeal(mealId));
+		customerOrder.setCustomer(manager.getCustomer());
+		if(MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			setScheduledFrom(customerOrder);
+		}
+		return RESPONSE_OK;
 	}
 
 	@RequestMapping(value = URL_PREFIX + INDEX_URL_GET, method = RequestMethod.GET)
@@ -140,7 +152,7 @@ public class CustomerControllerWeb implements Constants {
 	}
 	
 	@RequestMapping(value = URL_PREFIX + SELECT_MEAL_FORMAT_URL_POST, method = RequestMethod.POST)
-	public RedirectView selectMealFormat(Meal meal, ModelMap model) {
+	public RedirectView selectMealFormat(Meal meal/*, ModelMap model*/) {
 		CustomerOrder customerOrder = manager.getCustomer().getOrderInProcess();
 		customerOrder.setMeal(meal);
 		customerOrder.setCustomer(manager.getCustomer());
@@ -153,7 +165,7 @@ public class CustomerControllerWeb implements Constants {
 			}
 			return new RedirectView(CHANGE_ORDER_URL_GET);
 		}*/
-		model.addAttribute(MODEL_CUSTOMER_ORDER, customerOrder);
+		//model.addAttribute(MODEL_CUSTOMER_ORDER, customerOrder);
 		manager.setResult(null);
 		return new RedirectView(CHECK_LOGGED_IN_URL_GET);
 	}
@@ -244,7 +256,7 @@ public class CustomerControllerWeb implements Constants {
 		// customerBo.getAvailableMealType(order));
 		//model.addAttribute(MODEL_MEAL_TYPE, customerBo.getAvailableMealTypeDates(order));
 		Map<MealType, Date> availableMealTypeDates = customerBo.getAvailableMealTypeDates(order);
-		if(availableMealTypeDates != null) {
+		if(availableMealTypeDates != null && MealFormat.SCHEDULED.equals(order.getMealFormat())) {
 			order.setDate(availableMealTypeDates.get(order.getMealType()));
 		}
 		model.addAttribute(MODEL_CUSTOMER_ORDER, order);
@@ -328,21 +340,8 @@ public class CustomerControllerWeb implements Constants {
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
 		orderInProcess.setAddress(customerOrder.getAddress());
 		orderInProcess.setPaymentType(customerOrder.getPaymentType());
+		orderInProcess.setQuantity(customerOrder.getQuantity());
 		manager.getCustomer().setPhone(customerOrder.getCustomer().getPhone());
-		if (PaymentType.CASH.equals(orderInProcess.getPaymentType())) {
-			String result = customerBo.validateQuickOrder(orderInProcess);
-			if (WARNING_DATE_CHANGED.equals(result)) {
-				manager.setResult("Today's meal for " + orderInProcess.getMealType() + " is not available!" + "You can order for tomorrow.");
-				return new RedirectView(QUICK_ORDER_URL_GET);
-			}
-			if (!RESPONSE_OK.equals(result)) {
-				manager.setResult(result);
-				return new RedirectView(QUICK_ORDER_URL_GET);
-			}
-			customerBo.quickOrder(orderInProcess);
-			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
-		}
-
 		String result = customerBo.validateQuickOrder(orderInProcess);
 		if (WARNING_DATE_CHANGED.equals(result)) {
 			manager.setResult("Today's meal for " + orderInProcess.getMealType() + " is not available!" + "You can order for tomorrow.");
@@ -351,6 +350,10 @@ public class CustomerControllerWeb implements Constants {
 		if (!RESPONSE_OK.equals(result)) {
 			manager.setResult(result);
 			return new RedirectView(QUICK_ORDER_URL_GET);
+		}
+		if (PaymentType.CASH.equals(orderInProcess.getPaymentType())) {
+			customerBo.quickOrder(orderInProcess);
+			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
 		}
 		manager.setResult(result);
 		return new RedirectView(PAYMENT_URL_GET);

@@ -56,4 +56,6 @@ public interface CustomerBo {
 	String loginWithGoogle(Customer googleCustomer);
 	
 	List<Meal> getAvailableMeals(CustomerOrder order);
+	
+	Meal getMeal(long mealId);
 }

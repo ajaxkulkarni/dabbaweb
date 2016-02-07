@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -287,7 +286,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	private boolean checkIfMealTypeAvailableForDate(CustomerOrder customerOrder) {
 		Map<MealType, Date> mealTypeDates = getAvailableMealTypeDates(customerOrder);
 		for (MealType type : mealTypeDates.keySet()) {
-			if (type.equals(customerOrder.getMealType()) && DateUtils.isSameDay(mealTypeDates.get(type), customerOrder.getDate())) {
+			if (type.equals(customerOrder.getMealType()) && !todaysOrderNotPossible(customerOrder, mealTypeDates.get(type))) {
 				return true;
 			}
 		}
@@ -295,7 +294,14 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	private void addOrder(CustomerMeal mealToBeAdded, CustomerOrder customerOrder) {
-		mealToBeAdded.getOrders().add(BusinessToDataConverters.convertOrder(mealToBeAdded, customerOrder));
+		if(customerOrder.getQuantity() == null) {
+			mealToBeAdded.getOrders().add(BusinessToDataConverters.convertOrder(mealToBeAdded, customerOrder));
+			return;
+		}
+		for(int i = 0; i < customerOrder.getQuantity() ; i++) {
+			//TODO: Calculate price for discount
+			mealToBeAdded.getOrders().add(BusinessToDataConverters.convertOrder(mealToBeAdded, customerOrder));
+		}
 	}
 
 	public boolean login(Customer customer) {
@@ -401,15 +407,26 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	private void prepareQuickOrderDetails(Customer currentCustomer, CustomerOrder customerOrder) {
 		prepareDailyContent(customerOrder);
-		Order order = orderDao.getCustomerQuickOrder(customerOrder.getId());
-		if (order == null) {
+		List<Order> orders = orderDao.getCustomerQuickOrder(customerOrder.getId());
+		if (CollectionUtils.isEmpty(orders)) {
 			customerOrder.setStatus(OrderStatus.NA);
 			return;
 		}
-		customerOrder.setStatus(CommonUtil.getOrderStatus(order.getStatus()));
-		if (order.getPrice() != null) {
-			customerOrder.setPrice(order.getPrice());
+		customerOrder.setStatus(CommonUtil.getOrderStatus(orders.get(0).getStatus()));
+		calculateTotalPrice(customerOrder,orders);
+	}
+
+	private void calculateTotalPrice(CustomerOrder customerOrder, List<Order> orders) {
+		customerOrder.setPrice(BigDecimal.ZERO);
+		int quantity = 0;
+		for(Order order:orders) {
+			if(order.getPrice() == null) {
+				continue;
+			}
+			customerOrder.setPrice(customerOrder.getPrice().add(order.getPrice()));
+			quantity++;
 		}
+		customerOrder.setQuantity(quantity);
 	}
 
 	private List<CustomerOrder> getCustomerOrders(List<CustomerMeal> customerMeals, Customer currentCustomer) {
@@ -796,7 +813,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 				mealTypeDate = availableMealTypes.get(order.getMealType());
 			}
 			if(MealFormat.QUICK.equals(order.getMealFormat()) || order.getId() != 0) {
-				if(mealTypeDate == null || (!DateUtils.isSameDay(order.getDate(), mealTypeDate) && DateUtils.isSameDay(new Date(), order.getDate()))) {
+				if(mealTypeDate == null || todaysOrderNotPossible(order, mealTypeDate)) {
 					continue;
 				}
 			}
@@ -823,17 +840,18 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return availableMeals;
 	}
 
+	private boolean todaysOrderNotPossible(CustomerOrder order, Date mealTypeDate) {
+		return !DateUtils.isSameDay(order.getDate(), mealTypeDate) && DateUtils.isSameDay(new Date(), order.getDate());
+	}
+
 	private CustomerOrder prepareTempOrder(com.rns.tiffeat.web.bo.domain.Meal meal) {
 		CustomerOrder temp = new CustomerOrder();
 		temp.setMeal(meal);
 		return temp;
 	}
-
-	public static void main(String[] args) {
-		CustomerOrder order = new CustomerOrder();
-		order.setMealType(MealType.LUNCH);
-		order.setDate(new Date());
-		System.out.println(new Gson().toJson(order));
-	}
 	
+	public com.rns.tiffeat.web.bo.domain.Meal getMeal(long mealId) {
+		return DataToBusinessConverters.convertMeal(mealDao.getMeal(mealId));
+	}
+
 }

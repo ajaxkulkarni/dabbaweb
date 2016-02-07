@@ -122,7 +122,8 @@
 						</c:choose>
 					</div>
 
-					<div class="price">Price: ${quickOrder.price}</div>
+					<div class="price">Total Price: ${quickOrder.price}</div>
+					<div class="price">Quantity: ${quickOrder.quantity}</div>
 
 					<%-- <form action="<%=Constants.REPEAT_ORDER_URL_POST %>" method="post">
 						<input type="hidden" name="meal.id" value="${quickOrder.meal.id}" />

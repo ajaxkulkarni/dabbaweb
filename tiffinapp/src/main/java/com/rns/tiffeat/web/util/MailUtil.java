@@ -90,10 +90,11 @@ public class MailUtil {
 			return mailBuilder.toString();
 		}
 		mailBuilder.append("Hello ").append(order.getCustomer().getName()).append("!").append(MAIL_NEW_LINE);
-		mailBuilder.append("You have ordered ").append(order.getMeal().getTitle()).append(" for ")
+		mailBuilder.append("You have ordered ").append(order.getQuantity()).append(" ").append(order.getMeal().getTitle()).append(" for ")
 				.append(order.getMealType().getDescription()).append(" for the date ")
 				.append(CommonUtil.convertDateToString(order.getDate())).append(MAIL_NEW_LINE)
 				.append("Your order ID is - ").append(order.getId()).append(MAIL_NEW_LINE)
+				.append("The total payable amount is :").append(CommonUtil.calculatePrice(order)).append(MAIL_NEW_LINE)
 				.append("You can track your order status from www.tiffeat.com").append(MAIL_NEW_LINE)
 				.append("Thank you for ordering your meal from us!!").append(MAIL_NEW_LINE)
 				.append("For any queries please feel free to contact us at support@tiffeat.com or 8087538194").append(MAIL_NEW_LINE).append(MAIL_NEW_LINE)

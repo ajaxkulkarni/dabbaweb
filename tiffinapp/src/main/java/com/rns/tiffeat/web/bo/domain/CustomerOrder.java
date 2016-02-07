@@ -28,6 +28,7 @@ public class CustomerOrder implements Serializable {
 	private MealStatus mealStatus;
 	private Location location;
 	private BigDecimal price;
+	private Integer quantity;
 	
 	public String getArea() {
 		return area;
@@ -124,6 +125,12 @@ public class CustomerOrder implements Serializable {
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 	
 }

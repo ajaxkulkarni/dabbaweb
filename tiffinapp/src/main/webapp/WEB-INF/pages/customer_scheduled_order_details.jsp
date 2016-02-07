@@ -105,7 +105,7 @@
 								Price : ${customerOrder.meal.price}
 							</div>
 							Location: ${customerOrder.location.address} <br /> 
-							Scheduled From : ${customerOrder.date} <br/>
+							Scheduled From : ${orderDate} <br/>
 							Meal timing : ${customerOrder.mealType.description}
 						</div>
 						<div class="divspacing">

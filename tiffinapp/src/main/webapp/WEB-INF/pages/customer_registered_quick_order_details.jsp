@@ -41,6 +41,14 @@
 		//$("#orderDate").val(date);
 		//$("#modalDate").text("Order For :" + date);
 		//$("#modalMealType").text("Meal Type :" + mealType);
+		var quantity = parseInt($("#quantity").val());
+		var mealPrice = parseInt($("#mealPrice").val());
+		var i = 0;
+		var price = 0;
+		for(i=0; i<quantity; i++) {
+			price = price + mealPrice;
+		}
+		$("#modalPrice").text("Total Payable :" + price);
 		$("#modalAddress").text("Address : " + $("#txtAddress").val());
 		$("#modalPhone").text("Phone :" + $("#txtPhone").val());
 		$("#payment_Modal").modal('show');
@@ -73,7 +81,7 @@
 						onsubmit="return showModal()">
 						<input type="hidden" name="customer.id"
 							value="${customerOrder.customer.id}" /> <input type="hidden"
-							name="meal.price" value="${customerOrder.meal.price}" /> <input
+							name="meal.price" value="${customerOrder.meal.price}" id="mealPrice" /> <input
 							type="hidden" name="meal.title"
 							value="${customerOrder.meal.title}" /> <input type="hidden"
 							name="location.address" value="${customerOrder.location.address}" />
@@ -92,7 +100,7 @@
 							Meal : ${customerOrder.meal.title}<br /> Order for :
 							${customerOrder.customer.name} <br /> Email :
 							${customerOrder.customer.email} <br />
-							<%-- Area : ${customerOrder.area} <br/> --%>
+							Date : <fmt:formatDate pattern="yyyy-MM-dd" value="${customerOrder.date}"/> <br/>
 							Location : ${customerOrder.location.address} <br /> Price :
 							${customerOrder.meal.price}
 						</div>
@@ -116,6 +124,8 @@
 								</div>
 							</label>
 						</c:forEach> --%>
+						Quantity : <input type="number" size="10" min="1" max ="5" id='quantity' name="quantity" value="1" step="1"  />
+						<br/>
 						<strong>Payment method :</strong> <br /> <label
 							class="radio option_radio"> <input type="radio"
 							id="option-1" class="" name="paymentType" value="ONLINE"
@@ -175,7 +185,7 @@
 							<h6 class="order_label1">
 								<div id="modalPhone"></div>
 							</h6>
-							<h6 class="order_label1">Price : ${customerOrder.meal.price}</h6>
+							<h6 class="order_label1" id = "modalPrice"></h6>
 						</div>
 						<div class="col-md-6">
 							<img src="getMealImage.htm?mealId=${customerOrder.meal.id}"
