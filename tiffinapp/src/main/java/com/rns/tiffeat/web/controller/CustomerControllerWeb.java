@@ -39,6 +39,7 @@ import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.bo.domain.VendorStatus;
 import com.rns.tiffeat.web.google.GoogleUtil;
 import com.rns.tiffeat.web.google.Location;
 import com.rns.tiffeat.web.util.CommonUtil;
@@ -213,7 +214,7 @@ public class CustomerControllerWeb implements Constants {
 	private RedirectView postLoginSuccess(Customer customer) {
 		manager.setResult(null);
 		manager.getCustomer().setId(customer.getId());
-		if (manager.getCustomer().getOrderInProcess() != null) {
+		if (manager.getCustomer().getOrderInProcess() != null && manager.getCustomer().getOrderInProcess().getMeal()!=null) {
 			customerBo.setCurrentCustomer(manager.getCustomer());
 			if (MealFormat.QUICK.equals(manager.getCustomer().getOrderInProcess().getMealFormat())) {
 				return new RedirectView(QUICK_ORDER_URL_GET);
@@ -609,8 +610,8 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = URL_PREFIX + CHANGE_MEAL_URL_POST, method = RequestMethod.POST)
 	public RedirectView changeMeal(CustomerOrder customerOrder, String menuDate, ModelMap model) {
-		if (StringUtils.isEmpty(menuDate)) {
-			System.out.println("Can't change this meal!!");
+		boolean isVendorClosed = VendorStatus.CLOSED.equals(customerOrder.getMeal().getVendor().getStatus());
+		if (StringUtils.isEmpty(menuDate) && !isVendorClosed) {
 			manager.setResult(ERROR_CANT_CHANGE_THE_MEAL);
 			return new RedirectView(CUSTOMER_HOME_URL_GET);
 		}
@@ -618,9 +619,10 @@ public class CustomerControllerWeb implements Constants {
 		Map<MealType, Date> mealTypeDates = customerBo.getAvailableMealTypeDates(customerOrder);
 		Date mealTypeAvailableDate = mealTypeDates.get(customerOrder.getMealType());
 		if (mealTypeAvailableDate == null || !DateUtils.isSameDay(mealTypeAvailableDate, contentDate)) {
-			System.out.println("Can't change this meal!!");
-			manager.setResult(ERROR_CANT_CHANGE_THE_MEAL);
-			return new RedirectView(CUSTOMER_HOME_URL_GET);
+			if(!isVendorClosed) {
+				manager.setResult(ERROR_CANT_CHANGE_THE_MEAL);
+				return new RedirectView(CUSTOMER_HOME_URL_GET);
+			}
 		}
 		customerOrder.getContent().setDate(contentDate);
 		customerOrder.setDate(contentDate);

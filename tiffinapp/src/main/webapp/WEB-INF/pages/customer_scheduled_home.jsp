@@ -75,6 +75,12 @@
 						class="img-responsive tiffin_box_img1">
 				</div>
 				<c:choose>
+					<c:when test="${order.meal.vendor.status == 'CLOSED'}">
+						<h4 class="today">Your vendor ${order.meal.vendor.name} for meal ${order.meal.title} is closed today. Please choose a different vendor. Sorry for the inconvenience..</h4>
+						<%@include file = "forms/customer_cancel_meal_form.jsp" %>
+						<br />
+						<%@include file = "forms/customer_change_meal_form.jsp" %>
+					</c:when>
 					<c:when test="${order.status == 'NA'}">
                 		Today's order ${order.meal.title} for ${order.mealType} is not yet available.
                 	</c:when>
@@ -141,6 +147,9 @@
 								<c:when test="${order.mealStatus == 'PREPARE' }">
 									<h3 class="order_details_title">Vendor got the sabji from
 										the market and is now preparing your meal.</h3>
+									<%@include file = "forms/customer_cancel_meal_form.jsp" %>
+									<br />
+									<%@include file = "forms/customer_change_meal_form.jsp" %>
 								</c:when>
 								<c:when test="${order.mealStatus == 'COOKING' }">
 									<h3 class="order_details_title">Vendor started cooking
@@ -151,39 +160,6 @@
 									<h3 class="order_details_title">Your meal has been
 										dispatched. It will be delivered anytime now!</h3>
 								</c:when>
-							</c:choose>
-							<c:choose>
-								<c:when test="${order.mealStatus == 'PREPARE'}">
-									<form action="<%=Constants.CANCEL_ORDER_URL_POST %>" method="post"
-										commandName="customerOrder" onsubmit="return confirmCancel()">
-										<input type="hidden" name="id"
-											value="${order.customerOrderId}" /> <input type="hidden"
-											name="mealType" value="${order.mealType}" /> <input
-											type="submit" value="CANCEL THIS MEAL"
-											class="btn order_button">
-									</form>
-									<br />
-									<form action="<%=Constants.CHANGE_MEAL_URL_POST %>" method="post">
-											<input type="hidden" name="meal.title" value="${order.meal.title}"/>
-											<input type="hidden" name="meal.vendor.name" value="${order.meal.vendor.name}"/>
-											<input type="hidden" name="id"
-											value="${order.customerOrderId}" /> <input type="hidden"
-											name="mealType" value="${order.mealType}" /> <input
-											type="hidden" name="meal.id" value="${order.meal.id}" /> <input
-											type="hidden" name="mealFormat" value="${order.mealFormat}" />
-											<input type="hidden" name="address" value="${order.address}" />
-											<input type="hidden" name="content.id"
-											value="${order.content.id}" /> <input type="hidden"
-											name="location.address" value="${order.location.address}" />
-										<input type="hidden" name="menuDate"
-											value="${order.content.date}" /> <input type="submit"
-											value="CHANGE THIS MEAL" class="btn order_button">
-									</form>
-								</c:when>
-								<c:otherwise>
-									<h4 class="header_sub_title">You can't change this meal
-										now.</h4>
-								</c:otherwise>
 							</c:choose>
 						</div>
 					</c:when>
@@ -207,32 +183,14 @@
 			</div>
 		</div>
 	</c:forEach>
-	<c:if
-		test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'LUNCH'}">
-		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
-			<input type="hidden" name="mealType"
-				value="${customer.scheduledOrder[0].mealType}" /> <input
-				type="hidden" name="area" value="${customer.scheduledOrder[0].area}">
-			<input type="submit" value="ADD DINNER" class="btn order_button" />
-		</form>
+	<c:if test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'LUNCH'}">
+		<%@include file = "forms/customer_add_scheduled_order_form.jsp" %>
 	</c:if>
-	<c:if
-		test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'DINNER'}">
-		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
-			<input type="hidden" name="mealType"
-				value="${customer.scheduledOrder[0].mealType}" /> <input
-				type="hidden" name="area" value="${customer.scheduledOrder[0].area}">
-			<input type="submit" value="ADD LUNCH" class="btn order_button" />
-		</form>
+	<c:if test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'DINNER'}">
+		<%@include file = "forms/customer_add_scheduled_order_form.jsp" %>
 	</c:if>
 	</div>
 
-	<script>
-		function confirmCancel() {
-			var r = confirm("Are you sure you want to cancel this meal?");
-			return r;
-		}
-	</script>
 	<%@include file="footer.jsp"%>
 </body>
 </html>

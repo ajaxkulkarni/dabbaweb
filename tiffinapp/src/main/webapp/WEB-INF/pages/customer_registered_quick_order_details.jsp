@@ -29,18 +29,15 @@
 	rel="stylesheet">
 <script type="text/javascript">
 	function showModal() {
-		/* var radios = document.getElementsByName('mealType');
-		var mealType;
-		for (var i = 0, length = radios.length; i < length; i++) {
-			if (radios[i].checked) {
-				mealType = radios[i].value;
-				break;
-			}
-		}
-		var date = document.getElementById(mealType).innerHTML; */
-		//$("#orderDate").val(date);
-		//$("#modalDate").text("Order For :" + date);
-		//$("#modalMealType").text("Meal Type :" + mealType);
+		
+		$("#modalPrice").text("Total Payable :" + calculatePrice());
+		$("#modalAddress").text("Address : " + $("#txtAddress").val());
+		$("#modalPhone").text("Phone :" + $("#txtPhone").val());
+		$("#payment_Modal").modal('show');
+		return false;
+	}
+	
+	function calculatePrice() {
 		var quantity = parseInt($("#quantity").val());
 		var mealPrice = parseInt($("#mealPrice").val());
 		var i = 0;
@@ -48,11 +45,8 @@
 		for(i=0; i<quantity; i++) {
 			price = price + mealPrice;
 		}
-		$("#modalPrice").text("Total Payable :" + price);
-		$("#modalAddress").text("Address : " + $("#txtAddress").val());
-		$("#modalPhone").text("Phone :" + $("#txtPhone").val());
-		$("#payment_Modal").modal('show');
-		return false;
+		$("#totalPrice").text(price);
+		return price;
 	}
 </script>
 </head>
@@ -102,7 +96,8 @@
 							${customerOrder.customer.email} <br />
 							Date : <fmt:formatDate pattern="yyyy-MM-dd" value="${customerOrder.date}"/> <br/>
 							Location : ${customerOrder.location.address} <br /> Price :
-							${customerOrder.meal.price}
+							${customerOrder.meal.price} <br/>
+							Total price :<div id="totalPrice"></div>
 						</div>
 						<strong>Meal timing : ${customerOrder.mealType}</strong>
 						<input class="form-control" type="text" maxlength="15"
