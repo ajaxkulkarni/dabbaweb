@@ -50,7 +50,7 @@
 	}
 </script>
 </head>
-<body>
+<body onload="calculatePrice()">
 
 	<%@include file="header.jsp"%>
 
@@ -119,7 +119,7 @@
 								</div>
 							</label>
 						</c:forEach> --%>
-						Quantity : <input type="number" size="10" min="1" max ="5" id='quantity' name="quantity" value="1" step="1"  />
+						Quantity : <input type="number" size="10" min="1" max ="5" id='quantity' name="quantity" value="1" step="1" onclick="calculatePrice()"  />
 						<br/>
 						<strong>Payment method :</strong> <br /> <label
 							class="radio option_radio"> <input type="radio"
