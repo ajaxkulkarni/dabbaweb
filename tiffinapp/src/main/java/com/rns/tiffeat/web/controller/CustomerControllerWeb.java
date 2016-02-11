@@ -522,6 +522,7 @@ public class CustomerControllerWeb implements Constants {
 		if(StringUtils.isEmpty(orderInProcess.getAddress())) {
 			orderInProcess.setAddress(customerOrder.getAddress());
 		}
+		setScheduledFrom(orderInProcess);
 		orderInProcess.setCustomer(customer);
 		String scheduledOrderResult = "";
 		boolean walletRequired = false;

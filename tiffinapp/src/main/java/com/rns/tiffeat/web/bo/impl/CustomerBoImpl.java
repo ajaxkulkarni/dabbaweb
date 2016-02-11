@@ -14,7 +14,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -270,11 +269,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if(availableMealTypeDates == null) {
 			return ERROR_INVALID_ORDER_DETAILS;
 		}
-		Date scheduledFrom = availableMealTypeDates.get(customerOrder.getMealType());
+		/*Date scheduledFrom = availableMealTypeDates.get(customerOrder.getMealType());
 		if(scheduledFrom == null) {
 			return ERROR_INVALID_ORDER_DETAILS;
 		}
-		customerOrder.setDate(scheduledFrom);
+		customerOrder.setDate(scheduledFrom);*/
 		Vendor currentVendor = new Vendor();
 		DataToBusinessConverters.convertVendor(currentVendor, meal.getVendor());
 		if (isVendorClosed(currentVendor)) {
@@ -809,11 +808,15 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			CustomerOrder tempOrder = prepareTempOrder(availableMeal);
 			Map<MealType, Date> availableMealTypes =  getAvailableMealTypeDates(tempOrder);
 			Date mealTypeDate = null;
-			if(availableMealTypes != null) {
-				mealTypeDate = availableMealTypes.get(order.getMealType());
+			if(availableMealTypes == null) {
+				continue;
+			}
+			mealTypeDate = availableMealTypes.get(order.getMealType());
+			if(mealTypeDate == null) {
+				continue;
 			}
 			if(MealFormat.QUICK.equals(order.getMealFormat()) || order.getId() != 0) {
-				if(mealTypeDate == null || todaysOrderNotPossible(order, mealTypeDate)) {
+				if(todaysOrderNotPossible(order, mealTypeDate)) {
 					continue;
 				}
 			}
