@@ -392,7 +392,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	private void setOrderStatus(CustomerOrder customerOrder, Order order) {
 		if (isVendorClosed(customerOrder.getMeal().getVendor())) {
-			customerOrder.setStatus(OrderStatus.NA);
+			customerOrder.setStatus(OrderStatus.INVALID);
 			return;
 		}
 		if (customerOrder.getMealType().equals(customerOrder.getMeal().getMealTime()) || MealType.BOTH.equals(customerOrder.getMeal().getMealTime())) {

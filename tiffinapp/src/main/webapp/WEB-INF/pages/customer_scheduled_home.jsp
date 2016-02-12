@@ -75,12 +75,6 @@
 						class="img-responsive tiffin_box_img1">
 				</div>
 				<c:choose>
-					<c:when test="${order.meal.vendor.status == 'CLOSED'}">
-						<h4 class="today">Your vendor ${order.meal.vendor.name} for meal ${order.meal.title} is closed today. Please choose a different vendor. Sorry for the inconvenience..</h4>
-						<%@include file = "forms/customer_cancel_meal_form.jsp" %>
-						<br />
-						<%@include file = "forms/customer_change_meal_form.jsp" %>
-					</c:when>
 					<c:when test="${order.status == 'NA'}">
                 		Today's order ${order.meal.title} for ${order.mealType} is not yet available.
                 	</c:when>
@@ -110,6 +104,8 @@
 					<c:when test="${order.status == 'INVALID'}">
 						<h4 class="today">Your order ${order.meal.title} of
 							${order.mealType} is no longer available. Please select a different meal..</h4>
+							<br />
+							<%@include file = "forms/customer_change_meal_form.jsp" %>
 					</c:when>
 					<c:when test="${order.content!=null}">
 						<div class="col-md-6">
@@ -183,7 +179,7 @@
 			</div>
 		</div>
 	</c:forEach>
-	<c:if test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'DINNER'}">
+	<c:if test="${fn:length(customer.scheduledOrder) == 1}">
 		<%@include file = "forms/customer_add_scheduled_order_form.jsp" %>
 	</c:if>
 
