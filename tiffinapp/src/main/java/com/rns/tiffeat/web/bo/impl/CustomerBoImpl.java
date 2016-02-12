@@ -739,13 +739,18 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		} else {
 			order.getMeal().setMenu(DataToBusinessConverters.convertDailyContent(dailyMeal).toString());
 		}
-		mealTypeDates.put(MealType.BOTH, mealTypeDates.get(MealType.LUNCH));
+		if(mealTypeDates.get(MealType.LUNCH)!=null && mealTypeDates.get(MealType.DINNER)!=null) {
+			mealTypeDates.put(MealType.BOTH, mealTypeDates.get(MealType.LUNCH));
+		}
 		return mealTypeDates;
 	}
 
 	private boolean isMealAvailableForMealType(Meal meal, MealType mealType) {
 		MealType type = CommonUtil.getMealType(meal.getType());
-		if (type != null && !MealType.BOTH.equals(type) && !type.equals(mealType)) {
+		if(type == null || MealType.BOTH.equals(type)) {
+			return true;
+		}
+		if (!type.equals(mealType)) {
 			return false;
 		}
 		return true;
@@ -821,6 +826,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 				}
 			}
 			availableMeal.setAvailableFrom(mealTypeDate);
+			//Check if its the same meal ( for change order)
+			if(order.getMeal()!=null && order.getMeal().getId() == meal.getId()) {
+				continue;
+			}
 			// Check if meal available for given timing
 			/*if (!order.getMealType().equals(availableMeal.getMealTime()) && !MealType.BOTH.equals(availableMeal.getMealTime())) {
 				continue;

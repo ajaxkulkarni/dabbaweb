@@ -183,13 +183,9 @@
 			</div>
 		</div>
 	</c:forEach>
-	<c:if test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'LUNCH'}">
-		<%@include file = "forms/customer_add_scheduled_order_form.jsp" %>
-	</c:if>
 	<c:if test="${fn:length(customer.scheduledOrder) == 1 &&  customer.scheduledOrder[0].mealType == 'DINNER'}">
 		<%@include file = "forms/customer_add_scheduled_order_form.jsp" %>
 	</c:if>
-	</div>
 
 	<%@include file="footer.jsp"%>
 </body>

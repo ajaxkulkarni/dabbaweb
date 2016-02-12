@@ -89,15 +89,22 @@ $(document).ready(function(){
             	   showError();
                    return;
                }
-               
                var appendString = "";
                var i;
                for (i = 0; i < meals.length; i++) {
+            	   var desc;
+                   if(order.mealFormat == "QUICK") {
+                	  desc = meals[i].menu;
+                   }
+                   else {
+                	  desc = "Starts from :" + meals[i].availableFrom;
+                   }
             	   appendString = appendString + "<div class=\"col-md-4\"><div class=\"menu_card\">" +
               		"<img src=\"getMealImage.htm?mealId=" +meals[i].id + "\" class=\"menu_card_image img-responsive\">" +
               		"<h4 class=\"menu_card_title\">" +meals[i].title +"</h4>" +
 					"<h4 class=\"menu_card_title\">" +meals[i].vendor.name + "</h4>" +
 					"<h4 class=\"menu_card_title\">" +meals[i].price + "</h4>" +
+					desc +
 					"<form action=\"selectMealFormat\" method=\"post\">" +
 					"<input type=\"hidden\"  name=\"title\" value=" + meals[i].title + "/>" +
 					"<input type=\"hidden\"  name=\"id\" value="+ meals[i].id + "/>" +

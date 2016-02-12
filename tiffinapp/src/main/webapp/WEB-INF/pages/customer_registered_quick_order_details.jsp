@@ -39,7 +39,7 @@
 	
 	function calculatePrice() {
 		var quantity = parseInt($("#quantity").val());
-		var mealPrice = parseInt($("#mealPrice").val());
+		var mealPrice = parseInt($("#mealPrice").text());
 		var i = 0;
 		var price = 0;
 		for(i=0; i<quantity; i++) {
@@ -75,8 +75,8 @@
 							${customerOrder.customer.name} <br /> Email :
 							${customerOrder.customer.email} <br />
 							Date : <fmt:formatDate pattern="yyyy-MM-dd" value="${customerOrder.date}"/> <br/>
-							Location : ${customerOrder.location.address} <br /> Price :
-							${customerOrder.meal.price} <br/>
+							Location : ${customerOrder.location.address} <br /> 
+							Price : <div id="mealPrice">${customerOrder.meal.price}</div>
 							Total price :<div id="totalPrice"></div>
 						</div>
 						<strong>Meal timing : ${customerOrder.mealType}</strong>
