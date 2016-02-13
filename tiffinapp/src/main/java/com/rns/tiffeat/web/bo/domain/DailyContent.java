@@ -2,7 +2,11 @@ package com.rns.tiffeat.web.bo.domain;
 
 import java.util.Date;
 
-public class DailyContent {
+import org.apache.commons.lang3.StringUtils;
+
+import com.rns.tiffeat.web.util.Constants;
+
+public class DailyContent implements Constants {
 	
 	private long id;
 	private String mainItem;
@@ -71,6 +75,9 @@ public class DailyContent {
 	
 	@Override
 	public String toString() {
+		if(StringUtils.isEmpty(mainItem)) {
+			return ERROR_MENU_NOT_AVAILABLE_YET;
+		}
 		return mainItem + " along with " + subItem1 + " accompanied by " + subItem2 + " and " + subItem3 + ", Also " + subItem4;
 	}
 
