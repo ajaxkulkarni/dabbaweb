@@ -393,6 +393,8 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	private void setOrderStatus(CustomerOrder customerOrder, Order order) {
 		if (isVendorClosed(customerOrder.getMeal().getVendor())) {
 			customerOrder.setStatus(OrderStatus.INVALID);
+			//Required for change order
+			customerOrder.setContent(new DailyContent());
 			return;
 		}
 		if (customerOrder.getMealType().equals(customerOrder.getMeal().getMealTime()) || MealType.BOTH.equals(customerOrder.getMeal().getMealTime())) {
@@ -608,6 +610,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	private void updateOrderPrice(CustomerOrder order) {
 		Order scheduledOrder = orderDao.getCustomerScheduledOrder(order.getCustomer().getId(), order.getDate(), order.getMealType().name());
+		if(scheduledOrder == null) {
+			return;
+		}
 		scheduledOrder.setPrice(order.getMeal().getPrice());
 		orderDao.editOrder(scheduledOrder);
 	}

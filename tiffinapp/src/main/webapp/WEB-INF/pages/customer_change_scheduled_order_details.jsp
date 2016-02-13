@@ -88,6 +88,9 @@
 					</c:forEach>
 				</div>
 			</c:when>
+			<c:otherwise>
+				${result}
+			</c:otherwise>
 		</c:choose>
 	</div>
 	<%@include file="footer.jsp"%>

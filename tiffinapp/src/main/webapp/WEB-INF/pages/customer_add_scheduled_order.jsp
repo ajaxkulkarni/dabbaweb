@@ -84,6 +84,9 @@
 					</c:forEach>
 				</div>
 			</c:when>
+			<c:otherwise>
+				${result}
+			</c:otherwise>
 		</c:choose>
 	</div>
 	

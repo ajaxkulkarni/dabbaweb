@@ -787,7 +787,8 @@ public class CustomerControllerWeb implements Constants {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public String onGenericException() {
+	public String onGenericException(Exception exception) {
+		exception.printStackTrace();
 		return ERROR_PAGE;
 	}
 
