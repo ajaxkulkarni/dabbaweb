@@ -18,9 +18,12 @@
 	<input type="hidden" name="mealType" value="${customerOrder.mealType}" /> --%>
 	<input class="form-control" type="text" maxlength="15" pattern="^(\+?\d{1,4}[\s-])?(?!0+\s+,?$)\d{10}\s*,?$" id="txtPhone" name="customer.phone" value="${customerOrder.customer.phone}" placeholder="MOBILE NUMBER" required="required" />
 	<textarea class="form-control" type="text" rows="3"	id="txtAddress" name="address"	text="${customerOrder.customer.previousOrders[0].address}" placeholder="ADDRESS" maxlength=150 minlength=10 required>${customerOrder.address}</textarea>
+	<div class="quantity">
 	Quantity : <input type="number" size="10" min="1" max ="5" id='quantity' name="quantity" value="1" step="1" onclick="calculatePrice()"  />
+	</div>
 	<br/>
-	<strong>Payment method :</strong> <br /> 
+	<div class="payment">
+	Payment method : <br /></div> 
 	<label	class="radio option_radio"> 
 		<input type="radio"	id="option-1" class="" name="paymentType" value="ONLINE" required="required" /> 
 		<span class="">Online Payment</span>

@@ -202,6 +202,7 @@ $(document).ready(function(){
 							<div class="col-md-4">
 								<div class="menu_card">
 									<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
+									
 									<h4 class="menu_card_title">${meal.title}</h4>
 									<h4 class="menu_card_title">${meal.vendor.name}</h4>
 									${meal.menu}

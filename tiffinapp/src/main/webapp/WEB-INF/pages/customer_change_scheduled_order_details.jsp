@@ -41,13 +41,12 @@
 					<div class="details">
 						Meal Type: ${customerOrder.mealType} <br /> <br /> Current Meal:
 						${customerOrder.meal.title} <br /> <br /> Vendor Name:
-						${customerOrder.meal.vendor.name} <br /> <br /> Location: 
-					</div>
-					<form action="<%=Constants.GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST%>" method="post">
-						<input
-							type="text" name="location.address" id="areas"
+						${customerOrder.meal.vendor.name} <br /> <br /> 
+Location: <input type="text" name="location.address" id="areas" placeholder="Enter Your Location" value="" class="option_dropdown" /><br /></div>
+					<!--Location:<form action="<%=Constants.GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST%>" method="post">
+						<input type="text" name="location.address" id="areas"
 							placeholder="Enter Your Location" value="${customerOrder.location.address}"
-							class="option_dropdown" /> <br />
+							class="option_dropdown" /> <br /></div>-->
 						<input type="hidden" name="id" value="${customerOrder.id}"/>
 						<input type="hidden" name="mealType"
 							value="${customerOrder.mealType}" /> <input type="hidden"
@@ -57,6 +56,7 @@
 								id="txtAddress" name="address" placeholder="ADDRESS"
 								required="required">${customerOrder.address}</textarea>
 						</div>
+						
 						<div class="submit_order">
 							<input type="submit" name="" value="Find Meals"
 								class="btn order_button">
@@ -77,6 +77,8 @@
 					<div class="col-md-4">
 						<div class="menu_card">
 							<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
+			
+							<h4 class="menu_card_price">${meal.price}Rs.</h4>
 							<h4 class="menu_card_title">${meal.title}</h4>
 							<h4 class="menu_card_title">${meal.vendor.name}</h4>
 							<input type="hidden" name="meal.title" value="${meal.title}" /> 

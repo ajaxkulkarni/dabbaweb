@@ -4,11 +4,14 @@ body {
 	color: rgba(0, 0, 0, 0.87);
 }
 
+.log{
+padding:18px;
+}
 .login_box, .register_box {
 	background-color: #fff;
-	padding: 16px;
+	padding: 39px;
 	box-shadow: 0 2px 6px #ccc;
-	margin: 32px 16px;
+	margin: 38px 16px;
 }
 
 
@@ -31,7 +34,7 @@ label {
 }
 
 .google img {
-	width: 191px;
+	width: 171px;
 	height: 46px;
 }
 
@@ -52,7 +55,7 @@ label {
 
 /*Copied from register_page.css PLEASE REMOVE THAT CSS FILE LATER */
 .register_form {
-	margin: 16px auto;
+	margin: 26px auto;
 }
 
 .register_button {

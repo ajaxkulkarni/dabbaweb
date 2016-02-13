@@ -99,7 +99,7 @@
 								Meal : ${customerOrder.meal.title}
 							</div>
 							<div class="divspacing">
-								${customerOrder.meal.vendor.name}
+								Vendor Name: ${customerOrder.meal.vendor.name}
 							</div>
 							<div class="divspacing" id="price">
 								Price : ${customerOrder.meal.price}

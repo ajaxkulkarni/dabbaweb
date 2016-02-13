@@ -99,3 +99,8 @@ font-size:16px;
 .dropdown{
 	width:200px;
 }
+
+.menu_card_price{
+float:right;
+color:red;
+}

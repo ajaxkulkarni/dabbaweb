@@ -72,15 +72,17 @@
 				<div class="col-md-6">
 						<div class="details">
 							Meal : ${customerOrder.meal.title}<br /> Order for :
-							${customerOrder.customer.name} <br /> Email :
-							${customerOrder.customer.email} <br />
+							${customerOrder.customer.name} <br /> 
+							<!--Email :${customerOrder.customer.email} <br />-->
 							Date : <fmt:formatDate pattern="yyyy-MM-dd" value="${customerOrder.date}"/> <br/>
 							Location : ${customerOrder.location.address} <br /> 
-							Price : <div id="mealPrice">${customerOrder.meal.price}</div>
+							Price : <div id="mealPrice">${customerOrder.meal.price} Rs.</div>
 							Total price :<div id="totalPrice"></div>
-						</div>
-						<strong>Meal timing : ${customerOrder.mealType}</strong>
+						
+						Meal timing : ${customerOrder.mealType}
+							</div>
 						<%@include file ="forms/customer_quick_order_form.jsp" %>
+				
 				</div>
 				<div class="col-md-6">
 					<img

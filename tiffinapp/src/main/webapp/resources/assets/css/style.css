@@ -13,6 +13,7 @@ body {
 }
 .navbar-default .navbar-nav>li {
 	margin:0;
+	color: #ccc;
 }
 
 .navbar-default .navbar-nav>li>a {

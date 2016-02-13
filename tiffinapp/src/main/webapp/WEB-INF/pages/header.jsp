@@ -6,7 +6,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
 
 
 <link href="<c:url value = "${resources}/css/style.css"/>"
@@ -33,7 +32,6 @@
 				</h4>
 			</a>
 
-
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -43,22 +41,29 @@
 				<!--<li class="active"><a href="customerLogin.htm">Login <span class="sr-only">(current)</span></a></li>-->
 				<c:if test="${customer.email == null }">
 					<li><a href="<%=Constants.CUSTOMER_LOGIN_URL_GET%>">Login/Register</a></li>
+					
 				</c:if>
 
-				<li><a href="<%=Constants.MAKE_NEW_ORDER_URL_GET%>">Home</a></li>
+				<!--<li><a href="<%=Constants.MAKE_NEW_ORDER_URL_GET%>">Home</a></li>-->
 				<li><a href="<%=Constants.TERMS_URL_GET%>">Privacy Policy</a></li>
 				<li><a href="<%=Constants.ABOUT_US_URL_GET%>">About Us</a></li>
 				<li><a href="<%=Constants.CONTACT_US_URL_GET%>">Contact Us</a></li>
-
+				
+				
+				
 				<c:if test="${customer.email != null }">
-					<li><a href="<%=Constants.SCHEDULED_ORDERS_URL_GET%>">My Scheduled Orders</a></li>
+					<li><a href="<%=Constants.SCHEDULED_ORDERS_URL_GET%>">My Daily Tiffin</a></li>
 					<li><a href="<%=Constants.QUICK_ORDERS_HOME_URL_GET%>">My Quick Orders</a></li>
 					<li><a href="<%=Constants.LOGOUT_URL_GET%>">Logout</a></li>
 					<p class="navbar-text" id="navbar_link1">Welcome
 						${customer.name}</p>
+						
 				</c:if>
-		</div>
+				
+				</div>
+				
 	</div>
+	
 	<!-- /.container-fluid --> </nav>
 </body>
 </html>

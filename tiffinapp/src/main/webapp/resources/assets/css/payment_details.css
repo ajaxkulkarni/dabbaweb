@@ -68,8 +68,10 @@ a{
 	margin-left: 32px;
 	font-size: 18px;
 	color: rgba(0, 0, 0, 0.59);
-	font-weight: 300;
+	font-weight: bold;
 }
+
+
 
 /*End of css Model*/
 
@@ -106,3 +108,14 @@ color:black;
 color:blue;
 }
 */
+
+
+.payment{
+font-weight: bold;
+font-size:16px;
+}
+
+.quantity{
+font-weight: bold;
+font-size:16px;
+}
