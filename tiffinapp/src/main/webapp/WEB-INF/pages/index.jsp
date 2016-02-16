@@ -38,7 +38,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <title>TiffEat | Order tiffin online, Order meal online, Order
-	food online, Order online Pune</title>
+	homemade food online, Order food online, Order online Pune</title>
 	
 <script type="text/javascript">
 $(document).ready(function(){
@@ -101,10 +101,10 @@ $(document).ready(function(){
                    }
             	   appendString = appendString + "<div class=\"col-md-4\"><div class=\"menu_card\">" +
               		"<img src=\"getMealImage.htm?mealId=" +meals[i].id + "\" class=\"menu_card_image img-responsive\">" +
-              		"<h4 class=\"menu_card_title\">" +meals[i].title +"</h4>" +
-					"<h4 class=\"menu_card_title\">" +meals[i].vendor.name + "</h4>" +
-					"<h4 class=\"menu_card_title\">" +meals[i].price + "</h4>" +
-					desc +
+              		"<h4 class=\"menu_meal_title\">" +meals[i].title +"</h4>" +
+					"<h4 class=\"menu_vendor_name\">" +meals[i].vendor.name + "</h4>" +
+					"<h4 class=\"menu_price\">" +meals[i].price + "</h4>" +
+					"<p>" + desc + "</p>" +
 					"<form action=\"selectMealFormat\" method=\"post\">" +
 					"<input type=\"hidden\"  name=\"title\" value=" + meals[i].title + "/>" +
 					"<input type=\"hidden\"  name=\"id\" value="+ meals[i].id + "/>" +
@@ -162,6 +162,7 @@ $(document).ready(function(){
 				<form action="<%=Constants.GET_NEARBY_VENDORS_URL_POST%>" id="searchByArea"
 					onsubmit="onSearchByVendors()" method="post">
 					<div class="location_div">
+					<p>Save 20% per tiffin by starting daily tiffin service!</p>
 						<p>I want to  
 						<select name="mealFormat" id="mealFormat" class="option_dropdown" onchange="selected()" id="format">
 							<option value="<%=MealFormat.QUICK%>">try a meal</option>
@@ -194,19 +195,19 @@ $(document).ready(function(){
 
 	<!--        Start of menu list div-->
 
-	<div class="container menu_cards_div" id="vendorsList">
+	<div class="container" id="vendorsList">
 		<%-- <c:choose>
 			<c:when test="${fn:length(meals) gt 0}"> --%>
-				<h4 class="menu_card_heading" id = "resultText">Tiffins in Your Area</h4>
+				<h4 class="menu_card_heading" id = "resultText">Tiffins in Your Area </h4>
 				<div class="row" id="rows">
 					<%-- <c:forEach items="${meals}" var="meal">
 						<form action="<%=Constants.SELECT_MEAL_FORMAT_URL_POST %>" method="post">
 							<div class="col-md-4">
 								<div class="menu_card">
-									<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
+									<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive" />
 									
-									<h4 class="menu_card_title">${meal.title}</h4>
-									<h4 class="menu_card_title">${meal.vendor.name}</h4>
+									<h4 class="menu_meal_title">${meal.title}</h4>
+									<h4 class="menu_vendor_name">${meal.vendor.name}</h4>
 									${meal.menu}
 									<br/>
 									<input type="hidden" name="title" value="${meal.title}"/>

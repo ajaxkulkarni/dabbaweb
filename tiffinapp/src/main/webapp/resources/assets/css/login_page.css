@@ -4,16 +4,16 @@ body {
 	color: rgba(0, 0, 0, 0.87);
 }
 
-.log{
-padding:18px;
+.log {
+	padding: 18px;
 }
+
 .login_box, .register_box {
 	background-color: #fff;
 	padding: 39px;
-	box-shadow: 0 2px 6px #ccc;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 	margin: 38px 16px;
 }
-
 
 .login_form_title, .register_form_title {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.26);
@@ -45,12 +45,13 @@ label {
 
 .btn-block {
 	text-transform: uppercase;
-	margin:16px auto;
+	margin: 16px auto;
 }
+
 #register_now {
-	display:block;
-	text-align:center;
-	margin-top: 24px; 
+	display: block;
+	text-align: center;
+	margin-top: 24px;
 }
 
 /*Copied from register_page.css PLEASE REMOVE THAT CSS FILE LATER */
@@ -61,9 +62,10 @@ label {
 .register_button {
 	margin: 16px 0;
 }
+
 @media only screen and (min-width:768px) {
 	.login_box, .register_box {
-	max-width: 480px;
-	margin: 32px auto;
-}
+		max-width: 480px;
+		margin: 32px auto;
+	}
 }
