@@ -161,7 +161,14 @@ input:-moz-placeholder {
 }
 
 .menu_price {
-	color: #00AA44;
+	color: #fff;
+	background-color: #00aa44;
+	padding: 8px;
+	display: inline-block;
+	-moz-border-radius: 2px 20px;
+	-webkit-border-radius: 2px 20px;
+	border-radius: 2px 20px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
 /*End of css menu list*/
 @media only screen and (min-width: 768px) {

@@ -103,7 +103,7 @@ $(document).ready(function(){
               		"<img src=\"getMealImage.htm?mealId=" +meals[i].id + "\" class=\"menu_card_image img-responsive\">" +
               		"<h4 class=\"menu_meal_title\">" +meals[i].title +"</h4>" +
 					"<h4 class=\"menu_vendor_name\">" +meals[i].vendor.name + "</h4>" +
-					"<h4 class=\"menu_price\">" +meals[i].price + "</h4>" +
+					"<h4 class=\"menu_price\">" + "&#8377;" + meals[i].price + "</h4>" +
 					"<p>" + desc + "</p>" +
 					"<form action=\"selectMealFormat\" method=\"post\">" +
 					"<input type=\"hidden\"  name=\"title\" value=" + meals[i].title + "/>" +
@@ -116,7 +116,7 @@ $(document).ready(function(){
                $("#rows").html(appendString);
                $("#menuModal").modal('hide');
                $("#resultText").show();
-               $("#resultText").html("Tiffins in Your Area");
+               $("#resultText").html("Tiffins in Your Area ");
            },
            error: function(e){
            	alert("Error: " + e);
