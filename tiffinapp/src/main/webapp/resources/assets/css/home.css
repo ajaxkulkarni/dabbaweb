@@ -22,15 +22,24 @@ color: #fff;
 .tiffin_banner {
 	background-color: #1C2C39;
 	margin-top: 0px;
-	padding: 54px 16px;
+	padding: 16px 16px 54px;
 }
 
 .banner_heading {
-	font-size: 24px;
+	font-size: 32px;
 	color: white;
 	text-align: center;
 	margin: 24px auto;
 	font-weight: 300;
+}
+
+.banner_timing_text {
+	color: #fff;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 700;
+	margin: 24px auto;
+	color: rgba(255, 255, 255, 0.7);
 }
 
 .banner_sub_div {
@@ -41,7 +50,7 @@ color: #fff;
 
 .sub_div_heading {
 	font-weight: 400;
-	color: rgba(255, 255, 255, 0.7);
+	color: rgba(255, 255, 255, 0.5);
 	font-size: 16px;
 	text-align: center;
 }
@@ -101,8 +110,7 @@ input:-moz-placeholder {
 	background-color: rgba(255, 85, 53, 0.70);
 }
 
-.order_button,.order_button:hover{
-
+.order_button, .order_button:hover {
 	color: white;
 	background-color: #FF5535;
 	text-transform: uppercase;
@@ -117,7 +125,6 @@ input:-moz-placeholder {
 	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.26);
 	padding: 32px;
 	background-color: white;
-	
 }
 
 .menu_card_heading {
@@ -147,7 +154,7 @@ input:-moz-placeholder {
 /*End of css menu list*/
 @media only screen and (min-width: 768px) {
 	.banner_heading {
-		font-size: 32px;
+		font-size: 48px;
 		margin: 56px auto;
 	}
 	.location_div {
@@ -187,15 +194,15 @@ input:-moz-placeholder {
 	color: red;
 }
 
-.link{
-padding-left:480px;
+.link {
+	padding-left: 480px;
 }
 
 .link a {
-    display: block;
-    height: 40px;
-    width: 150px;
-    font-size:18px;
+	display: block;
+	height: 40px;
+	width: 150px;
+	font-size: 18px;
 	font-family: 'Roboto Slab', serif;
 	color: white;
 	letter-spacing: 1px;
@@ -203,11 +210,10 @@ padding-left:480px;
 	text-transform: uppercase;
 	border: 0;
 	outline: 0;
-	  transition:all 30s ease;
+	transition: all 30s ease;
 }
 
 .link a:hover, .link a:focus {
 	color: white;
 	background-color: rgba(255, 85, 53, 0.70);
-	
 }

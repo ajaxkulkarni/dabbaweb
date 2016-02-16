@@ -149,10 +149,12 @@ $(document).ready(function(){
 	<!--        Banner part-->
 	<div class="container-fluid tiffin_banner">
 		<h3 class="banner_heading">
-			Order tiffins online from our vendors<br /> <span
-				class="banner_sub_heading">and have a homemade meal wherever
-				you are!</span>
+			Order homemade meals online and save time!
 		</h3>
+		
+		<p class="banner_timing_text">Order your Lunch before 11 am</p>
+		<p class="banner_timing_text">And Dinner before 6 pm</p>
+		
 		<h4 class="sub_div_heading">We currently serve in Pune</h4>
 		<div class="container banner_sub_div" id="top">
 			
