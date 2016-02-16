@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -215,7 +214,10 @@ public class VendorBoImpl implements VendorBo, Constants {
 		if (MealFormat.SCHEDULED.name().equals(mealToBeAdded.getFormat())) {
 			order.setDate(date);
 		}
-		order.setPrice(mealToBeAdded.getMeal().getPrice());
+		Meal meal = DataToBusinessConverters.convertMeal(mealToBeAdded.getMeal());
+		CommonUtil.calculateMealPrice(DataToBusinessConverters.convertOrder(order), meal);
+		//order.setPrice(mealToBeAdded.getMeal().getPrice());
+		order.setPrice(meal.getPrice());
 		return order;
 	}
 

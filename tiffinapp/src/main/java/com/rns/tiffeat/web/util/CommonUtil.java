@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -382,6 +383,17 @@ public class CommonUtil implements Constants {
 			amount = (Float.sum(order.getMeal().getPrice().floatValue(), amount));
 		}
 		return amount;
+	}
+	
+	public static void calculateMealPrice(CustomerOrder order, com.rns.tiffeat.web.bo.domain.Meal meal) {
+		if(order == null || meal == null || meal.getPrice() == null) {
+			return;
+		}
+		if(MealFormat.QUICK.equals(order.getMealFormat())) {
+			return;
+		}
+		meal.setPrice(meal.getPrice().multiply(SCHEDULED_ORDER_DISCOUNT).setScale(0, RoundingMode.CEILING));
+		return;
 	}
 	
 }

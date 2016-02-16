@@ -351,6 +351,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		for (CustomerMeal scheduledMeal : scheduledMeals) {
 			CustomerOrder customerOrder = new CustomerOrder();
 			DataToBusinessConverters.convertCustomerOrder(scheduledMeal, customerOrder, currentCustomer);
+			CommonUtil.calculateMealPrice(customerOrder, customerOrder.getMeal());
 			prepareScheduledOrderDetails(currentCustomer, customerOrder);
 			currentCustomer.getScheduledOrder().add(customerOrder);
 		}
@@ -493,6 +494,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			com.rns.tiffeat.web.dao.domain.Customer customer = customerDao.getCustomer(order.getCustomer().getId());
 			customer.setPhone(order.getCustomer().getPhone());
 			BusinessToDataConverters.convertCustomerMeal(customer, mealToBeAdded, order);
+			CommonUtil.calculateMealPrice(order, order.getMeal());
 			if (isOrdersGeneratedByVendor(order)) {
 				addOrder(mealToBeAdded, order);
 			}
@@ -581,20 +583,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (availableMealTypeDates == null || availableMealTypeDates.get(customerOrder.getMealType()) == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
-		/*
-		 * if(!DateUtils.isSameDay(availableMealTypeDates.get(customerOrder.
-		 * getMealType()), customerOrder.getDate())) { return
-		 * ERROR_CANT_CHANGE_THE_MEAL; }
-		 */
 		Meal oldMeal = mealDao.getMeal(customerOrder.getMeal().getId());
 		if (oldMeal == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
 		}
-		/*
-		 * if
-		 * (!MealStatus.PREPARE.equals(CommonUtil.getMealStatus(customerOrder.
-		 * getMealType(), oldMeal))) { return ERROR_CANT_CHANGE_THE_MEAL; }
-		 */
 		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(oldMeal.getId(), customerOrder.getMealType());
 		if (dailyMeal != null && !DateUtils.isSameDay(dailyMeal.getDate(), customerOrder.getContent().getDate())) {
 			return ERROR_CANT_CHANGE_THE_MEAL;
@@ -618,6 +610,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (scheduledOrder == null) {
 			return;
 		}
+		CommonUtil.calculateMealPrice(order, order.getMeal());
 		scheduledOrder.setPrice(order.getMeal().getPrice());
 		orderDao.editOrder(scheduledOrder);
 	}
@@ -851,26 +844,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			if (order.getMeal() != null && order.getMeal().getId() == meal.getId()) {
 				continue;
 			}
-			// Check if meal available for given timing
-			/*
-			 * if (!order.getMealType().equals(availableMeal.getMealTime()) &&
-			 * !MealType.BOTH.equals(availableMeal.getMealTime())) { continue; }
-			 * DailyMeal dailyMeal =
-			 * dailyMealDao.getDailyMealsForMealType(meal.getId(),
-			 * order.getDate(), order.getMealType()); // Check if not cooking or
-			 * dispatch for given date (Only for quick and change scheduled
-			 * order cases)
-			 * if(!MealFormat.SCHEDULED.equals(order.getMealFormat()) ||
-			 * order.getId() != 0) { if (dailyMeal != null &&
-			 * !MealStatus.PREPARE
-			 * .equals(CommonUtil.getMealStatus(order.getMealType(),
-			 * availableMeal))) { continue; } }
-			 */
-
 			// Validate vendor
 			if (!isVendorAvailable(availableMeal.getVendor(), order.getLocation().getAddress())) {
 				continue;
 			}
+			CommonUtil.calculateMealPrice(order, availableMeal);
 			availableMeal.setMenu(tempOrder.getMeal().getMenu());
 			availableMeals.add(availableMeal);
 		}
