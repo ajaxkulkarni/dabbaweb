@@ -102,5 +102,12 @@ font-size:16px;
 
 .menu_card_price{
 float:right;
-color:red;
+color: #fff;
+	background-color: #00aa44;
+	padding: 8px;
+	display: inline-block;
+	-moz-border-radius: 2px 20px;
+	-webkit-border-radius: 2px 20px;
+	border-radius: 2px 20px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
