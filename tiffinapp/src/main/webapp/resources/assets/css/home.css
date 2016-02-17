@@ -40,14 +40,14 @@ color: #fff;
 	text-align: center;
 	font-size: 20px;
 	font-weight: 700;
-	margin: 24px auto;
+	margin: 0px auto;
 	color: rgba(255, 255, 255, 0.7);
 }
 
 .banner_sub_div {
 	color: white;
 	background-color: #8BC34A;
-	padding: 32px 16px;
+	padding: 16px 16px;
 }
 
 .sub_div_heading {
@@ -64,7 +64,7 @@ color: #fff;
 }
 
 .location_div p {
-	margin: 32px auto;
+	margin: 16px auto;
 	font-family: 'Roboto Slab', serif;
 }
 
@@ -174,7 +174,7 @@ input:-moz-placeholder {
 @media only screen and (min-width: 768px) {
 	.banner_heading {
 		font-size: 48px;
-		margin: 56px auto;
+		margin: 32px auto;
 	}
 	.location_div {
 		font-size: 20px;
