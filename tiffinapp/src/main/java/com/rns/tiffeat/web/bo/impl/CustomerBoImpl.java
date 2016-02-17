@@ -609,11 +609,12 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	private void updateOrderPrice(CustomerOrder order) {
 		Order scheduledOrder = orderDao.getCustomerScheduledOrder(order.getCustomer().getId(), order.getDate(), order.getMealType().name());
-		if (scheduledOrder == null) {
+		if (scheduledOrder == null || scheduledOrder.getCustomerMeal() == null) {
 			return;
 		}
-		CommonUtil.calculateMealPrice(order, order.getMeal());
-		scheduledOrder.setPrice(order.getMeal().getPrice());
+		com.rns.tiffeat.web.bo.domain.Meal meal = DataToBusinessConverters.convertMeal(scheduledOrder.getCustomerMeal().getMeal());
+		CommonUtil.calculateMealPrice(order, meal);
+		scheduledOrder.setPrice(meal.getPrice());
 		orderDao.editOrder(scheduledOrder);
 	}
 
@@ -842,6 +843,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 				}
 			}
 			availableMeal.setAvailableFrom(mealTypeDate);
+			availableMeal.setStartsFromDay(CommonUtil.getDay(mealTypeDate));
 			// Check if its the same meal ( for change order)
 			if (order.getMeal() != null && order.getMeal().getId() == meal.getId()) {
 				continue;
@@ -868,8 +870,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return temp;
 	}
 
-	public com.rns.tiffeat.web.bo.domain.Meal getMeal(long mealId) {
-		return DataToBusinessConverters.convertMeal(mealDao.getMeal(mealId));
+	public com.rns.tiffeat.web.bo.domain.Meal getMeal(CustomerOrder order) {
+		com.rns.tiffeat.web.bo.domain.Meal meal = DataToBusinessConverters.convertMeal(mealDao.getMeal(order.getMeal().getId()));
+		CommonUtil.calculateMealPrice(order, meal);
+		return meal;
 	}
 
 }

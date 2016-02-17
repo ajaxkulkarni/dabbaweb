@@ -36,6 +36,7 @@
 <link href="<c:url value = "${resources}/js/json2.js"/>"
 	rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="<c:url value = "${resources}/js/getMenu.js"/>"></script>
 
 <title>TiffEat | Order tiffin online, Order meal online, Order
 	homemade food online, Order food online, Order online Pune</title>
@@ -68,7 +69,7 @@ $(document).ready(function(){
 	}
 	
 	function showError() {
-	   $("#menuModal").modal('hide');
+	   $("#loader").modal('hide');
   	   $("#resultText").show();
        $("#resultText").html("No tiffins currently available in your area for " + $("#orderDay").val() + "'s " + $("#mealType").val());
 	}
@@ -76,7 +77,7 @@ $(document).ready(function(){
 	function getMeals() {
 		var order = {date:"",mealType:$("#mealType").val(),mealFormat:$("#mealFormat").val(),location:{address:$("#areas").val()}};
 		var json = JSON.stringify(order);
-		$("#menuModal").modal('show');
+		$("#loader").modal('show');
 		$.ajax({
        	type : "POST",
            url : 'getMeals',
@@ -94,10 +95,10 @@ $(document).ready(function(){
                for (i = 0; i < meals.length; i++) {
             	   var desc;
                    if(order.mealFormat == "QUICK") {
-                	  desc = meals[i].menu;
+                	  desc = "";
                    }
                    else {
-                	  desc = "Starts from :" + meals[i].availableFrom;
+                	  desc = "Starts from :" + meals[i].startsFromDay;
                    }
             	   appendString = appendString + "<div class=\"col-md-4\"><div class=\"menu_card\">" +
               		"<img src=\"getMealImage.htm?mealId=" +meals[i].id + "\" class=\"menu_card_image img-responsive\">" +
@@ -105,6 +106,7 @@ $(document).ready(function(){
 					"<h4 class=\"menu_vendor_name\">" +meals[i].vendor.name + "</h4>" +
 					"<h4 class=\"menu_price\">" + "&#8377;" + meals[i].price + "</h4>" +
 					"<p>" + desc + "</p>" +
+					"<p><button type=\"button\" class=\"btn order_button\" onclick=\"getMenu(" + meals[i].id + ",'" + meals[i].title + "','"+ $("#mealType").val() +"')\" >MENU</button></p>" +
 					"<form action=\"selectMealFormat\" method=\"post\">" +
 					"<input type=\"hidden\"  name=\"title\" value=" + meals[i].title + "/>" +
 					"<input type=\"hidden\"  name=\"id\" value="+ meals[i].id + "/>" +
@@ -114,7 +116,7 @@ $(document).ready(function(){
 					"</form></div></div>";
 				}
                $("#rows").html(appendString);
-               $("#menuModal").modal('hide');
+               $("#loader").modal('hide');
                $("#resultText").show();
                $("#resultText").html("Tiffins in Your Area ");
            },
@@ -305,12 +307,12 @@ $(document).ready(function(){
 			flattered!</p>
 	</div>
 
-	<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="myLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Getting nearby tiffins ..</h4>
+                <h4 class="modal-title" id="myLabel">Getting nearby tiffins ..</h4>
               </div>
               <div class="modal-body">
               </div>
@@ -318,7 +320,7 @@ $(document).ready(function(){
           </div>
     </div>
           
-
+	<%@include file= "forms/customer_menu_modal.jsp" %>
 
 	<%@include file="footer.jsp"%>
 	<script

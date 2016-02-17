@@ -57,5 +57,5 @@ public interface CustomerBo {
 	
 	List<Meal> getAvailableMeals(CustomerOrder order);
 	
-	Meal getMeal(long mealId);
+	Meal getMeal(CustomerOrder customerOrder);
 }

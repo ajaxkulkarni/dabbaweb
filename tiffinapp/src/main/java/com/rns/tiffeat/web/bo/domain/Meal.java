@@ -19,6 +19,7 @@ public class Meal {
 	private MealType mealTime;
 	private String menu;
 	private Date availableFrom;
+	private String startsFromDay;
 	
 	public String getTitle() {
 		return title;
@@ -106,6 +107,12 @@ public class Meal {
 	}
 	public void setAvailableFrom(Date availableFrom) {
 		this.availableFrom = availableFrom;
+	}
+	public String getStartsFromDay() {
+		return startsFromDay;
+	}
+	public void setStartsFromDay(String startsFromDay) {
+		this.startsFromDay = startsFromDay;
 	}
 	
 	

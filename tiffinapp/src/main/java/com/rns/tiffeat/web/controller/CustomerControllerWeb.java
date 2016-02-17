@@ -91,7 +91,10 @@ public class CustomerControllerWeb implements Constants {
 	@RequestMapping(value = "/setMeal", method = RequestMethod.POST)
 	public @ResponseBody String setMeal(int mealId) {
 		CustomerOrder customerOrder = manager.getCustomer().getOrderInProcess();
-		customerOrder.setMeal(customerBo.getMeal(mealId));
+		Meal meal = new Meal();
+		meal.setId(mealId);
+		customerOrder.setMeal(meal);
+		customerOrder.setMeal(customerBo.getMeal(customerOrder));
 		customerOrder.setCustomer(manager.getCustomer());
 		if(MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			setScheduledFrom(customerOrder);

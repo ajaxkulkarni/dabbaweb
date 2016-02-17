@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="<c:url value = "${resources}/css/star-rating.min.css"/>" media="all"
 	rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="<c:url value = "${resources}/css/change_order.css"/>">
+<script src="<c:url value = "${resources}/js/getMenu.js"/>"></script>
 </head>
 
 
@@ -85,6 +86,7 @@ Location: <input type="text" name="location.address" id="areas" placeholder="Ent
 							<h4 class="menu_card_title">${meal.vendor.name}</h4>
 							<input type="hidden" name="meal.title" value="${meal.title}" /> 
 							<input type="hidden" name="meal.id" value="${meal.id}" />
+							<button type="button" class="btn order_button" onclick="getMenu(${meal.id},'${meal.title}','${customerOrder.mealType}')">MENU</button>
 							<button type="submit" class="btn order_button">ORDER</button>
 						</div>
 					</div>
@@ -97,6 +99,8 @@ Location: <input type="text" name="location.address" id="areas" placeholder="Ent
 			</c:otherwise>
 		</c:choose>
 	</div>
+	<%@include file="forms/customer_menu_modal.jsp" %>
+	
 	<%@include file="footer.jsp"%>
 	<script
 		src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>

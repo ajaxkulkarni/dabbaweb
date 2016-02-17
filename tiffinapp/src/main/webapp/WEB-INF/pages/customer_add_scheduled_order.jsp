@@ -73,9 +73,10 @@
 					<div class="col-md-4">
 						<div class="menu_card">
 							<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
-							<h4 class="menu_card_price">${meal.price}Rs.</h4>
+							<h4 class="menu_card_price">${meal.price} /-</h4>
 							<h4 class="menu_card_title">${meal.title}</h4>
 							<h4 class="menu_card_title">${meal.vendor.name}</h4>
+							Starts from : ${meal.startsFromDay}
 							<input type="hidden" name="meal.title" value="${meal.title}" /> 
 							<input type="hidden" name="meal.id" value="${meal.id}" />
 							<input type="hidden" name="meal.price" value="${meal.price}" />

@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -394,6 +395,10 @@ public class CommonUtil implements Constants {
 		}
 		meal.setPrice(meal.getPrice().multiply(SCHEDULED_ORDER_DISCOUNT).setScale(0, RoundingMode.FLOOR));
 		return;
+	}
+
+	public static String getDay(Date mealTypeDate) {
+		return DateUtils.isSameDay(mealTypeDate, new Date())?"Today":"Tomorrow" ;
 	}
 	
 }
