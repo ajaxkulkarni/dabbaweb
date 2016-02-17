@@ -392,7 +392,7 @@ public class CommonUtil implements Constants {
 		if(MealFormat.QUICK.equals(order.getMealFormat())) {
 			return;
 		}
-		meal.setPrice(meal.getPrice().multiply(SCHEDULED_ORDER_DISCOUNT).setScale(0, RoundingMode.CEILING));
+		meal.setPrice(meal.getPrice().multiply(SCHEDULED_ORDER_DISCOUNT).setScale(0, RoundingMode.FLOOR));
 		return;
 	}
 	

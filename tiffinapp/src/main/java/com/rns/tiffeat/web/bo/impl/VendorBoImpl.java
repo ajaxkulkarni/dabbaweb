@@ -376,11 +376,11 @@ public class VendorBoImpl implements VendorBo, Constants {
 			if (!MealFormat.SCHEDULED.name().equals(customerMeal.getFormat())) {
 				continue;
 			}
-			if (customer.getBalance() == null || customer.getBalance().compareTo(meal.getPrice()) < 0) {
+			if (customer.getBalance() == null || customer.getBalance().compareTo(order.getPrice()) < 0) {
 				order.setStatus(OrderStatus.PAYABLE.name());
 				continue;
 			}
-			customer.setBalance(customer.getBalance().subtract(meal.getPrice()));
+			customer.setBalance(customer.getBalance().subtract(order.getPrice()));
 		}
 	}
 

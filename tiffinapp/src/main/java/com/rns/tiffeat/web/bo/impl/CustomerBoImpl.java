@@ -294,12 +294,12 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	private void addOrder(CustomerMeal mealToBeAdded, CustomerOrder customerOrder) {
+		CommonUtil.calculateMealPrice(customerOrder, DataToBusinessConverters.convertMeal(mealToBeAdded.getMeal()));
 		if (customerOrder.getQuantity() == null) {
 			mealToBeAdded.getOrders().add(BusinessToDataConverters.convertOrder(mealToBeAdded, customerOrder));
 			return;
 		}
 		for (int i = 0; i < customerOrder.getQuantity(); i++) {
-			// TODO: Calculate price for discount
 			mealToBeAdded.getOrders().add(BusinessToDataConverters.convertOrder(mealToBeAdded, customerOrder));
 		}
 	}
