@@ -39,6 +39,7 @@
 	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDateString"></fmt:formatDate>
 	<div class="container order_summary_details_div">
 		<c:if test="${fn:length(customer.quickOrders) gt 0}">
+		<h4 class="order_summary_heading1"><p>Save 20% per tiffin by starting daily tiffin service!</p></h4>
 			<h4 class="order_summary_heading">Your Quick Orders:</h4>
 			<c:forEach items="${customer.quickOrders}" var="quickOrder">
 				<div class="order_details_card">
@@ -123,7 +124,7 @@
 							</c:when>
 						</c:choose>
 					</div>
-					<div class="price">Date: 12-2-2016</div><br/>
+					<div class="price">Date: ${quickOrderDate}</div><br/>
 					<div class="price">Number of Tiffins: ${quickOrder.quantity}</div><br/>
 					<div class="price">Total Price: ${quickOrder.price}</div><br/>
 					

@@ -152,8 +152,8 @@ $(document).ready(function(){
 			Order homemade meals online and save time!
 		</h3>
 		
-		<p class="banner_timing_text">Order your Lunch before 11 am</p>
-		<p class="banner_timing_text">And Dinner before 6 pm</p>
+		<p class="banner_timing_text">Order your Lunch before 12 am</p>
+		<p class="banner_timing_text">And Dinner before 7 pm</p>
 		
 		<h4 class="sub_div_heading">We currently serve in Pune</h4>
 		<div class="container banner_sub_div" id="top">
