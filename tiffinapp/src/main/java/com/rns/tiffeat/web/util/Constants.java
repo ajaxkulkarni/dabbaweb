@@ -17,7 +17,7 @@ public interface Constants {
     }});
 	
 	String PAYMENT_PREFIX = "T";
-	String HOST_URL = "192.168.1.102:8080/tiffeat-web";
+	String HOST_URL = "localhost:8080/tiffeat-web";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
 	String MERCHANT_KEY = "gtKFFx"; // DEV

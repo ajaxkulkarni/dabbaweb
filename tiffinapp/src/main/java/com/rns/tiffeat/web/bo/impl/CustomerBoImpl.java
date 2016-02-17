@@ -294,7 +294,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	private void addOrder(CustomerMeal mealToBeAdded, CustomerOrder customerOrder) {
-		CommonUtil.calculateMealPrice(customerOrder, DataToBusinessConverters.convertMeal(mealToBeAdded.getMeal()));
+		com.rns.tiffeat.web.bo.domain.Meal meal = DataToBusinessConverters.convertMeal(mealToBeAdded.getMeal());
+		CommonUtil.calculateMealPrice(customerOrder, meal);
+		mealToBeAdded.getMeal().setPrice(meal.getPrice());
 		if (customerOrder.getQuantity() == null) {
 			mealToBeAdded.getOrders().add(BusinessToDataConverters.convertOrder(mealToBeAdded, customerOrder));
 			return;
