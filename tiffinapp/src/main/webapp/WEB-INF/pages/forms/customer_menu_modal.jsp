@@ -18,27 +18,27 @@
               <div class="modal-body">
                   <div class="row">
                       <div class="col-md-6">
-                          <h6 class="order_label1"><div id= "menuDate"></div></h6>
+                          <h4 class="order_label1"><div id= "menuDate"></div></h4>
                           <table class="table table-bordered menu_list_table">
 										<tr>
 												<td>Sabji</td>
-												<td><h6 class="order_label1"><div id= "menuMainItem"></div></h6></td>
+												<td><h5 class="order_label1"><div id= "menuMainItem"></div></h5></td>
 											</tr>
 											<tr>
 												<td>Chapati/Roti</td>
-												<td><h6 class="order_label1"><div id= "menuSubItem1"></div></h6></td>
+												<td><h5 class="order_label1"><div id= "menuSubItem1"></div></h5></td>
 											</tr>
 											<tr>
 												<td>Rice/Dal</td>
-												<td><h6 class="order_label1"><div id= "menuSubItem2"></div></h6></td>
+												<td><h5 class="order_label1"><div id= "menuSubItem2"></div></h5></td>
 											</tr>
 											<tr>
 												<td>Salad</td>
-												<td><h6 class="order_label1"><div id= "menuSubItem3"></div></h6></td>
+												<td><h5 class="order_label1"><div id= "menuSubItem3"></div></h5></td>
 											</tr>
 											<tr>
 												<td>Extra</td>
-												<td><h6 class="order_label1"><div id= "menuSubItem4"></div></h6></td>
+												<td><h5 class="order_label1"><div id= "menuSubItem4"></div></h5></td>
 											</tr>
 									</table>
                           
