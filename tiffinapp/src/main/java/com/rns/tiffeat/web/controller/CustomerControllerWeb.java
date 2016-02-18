@@ -588,14 +588,17 @@ public class CustomerControllerWeb implements Constants {
 	@RequestMapping(value = URL_PREFIX + CHANGE_ORDER_URL_POST, method = RequestMethod.POST)
 	public RedirectView changeOrder(CustomerOrder customerOrder, ModelMap model) {
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
+		Meal oldMeal = new Meal();
+		oldMeal.setId(orderInProcess.getMeal().getId());
+		oldMeal.setTitle(orderInProcess.getMeal().getTitle());
+		oldMeal.setVendor(orderInProcess.getMeal().getVendor());
 		orderInProcess.setMeal(customerOrder.getMeal());
-		//orderInProcess.setAddress(customerOrder.getAddress());
 		String changeScheduledOrderResult = customerBo.changeScheduledOrder(orderInProcess);
 		if (!RESPONSE_OK.equals(changeScheduledOrderResult)) {
 			manager.setResult(changeScheduledOrderResult);
+			orderInProcess.setMeal(oldMeal);
 			return new RedirectView(CHANGE_ORDER_URL_GET);
 		}
-		System.out.println("Result of change order :" + changeScheduledOrderResult);
 		return new RedirectView(CUSTOMER_HOME_URL_GET);
 	}
 	

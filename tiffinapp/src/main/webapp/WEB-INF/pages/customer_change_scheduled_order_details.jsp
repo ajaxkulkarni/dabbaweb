@@ -46,26 +46,7 @@
 						Meal Type: ${customerOrder.mealType} <br /> <br /> Current Meal:
 						${customerOrder.meal.title} <br /> <br /> Vendor Name:
 						${customerOrder.meal.vendor.name} <br /> <br /> 
-Location: <input type="text" name="location.address" id="areas" placeholder="Enter Your Location" value="" class="option_dropdown" /><br /></div>
-					<!--Location:<form action="<%=Constants.GET_NEARBY_VENDORS_FOR_CHANGE_ORDER_URL_POST%>" method="post">
-						<input type="text" name="location.address" id="areas"
-							placeholder="Enter Your Location" value="${customerOrder.location.address}"
-							class="option_dropdown" /> <br /></div>-->
-						<input type="hidden" name="id" value="${customerOrder.id}"/>
-						<input type="hidden" name="mealType"
-							value="${customerOrder.mealType}" /> <input type="hidden"
-							name="mealFormat" value="${customerOrder.mealFormat}" />
-						<div class="divspacing">
-							<textarea class="form-control" type="text" pattern=""
-								id="txtAddress" name="address" placeholder="ADDRESS"
-								required="required">${customerOrder.address}</textarea>
-						</div>
-						
-						<div class="submit_order">
-							<input type="submit" name="" value="Find Meals"
-								class="btn order_button">
-						</div>
-					</form>
+					<%@include file = "forms/customer_change_order_form.jsp" %>
 				</div>
 			</div>
 		</div>
