@@ -54,10 +54,12 @@
 					<li><a href="<%=Constants.SCHEDULED_ORDERS_URL_GET%>">My Daily Tiffin</a></li>
 					<li><a href="<%=Constants.QUICK_ORDERS_HOME_URL_GET%>">My Quick Orders</a></li>
 					<li><a href="<%=Constants.LOGOUT_URL_GET%>">Logout</a></li>
-					<p class="navbar-text" id="navbar_link1">Welcome
-						${customer.name}</p>
+					<li class="navbar-text" id="navbar_link1" title="How are you today?">Welcome
+						${customer.name}</li>
 						
 				</c:if>
+				
+				<li><a href="tel:8087538194">Call Us: 8087538194</a></li>
 				
 				</div>
 				

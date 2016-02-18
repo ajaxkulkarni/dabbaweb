@@ -12,14 +12,15 @@ body {
 	border-radius: 0px;
 }
 .navbar-default .navbar-nav>li {
-	margin:0;
 	color: #ccc;
+	margin:0;
+	padding: 10px 16px;
 }
 
 .navbar-default .navbar-nav>li>a {
 	color: #ccc;
 	font-size: 16px;
-	margin-left: 0px;
+	padding:0;
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
@@ -27,9 +28,6 @@ body {
 	color: #fff;
 }
 
-.navbar-text {
-	margin-right: 56px;
-}
 
 #navbar_link1 {
 	color: #00AA44;
@@ -100,7 +98,5 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-	#navbar_link1 {
-		float: right;
-	}
+	
 }
