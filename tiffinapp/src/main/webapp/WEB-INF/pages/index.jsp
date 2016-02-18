@@ -106,14 +106,9 @@ $(document).ready(function(){
 					"<h4 class=\"menu_vendor_name\">" +meals[i].vendor.name + "</h4>" +
 					"<h4 class=\"menu_price\">" + "&#8377;" + meals[i].price + "</h4>" +
 					"<p>" + desc + "</p>" +
-					"<p><button type=\"button\" class=\"btn order_button\" onclick=\"getMenu(" + meals[i].id + ",'" + meals[i].title + "','"+ $("#mealType").val() +"')\" >MENU</button></p>" +
-					"<form action=\"selectMealFormat\" method=\"post\">" +
-					"<input type=\"hidden\"  name=\"title\" value=" + meals[i].title + "/>" +
-					"<input type=\"hidden\"  name=\"id\" value="+ meals[i].id + "/>" +
-					"<input type=\"hidden\"  name=\"description\" value=" + meals[i].description + "/>" +
-					"<input type=\"hidden\"  name=\"price\" value="+ meals[i].price +"/>" +
-					"<button type=\"button\" class=\"btn order_button\" onclick=\"chooseMeal(" + meals[i].id +")\" >ORDER</button>" +
-					"</form></div></div>";
+					"<button type=\"button\" class=\"btn order_button\" onclick=\"getMenu(" + meals[i].id + ",'" + meals[i].title + "','"+ $("#mealType").val() +"','" + $("#orderDay").val() +"')\" >MENU</button>" +
+					"  <button type=\"button\" class=\"btn order_button\" onclick=\"chooseMeal(" + meals[i].id +")\" >ORDER</button>" +
+					"</div></div>";
 				}
                $("#rows").html(appendString);
                $("#loader").modal('hide');

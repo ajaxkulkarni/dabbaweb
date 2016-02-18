@@ -773,7 +773,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return true;
 	}
 
-	public DailyContent getDailyContentForMeal(com.rns.tiffeat.web.bo.domain.Meal meal, MealType mealType) {
+	public DailyContent getDailyContentForMeal(com.rns.tiffeat.web.bo.domain.Meal meal, MealType mealType, String day) {
 		if (meal == null || mealType == null) {
 			return null;
 		}
@@ -784,8 +784,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (MealType.DINNER.equals(mealType) && !StringUtils.equals(MealStatus.PREPARE.name(), (currentMeal.getDinnerStatus()))) {
 			return null;
 		}
-		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(currentMeal.getId(), mealType);
-		return DataToBusinessConverters.convertDailyContent(dailyMeal);
+		return DataToBusinessConverters.convertDailyContent(dailyMealDao.getDailyMealsForMealType(currentMeal.getId(), CommonUtil.getDate(day), mealType));
 	}
 
 	public String loginWithGoogle(Customer googleCustomer) {

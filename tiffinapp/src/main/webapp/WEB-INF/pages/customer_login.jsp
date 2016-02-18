@@ -106,13 +106,13 @@
 							</div>
 							<div class=" ">
 								<label for="password" class="">Password</label> <input
-									type="password" id="password" name="password"
+									type="password" id="reg_password" name="password"
 									placeholder="Password" class="form-control" required>
 							</div>
 
 							<div class=" ">
 								<label class="" for="password_confirm">Confirm Password
-								</label> <input type="password" id="password_confirm"
+								</label> <input type="password" id="reg_password_confirm"
 									placeholder="Re-type Password" class="form-control" required>
 								<p class="error_alert" id="password_error"></p>
 							</div>
@@ -135,4 +135,28 @@
 
 
 </body>
+
+<script>
+	function checkPasswordMatch() {
+		var password = $("#reg_password").val();
+		var confirmPassword = $("#reg_password_confirm").val();
+
+		if (password != confirmPassword) {
+			$("#password_error").html("Passwords do not match!");
+			//        document.getElementById("password_confirm").style.borderColor = "#E34234";
+			document.getElementById("reg_password_confirm").style.borderColor = "#E34234";
+			return false;
+		} else {
+			$("#password_error").html("Passwords match.");
+			document.getElementById("reg_password_confirm").style.borderColor = "#99e334";
+			return true;
+		}
+	}
+
+	$(document).ready(function() {
+		$("#reg_password_confirm").keyup(checkPasswordMatch);
+	});
+</script>
+
+
 </html>

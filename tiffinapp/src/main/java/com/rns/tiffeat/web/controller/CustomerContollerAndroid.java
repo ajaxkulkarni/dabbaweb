@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.api.VendorBo;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -36,7 +35,6 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
-import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
 import com.rns.tiffeat.web.util.ImageUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
@@ -230,7 +228,7 @@ public class CustomerContollerAndroid implements Constants {
 	@RequestMapping(value = "/getMenuAndroid", method = RequestMethod.POST)
 	public @ResponseBody String getMenuAndroid(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder, ModelMap model) {
 		CustomerOrder order = new Gson().fromJson(customerOrder, CustomerOrder.class);
-		return new Gson().toJson(customerBo.getDailyContentForMeal(order.getMeal(), order.getMealType()));
+		return new Gson().toJson(customerBo.getDailyContentForMeal(order.getMeal(), order.getMealType(), null));
 	}
 
 	private void removeCircularReferences(Customer customerObject) {

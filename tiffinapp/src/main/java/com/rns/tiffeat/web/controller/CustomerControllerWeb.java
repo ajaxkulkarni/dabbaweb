@@ -79,10 +79,7 @@ public class CustomerControllerWeb implements Constants {
 	public @ResponseBody String getMeals(String order, String orderDate) {
 		Gson gson = new GsonBuilder().create();
 		CustomerOrder customerOrder = CommonUtil.parseCustomerOrder(order);
-		customerOrder.setDate(new Date());
-		if (DAY_TOMORROW.equalsIgnoreCase(orderDate)) {
-			customerOrder.setDate(CommonUtil.addDay());
-		}
+		customerOrder.setDate(CommonUtil.getDate(orderDate));
 		manager.getCustomer().setOrderInProcess(customerOrder);
 		List<Meal> availableMeals = customerBo.getAvailableMeals(customerOrder);
 		return gson.toJson(availableMeals);
@@ -118,7 +115,9 @@ public class CustomerControllerWeb implements Constants {
 			model.addAttribute(MODEL_LOCATION, orderInProcess.getLocation().getAddress());
 			getLatestMeals(model, orderInProcess);
 		}
-		model.addAttribute(MODEL_RESULT, manager.getResult());
+		if(!StringUtils.equalsIgnoreCase(RESPONSE_OK, manager.getResult())) {
+			model.addAttribute(MODEL_RESULT, manager.getResult());
+		}
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
 	}
@@ -668,11 +667,11 @@ public class CustomerControllerWeb implements Constants {
 	}
 
 	@RequestMapping(value = URL_PREFIX + GET_MENU_URL_POST, method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody String initEditDepartment(long mealId, MealType mealType) {
+	public @ResponseBody String initEditDepartment(long mealId, MealType mealType, String day) {
 		Gson gson = new GsonBuilder().create();
 		Meal meal = new Meal();
 		meal.setId(mealId);
-		return gson.toJson(customerBo.getDailyContentForMeal(meal, mealType));
+		return gson.toJson(customerBo.getDailyContentForMeal(meal, mealType, day));
 	}
 
 	@RequestMapping(value = URL_PREFIX + REPEAT_ORDER_URL_POST, method = RequestMethod.POST)

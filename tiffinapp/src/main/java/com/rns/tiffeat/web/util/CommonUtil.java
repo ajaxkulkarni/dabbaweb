@@ -270,20 +270,20 @@ public class CommonUtil implements Constants {
 
 	private static MealType[] availableMealTypes(Map<MealType, Date> mealTypesMap) {
 		MealType[] mealTypes = new MealType[mealTypesMap.size()];
-		if(mealTypesMap.size() == 2) {
+		if (mealTypesMap.size() == 2) {
 			mealTypes = new MealType[3];
-		}	
+		}
 		int i = 0;
 		for (MealType mealType : mealTypesMap.keySet()) {
 			mealTypes[i] = mealType;
 			i++;
 		}
-		if(i == 2) {
+		if (i == 2) {
 			mealTypes[i] = MealType.BOTH;
 		}
 		return mealTypes;
 	}
-	
+
 	public static String getJsonResponseFromUrl(String urlString) throws MalformedURLException, IOException {
 		URL url;
 		URLConnection urlConn;
@@ -312,21 +312,23 @@ public class CommonUtil implements Constants {
 		BigDecimal latDiff = location.getLat().subtract(vendor.getLocation().getLat()).abs();
 		BigDecimal lonDiff = location.getLng().subtract(vendor.getLocation().getLng()).abs();
 
-		double a = Math.pow(Math.sin(latDiff.doubleValue()/2),2) + Math.cos(Math.toRadians(location.getLat().doubleValue())*Math.cos(Math.toRadians(vendor.getLocation().getLat().doubleValue()))*Math.pow(Math.sin(lonDiff.doubleValue()/2),2)) ;
-		double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		double a = Math.pow(Math.sin(latDiff.doubleValue() / 2), 2)
+				+ Math.cos(Math.toRadians(location.getLat().doubleValue()) * Math.cos(Math.toRadians(vendor.getLocation().getLat().doubleValue()))
+						* Math.pow(Math.sin(lonDiff.doubleValue() / 2), 2));
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		System.out.println(c);
-		return BigDecimal.valueOf(6373*c);
+		return BigDecimal.valueOf(6373 * c);
 	}
 
 	private static boolean isLocationAbsent(Location location) {
 		return location == null || location.getLat() == null || location.getLng() == null;
 	}
-	
-	public static BigDecimal distance(Location location,Vendor vendor,String unit) {
-		if(isLocationAbsent(location) || isLocationAbsent(vendor.getLocation())) {
+
+	public static BigDecimal distance(Location location, Vendor vendor, String unit) {
+		if (isLocationAbsent(location) || isLocationAbsent(vendor.getLocation())) {
 			return null;
 		}
-		
+
 		double lon1 = location.getLng().doubleValue();
 		double lat1 = location.getLat().doubleValue();
 		double lon2 = vendor.getLocation().getLng().doubleValue();
@@ -345,16 +347,16 @@ public class CommonUtil implements Constants {
 		return BigDecimal.valueOf(dist);
 	}
 
-	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-	/*::	This function converts decimal degrees to radians						 :*/
-	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	/* :: This function converts decimal degrees to radians : */
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 	private static double deg2rad(double deg) {
 		return (deg * Math.PI / 180.0);
 	}
 
-	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-	/*::	This function converts radians to decimal degrees						 :*/
-	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	/* :: This function converts radians to decimal degrees : */
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 	private static double rad2deg(double rad) {
 		return (rad * 180 / Math.PI);
 	}
@@ -364,7 +366,7 @@ public class CommonUtil implements Constants {
 		JsonObject object = new JsonParser().parse(order).getAsJsonObject();
 		customerOrder.setMealType(getMealType(object.get(MODEL_MEAL_TYPE).getAsString()));
 		customerOrder.setMealFormat(getMealFormat(object.get(MODEL_MEAL_FORMAT).getAsString()));
-		JsonObject locationJson =  object.get(MODEL_LOCATION).getAsJsonObject();
+		JsonObject locationJson = object.get(MODEL_LOCATION).getAsJsonObject();
 		Location location = new Location();
 		location.setAddress(locationJson.get(MODEL_ADDRESS).getAsString());
 		customerOrder.setLocation(location);
@@ -372,7 +374,8 @@ public class CommonUtil implements Constants {
 	}
 
 	public static float calculatePrice(CustomerOrder order) {
-		float amount = new Float(0);;
+		float amount = new Float(0);
+		;
 		if (order.getMeal().getPrice() == null) {
 			return amount;
 		}
@@ -385,12 +388,12 @@ public class CommonUtil implements Constants {
 		}
 		return amount;
 	}
-	
+
 	public static void calculateMealPrice(CustomerOrder order, com.rns.tiffeat.web.bo.domain.Meal meal) {
-		if(order == null || meal == null || meal.getPrice() == null) {
+		if (order == null || meal == null || meal.getPrice() == null) {
 			return;
 		}
-		if(MealFormat.QUICK.equals(order.getMealFormat())) {
+		if (MealFormat.QUICK.equals(order.getMealFormat())) {
 			return;
 		}
 		meal.setPrice(meal.getPrice().multiply(SCHEDULED_ORDER_DISCOUNT).setScale(0, RoundingMode.FLOOR));
@@ -398,7 +401,14 @@ public class CommonUtil implements Constants {
 	}
 
 	public static String getDay(Date mealTypeDate) {
-		return DateUtils.isSameDay(mealTypeDate, new Date())?"Today":"Tomorrow" ;
+		return DateUtils.isSameDay(mealTypeDate, new Date()) ? "Today" : "Tomorrow";
 	}
-	
+
+	public static Date getDate(String day) {
+		if (StringUtils.equalsIgnoreCase(DAY_TOMORROW, day)) {
+			return CommonUtil.addDay();
+		}
+		return new Date();
+	}
+
 }

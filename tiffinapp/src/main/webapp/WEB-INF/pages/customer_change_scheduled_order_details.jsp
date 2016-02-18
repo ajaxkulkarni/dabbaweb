@@ -39,6 +39,7 @@
 	<div class="container payment_details_div">
 		<h4 class="payment_details_heading">Change Tiffin</h4>
 		<div class="payment_details_card">
+			${result}
 			<div class="row">
 				<div class="col-md-6">
 					<div class="details">

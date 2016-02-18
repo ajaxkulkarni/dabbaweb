@@ -51,7 +51,7 @@ public interface CustomerBo {
 
 	void rateMeal(CustomerOrder order, BigDecimal rating);
 
-	DailyContent getDailyContentForMeal(Meal meal, MealType mealType);
+	DailyContent getDailyContentForMeal(Meal meal, MealType mealType, String day);
 
 	String loginWithGoogle(Customer googleCustomer);
 	

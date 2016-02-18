@@ -1,9 +1,9 @@
-function getMenu(mealId,title,mealType) {
+function getMenu(mealId,title,mealType,day) {
 	$.ajax({
         	type : "POST",
             url : 'getMenu',
             dataType: 'json',
-            data: "mealId=" + mealId + "&mealType=" + mealType,
+            data: "mealId=" + mealId + "&mealType=" + mealType + "&day=" + day,
             success : function(data) {
                 //$('#result').html(data);
                 if(data == null) {
