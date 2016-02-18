@@ -185,7 +185,7 @@ $(document).ready(function(){
 							class="option_dropdown" />
 						</p>
 						<!--  --> 
-						<button type="button" onclick="getMeals()" class="btn loc_button">Find meals</button>
+						<button type="button" onclick="getMeals()" class="btn loc_button" title="I want healthy food!">Find mealsss</button>
 					</div>
 				</form>
 			</div>
@@ -306,7 +306,13 @@ $(document).ready(function(){
 		<p class="weAreFlattered">Thank you for checking us out. We are
 			flattered!</p>
 	</div>
-
+	
+	<div class="footer">
+		<ul >
+			<li><a href="<%=Constants.TERMS_URL_GET%>">Privacy Policy</a></li>
+			<li><a href="<%=Constants.ABOUT_US_URL_GET%>">About Us</a></li>
+		</ul>
+	</div>
 	<div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="myLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">

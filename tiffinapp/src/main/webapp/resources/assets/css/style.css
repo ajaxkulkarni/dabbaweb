@@ -11,23 +11,23 @@ body {
 	border: 0px solid #1C2C39;
 	border-radius: 0px;
 }
+
 .navbar-default .navbar-nav>li {
 	color: #ccc;
-	margin:0;
-	padding: 10px 16px;
+	margin: 0;
+	padding: 16px;
 }
 
 .navbar-default .navbar-nav>li>a {
 	color: #ccc;
 	font-size: 16px;
-	padding:0;
+	padding: 0;
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
-{
+	{
 	color: #fff;
 }
-
 
 #navbar_link1 {
 	color: #00AA44;
@@ -51,40 +51,11 @@ body {
 	font-size: 32px;
 }
 
-
 .navbar-collapse {
 	border: 0px;
 }
 
 /*---End-Header-----*/
-
-/*CSS For Footer*/
-.footer {
-	padding: 16px;
-	/*	border-top: 1px solid rgba(0, 0, 0, 0.26);*/
-	background-color: #232222;
-}
-
-.footer p {
-	font-family: 'Roboto', sans-serif;
-	text-align: center;
-	font-size: 12px;
-	color: white;
-	margin: 0px;
-}
-
-.footer a {
-	font-family: 'Roboto', sans-serif;
-	text-decoration: none;
-	color: #89c6eb;
-}
-
-.footer a:hover {
-	font-family: 'Roboto', sans-serif;
-	color: #6498ad;
-	text-decoration: none;
-}
-/*End of Css for Footer*/
 
 /*Css For Drawer*/
 #drawer_link1, #drawer_link1:hover {
@@ -98,5 +69,7 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-	
+	.navbar-default .navbar-nav>li {
+		padding: 24px 16px;
+	}
 }

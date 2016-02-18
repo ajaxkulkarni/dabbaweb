@@ -44,8 +44,7 @@
 					
 				</c:if>
 
-				<li><a href="<%=Constants.TERMS_URL_GET%>">Privacy Policy</a></li>
-				<li><a href="<%=Constants.ABOUT_US_URL_GET%>">About Us</a></li>
+				
 				<li><a href="<%=Constants.CONTACT_US_URL_GET%>">Contact Us</a></li>
 				
 				

@@ -238,3 +238,23 @@ input:-moz-placeholder {
 	color: white;
 	background-color: rgba(255, 85, 53, 0.70);
 }
+
+/*CSS For Footer*/
+
+.footer {
+	text-align: center;
+	font-size: 16px;
+	margin-bottom: 64px;
+}
+.footer ul li {
+	display: inline;
+	margin: 16px 8px;
+}
+.footer ul li a{
+	font-weight: 500;
+}
+.footer ul li a:hover,
+.footer ul li a:focus{
+	color: #337ab7;
+}
+/*End of Css for Footer*/
