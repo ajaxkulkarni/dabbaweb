@@ -124,6 +124,7 @@
 							</c:when>
 						</c:choose>
 					</div>
+					<br/>
 					<div class="price">Date: ${quickOrderDate}</div><br/>
 					<div class="price">Number of Tiffins: ${quickOrder.quantity}</div><br/>
 					<div class="price">Total Price: ${quickOrder.price}</div><br/>
