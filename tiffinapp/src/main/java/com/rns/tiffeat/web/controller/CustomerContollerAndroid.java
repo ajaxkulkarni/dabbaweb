@@ -35,6 +35,7 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
 import com.rns.tiffeat.web.util.ImageUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
@@ -228,7 +229,7 @@ public class CustomerContollerAndroid implements Constants {
 	@RequestMapping(value = "/getMenuAndroid", method = RequestMethod.POST)
 	public @ResponseBody String getMenuAndroid(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder, ModelMap model) {
 		CustomerOrder order = new Gson().fromJson(customerOrder, CustomerOrder.class);
-		return new Gson().toJson(customerBo.getDailyContentForMeal(order.getMeal(), order.getMealType(), null));
+		return new Gson().toJson(customerBo.getDailyContentForMeal(order.getMeal(), order.getMealType(), CommonUtil.getDay(order.getDate())));
 	}
 
 	private void removeCircularReferences(Customer customerObject) {
