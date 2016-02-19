@@ -141,15 +141,25 @@ $(document).ready(function(){
 </head>
 
 <body>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KBKF2N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KBKF2N');</script>
+<!-- End Google Tag Manager -->
 	<%@include file="header.jsp"%>
 
 	<!--        Banner part-->
 	<div class="container-fluid tiffin_banner">
+	<div class="container">
 		<h3 class="banner_heading">
-			Order homemade meals online and save time!
+			Order supremely healthy homemade meals online and save time!
 		</h3>
 		
-		<p class="banner_timing_text">Order your Lunch before 12 am</p>
+		<p class="banner_timing_text">Order your Lunch before 12 pm</p>
 		<p class="banner_timing_text">And Dinner before 7 pm</p>
 		
 		<h4 class="sub_div_heading">We currently serve in Pune</h4>
@@ -162,7 +172,7 @@ $(document).ready(function(){
 					<p>Save 20% per tiffin by starting daily tiffin service!</p>
 						<p>I want to  
 						<select name="mealFormat" id="mealFormat" class="option_dropdown" onchange="selected()" id="format">
-							<option value="<%=MealFormat.QUICK%>">try a meal</option>
+							<option value="<%=MealFormat.QUICK%>">Try a meal</option>
 							<option value="<%=MealFormat.SCHEDULED%>">Start daily tiffin service</option>
 						</select>
 						for  <select name="orderDate" class="option_dropdown" id = "orderDay">
@@ -185,6 +195,7 @@ $(document).ready(function(){
 				</form>
 			</div>
 			<%--  </c:if> --%>
+		</div>
 		</div>
 	</div>
 	<!--        End of Banner part-->
@@ -230,7 +241,7 @@ $(document).ready(function(){
 
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/hourglass.svg"/>">
-		<p class="inShortContent">Order a tiffin in seconds</p>
+		<p class="inShortContent">Order a meal in seconds</p>
 
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/shipping.svg"/>">
@@ -239,7 +250,7 @@ $(document).ready(function(){
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/man_eating.svg"/>">
 		<p class="inShortContent">Stuff your tummy with our delicious
-			meals</p>
+			healthy meal</p>
 
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/jumping_man.svg"/>">
@@ -296,7 +307,6 @@ $(document).ready(function(){
 					href="mailto:contact@tiffeat.com" class="universal_link">contact@tiffeat.com</a>
 				and help us so that this wont happen again.
 			</p>
-
 		</div>
 		<p class="weAreFlattered">Thank you for checking us out. We are
 			flattered!</p>

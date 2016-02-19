@@ -5,7 +5,7 @@ body {
 }
 .inShortContent {
     font-family: 'Roboto Slab', serif;
-    color: rgba(0, 0, 0, 0.70);
+    color: rgba(0, 0, 0, 0.54);
     font-size: 24px;
     text-align: center;
     margin: 24px auto 96px;
@@ -29,7 +29,7 @@ body {
     padding: 16px;
 }
 .faq_question {
-    color: rgba(0, 0, 0, 0.87);
+    color: rgba(0, 0, 0, 0.7);
     font-weight: 300;
     font-size: 20px;
 }
@@ -45,8 +45,8 @@ body {
 }
 .weAreFlattered {
     font-family: 'Roboto Slab', serif;
-    color: rgba(0, 0, 0, 0.70);
+    color: rgba(0, 0, 0, 0.54);
     font-size: 24px;
     text-align: center;
-    margin: 96px auto;
+    margin: 64px auto;
 }
