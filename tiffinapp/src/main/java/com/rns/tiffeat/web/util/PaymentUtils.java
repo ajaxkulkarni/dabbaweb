@@ -11,7 +11,7 @@ import com.rns.tiffeat.web.bo.domain.PaymentType;
 public class PaymentUtils implements Constants {
 
 	public static PayUDetails preparePayUDetails(CustomerOrder order) throws NoSuchAlgorithmException {
-		if (order.getMeal() == null || order.getCustomer() == null) {
+		if (order == null || order.getCustomer() == null) {
 			return null;
 		}
 		PayUDetails payUDetails = new PayUDetails();

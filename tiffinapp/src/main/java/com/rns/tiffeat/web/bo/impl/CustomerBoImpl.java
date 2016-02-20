@@ -585,26 +585,40 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (availableMealTypeDates == null || availableMealTypeDates.get(customerOrder.getMealType()) == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_FOR_THIS_TIMING;
 		}
-		Meal oldMeal = mealDao.getMeal(customerOrder.getMeal().getId());
-		if (oldMeal == null) {
-			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
-		}
-		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(oldMeal.getId(), customerOrder.getMealType());
-		if (dailyMeal != null && !DateUtils.isSameDay(dailyMeal.getDate(), customerOrder.getContent().getDate())) {
-			return ERROR_CANT_CHANGE_THE_MEAL;
-		}
-		CustomerMeal meal = customerMealDao.getCustomerMeal(customerOrder.getId());
+		Meal meal = mealDao.getMeal(customerOrder.getMeal().getId());
 		if (meal == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
 		}
+		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), customerOrder.getMealType());
+		if (dailyMeal != null && !DateUtils.isSameDay(dailyMeal.getDate(), customerOrder.getContent().getDate())) {
+			return ERROR_CANT_CHANGE_THE_MEAL;
+		}
+		CustomerMeal customerMeal = customerMealDao.getCustomerMeal(customerOrder.getId());
+		if (customerMeal == null) {
+			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
+		}
+		if(!mealCanBeChanged(customerOrder, customerMeal)) {
+			return ERROR_CANT_CHANGE_THE_MEAL;
+		}
 		Meal mealToBeAdded = new Meal();
 		BusinessToDataConverters.convertMeal(mealToBeAdded, customerOrder.getMeal());
-		meal.setMeal(mealToBeAdded);
-		meal.setAddress(customerOrder.getAddress());
-		meal.setLocation(customerOrder.getLocation().getAddress());
-		customerMealDao.editCustomerMeal(meal);
+		customerMeal.setMeal(mealToBeAdded);
+		customerMeal.setAddress(customerOrder.getAddress());
+		customerMeal.setLocation(customerOrder.getLocation().getAddress());
+		customerMealDao.editCustomerMeal(customerMeal);
 		updateOrderPrice(customerOrder);
 		return RESPONSE_OK;
+	}
+
+	private boolean mealCanBeChanged(CustomerOrder customerOrder, CustomerMeal customerMeal) {
+		CustomerOrder order = new CustomerOrder();
+		order.setMeal(DataToBusinessConverters.convertMeal(customerMeal.getMeal()));
+		order.setMealType(customerOrder.getMealType());
+		Map<MealType,Date> mealTypesMap = getAvailableMealTypeDates(order);
+		if(mealTypesMap == null || mealTypesMap.get(order.getMealType()) == null || !DateUtils.isSameDay(mealTypesMap.get(order.getMealType()), customerOrder.getContent().getDate())) {
+			return false;
+		}
+		return true;
 	}
 
 	private void updateOrderPrice(CustomerOrder order) {

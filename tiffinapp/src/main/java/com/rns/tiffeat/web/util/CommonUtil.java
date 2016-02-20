@@ -374,9 +374,8 @@ public class CommonUtil implements Constants {
 	}
 
 	public static float calculatePrice(CustomerOrder order) {
-		float amount = new Float(0);
-		;
-		if (order.getMeal().getPrice() == null) {
+		float amount = 0;
+		if (order.getMeal() == null || order.getMeal().getPrice() == null) {
 			return amount;
 		}
 		if (order.getQuantity() == null) {
@@ -384,7 +383,7 @@ public class CommonUtil implements Constants {
 			return amount;
 		}
 		for (int i = 0; i < order.getQuantity(); i++) {
-			amount = (Float.sum(order.getMeal().getPrice().floatValue(), amount));
+			amount = order.getMeal().getPrice().floatValue() + amount;
 		}
 		return amount;
 	}
