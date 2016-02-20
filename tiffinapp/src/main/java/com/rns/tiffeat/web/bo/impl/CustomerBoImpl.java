@@ -774,6 +774,8 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			order.getMeal().setMenu(ERROR_MENU_NOT_AVAILABLE_YET);
 		} else if (order.getDate() != null && DateUtils.isSameDay(lunchContent.getDate(), order.getDate())) {
 			order.getMeal().setMenu(lunchContent.toString());
+		} else {
+			order.getMeal().setMenu(ERROR_MENU_NOT_AVAILABLE_YET);
 		}
 	}
 
