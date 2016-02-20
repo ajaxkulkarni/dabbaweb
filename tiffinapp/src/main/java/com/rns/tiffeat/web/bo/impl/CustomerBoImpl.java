@@ -756,13 +756,16 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 				mealTypeDates.put(MealType.DINNER, CommonUtil.addDay());
 			}
 		}
-		DailyContent lunchContent = DataToBusinessConverters.convertDailyContent(lunchMenu);
-		DailyContent dinnerContent = DataToBusinessConverters.convertDailyContent(dinnerMenu);
-		if (MealType.LUNCH.equals(order.getMealType())) {
-			setMenu(order, lunchContent);
-		} else if ((MealType.DINNER.equals(order.getMealType()) && dinnerContent != null)) {
-			setMenu(order, dinnerContent);
-		}
+		/*
+		 * DailyContent lunchContent =
+		 * DataToBusinessConverters.convertDailyContent(lunchMenu); DailyContent
+		 * dinnerContent =
+		 * DataToBusinessConverters.convertDailyContent(dinnerMenu); if
+		 * (MealType.LUNCH.equals(order.getMealType())) { setMenu(order,
+		 * lunchContent); } else if
+		 * ((MealType.DINNER.equals(order.getMealType()) && dinnerContent !=
+		 * null)) { setMenu(order, dinnerContent); }
+		 */
 		if (mealTypeDates.get(MealType.LUNCH) != null && mealTypeDates.get(MealType.DINNER) != null) {
 			mealTypeDates.put(MealType.BOTH, mealTypeDates.get(MealType.LUNCH));
 		}
@@ -870,7 +873,12 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 				continue;
 			}
 			CommonUtil.calculateMealPrice(order, availableMeal);
-			availableMeal.setMenu(tempOrder.getMeal().getMenu());
+			DailyContent dailyContent = getDailyContentForMeal(availableMeal, order.getMealType(), CommonUtil.getDay(order.getDate()));
+			if (dailyContent == null) {
+				availableMeal.setMenu(ERROR_MENU_NOT_AVAILABLE_YET);
+			} else {
+				availableMeal.setMenu(dailyContent.toString());
+			}
 			if (StringUtils.equalsIgnoreCase(ERROR_MENU_NOT_AVAILABLE_YET, availableMeal.getMenu())) {
 				mealsWithoutMenu.add(availableMeal);
 			} else {
