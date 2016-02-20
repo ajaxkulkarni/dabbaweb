@@ -88,7 +88,7 @@ public class DailyContent implements Constants {
 	}
 	
 	private void appendField(StringBuilder builder, String item) {
-		if(StringUtils.isEmpty(item) || !StringUtils.equalsIgnoreCase("NA", item)) {
+		if(StringUtils.isEmpty(item) || StringUtils.equalsIgnoreCase("NA", item)) {
 			return;
 		}
 		builder.append(item);
