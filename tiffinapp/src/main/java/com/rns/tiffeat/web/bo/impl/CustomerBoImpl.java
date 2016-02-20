@@ -597,7 +597,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (customerMeal == null) {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
 		}
-		if(!mealCanBeChanged(customerOrder, customerMeal)) {
+		if (!mealCanBeChanged(customerOrder, customerMeal)) {
 			return ERROR_CANT_CHANGE_THE_MEAL;
 		}
 		Meal mealToBeAdded = new Meal();
@@ -614,8 +614,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		CustomerOrder order = new CustomerOrder();
 		order.setMeal(DataToBusinessConverters.convertMeal(customerMeal.getMeal()));
 		order.setMealType(customerOrder.getMealType());
-		Map<MealType,Date> mealTypesMap = getAvailableMealTypeDates(order);
-		if(mealTypesMap == null || mealTypesMap.get(order.getMealType()) == null || !DateUtils.isSameDay(mealTypesMap.get(order.getMealType()), customerOrder.getContent().getDate())) {
+		Map<MealType, Date> mealTypesMap = getAvailableMealTypeDates(order);
+		if (mealTypesMap == null || mealTypesMap.get(order.getMealType()) == null
+				|| !DateUtils.isSameDay(mealTypesMap.get(order.getMealType()), customerOrder.getContent().getDate())) {
 			return false;
 		}
 		return true;
@@ -771,7 +772,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	private void setMenu(CustomerOrder order, DailyContent lunchContent) {
 		if (lunchContent == null) {
 			order.getMeal().setMenu(ERROR_MENU_NOT_AVAILABLE_YET);
-		} else {
+		} else if (DateUtils.isSameDay(lunchContent.getDate(), order.getDate())) {
 			order.getMeal().setMenu(lunchContent.toString());
 		}
 	}
@@ -868,10 +869,9 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			}
 			CommonUtil.calculateMealPrice(order, availableMeal);
 			availableMeal.setMenu(tempOrder.getMeal().getMenu());
-			if(StringUtils.equalsIgnoreCase(ERROR_MENU_NOT_AVAILABLE_YET, availableMeal.getMenu())) {
+			if (StringUtils.equalsIgnoreCase(ERROR_MENU_NOT_AVAILABLE_YET, availableMeal.getMenu())) {
 				mealsWithoutMenu.add(availableMeal);
-			}
-			else {
+			} else {
 				mealsWithMenu.add(availableMeal);
 			}
 		}
