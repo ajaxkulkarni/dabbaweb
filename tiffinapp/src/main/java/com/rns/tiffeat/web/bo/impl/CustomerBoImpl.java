@@ -837,7 +837,8 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	private List<com.rns.tiffeat.web.bo.domain.Meal> filterAvailableMeals(List<Meal> meals, CustomerOrder order) {
-		List<com.rns.tiffeat.web.bo.domain.Meal> availableMeals = new ArrayList<com.rns.tiffeat.web.bo.domain.Meal>();
+		List<com.rns.tiffeat.web.bo.domain.Meal> mealsWithMenu = new ArrayList<com.rns.tiffeat.web.bo.domain.Meal>();
+		List<com.rns.tiffeat.web.bo.domain.Meal> mealsWithoutMenu = new ArrayList<com.rns.tiffeat.web.bo.domain.Meal>();
 		for (Meal meal : meals) {
 			com.rns.tiffeat.web.bo.domain.Meal availableMeal = DataToBusinessConverters.convertMeal(meal);
 			CustomerOrder tempOrder = prepareTempOrder(availableMeal, order);
@@ -867,9 +868,15 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			}
 			CommonUtil.calculateMealPrice(order, availableMeal);
 			availableMeal.setMenu(tempOrder.getMeal().getMenu());
-			availableMeals.add(availableMeal);
+			if(StringUtils.equalsIgnoreCase(ERROR_MENU_NOT_AVAILABLE_YET, availableMeal.getMenu())) {
+				mealsWithoutMenu.add(availableMeal);
+			}
+			else {
+				mealsWithMenu.add(availableMeal);
+			}
 		}
-		return availableMeals;
+		mealsWithMenu.addAll(mealsWithoutMenu);
+		return mealsWithMenu;
 	}
 
 	private boolean todaysOrderNotPossible(CustomerOrder order, Date mealTypeDate) {

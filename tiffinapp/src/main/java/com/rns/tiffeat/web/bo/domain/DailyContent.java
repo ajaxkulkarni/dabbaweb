@@ -78,7 +78,20 @@ public class DailyContent implements Constants {
 		if(StringUtils.isEmpty(mainItem)) {
 			return ERROR_MENU_NOT_AVAILABLE_YET;
 		}
-		return mainItem + " along with " + subItem1 + " accompanied by " + subItem2 + " and " + subItem3 + ", Also " + subItem4;
+		StringBuilder builder = new StringBuilder();
+		appendField(builder, mainItem);
+		appendField(builder, " along with " + subItem1);
+		appendField(builder, " accompanied by " + subItem2);
+		appendField(builder, " and " + subItem3);
+		appendField(builder, ", Also " + subItem4);
+		return builder.toString();
+	}
+	
+	private void appendField(StringBuilder builder, String item) {
+		if(StringUtils.isEmpty(item) || !StringUtils.equalsIgnoreCase("NA", item)) {
+			return;
+		}
+		builder.append(item);
 	}
 
 }
