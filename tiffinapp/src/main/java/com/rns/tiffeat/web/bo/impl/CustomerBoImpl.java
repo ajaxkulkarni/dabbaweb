@@ -772,7 +772,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	private void setMenu(CustomerOrder order, DailyContent lunchContent) {
 		if (lunchContent == null) {
 			order.getMeal().setMenu(ERROR_MENU_NOT_AVAILABLE_YET);
-		} else if (DateUtils.isSameDay(lunchContent.getDate(), order.getDate())) {
+		} else if (order.getDate() != null && DateUtils.isSameDay(lunchContent.getDate(), order.getDate())) {
 			order.getMeal().setMenu(lunchContent.toString());
 		}
 	}
@@ -887,6 +887,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		CustomerOrder temp = new CustomerOrder();
 		temp.setMeal(meal);
 		temp.setMealType(order.getMealType());
+		temp.setDate(order.getDate());
 		return temp;
 	}
 
