@@ -806,6 +806,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 		return DataToBusinessConverters.convertDailyContent(dailyMealDao.getDailyMealsForMealType(currentMeal.getId(), CommonUtil.getDate(day), mealType));
 	}
+	
+	public DailyContent getDailyContentForCustomerOrder(CustomerOrder order) {
+		prepareDailyContent(order);
+		return order.getContent();
+	}
 
 	public String loginWithGoogle(Customer googleCustomer) {
 		if (googleCustomer == null) {
