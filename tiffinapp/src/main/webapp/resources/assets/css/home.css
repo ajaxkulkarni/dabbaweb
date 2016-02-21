@@ -33,8 +33,11 @@ color: #fff;
 	text-align: center;
 	margin: 24px auto;
 	font-weight: 300;
+	transition-duration: .5s;
 }
-
+.tiffin_banner:hover .banner_heading {
+	text-shadow: 0px 0px 6px rgba(255,255,255,1);
+}
 .banner_timing_text {
 	color: #fff;
 	text-align: center;
@@ -67,8 +70,6 @@ color: #fff;
 	margin: 16px auto;
 	font-family: 'Roboto Slab', serif;
 }
-
-
 
 .option_dropdown {
 	margin: 0px;
@@ -240,24 +241,26 @@ input:-moz-placeholder {
 }
 
 /*CSS For Footer*/
-
 .footer {
 	text-align: center;
 	font-size: 16px;
-	margin-bottom: 64px;	
+	margin-bottom: 64px;
 }
+
 .footer ul {
-	padding:0;
+	padding: 0;
 }
+
 .footer ul li {
 	display: inline;
 	margin: 16px 8px;
 }
-.footer ul li a{
+
+.footer ul li a {
 	font-weight: 500;
 }
-.footer ul li a:hover,
-.footer ul li a:focus{
+
+.footer ul li a:hover, .footer ul li a:focus {
 	color: #337ab7;
 }
 /*End of Css for Footer*/
