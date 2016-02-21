@@ -34,6 +34,7 @@ color: #fff;
 	margin: 24px auto;
 	font-weight: 300;
 	transition-duration: .5s;
+	
 }
 .tiffin_banner:hover .banner_heading {
 	text-shadow: 0px 0px 6px rgba(255,255,255,1);
