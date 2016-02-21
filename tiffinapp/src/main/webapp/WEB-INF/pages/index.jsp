@@ -236,9 +236,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			</c:otherwise>
 		</c:choose> --%>
 	</div>
+	
+	<div class="container googlePlayBlock">
+		<p>You can also try our app for more features:<br><span style="font-size: 12px;">(And help us squash some bugs)</span></p>
+		
+		<a href="https://play.google.com" target="_blank">
+		<img src="<c:url value = "${resources}/img/google-play-badge.png"/>"></a>
+	</div>
 
 	<div class="container">
-
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/hourglass.svg"/>">
 		<p class="inShortContent">Order a meal in seconds</p>
