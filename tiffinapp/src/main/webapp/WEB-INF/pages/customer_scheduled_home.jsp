@@ -48,7 +48,7 @@
 		</div>
 	</c:if>
 	<c:if test="${fn:length(customer.scheduledOrder) == 0}">
-		<h4 class="order_summary_heading">You havent't scheduled any
+		<h4 class="order_summary_heading">You haven't scheduled any
 			Tiffins right now. Schedule a Dinner or Lunch tiffin to get a daily
 			meal.</h4>
 		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">

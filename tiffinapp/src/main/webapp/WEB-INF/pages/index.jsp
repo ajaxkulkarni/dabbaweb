@@ -156,8 +156,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<div class="container-fluid tiffin_banner">
 	<div class="container">
 		<h3 class="banner_heading">
-			Order supremely healthy homemade meals online and save time!
+			Order supremely healthy homemade meals online!
 		</h3>
+		<div class="container googlePlayBlock">
+			<a href="https://play.google.com/store/apps/details?id=com.rns.tiffeat.mobile&hl=en" target="_blank">
+				<img src="<c:url value = "${resources}/img/google-play-badge.png"/>" >
+			</a>
+		</div>
 		
 		<p class="banner_timing_text">Order your Lunch before 12 pm</p>
 		<p class="banner_timing_text">And Dinner before 7 pm</p>
@@ -237,12 +242,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</c:choose> --%>
 	</div>
 	
-	<div class="container googlePlayBlock">
+	<%-- <div class="container googlePlayBlock">
 		<p>You can also try our app for more features:<br><span style="font-size: 12px;">(And help us squash some bugs)</span></p>
 		
-		<a href="https://play.google.com" target="_blank">
+		<a href="https://play.google.com/store/apps/details?id=com.rns.tiffeat.mobile&hl=en" target="_blank">
 		<img src="<c:url value = "${resources}/img/google-play-badge.png"/>"></a>
-	</div>
+	</div> --%>
 
 	<div class="container">
 		<img class="inShortContentImages"

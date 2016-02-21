@@ -773,6 +773,7 @@ public class CustomerControllerWeb implements Constants {
 			Customer googleCustomer = GoogleUtil.getGoogleCustomer(code);
 			loginResult = customerBo.loginWithGoogle(googleCustomer);
 			if (RESPONSE_OK.equals(loginResult)) {
+				logger.info("Log In Successful using Google!" + new Gson().toJson(manager.getCustomer().getOrderInProcess()));
 				return postLoginSuccess(googleCustomer);
 			}
 		} catch (MalformedURLException e) {
