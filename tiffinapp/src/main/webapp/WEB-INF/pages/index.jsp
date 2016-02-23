@@ -88,6 +88,7 @@ $(document).ready(function(){
                scrollDown();
                if(meals == null || meals.length == 0) {
             	   showError();
+            	   $("#rows").html("");
                    return;
                }
                var appendString = "";
