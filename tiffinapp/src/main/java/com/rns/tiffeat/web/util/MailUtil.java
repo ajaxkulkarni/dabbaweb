@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 
-public class MailUtil {
+public class MailUtil implements Runnable {
 
 	private static final String MAIL_NEW_LINE = "\n";
 	private static final String MAIL_PORT = "25";
@@ -24,6 +24,12 @@ public class MailUtil {
 	private static final String MAIL_PASSWORD = "support_tiffeat";
 	private static final String MAIL_ID = "support@tiffeat.com";
 	public static final String SENDER_ID = "v=spf1 a ptr ip4:115.124.124.220 ~all";
+	
+	private CustomerOrder order;
+	
+	public MailUtil(CustomerOrder customerOrder) {
+		this.order = customerOrder;
+	}
 
 	public static void sendMail(CustomerOrder order) {
 
@@ -102,6 +108,10 @@ public class MailUtil {
 				.append("We often post something that you will find interesting.");
 
 		return mailBuilder.toString();
+	}
+
+	public void run() {
+		sendMail(order);
 	}
 
 }

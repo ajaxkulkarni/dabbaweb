@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.google.gson.JsonSyntaxException;
 import com.rns.tiffeat.web.bo.api.CustomerBo;
@@ -54,6 +55,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	private CustomerMealDao customerMealDao;
 	private MealDao mealDao;
 	private TransactionDao transactionDao;
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
 	public void setTransactionDao(TransactionDao transactionDao) {
 		this.transactionDao = transactionDao;
@@ -237,7 +239,8 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		BusinessToDataConverters.convertCustomerMeal(customer, mealToBeAdded, customerOrder);
 		addOrder(mealToBeAdded, customerOrder);
 		customerOrder.setId(customerMealDao.addCustomerMeal(mealToBeAdded));
-		MailUtil.sendMail(customerOrder);
+		//MailUtil.sendMail(customerOrder, threadPoolTaskExecutor);
+		threadPoolTaskExecutor.execute(new MailUtil(customerOrder));
 		return RESPONSE_OK;
 	}
 
@@ -473,7 +476,8 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return response;
 		}
 		customerOrder.setId(customerMealDao.addCustomerMeals(customerMealsToBeAdded));
-		MailUtil.sendMail(customerOrder);
+		//MailUtil.sendMail(customerOrder);
+		threadPoolTaskExecutor.execute(new MailUtil(customerOrder));
 		return RESPONSE_OK;
 	}
 
@@ -910,6 +914,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		com.rns.tiffeat.web.bo.domain.Meal meal = DataToBusinessConverters.convertMeal(mealDao.getMeal(order.getMeal().getId()));
 		CommonUtil.calculateMealPrice(order, meal);
 		return meal;
+	}
+
+	public void setTaskExecutor(ThreadPoolTaskExecutor executor) {
+		this.threadPoolTaskExecutor = executor;
 	}
 
 }

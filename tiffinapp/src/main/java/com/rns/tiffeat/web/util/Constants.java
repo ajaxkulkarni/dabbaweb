@@ -17,7 +17,7 @@ public interface Constants {
     }});
 	
 	String PAYMENT_PREFIX = "T";
-	String HOST_URL = "192.168.1.102:8080/tiffeat-web";
+	String HOST_URL = "localhost:8080/tiffeat-web";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
 	String MERCHANT_KEY = "gtKFFx"; // DEV
@@ -54,8 +54,8 @@ public interface Constants {
 	String ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN = "Meal not available!Please check again!";
 	String ERROR_INVALID_ORDER_DETAILS = "Invalid order details!";
 	String ERROR_INVALID_CUSTOMER_DETAILS = "Invalid customer details!";
-	String ERROR_CAN_T_CANCEL_THE_MEAL = "Can't cancel the meal now as vendors already started cooking the meals!";
-	String ERROR_CANT_CHANGE_THE_MEAL = "Can't change the meal now as vendors already started cooking the meals!";
+	String ERROR_CAN_T_CANCEL_THE_MEAL = "Cannot cancel the meal now as vendors already started cooking the meals!";
+	String ERROR_CANT_CHANGE_THE_MEAL = "Cannot change the meal now as vendors already started cooking the meals!";
 	String ERROR_UPLOADING_IMAGE = "Error uploading Image!";
 	String ERROR_INVALID_VENDOR_DETAILS = "Invalid Vendor details!";
 	String ERROR_ALERADY_SCHEDULED_MEAL_TYPE = "Can't scheduled this Meal!You already have a meal scheduled for this timing!";

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.DailyContent;
@@ -60,4 +62,6 @@ public interface CustomerBo {
 	List<Meal> getAvailableMeals(CustomerOrder order);
 	
 	Meal getMeal(CustomerOrder customerOrder);
+	
+	void setTaskExecutor(ThreadPoolTaskExecutor executor);
 }

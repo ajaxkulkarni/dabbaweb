@@ -17,6 +17,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,7 +53,8 @@ public class CustomerControllerWeb implements Constants {
 	
 	private static Logger logger = Logger.getLogger(CustomerControllerWeb.class.getName());
 	private CustomerBo customerBo;
-
+	private ThreadPoolTaskExecutor executor;
+	
 	@Autowired(required = true)
 	@Qualifier(value = "manager")
 	private SessionManager manager;
@@ -73,6 +75,13 @@ public class CustomerControllerWeb implements Constants {
 	@Qualifier(value = "customerBo")
 	public void setCustomerBo(CustomerBo customerBo) {
 		this.customerBo = customerBo;
+	}
+	
+	@Autowired(required = true)
+	@Qualifier(value = "executor")
+	public void setExecutor(ThreadPoolTaskExecutor executor) {
+		this.executor = executor;
+		customerBo.setTaskExecutor(executor);
 	}
 	
 	@RequestMapping(value = "/getMeals", method = RequestMethod.POST, produces = "application/json")
