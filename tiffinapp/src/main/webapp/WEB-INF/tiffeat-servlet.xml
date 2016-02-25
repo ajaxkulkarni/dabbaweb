@@ -138,7 +138,7 @@
 	</bean>
 	
 	<bean id="executor"
-		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" depends-on="customerBo">
 		<property name="corePoolSize" value="5" />
 		<property name="maxPoolSize" value="10" />
 		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
