@@ -48,9 +48,9 @@
 		</div>
 	</c:if>
 	<c:if test="${fn:length(customer.scheduledOrder) == 0}">
-		<h4 class="order_summary_heading">You haven't scheduled any
-			Tiffins right now. Schedule a Dinner or Lunch tiffin to get a daily
-			meal.</h4>
+		<h4 class="order_summary_heading">You don't have any
+			Daily Tiffins right now. Start a Dinner or Lunch tiffin to get a daily
+			meal and get 20% of on each meal.</h4>
 		<form action="<%=Constants.ADD_SCHEDULED_ORDER_URL_POST %>" method="post">
 			<input type="hidden" name="mealType" value="LUNCH" /> <input
 				type="hidden" name="area" value=""> <input type="submit"

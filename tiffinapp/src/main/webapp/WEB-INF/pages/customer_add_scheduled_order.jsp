@@ -16,7 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>TiffEat | Schedule_Dinner/Lunch</title>
+<title>TiffEat | Start Daily Lunch/Dinner</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -40,7 +40,7 @@
 <body>
 <%@include file="header.jsp" %>
 	<div class="container payment_details_div">
-		<h4 class="payment_details_heading">Schedule ${customerOrder.mealType.description}</h4>
+		<h4 class="payment_details_heading">Start Daily ${customerOrder.mealType.description}</h4>
 		<div class="payment_details_card">
 			<div class="row">
 				<div class="col-md-6">
