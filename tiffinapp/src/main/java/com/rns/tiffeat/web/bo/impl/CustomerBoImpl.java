@@ -81,6 +81,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (registeredCustomer == null) {
 			return;
 		}
+		if(StringUtils.isEmpty(registeredCustomer.getDeviceId())) {
+			registeredCustomer.setDeviceId(currentCustomer.getDeviceId());
+			customerDao.editCustomer(registeredCustomer);
+		}
 		prepareHomePageContent(registeredCustomer, currentCustomer);
 	}
 
