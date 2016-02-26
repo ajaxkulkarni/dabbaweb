@@ -79,7 +79,7 @@ public class DailyContent implements Constants {
 			return ERROR_MENU_NOT_AVAILABLE_YET;
 		}
 		StringBuilder builder = new StringBuilder();
-		appendField(builder, mainItem, "");
+		appendField(builder, "", mainItem);
 		appendField(builder, " along with " , subItem1);
 		appendField(builder, " accompanied by " , subItem2);
 		appendField(builder, " and " , subItem3);
