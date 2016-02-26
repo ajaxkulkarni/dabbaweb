@@ -40,7 +40,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/tiffin" />
         <property name="username" value="root" />
-        <property name="password" value="'asd'" />
+        <property name="password" value="" />
         <!-- <property name="url" value="jdbc:mysql://localhost:3306/tiffeat_tiffin" />
         <property name="username" value="tiffeat_admin" />
         <property name="password" value="eat123" /> -->
@@ -86,6 +86,7 @@
 		<property name="customerMealDao" ref="customerMealDao"></property>
 		<property name="orderDao" ref="orderDao"></property>
 		<property name="transactionDao" ref="transactionDao"></property>
+		<property name="threadPoolTaskExecutor" ref="executor"></property>
 	</bean>
 
 	<bean id="manager" class="com.rns.tiffeat.web.bo.impl.SessionManagerImpl"
@@ -138,7 +139,7 @@
 	</bean>
 	
 	<bean id="executor"
-		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" depends-on="customerBo">
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<property name="corePoolSize" value="5" />
 		<property name="maxPoolSize" value="10" />
 		<property name="WaitForTasksToCompleteOnShutdown" value="true" />

@@ -56,6 +56,14 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	private MealDao mealDao;
 	private TransactionDao transactionDao;
 	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+	
+	public void setThreadPoolTaskExecutor(ThreadPoolTaskExecutor threadPoolTaskExecutor) {
+		this.threadPoolTaskExecutor = threadPoolTaskExecutor;
+	}
+	
+	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor() {
+		return threadPoolTaskExecutor;
+	}
 
 	public void setTransactionDao(TransactionDao transactionDao) {
 		this.transactionDao = transactionDao;
