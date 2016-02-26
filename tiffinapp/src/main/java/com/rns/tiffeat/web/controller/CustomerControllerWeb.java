@@ -81,7 +81,6 @@ public class CustomerControllerWeb implements Constants {
 	@Qualifier(value = "executor")
 	public void setExecutor(ThreadPoolTaskExecutor executor) {
 		this.executor = executor;
-		this.customerBo.setTaskExecutor(executor);
 	}
 	
 	@RequestMapping(value = "/getMeals", method = RequestMethod.POST, produces = "application/json")
@@ -362,6 +361,7 @@ public class CustomerControllerWeb implements Constants {
 			return new RedirectView(QUICK_ORDER_URL_GET);
 		}
 		if (PaymentType.CASH.equals(orderInProcess.getPaymentType())) {
+			customerBo.setTaskExecutor(executor);
 			customerBo.quickOrder(orderInProcess);
 			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
 		}
@@ -541,6 +541,7 @@ public class CustomerControllerWeb implements Constants {
 			scheduledOrderResult = customerBo.validateScheduledOrder(orderInProcess);
 			walletRequired = true;
 		} else {
+			customerBo.setTaskExecutor(executor);
 			scheduledOrderResult = customerBo.scheduledOrder(orderInProcess);
 		}
 		manager.setResult(scheduledOrderResult);
