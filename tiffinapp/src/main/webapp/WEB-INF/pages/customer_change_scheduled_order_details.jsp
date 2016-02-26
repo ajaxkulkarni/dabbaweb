@@ -39,7 +39,12 @@
 	<div class="container payment_details_div">
 		<h4 class="payment_details_heading">Change Tiffin</h4>
 		<div class="payment_details_card">
-			${result}
+		<c:if test="${result != 'OK' && result!=null }">
+				<div class="alert alert-danger">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<!-- <strong>Danger!</strong> -->${result}
+				</div>
+			</c:if>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="details">
