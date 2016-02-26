@@ -81,11 +81,15 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (registeredCustomer == null) {
 			return;
 		}
+		storeDeviceId(currentCustomer, registeredCustomer);
+		prepareHomePageContent(registeredCustomer, currentCustomer);
+	}
+
+	private void storeDeviceId(Customer currentCustomer, com.rns.tiffeat.web.dao.domain.Customer registeredCustomer) {
 		if(StringUtils.isEmpty(registeredCustomer.getDeviceId())) {
 			registeredCustomer.setDeviceId(currentCustomer.getDeviceId());
 			customerDao.editCustomer(registeredCustomer);
 		}
-		prepareHomePageContent(registeredCustomer, currentCustomer);
 	}
 
 	public MealDao getMealDao() {
@@ -329,6 +333,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (registeredCustomer == null || !StringUtils.equals(registeredCustomer.getPassword(), customer.getPassword())) {
 			return false;
 		}
+		storeDeviceId(customer, registeredCustomer);
 		customer.setId(registeredCustomer.getId());
 		return true;
 	}
@@ -836,6 +841,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (registeredCustomer == null) {
 			return register(googleCustomer);
 		}
+		storeDeviceId(googleCustomer, registeredCustomer);
 		googleCustomer.setId(registeredCustomer.getId());
 		return RESPONSE_OK;
 	}
