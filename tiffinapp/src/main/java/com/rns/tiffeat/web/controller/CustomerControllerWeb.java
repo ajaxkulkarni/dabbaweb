@@ -81,7 +81,7 @@ public class CustomerControllerWeb implements Constants {
 	@Qualifier(value = "executor")
 	public void setExecutor(ThreadPoolTaskExecutor executor) {
 		this.executor = executor;
-		customerBo.setTaskExecutor(executor);
+		this.customerBo.setTaskExecutor(executor);
 	}
 	
 	@RequestMapping(value = "/getMeals", method = RequestMethod.POST, produces = "application/json")
