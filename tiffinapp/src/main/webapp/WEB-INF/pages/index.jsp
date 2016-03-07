@@ -11,6 +11,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title> Order tiffin online, Order meal online, Order homemade food online, Order food online, Order online Pune,online food delevery,
+tiffins for online,online food service,tiffin service in pune - tiffeat.com </title>
+<meta name="description" content=" The tiffeat.com is Searching Destination for delevery of  Healthy Home made food in your pune .
+order your food tiffins requirment and we will deliver the same at your door step we are provide Monthly Tiffin Service in Pune from 
+tiffeat.com"/>
+<meta name="robots" content="noodp"/>
+<meta name="keywords" content="online tiffin provide in pune,mess tiffins,home made online tiffins,tiffin providers in Pune,tiffin 
+services in pune ,lunch box providers in pune ,online lunch box provider,tiffin delevery in pune,lunch delevery in pune,healthy home 
+made tiffins,healthy home made food,healthy home made lunch, office food service,online,food,tiffins,lunch,khana,online khana,online 
+home made khana,meal tiffin service,meal tiffin delevery,meal food delevery,track your meal,meal for group,order food for group,online 
+lunch for group,get food online,get lunch online,get tiifins online,get khana online" />
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
