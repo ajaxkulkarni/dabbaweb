@@ -57,7 +57,10 @@ public class CustomerMeal implements Serializable {
 	
 	@Column(name = "format")
 	private String format;
-
+	
+	@Column(name = "rating")
+	private BigDecimal rating;
+	
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class,cascade=CascadeType.MERGE)
 	private Customer customer;
 
@@ -176,5 +179,13 @@ public class CustomerMeal implements Serializable {
 	
 	public String getLocation() {
 		return location;
+	}
+	
+	public BigDecimal getRating() {
+		return rating;
+	}
+	
+	public void setRating(BigDecimal rating) {
+		this.rating = rating;
 	}
 }

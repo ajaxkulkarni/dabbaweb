@@ -409,5 +409,18 @@ public class CommonUtil implements Constants {
 		}
 		return new Date();
 	}
+	
+	public static String prepareActivationCode(CustomerOrder order) {
+		return StringUtils.substring(order.getCustomer().getEmail(), 0, 1) + Math.floor(Math.random()*1000000);
+	}
+
+	public static BigDecimal calculateValue(String rating) {
+		if(StringUtils.isEmpty(rating)) {
+			return null;
+		}
+		BigDecimal value = new BigDecimal(rating);
+		return value;
+	}
+	
 
 }

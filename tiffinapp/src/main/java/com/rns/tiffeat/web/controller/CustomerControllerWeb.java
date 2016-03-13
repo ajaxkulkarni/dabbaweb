@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +16,6 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -45,13 +43,13 @@ import com.rns.tiffeat.web.google.GoogleUtil;
 import com.rns.tiffeat.web.google.Location;
 import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
+import com.rns.tiffeat.web.util.LoggingUtil;
 import com.rns.tiffeat.web.util.MailUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
 
 @Controller
 public class CustomerControllerWeb implements Constants {
 	
-	private static Logger logger = Logger.getLogger(CustomerControllerWeb.class.getName());
 	private CustomerBo customerBo;
 	
 	@Autowired(required = true)
@@ -195,10 +193,12 @@ public class CustomerControllerWeb implements Constants {
 	
 	@RequestMapping(value = URL_PREFIX + CUSTOMER_LOGIN_URL_GET, method = RequestMethod.GET)
 	public String prepareCustomerLogin(ModelMap model) {
-		model.addAttribute(MODEL_CUSTOMER, new Customer());
+		model.addAttribute(MODEL_CUSTOMER, manager.getCustomer());
 		model.addAttribute(MODEL_RESULT, manager.getResult());
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		manager.setResult(null);
+		LoggingUtil.logOrderDetails(manager.getCustomer().getOrderInProcess());
+		LoggingUtil.logMessage("This is at login page!!");
 		return CUSTOMER_LOGIN_PAGE;
 	}
 
@@ -218,6 +218,7 @@ public class CustomerControllerWeb implements Constants {
 	private RedirectView postLoginSuccess(Customer customer) {
 		manager.setResult(null);
 		manager.getCustomer().setId(customer.getId());
+		LoggingUtil.logOrderDetails(manager.getCustomer().getOrderInProcess());
 		if (manager.getCustomer().getOrderInProcess() != null && manager.getCustomer().getOrderInProcess().getMeal()!=null) {
 			customerBo.setCurrentCustomer(manager.getCustomer());
 			if (MealFormat.QUICK.equals(manager.getCustomer().getOrderInProcess().getMealFormat())) {
@@ -229,14 +230,22 @@ public class CustomerControllerWeb implements Constants {
 		return new RedirectView(CUSTOMER_HOME_URL_GET);
 	}
 	
+	
 	@RequestMapping(value = URL_PREFIX + REGISTER_CUSTOMER_URL_POST, method = RequestMethod.POST)
 	public RedirectView registerCustomer(Customer customer, ModelMap model) {
-		String result = customerBo.register(customer);
+		/*String result = customerBo.register(customer);
 		if (!RESPONSE_OK.equals(result)) {
 			manager.setResult(result);
 			return new RedirectView(CUSTOMER_LOGIN_URL_GET);
 		}
-		return postLoginSuccess(customer);
+		return postLoginSuccess(customer);*/
+		manager.getCustomer().setName(customer.getName());
+		manager.getCustomer().setPassword(customer.getPassword());
+		customerBo.authenticateCustomer(customer);
+		RedirectView view = new RedirectView();
+		view.setUrl(CUSTOMER_ACTIVATION_URL_GET);
+		view.addStaticAttribute(MODEL_EMAIL, customer.getEmail());
+		return view;
 	}
 	
 	@RequestMapping(value = URL_PREFIX + QUICK_ORDER_URL_GET, method = RequestMethod.GET)
@@ -404,7 +413,7 @@ public class CustomerControllerWeb implements Constants {
 				view = new RedirectView(QUICK_ORDER_URL_GET);
 			}
 		}
-		MailUtil.sendMail(orderInProcess);
+		MailUtil.sendPostOrderMail(orderInProcess);
 		return view;
 	}
 
@@ -704,6 +713,13 @@ public class CustomerControllerWeb implements Constants {
 		manager.setResult(null);
 		return REGISTER_PAGE;
 	}
+	
+	@RequestMapping(value = URL_PREFIX + SUBMIT_MEAL_RATING, method = RequestMethod.POST)
+	public RedirectView rateMeal(ModelMap model,CustomerOrder order,String rating) {
+		BigDecimal ratingValue = CommonUtil.calculateValue(rating);
+		customerBo.rateMeal(order, ratingValue);
+		return new RedirectView(CUSTOMER_HOME_URL_GET);
+	}
 
 	private List<Vendor> getLatestVendors() {
 		CustomerOrder orderInProcess = manager.getCustomer().getOrderInProcess();
@@ -712,7 +728,7 @@ public class CustomerControllerWeb implements Constants {
 		}
 		List<Vendor> availableVendors = customerBo.getAvailableVendors(orderInProcess.getLocation().getAddress());
 		if (CollectionUtils.isEmpty(availableVendors)) {
-			logger.info("No Tiffins for:" + orderInProcess.getLocation().getAddress());
+			LoggingUtil.logMessage("No Tiffins for:" + orderInProcess.getLocation().getAddress());
 			manager.setResult(ERROR_NO_TIFFINS_AVAILABLE);
 		}
 		return availableVendors;
@@ -775,7 +791,6 @@ public class CustomerControllerWeb implements Constants {
 			Customer googleCustomer = GoogleUtil.getGoogleCustomer(code);
 			loginResult = customerBo.loginWithGoogle(googleCustomer);
 			if (RESPONSE_OK.equals(loginResult)) {
-				logger.info("Log In Successful using Google!" + new Gson().toJson(manager.getCustomer().getOrderInProcess()));
 				return postLoginSuccess(googleCustomer);
 			}
 		} catch (MalformedURLException e) {
@@ -785,6 +800,27 @@ public class CustomerControllerWeb implements Constants {
 		}
 
 		return postLoginFailure(loginResult);
+	}
+	
+	@RequestMapping(value = URL_PREFIX + CUSTOMER_ACTIVATION_URL_GET, method = RequestMethod.GET)
+	public String activation(ModelMap model, String email) {
+		model.addAttribute(MODEL_EMAIL, email);
+		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
+		return CUSTOMER_ACTIVATION_PAGE;
+	}
+	
+	@RequestMapping(value = URL_PREFIX + NEW_ACTIVATION_URL_GET, method = RequestMethod.GET)
+	public RedirectView confirmActivation(ModelMap model, String customer, String code) {
+		if(customerBo.checkActivation(customer, code)) {
+			manager.getCustomer().setEmail(customer);
+			String result = customerBo.register(manager.getCustomer());
+			if (!RESPONSE_OK.equals(result)) {
+				manager.setResult(result);
+				return new RedirectView(CUSTOMER_LOGIN_URL_GET);
+			}
+			return postLoginSuccess(manager.getCustomer());
+		}
+		return new RedirectView(CUSTOMER_ACTIVATION_URL_GET);
 	}
 
 	@ExceptionHandler(HibernateException.class)
@@ -797,6 +833,7 @@ public class CustomerControllerWeb implements Constants {
 	@ExceptionHandler(Exception.class)
 	public String onGenericException(Exception exception) {
 		exception.printStackTrace();
+		LoggingUtil.logMessage(exception.getMessage());
 		return ERROR_PAGE;
 	}
 

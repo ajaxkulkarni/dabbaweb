@@ -17,7 +17,7 @@ public interface Constants {
     }});
 	
 	String PAYMENT_PREFIX = "T";
-	String HOST_URL = "192.168.1.102:8080/tiffeat-web";
+	String HOST_URL = "localhost:8080/tiffeat-web";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
 	String MERCHANT_KEY = "gtKFFx"; // DEV
@@ -118,6 +118,8 @@ public interface Constants {
 	String MODEL_CUSTOMERS = "customers";
 	String MODEL_INVOICES = "invoices";
 	String MODEL_ADDRESS = "address";
+	String MODEL_ACTIVATION_CODE = "code";
+	String MODEL_EMAIL = "email";
 	
 	String DAY_TOMORROW = "tomorrow";
 	String PARAMETER_APPENDER = "&";
@@ -155,6 +157,8 @@ public interface Constants {
 	String SCHEDULED_ORDER_URL_GET = "scheduledOrder.htm";
 	String ADD_ORDER_URL_GET = "addOrder.htm";
 	String INDEX_URL_GET = "home.htm";
+	String CUSTOMER_ACTIVATION_URL_GET = "activation.htm";
+	String NEW_ACTIVATION_URL_GET = "newActivation";
 	
 	String REGISTER_CUSTOMER_URL_POST = "registerCustomer";
 	String QUICK_ORDER_URL_POST = "quickOrder";
@@ -174,6 +178,7 @@ public interface Constants {
 	String ADD_MONEY_TO_WALLET_URL_POST = "addMoneyToWallet";
 	String SCHEDULED_ORDER_URL_POST = "scheduledOrder";
 	String ADD_LUNCH_DINNER_URL_POST = "addLunchOrDinner";
+	String SUBMIT_MEAL_RATING = "submitMealRating";
 	
 	String QUICK_HOME_PAGE = "customer_quick_home";
 	String SCHEDULED_HOME_PAGE = "customer_scheduled_home";
@@ -192,6 +197,8 @@ public interface Constants {
 	String CONTACT_US_PAGE = "customer_contact_us";
 	String ABOUT_US_PAGE = "customer_about_us";
 	String TERMS_PAGE = "customer_terms";
+	String CUSTOMER_ACTIVATION_PAGE = "customer_activation";
+	
 	
 	
 	//5123456789012346

@@ -36,6 +36,7 @@ import com.rns.tiffeat.web.dao.api.TransactionDao;
 import com.rns.tiffeat.web.dao.api.VendorDao;
 import com.rns.tiffeat.web.dao.domain.CustomerMeal;
 import com.rns.tiffeat.web.dao.domain.DailyMeal;
+import com.rns.tiffeat.web.dao.domain.EmailActivation;
 import com.rns.tiffeat.web.dao.domain.Meal;
 import com.rns.tiffeat.web.dao.domain.Order;
 import com.rns.tiffeat.web.dao.domain.Transaction;
@@ -707,7 +708,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	public void rateMeal(CustomerOrder order, BigDecimal rating) {
-		if (order == null || order.getMeal() == null) {
+		if (order == null || order.getMeal() == null || rating == null) {
 			return;
 		}
 		Meal meal = mealDao.getMeal(order.getMeal().getId());
@@ -715,7 +716,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return;
 		}
 		calculateMealRating(meal, rating);
+		CustomerMeal customerMeal = customerMealDao.getCustomerMeal(order.getId());
+		customerMeal.setRating(rating);
 		mealDao.editMeal(meal);
+		customerMealDao.editCustomerMeal(customerMeal);
 	}
 
 	private void calculateMealRating(Meal meal, BigDecimal rating) {
@@ -936,6 +940,31 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 
 	public void setTaskExecutor(ThreadPoolTaskExecutor executor) {
 		this.threadPoolTaskExecutor = executor;
+	}
+
+	public void authenticateCustomer(Customer customer) {
+		CustomerOrder order = new CustomerOrder();
+		order.setCustomer(customer);
+		EmailActivation activation = new EmailActivation();
+		String code = CommonUtil.prepareActivationCode(order);
+		activation.setCode(code);
+		activation.setDate(new Date());
+		activation.setEmail(customer.getEmail());
+		customerDao.addActivationCode(activation);
+		customer.setActivationCode(code);
+		threadPoolTaskExecutor.execute(new MailUtil(order));
+	}
+
+	public boolean checkActivation(String email, String code) {
+		List<EmailActivation> activations = customerDao.getActivationCodes(email);
+		if(CollectionUtils.isEmpty(activations)) {
+			return false;
+		}
+		EmailActivation activation = activations.get(0);
+		if(StringUtils.equals(activation.getCode(), code)) {
+			return true;
+		}
+		return false;
 	}
 
 }

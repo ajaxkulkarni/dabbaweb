@@ -30,6 +30,7 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/prev_order.css"/>"
 	rel="stylesheet">
+<link href="<c:url value = "${resources}/css/star_rating.css"/>" rel="stylesheet">
 
 </head>
 <body>
@@ -41,56 +42,57 @@
 		<c:if test="${fn:length(customer.quickOrders) gt 0}">
 		<h4 class="order_summary_heading1"><p>Save 20% per tiffin by starting daily tiffin service!</p></h4>
 			<h4 class="order_summary_heading">Your Quick Orders:</h4>
-			<c:forEach items="${customer.quickOrders}" var="quickOrder">
+			<c:forEach items="${customer.quickOrders}" var="order">
 				<div class="order_details_card">
 					<div class="row">
 						<div class="col-md-6">
 							<img alt="no_image"
-								src="getMealImage.htm?mealId=${quickOrder.meal.id}"
+								src="getMealImage.htm?mealId=${order.meal.id}"
 								class="img-responsive tiffin_box_img1">
 						</div>
-						<fmt:formatDate pattern="yyyy-MM-dd" value="${quickOrder.date}"
-							var="quickOrderDate"></fmt:formatDate>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${order.date}"
+							var="orderDate"></fmt:formatDate>
 						<c:choose>
-							<c:when test="${quickOrderDate ne nowDateString}">
+							<c:when test="${orderDate ne nowDateString}">
 								<h3 class="menu_list_title">You have ordered
-									${quickOrder.meal.title} for tomorrow's(${quickOrderDate})
-									${quickOrder.mealType}.</h3>
+									${order.meal.title} for tomorrow's(${orderDate})
+									${order.mealType}.</h3>
 							</c:when>
-							<c:when test="${quickOrder.status == 'DELIVERED'}">
-                				Today's order ${quickOrder.meal.title} for ${quickOrder.mealType} has been delivered. Please rate us!
+							<c:when test="${order.status == 'DELIVERED'}">
+                				Today's order ${order.meal.title} for ${order.mealType} has been delivered.
+                				<%@include file="forms/customer_meal_rating.jsp" %>
                 			</c:when>
-							<c:when test="${quickOrder.status == 'CANCELLED'}">
-                				Today's order ${quickOrder.meal.title} for ${quickOrder.mealType} has been cancelled. Sorry for the inconvenience!
+							<c:when test="${order.status == 'CANCELLED'}">
+                				Today's order ${order.meal.title} for ${order.mealType} has been cancelled. Sorry for the inconvenience!
                 			</c:when>
 						</c:choose>
 						<c:choose>
 							<c:when
-								test="${quickOrder.content  != null && quickOrder.status!='CANCELLED'}">
+								test="${order.content  != null && order.status!='CANCELLED' && order.status != 'DELIVERED'}">
 								<div class="col-md-6">
-								<h3 class="menu_list_title">Vendor Name: ${quickOrder.meal.vendor.name}</h3>
-									<h3 class="menu_list_title">${quickOrder.mealType} menu of
-										Tiffin ${quickOrder.meal.title} for ${quickOrderDate} is:</h3>
+								<h3 class="menu_list_title">Vendor Name: ${order.meal.vendor.name}</h3>
+									<h3 class="menu_list_title">${order.mealType} menu of
+										Tiffin ${order.meal.title} for ${orderDate} is:</h3>
 									<table class="table table-bordered menu_list_table">
 										<tr>
 											<td>Sabji :</td>
-											<td>${quickOrder.content.mainItem}</td>
+											<td>${order.content.mainItem}</td>
 										</tr>
 										<tr>
 											<td>Chapati/Roti :</td>
-											<td>${quickOrder.content.subItem1}</td>
+											<td>${order.content.subItem1}</td>
 										</tr>
 										<tr>
 											<td>Rice/Dal :</td>
-											<td>${quickOrder.content.subItem2}</td>
+											<td>${order.content.subItem2}</td>
 										</tr>
 										<tr>
 											<td>Salad :</td>
-											<td>${quickOrder.content.subItem3}</td>
+											<td>${order.content.subItem3}</td>
 										</tr>
 										<tr>
 											<td>Extra :</td>
-											<td>${quickOrder.content.subItem4}</td>
+											<td>${order.content.subItem4}</td>
 										</tr>
 
 									</table>
@@ -98,20 +100,20 @@
 								<br/>
 								<br/>
 								<div class="col-md-6">
-									<%-- <h3 class="order_details_title">Your meal is ${quickOrder.meal.status}</h3> --%>
+									<%-- <h3 class="order_details_title">Your meal is ${order.meal.status}</h3> --%>
 									
 									<c:choose>
 									
-										<c:when test="${quickOrder.mealStatus == 'PREPARE' }">
+										<c:when test="${order.mealStatus == 'PREPARE' }">
 											<h3 class="order_details_title">Vendor got the sabji
 												from the market and is now preparing your meal.</h3>
 										</c:when>
-										<c:when test="${quickOrder.mealStatus == 'COOKING' }">
+										<c:when test="${order.mealStatus == 'COOKING' }">
 											<h3 class="order_details_title">Vendor started cooking
 												your meal. Hmmmm....smells delicious!!</h3>
 										</c:when>
 										<c:when
-											test="${quickOrder.mealStatus == 'DISPATCH' && quickOrder.status != 'DELIVERED' }">
+											test="${order.mealStatus == 'DISPATCH' && order.status != 'DELIVERED' }">
 											<h3 class="order_details_title">Your meal has been
 												dispatched. It will be delivered anytime now!</h3>
 										</c:when>
@@ -119,15 +121,15 @@
 
 								</div>
 							</c:when>
-							<c:when test="${quickOrder.content == null}">
-								Menu for ${quickOrder.meal.title} for ${quickOrder.mealType} is not currently updated by the vendor.
+							<c:when test="${order.content == null}">
+								Menu for ${order.meal.title} for ${order.mealType} is not currently updated by the vendor.
 							</c:when>
 						</c:choose>
 					</div>
 					<br/>
-					<div class="price">Date: ${quickOrderDate}</div><br/>
-					<div class="price">Number of Tiffins: ${quickOrder.quantity}</div><br/>
-					<div class="price">Total Price: ${quickOrder.price}</div><br/>
+					<div class="price">Date: ${orderDate}</div><br/>
+					<div class="price">Number of Tiffins: ${order.quantity}</div><br/>
+					<div class="price">Total Price: ${order.price}</div><br/>
 					
 
 					<%-- <form action="<%=Constants.REPEAT_ORDER_URL_POST %>" method="post">

@@ -37,8 +37,8 @@ lunch for group,get food online,get lunch online,get tiifins online,get khana on
 <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 <link href="<c:url value = "${resources}/css/home.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/FAQ.css"/>"
-	rel="stylesheet">
+<link href="<c:url value = "${resources}/css/FAQ.css"/>" rel="stylesheet">
+<link href="<c:url value = "${resources}/css/star_rating_static.css"/>" rel="stylesheet">
 	<link href="<c:url value = "${resources}/js/cycle.js"/>"
 	rel="stylesheet">
 	<link href="<c:url value = "${resources}/js/json_parse.js"/>"
@@ -86,6 +86,15 @@ $(document).ready(function(){
        $("#resultText").html("No tiffins currently available in your area for " + $("#orderDay").val() + "'s " + $("#mealType").val());
 	}
 	
+	function starRating(rating) {
+		if(rating == null) {
+			return "Not Rated";
+		}
+		
+		string = "<div class='rating_bar'><div  class='rating' style='width:" + rating*20 + "%;'></div></div>";
+		return string;
+	}
+	
 	function getMeals() {
 		var order = {date:"",mealType:$("#mealType").val(),mealFormat:$("#mealFormat").val(),location:{address:$("#areas").val()}};
 		var json = JSON.stringify(order);
@@ -119,6 +128,7 @@ $(document).ready(function(){
 					"<h4 class=\"menu_vendor_name\">" +meals[i].vendor.name + "</h4>" +
 					"<h4 class=\"menu_price\">" + "&#8377;" + meals[i].price + "</h4>" +
 					"<p>" + desc + "</p>" +
+					"<p>" + starRating(meals[i].rating) + "</p>" +
 					"<button type=\"button\" class=\"btn order_button\" onclick=\"getMenu(" + meals[i].id + ",'" + meals[i].title + "','"+ $("#mealType").val() +"','" + $("#orderDay").val() +"')\" >MENU</button>" +
 					"  <button type=\"button\" class=\"btn order_button\" onclick=\"chooseMeal(" + meals[i].id +")\" >ORDER</button>" +
 					"</div></div>";
@@ -179,7 +189,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		
 		<p class="banner_timing_text">Order your Lunch before 12 pm</p>
 		<p class="banner_timing_text">And Dinner before 7 pm</p>
-		
 		<h4 class="sub_div_heading">We currently serve in Pune</h4>
 		<div class="container banner_sub_div" id="top">
 			

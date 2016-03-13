@@ -31,28 +31,14 @@ public class MailUtil implements Runnable {
 		this.order = customerOrder;
 	}
 
-	public static void sendMail(CustomerOrder order) {
+	public static void sendPostOrderMail(CustomerOrder order) {
 
-		if (order == null || order.getMeal() == null || order.getCustomer() == null
-				|| StringUtils.isEmpty(order.getCustomer().getEmail())) {
+		if (order == null || order.getMeal() == null || order.getCustomer() == null || StringUtils.isEmpty(order.getCustomer().getEmail())) {
 			return;
 		}
-
-		Properties props = new Properties();
-
-		props.put("mail.smtp.auth", MAIL_AUTH);
-		// props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", MAIL_HOST);
-		props.put("mail.smtp.port", MAIL_PORT);
-
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(MAIL_ID, MAIL_PASSWORD);
-			}
-		});
-
+		Session session = prepareMailSession();
+		
 		try {
-
 			Message message = new MimeMessage(session);
 
 			message.setFrom(new InternetAddress(MAIL_ID));
@@ -70,6 +56,22 @@ public class MailUtil implements Runnable {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static Session prepareMailSession() {
+		Properties props = new Properties();
+
+		props.put("mail.smtp.auth", MAIL_AUTH);
+		// props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", MAIL_HOST);
+		props.put("mail.smtp.port", MAIL_PORT);
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(MAIL_ID, MAIL_PASSWORD);
+			}
+		});
+		return session;
 	}
 
 	private static String prepareScheduledMailContent(CustomerOrder order) {
@@ -111,7 +113,39 @@ public class MailUtil implements Runnable {
 	}
 
 	public void run() {
-		sendMail(order);
+		if(order == null) {
+			return;
+		}
+		if (order.getCustomer()!=null && order.getCustomer().getId() == 0) {
+			sendActivationMail(order);
+		} else {
+			sendPostOrderMail(order);
+		}
+	}
+
+	private void sendActivationMail(CustomerOrder order2) {
+		Session session = prepareMailSession();
+		try {
+			Message message = new MimeMessage(session);
+
+			message.setFrom(new InternetAddress(MAIL_ID));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(order.getCustomer().getEmail()));
+			message.setSubject("Just A few steps away from becoming a TiffEater...");
+			message.setText(prepareActivationMailContent(order));
+			Transport.send(message);
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String prepareActivationMailContent(CustomerOrder order) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Please click on the following link to get your account activated :").append(MAIL_NEW_LINE);
+		builder.append("http://").append(Constants.HOST_URL).append(Constants.URL_PREFIX).append(Constants.NEW_ACTIVATION_URL_GET).append("?")
+				.append(Constants.MODEL_CUSTOMER).append("=").append(order.getCustomer().getEmail()).append("&")
+				.append(Constants.MODEL_ACTIVATION_CODE).append("=").append(order.getCustomer().getActivationCode());
+		return builder.toString();
 	}
 
 }

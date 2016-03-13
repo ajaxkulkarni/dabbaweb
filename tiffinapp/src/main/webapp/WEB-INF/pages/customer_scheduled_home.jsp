@@ -98,8 +98,8 @@
 					</c:when>
 					<c:when test="${order.status == 'DELIVERED'}">
 						<h4 class="today">Your order ${order.meal.title} of
-							${order.mealType} for ${orderDate} has been delivered. Please
-							rate us!</h4>
+							${order.mealType} for ${orderDate} has been delivered.</h4>
+							<%@include file="forms/customer_meal_rating.jsp" %>
 					</c:when>
 					<c:when test="${order.status == 'INVALID'}">
 						<h4 class="today">Your order ${order.meal.title} of

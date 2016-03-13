@@ -20,6 +20,7 @@ public class Customer {
 	private List<CustomerOrder> previousOrders;
 	private CustomerOrder orderInProcess;
 	private Integer noOfTiffinsRemaining;
+	private String activationCode;
 	
 	public String getDeviceId() {
 		return deviceId;
@@ -110,6 +111,12 @@ public class Customer {
 	}
 	public void setNoOfTiffinsRemaining(Integer noOfTiffinsRemaining) {
 		this.noOfTiffinsRemaining = noOfTiffinsRemaining;
+	}
+	public String getActivationCode() {
+		return activationCode;
+	}
+	public void setActivationCode(String activationCode) {
+		this.activationCode = activationCode;
 	}
 	
 }

@@ -40,7 +40,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/tiffin" />
         <property name="username" value="root" />
-        <property name="password" value="" />
+        <property name="password" value="'asd'" />
         <!-- <property name="url" value="jdbc:mysql://localhost:3306/tiffeat_tiffin" />
         <property name="username" value="tiffeat_admin" />
         <property name="password" value="eat123" /> -->
@@ -63,6 +63,7 @@
 				<value>com.rns.tiffeat.web.dao.domain.Order</value>
 				<value>com.rns.tiffeat.web.dao.domain.CustomerMeal</value>
 				<value>com.rns.tiffeat.web.dao.domain.Transaction</value>
+				<value>com.rns.tiffeat.web.dao.domain.EmailActivation</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

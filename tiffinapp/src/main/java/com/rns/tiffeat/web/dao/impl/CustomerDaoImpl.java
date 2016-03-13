@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 
 import com.rns.tiffeat.web.dao.api.CustomerDao;
 import com.rns.tiffeat.web.dao.domain.Customer;
+import com.rns.tiffeat.web.dao.domain.EmailActivation;
 
 public class CustomerDaoImpl implements CustomerDao {
 
@@ -96,6 +97,24 @@ public class CustomerDaoImpl implements CustomerDao {
 		customers = createQuery.list();
 		session.close();
 		return customers;
+	}
+
+	public void addActivationCode(EmailActivation activation) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.persist(activation);
+		tx.commit();
+		session.close();
+	}
+	
+	public List<EmailActivation> getActivationCodes(String email) {
+		Session session = this.sessionFactory.openSession();
+		List<EmailActivation> activations = new ArrayList<EmailActivation>();
+		Query createQuery = session.createQuery("from EmailActivation where email=:email ORDER BY id DESC");
+		createQuery.setString("email", email);
+		activations = createQuery.list();
+		session.close();
+		return activations;
 	}
 
 }

@@ -71,6 +71,7 @@ public class DataToBusinessConverters implements Constants {
 		mealToBeAdded.setDinnerStatus(CommonUtil.getMealPhase(meal.getDinnerStatus()));
 		mealToBeAdded.setDescription(trimToEmpty(meal.getDescription()));
 		mealToBeAdded.setMealTime(CommonUtil.getMealType(meal.getType()));
+		mealToBeAdded.setRating(meal.getRating());
 		if (mealToBeAdded.getMealTime() == null) {
 			mealToBeAdded.setMealTime(MealType.BOTH);
 		}
@@ -94,6 +95,7 @@ public class DataToBusinessConverters implements Constants {
 		customerOrder.setMealFormat(CommonUtil.getMealFormat(trimToEmpty(latestMeal.getFormat())));
 		customerOrder.setMealType(CommonUtil.getMealType(trimToEmpty(latestMeal.getMealType())));
 		customerOrder.setMealStatus(CommonUtil.getMealStatus(customerOrder.getMealType(), customerOrder.getMeal()));
+		customerOrder.setRating(latestMeal.getRating());
 		Location location = new Location();
 		location.setAddress(latestMeal.getLocation());
 		customerOrder.setLocation(location);
