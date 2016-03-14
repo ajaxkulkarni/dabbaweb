@@ -53,6 +53,7 @@
 						</div>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${order.date}"
 							var="orderDate"></fmt:formatDate>
+						<div class="delivered">
 						<c:choose>
 							<c:when test="${orderDate ne nowDateString}">
 								<h3 class="menu_list_title">You have ordered
@@ -61,12 +62,14 @@
 							</c:when>
 							<c:when test="${order.status == 'DELIVERED'}">
                 				Today's order ${order.meal.title} for ${order.mealType} has been delivered.
+                				<br/>
                 				<%@include file="forms/customer_meal_rating.jsp" %>
                 			</c:when>
 							<c:when test="${order.status == 'CANCELLED'}">
                 				Today's order ${order.meal.title} for ${order.mealType} has been cancelled. Sorry for the inconvenience!
                 			</c:when>
 						</c:choose>
+						</div>
 						<c:choose>
 							<c:when
 								test="${order.content  != null && order.status!='CANCELLED' && order.status != 'DELIVERED'}">

@@ -88,7 +88,7 @@ $(document).ready(function(){
 	
 	function starRating(rating) {
 		if(rating == null) {
-			return "Not Rated";
+			return "<strong>Not Rated</strong>";
 		}
 		
 		string = "<div class='rating_bar'><div  class='rating' style='width:" + rating*20 + "%;'></div></div>";
