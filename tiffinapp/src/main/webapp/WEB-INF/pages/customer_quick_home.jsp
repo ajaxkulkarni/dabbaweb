@@ -30,7 +30,8 @@
 	rel="stylesheet">
 <link href="<c:url value = "${resources}/css/prev_order.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/star_rating.css"/>" rel="stylesheet">
+<link href="<c:url value = "${resources}/css/star_rating.css"/>" 
+    rel="stylesheet">
 
 </head>
 <body>
