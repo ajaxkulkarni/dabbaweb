@@ -88,7 +88,7 @@ public class MealDaoImpl implements MealDao {
 	public List<Meal> getAllMeals() {
 		List<Meal> meals = new ArrayList<Meal>();
 		Session session = this.sessionFactory.openSession();
-		Query createQuery = session.createQuery("from Meal");
+		Query createQuery = session.createQuery("from Meal order by rating DESC");
 		meals = createQuery.list();
 		session.close();
 		return meals;
