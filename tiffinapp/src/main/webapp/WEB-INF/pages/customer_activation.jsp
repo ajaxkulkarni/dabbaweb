@@ -20,14 +20,43 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Account activation</title>
+<style>
+.payment_details_card{
+	margin: 16px 70px;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.26);
+	background-color: white;
+	padding: 20px;
+	}
+	
+.details p{
+font-size:16px;
+font-family: 'Roboto', sans-serif;
+margin: center;
+}
+</style>
 </head>
 <body>
 
 <%@include file="header.jsp"%>
+<br/>
+<br/>
+<div class="payment_details_card">
+			<div class="row">
+				<div class="col-md-6">
+					
+						<div class="details">
+							<p>We have sent an activation link to your Email: ${email}</p><br/>
+<p>Please click on that link to activate your account and Enjoy <strong>TiffEating!</strong></p>
+							
+							
+						</div>
+						
+						
+						
+					</form>
+				</div>
+		</div>
 
-We have sent an activation link to your Email: ${email}
-
-Please click on that link to activate your account and Enjoy TiffEating!
 
 </body>
 </html>
