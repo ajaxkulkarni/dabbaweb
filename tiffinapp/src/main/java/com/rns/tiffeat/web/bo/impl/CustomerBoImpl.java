@@ -942,7 +942,12 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		this.threadPoolTaskExecutor = executor;
 	}
 
-	public void authenticateCustomer(Customer customer) {
+	public String authenticateCustomer(Customer customer) {
+		com.rns.tiffeat.web.dao.domain.Customer customerToBeAdded = new com.rns.tiffeat.web.dao.domain.Customer();
+		String result = prepareCustomer(customerToBeAdded, customer);
+		if(!RESPONSE_OK.equals(result)) {
+			return result;
+		}
 		CustomerOrder order = new CustomerOrder();
 		order.setCustomer(customer);
 		EmailActivation activation = new EmailActivation();
@@ -953,6 +958,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		customerDao.addActivationCode(activation);
 		customer.setActivationCode(code);
 		threadPoolTaskExecutor.execute(new MailUtil(order));
+		return RESPONSE_OK;
 	}
 
 	public boolean checkActivation(String email, String code) {

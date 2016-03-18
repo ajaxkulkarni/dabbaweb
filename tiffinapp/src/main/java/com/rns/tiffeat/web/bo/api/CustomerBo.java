@@ -65,7 +65,7 @@ public interface CustomerBo {
 	
 	void setTaskExecutor(ThreadPoolTaskExecutor executor);
 
-	void authenticateCustomer(Customer customer);
+	String authenticateCustomer(Customer customer);
 
 	boolean checkActivation(String email, String code);
 	

@@ -44,7 +44,6 @@ import com.rns.tiffeat.web.google.Location;
 import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
 import com.rns.tiffeat.web.util.LoggingUtil;
-import com.rns.tiffeat.web.util.MailUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
 
 @Controller
@@ -233,15 +232,13 @@ public class CustomerControllerWeb implements Constants {
 	
 	@RequestMapping(value = URL_PREFIX + REGISTER_CUSTOMER_URL_POST, method = RequestMethod.POST)
 	public RedirectView registerCustomer(Customer customer, ModelMap model) {
-		/*String result = customerBo.register(customer);
+		manager.getCustomer().setName(customer.getName());
+		manager.getCustomer().setPassword(customer.getPassword());
+		String result = customerBo.authenticateCustomer(customer);
 		if (!RESPONSE_OK.equals(result)) {
 			manager.setResult(result);
 			return new RedirectView(CUSTOMER_LOGIN_URL_GET);
 		}
-		return postLoginSuccess(customer);*/
-		manager.getCustomer().setName(customer.getName());
-		manager.getCustomer().setPassword(customer.getPassword());
-		customerBo.authenticateCustomer(customer);
 		RedirectView view = new RedirectView();
 		view.setUrl(CUSTOMER_ACTIVATION_URL_GET);
 		view.addStaticAttribute(MODEL_EMAIL, customer.getEmail());
@@ -413,7 +410,6 @@ public class CustomerControllerWeb implements Constants {
 				view = new RedirectView(QUICK_ORDER_URL_GET);
 			}
 		}
-		MailUtil.sendPostOrderMail(orderInProcess);
 		return view;
 	}
 

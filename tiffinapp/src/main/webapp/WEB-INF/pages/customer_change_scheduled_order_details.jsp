@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="<c:url value = "${resources}/css/star-rating.min.css"/>" media="all"
 	rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="<c:url value = "${resources}/css/change_order.css"/>">
+<link href="<c:url value = "${resources}/css/star_rating_static.css"/>" rel="stylesheet">
 <script src="<c:url value = "${resources}/js/getMenu.js"/>"></script>
 </head>
 
@@ -67,10 +68,14 @@
 					<div class="col-md-4">
 						<div class="menu_card">
 							<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive">
-			
 							<h4 class="menu_card_price">${meal.price}Rs.</h4>
 							<h4 class="menu_card_title">${meal.title}</h4>
 							<h4 class="menu_card_title">${meal.vendor.name}</h4>
+							<div class='rating_bar'>
+								<c:if test="${meal.rating != null}">
+									<div class='rating' style='width:${meal.rating*20}%'></div>
+								</c:if>
+							</div>
 							<input type="hidden" name="meal.title" value="${meal.title}" /> 
 							<input type="hidden" name="meal.id" value="${meal.id}" />
 							<button type="button" class="btn order_button" onclick="getMenu(${meal.id},'${meal.title}','${customerOrder.mealType}')">MENU</button>

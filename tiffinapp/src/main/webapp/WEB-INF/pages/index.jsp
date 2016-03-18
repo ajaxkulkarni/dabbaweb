@@ -231,46 +231,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<!--        Start of menu list div-->
 
 	<div class="container" id="vendorsList">
-		<%-- <c:choose>
-			<c:when test="${fn:length(meals) gt 0}"> --%>
-				<h4 class="menu_card_heading" id = "resultText">Tiffins in Your Area </h4>
-				<div class="row" id="rows">
-					<%-- <c:forEach items="${meals}" var="meal">
-						<form action="<%=Constants.SELECT_MEAL_FORMAT_URL_POST %>" method="post">
-							<div class="col-md-4">
-								<div class="menu_card">
-									<img src="getMealImage.htm?mealId=${meal.id}" class="menu_card_image img-responsive" />
-									
-									<h4 class="menu_meal_title">${meal.title}</h4>
-									<h4 class="menu_vendor_name">${meal.vendor.name}</h4>
-									${meal.menu}
-									<br/>
-									<input type="hidden" name="title" value="${meal.title}"/>
-                					<input type="hidden" name="id" value="${meal.id}"/>
-               						<input type="hidden" name="description" value="${meal.description}"/>
-                					<input type="hidden" name="price" value="${meal.price}"/>
-                					<button type="submit" class="btn order_button">ORDER</button>
-								</div>
-							</div>
-						</form>
-					</c:forEach> --%>
-				</div>
-			<%-- </c:when>
-			<c:otherwise>
-				<c:if test="${result != 'OK' }">
-					<h4 class="menu_card_heading">${result}</h4>
-				</c:if>
-			</c:otherwise>
-		</c:choose> --%>
+		<h4 class="menu_card_heading" id = "resultText">Tiffins in Your Area </h4>
+		<div class="row" id="rows">
+		</div>
 	</div>
 	
-	<%-- <div class="container googlePlayBlock">
-		<p>You can also try our app for more features:<br><span style="font-size: 12px;">(And help us squash some bugs)</span></p>
-		
-		<a href="https://play.google.com/store/apps/details?id=com.rns.tiffeat.mobile&hl=en" target="_blank">
-		<img src="<c:url value = "${resources}/img/google-play-badge.png"/>"></a>
-	</div> --%>
-
 	<div class="container">
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/hourglass.svg"/>">

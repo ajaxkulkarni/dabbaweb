@@ -56,6 +56,9 @@ public class CommonUtil implements Constants {
 	}
 
 	public static String convertDateToString(Date date) {
+		if(date == null) {
+			return null;
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 		return sdf.format(date);
 	}
@@ -411,7 +414,7 @@ public class CommonUtil implements Constants {
 	}
 	
 	public static String prepareActivationCode(CustomerOrder order) {
-		return StringUtils.substring(order.getCustomer().getEmail(), 0, 1) + Math.floor(Math.random()*1000000);
+		return StringUtils.removeEnd(StringUtils.capitalize(StringUtils.substring(order.getCustomer().getEmail(), 0, 1)) + Math.floor(Math.random()*1000000), ".0");
 	}
 
 	public static BigDecimal calculateValue(String rating) {

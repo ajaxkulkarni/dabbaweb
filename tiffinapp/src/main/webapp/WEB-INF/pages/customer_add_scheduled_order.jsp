@@ -31,7 +31,7 @@
 <link rel="stylesheet" href="css/star-rating.min.css" media="all"
 	rel="stylesheet" type="text/css" />
 
-
+<link href="<c:url value = "${resources}/css/star_rating_static.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/add lunch_dinner.css"/>" rel="stylesheet">
 </head>
 
@@ -77,6 +77,11 @@
 							<h4 class="menu_card_title">${meal.title}</h4>
 							<h4 class="menu_card_title">${meal.vendor.name}</h4>
 							Starts from : ${meal.startsFromDay}
+							<div class='rating_bar'>
+								<c:if test="${meal.rating != null}">
+									<div class='rating' style='width:${meal.rating*20}%'></div>
+								</c:if>
+							</div>
 							<input type="hidden" name="meal.title" value="${meal.title}" /> 
 							<input type="hidden" name="meal.id" value="${meal.id}" />
 							<input type="hidden" name="meal.price" value="${meal.price}" />

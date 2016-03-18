@@ -9,7 +9,8 @@ public enum PaymentType {
 	
 	private String description;
 	
-	PaymentType(String description) {
+	private PaymentType(String description) {
+		setDescription(description);
 	}
 	
 	public String getDescription() {
