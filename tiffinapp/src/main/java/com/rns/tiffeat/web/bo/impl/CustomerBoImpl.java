@@ -715,15 +715,17 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		if (meal == null) {
 			return;
 		}
-		calculateMealRating(meal, rating);
 		CustomerMeal customerMeal = customerMealDao.getCustomerMeal(order.getId());
 		customerMeal.setRating(rating);
-		mealDao.editMeal(meal);
 		customerMealDao.editCustomerMeal(customerMeal);
+		calculateMealRating(meal, rating);
+		mealDao.editMeal(meal);
 	}
 
 	private void calculateMealRating(Meal meal, BigDecimal rating) {
-		if (meal.getVendor() == null) {
+		Double averageRating = customerMealDao.getAverageRating(meal.getId());
+		meal.setRating(new BigDecimal(averageRating));
+		/*if (meal.getVendor() == null) {
 			return;
 		}
 		com.rns.tiffeat.web.dao.domain.Vendor vendor = meal.getVendor();
@@ -738,7 +740,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		meal.setFeedbacks(meal.getFeedbacks() + 1);
 		meal.setRating(total.divide(new BigDecimal(meal.getFeedbacks())));
 
-		calculateVendorRating(rating, vendor);
+		calculateVendorRating(rating, vendor);*/
 	}
 
 	private void calculateVendorRating(BigDecimal rating, com.rns.tiffeat.web.dao.domain.Vendor vendor) {

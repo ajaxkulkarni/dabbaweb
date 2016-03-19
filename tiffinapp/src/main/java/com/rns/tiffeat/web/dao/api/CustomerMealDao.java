@@ -18,4 +18,5 @@ public interface CustomerMealDao {
 	void editCustomerMeal(CustomerMeal meal);
 	List<CustomerMeal> getScheduledMealsForMeal(long id, MealType mealType);
 	long addCustomerMeals(List<CustomerMeal> customerMealsToBeAdded);
+	Double getAverageRating(long mealId);
 }

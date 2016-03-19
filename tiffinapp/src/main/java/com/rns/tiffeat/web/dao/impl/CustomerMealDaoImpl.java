@@ -1,6 +1,7 @@
 
 package com.rns.tiffeat.web.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -148,6 +149,17 @@ public class CustomerMealDaoImpl implements CustomerMealDao {
 		tx.commit();
 		session.close();
 		return id;
+	}
+
+	public Double getAverageRating(long mealId) {
+		Session session = this.sessionFactory.openSession();
+		Query query = session.createQuery("SELECT avg(rating) from CustomerMeal where meal.id=:meal_id");
+		query.setLong("meal_id", mealId);
+		Double avg = new Double(0);
+		if(query.iterate().hasNext()) {
+			avg = (Double) query.iterate().next();
+		}
+		return avg;
 	}
 
 }
