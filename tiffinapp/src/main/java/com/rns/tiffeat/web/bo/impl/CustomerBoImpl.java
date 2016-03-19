@@ -594,10 +594,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	public String changeScheduledOrder(CustomerOrder customerOrder) {
-		if (customerOrder == null || customerOrder.getContent() == null) {
+		if (customerOrder == null || customerOrder.getCustomer() == null) {
 			return ERROR_INVALID_ORDER_DETAILS;
 		}
-		if (customerOrder.getCustomer() == null || customerOrder.getMeal() == null) {
+		if (customerOrder.getMeal() == null) {
 			return ERROR_INVALID_MEAL_DETAILS;
 		}
 		if (StringUtils.isEmpty(customerOrder.getAddress()) || customerOrder.getLocation() == null) {
@@ -612,7 +612,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return ERROR_MEAL_NOT_AVAILABLE_PLEASE_CHECK_AGAIN;
 		}
 		DailyMeal dailyMeal = dailyMealDao.getDailyMealsForMealType(meal.getId(), customerOrder.getMealType());
-		if (dailyMeal != null && !DateUtils.isSameDay(dailyMeal.getDate(), customerOrder.getContent().getDate())) {
+		if (dailyMeal != null && customerOrder.getContent() != null && !DateUtils.isSameDay(dailyMeal.getDate(), customerOrder.getContent().getDate())) {
 			return ERROR_CANT_CHANGE_THE_MEAL;
 		}
 		CustomerMeal customerMeal = customerMealDao.getCustomerMeal(customerOrder.getId());
@@ -633,12 +633,15 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 	}
 
 	private boolean mealCanBeChanged(CustomerOrder customerOrder, CustomerMeal customerMeal) {
+		if(OrderStatus.INVALID.equals(customerOrder.getStatus())) {
+			return true;
+		}
 		CustomerOrder order = new CustomerOrder();
 		order.setMeal(DataToBusinessConverters.convertMeal(customerMeal.getMeal()));
 		order.setMealType(customerOrder.getMealType());
 		Map<MealType, Date> mealTypesMap = getAvailableMealTypeDates(order);
 		if (mealTypesMap == null || mealTypesMap.get(order.getMealType()) == null
-				|| !DateUtils.isSameDay(mealTypesMap.get(order.getMealType()), customerOrder.getContent().getDate())) {
+				|| (customerOrder.getContent() != null && !DateUtils.isSameDay(mealTypesMap.get(order.getMealType()), customerOrder.getContent().getDate()))) {
 			return false;
 		}
 		return true;
@@ -799,7 +802,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		return mealTypeDates;
 	}
 
-	private void setMenu(CustomerOrder order, DailyContent lunchContent) {
+	/*private void setMenu(CustomerOrder order, DailyContent lunchContent) {
 		if (lunchContent == null || lunchContent.getDate() == null) {
 			order.getMeal().setMenu(ERROR_MENU_NOT_AVAILABLE_YET);
 		} else if (order.getDate() != null && DateUtils.isSameDay(lunchContent.getDate(), order.getDate())) {
@@ -807,7 +810,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		} else {
 			order.getMeal().setMenu(ERROR_MENU_NOT_AVAILABLE_YET);
 		}
-	}
+	}*/
 
 	private boolean isMealAvailableForMealType(Meal meal, MealType mealType) {
 		MealType type = CommonUtil.getMealType(meal.getType());

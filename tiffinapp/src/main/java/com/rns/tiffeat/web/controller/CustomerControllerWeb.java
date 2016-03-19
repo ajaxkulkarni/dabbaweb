@@ -35,6 +35,7 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 import com.rns.tiffeat.web.bo.domain.MealType;
+import com.rns.tiffeat.web.bo.domain.OrderStatus;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
 import com.rns.tiffeat.web.bo.domain.Vendor;
@@ -623,8 +624,8 @@ public class CustomerControllerWeb implements Constants {
 
 	@RequestMapping(value = URL_PREFIX + CHANGE_MEAL_URL_POST, method = RequestMethod.POST)
 	public RedirectView changeMeal(CustomerOrder customerOrder, String menuDate, ModelMap model) {
-		boolean isVendorClosed = VendorStatus.CLOSED.equals(customerOrder.getMeal().getVendor().getStatus());
-		if (StringUtils.isEmpty(menuDate) && !isVendorClosed) {
+		//boolean isVendorClosed = VendorStatus.CLOSED.equals(customerOrder.getMeal().getVendor().getStatus());
+		if (StringUtils.isEmpty(menuDate) && !OrderStatus.INVALID.equals(customerOrder.getStatus())) {
 			manager.setResult(ERROR_CANT_CHANGE_THE_MEAL);
 			return new RedirectView(CUSTOMER_HOME_URL_GET);
 		}
@@ -632,12 +633,14 @@ public class CustomerControllerWeb implements Constants {
 		Map<MealType, Date> mealTypeDates = customerBo.getAvailableMealTypeDates(customerOrder);
 		Date mealTypeAvailableDate = mealTypeDates.get(customerOrder.getMealType());
 		if (mealTypeAvailableDate == null || !DateUtils.isSameDay(mealTypeAvailableDate, contentDate)) {
-			if(!isVendorClosed) {
+			if(!OrderStatus.INVALID.equals(customerOrder.getStatus())) {
 				manager.setResult(ERROR_CANT_CHANGE_THE_MEAL);
 				return new RedirectView(CUSTOMER_HOME_URL_GET);
 			}
 		}
-		customerOrder.getContent().setDate(contentDate);
+		if(customerOrder.getContent() != null) {
+			customerOrder.getContent().setDate(contentDate);
+		}
 		customerOrder.setDate(contentDate);
 		customerOrder.setCustomer(manager.getCustomer());
 		// manager.setAvailableVendors(customerBo.getAvailableVendors(CommonUtil.getPinCode(customerOrder.getArea())));

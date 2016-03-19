@@ -1,6 +1,7 @@
 <%@page import="com.rns.tiffeat.web.util.Constants"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,10 +18,13 @@
 		<input type="hidden" name="meal.id" value="${order.meal.id}" /> 
 		<input type="hidden" name="mealFormat" value="${order.mealFormat}" /> 
 		<input type="hidden" name="address" value="${order.address}" /> 
-		<input type="hidden" name="content.id" value="${order.content.id}" /> 
+		<c:if test = "${order.content != null }">
+			<input type="hidden" name="content.id" value="${order.content.id}" /> 
+		</c:if>
 		<input type="hidden" name="location.address" value="${order.location.address}" /> 
 		<input type="hidden" name="menuDate" value="${order.content.date}" /> 
 		<input type="hidden" name="meal.vendor.status" value="${order.meal.vendor.status}"> 
+		<input type="hidden" name="status" value="${order.status}"> 
 		<input type="submit" value="CHANGE THIS MEAL" class="btn order_button">
 	</form>
 
