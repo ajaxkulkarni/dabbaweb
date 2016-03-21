@@ -717,7 +717,10 @@ public class CustomerControllerWeb implements Constants {
 	public RedirectView rateMeal(ModelMap model,CustomerOrder order,String rating) {
 		BigDecimal ratingValue = CommonUtil.calculateValue(rating);
 		customerBo.rateMeal(order, ratingValue);
-		return new RedirectView(CUSTOMER_HOME_URL_GET);
+		if(MealFormat.QUICK.equals(order.getMealFormat())) {
+			return new RedirectView(QUICK_ORDERS_HOME_URL_GET);
+		}
+		return new RedirectView(SCHEDULED_ORDERS_URL_GET);
 	}
 
 	private List<Vendor> getLatestVendors() {

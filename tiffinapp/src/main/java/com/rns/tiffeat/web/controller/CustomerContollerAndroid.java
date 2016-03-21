@@ -35,7 +35,6 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
-import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
 import com.rns.tiffeat.web.util.ImageUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
@@ -309,6 +308,13 @@ public class CustomerContollerAndroid implements Constants {
 	public @ResponseBody String getMeals(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder) {
 		List<Meal> availableMeals = customerBo.getAvailableMeals(new Gson().fromJson(customerOrder, CustomerOrder.class));
 		return new Gson().toJson(availableMeals);
+	}
+	
+	@RequestMapping(value = "/rateMealAndroid", method = RequestMethod.POST)
+	public @ResponseBody String rateMeal(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder) {
+		CustomerOrder customerOrderObject = new Gson().fromJson(customerOrder, CustomerOrder.class);
+		customerBo.rateMeal(customerOrderObject, customerOrderObject.getRating());
+		return RESPONSE_OK;
 	}
 	
 }
