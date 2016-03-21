@@ -167,6 +167,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			return ERROR_PHONE_NUMBER_ALREADY_PRESENT;
 		}
 
+		if(StringUtils.isNotEmpty(customer.getDeviceId())) {
+			if(customerDao.getCustomerByDevice(customer.getDeviceId()) != null) {
+				return ERROR_DEVICE_ALREADY_PRESENT;
+			}
+		}
 		BusinessToDataConverters.convertCustomer(customerToBeAdded, customer);
 		return RESPONSE_OK;
 	}

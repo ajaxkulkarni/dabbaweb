@@ -16,4 +16,5 @@ public interface CustomerDao {
 	List<Customer> getAllCustomers();
 	void addActivationCode(EmailActivation emailActivation);
 	List<EmailActivation> getActivationCodes(String email);
+	Customer getCustomerByDevice(String deviceId);
 }

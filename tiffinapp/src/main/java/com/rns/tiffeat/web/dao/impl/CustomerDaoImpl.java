@@ -117,4 +117,17 @@ public class CustomerDaoImpl implements CustomerDao {
 		return activations;
 	}
 
+	public Customer getCustomerByDevice(String deviceId) {
+		Session session = this.sessionFactory.openSession();
+		List<Customer> customers = new ArrayList<Customer>();
+		Query createQuery = session.createQuery("from Customer where deviceId=:device_id");
+		createQuery.setString("device_id", deviceId);
+		customers = createQuery.list();
+		session.close();
+		if(CollectionUtils.isEmpty(customers)) {
+			return null;
+		}
+		return customers.get(0);
+	}
+
 }
