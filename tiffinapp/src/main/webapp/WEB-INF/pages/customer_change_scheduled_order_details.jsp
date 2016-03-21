@@ -53,6 +53,7 @@
 						${customerOrder.meal.title} <br /> <br /> Vendor Name:
 						${customerOrder.meal.vendor.name} <br /> <br /> 
 					<%@include file = "forms/customer_change_order_form.jsp" %>
+					
 				</div>
 			</div>
 		</div>
@@ -77,7 +78,7 @@
 								</c:if>
 							</div>
 							<input type="hidden" name="meal.title" value="${meal.title}" /> 
-							<input type="hidden" name="meal.id" value="${meal.id}" />
+							<input type="hidden" name="meal.id" value="${meal.id}" /><br/>
 							<button type="button" class="btn order_button" onclick="getMenu(${meal.id},'${meal.title}','${customerOrder.mealType}')">MENU</button>
 							<button type="submit" class="btn order_button">ORDER</button>
 						</div>

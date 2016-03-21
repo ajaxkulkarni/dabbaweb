@@ -41,7 +41,7 @@
 </form>
 </c:if>
 <c:if test="${order.rating != null  }">
-    <strong> You have rated ${order.rating}.</strong>
+    <h4> You have rated ${order.rating}.</h4>
 </c:if>
 </body>
 </html>

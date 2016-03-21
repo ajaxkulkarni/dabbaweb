@@ -17,6 +17,7 @@
 				<div class="divspacing">
 					<textarea class="form-control" type="text" pattern="" id="txtAddress" name="address" placeholder="ADDRESS" required="required">${customerOrder.address}</textarea>
 				</div>
+				
 				<div class="submit_order">
 					<input type="submit" name="" value="Find Meals"	class="btn order_button">
 				</div>
