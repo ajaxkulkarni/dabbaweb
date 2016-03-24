@@ -132,7 +132,11 @@ public class MailUtil implements Runnable {
 				result = StringUtils.replace(result, "${mealType}", order.getMealType().getDescription());
 			}
 			result = StringUtils.replace(result, "${orderDate}", CommonUtil.convertDateToString(order.getDate()));
-			result = StringUtils.replace(result, "${price}", String.valueOf(order.getPrice()));
+			result = StringUtils.replace(result, "${price}", String.valueOf(CommonUtil.calculatePrice(order)));
+			if(MealFormat.SCHEDULED.equals(order.getMealFormat())) {
+				result = StringUtils.replace(result, "${price}", String.valueOf(order.getMeal().getPrice()));
+			}
+			result = StringUtils.replace(result, "${quantity}", String.valueOf(order.getQuantity()));
 			if(order.getPaymentType() != null) {
 				result = StringUtils.replace(result, "${paymentType}", order.getPaymentType().getDescription());
 			}

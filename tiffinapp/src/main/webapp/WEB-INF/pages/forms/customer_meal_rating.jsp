@@ -16,7 +16,7 @@
 <fieldset class="rating">
 	<input type="hidden" name="id" value="${order.id}"/>
 	<input type="hidden" name="meal.id" value="${order.meal.id}"/>
-	<input type="hidden" name="meal.id" value="${order.mealFormat}"/>
+	<input type="hidden" name="mealFormat" value="${order.mealFormat}"/>
     <input type="radio" id="star5" name="rating" value="5" />
     <label class = "full" for="star5" title="Awesome - 5 stars"></label>
     <input type="radio" id="star4half" name="rating" value="4.5" />
