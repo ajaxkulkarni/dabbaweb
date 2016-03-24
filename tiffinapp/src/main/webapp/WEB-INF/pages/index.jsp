@@ -50,9 +50,7 @@ lunch for group,get food online,get lunch online,get tiifins online,get khana on
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="<c:url value = "${resources}/js/getMenu.js"/>"></script>
 
-<title>TiffEat | Order tiffin online, Order meal online, Order
-	homemade food online, Order food online, Order online Pune</title>
-	
+
 <script type="text/javascript">
 $(document).ready(function(){
 	selected();
