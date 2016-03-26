@@ -288,3 +288,24 @@ input:-moz-placeholder {
 	color: #337ab7;
 }
 /*End of Css for Footer*/
+
+
+.googlePlayBlock {
+	text-align: center;
+	margin: 48px auto;
+}
+
+.googlePlayBlock p {
+	font-size: 20px;
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: 500;
+}
+
+.googlePlayBlock a{
+	text-align: center;
+	cursor: pointer;
+}
+.googlePlayBlock img {
+	max-width: 204px;
+	text-align: center;
+}
