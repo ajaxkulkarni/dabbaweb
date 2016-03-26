@@ -225,7 +225,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<!--        End of Banner part-->
 
 
-	<!--        Start of menu list div
+	<!--        Start of menu list div -->
 
 	<div class="container" id="vendorsList">
 		<h4 class="menu_card_heading" id = "resultText">Tiffins in Your Area </h4>
@@ -233,7 +233,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</div>
 	</div>
 	
-	<div class="container">
+	<!--<div class="container">
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/hourglass.svg"/>">
 		<p class="inShortContent">Order a meal in seconds</p>
