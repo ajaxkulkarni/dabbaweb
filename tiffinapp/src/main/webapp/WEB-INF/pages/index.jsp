@@ -37,7 +37,7 @@ lunch for group,get food online,get lunch online,get tiifins online,get khana on
 <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 <link href="<c:url value = "${resources}/css/home.css"/>"
 	rel="stylesheet">
-<link href="<c:url value = "${resources}/css/FAQ.css"/>" rel="stylesheet">
+<link href="<c:url value = "${resources}/css/faq.css"/>" rel="stylesheet">
 <link href="<c:url value = "${resources}/css/star_rating_static.css"/>" rel="stylesheet">
 	<link href="<c:url value = "${resources}/js/cycle.js"/>"
 	rel="stylesheet">
@@ -57,8 +57,6 @@ $(document).ready(function(){
 	selected();
 	$("#resultText").hide();
 });
-
-
 	function selected() {
 		if($("#mealFormat").val() == "SCHEDULED") {
 			$("#orderDay").hide();
@@ -176,7 +174,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	<!--        Banner part-->
 	<div class="container-fluid tiffin_banner">
-	
 	<div class="container">
 		<h3 class="banner_heading">
 			Order supremely healthy homemade meals online!
@@ -186,7 +183,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<img src="<c:url value = "${resources}/img/google-play-badge.png"/>" >
 			</a>
 		</div>
-		
 		
 		<p class="banner_timing_text">Order your Lunch before 12 pm</p>
 		<p class="banner_timing_text">And Dinner before 7 pm</p>
@@ -221,15 +217,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						<button type="button" onclick="getMeals()" class="btn loc_button" title="I want healthy food!">Find mealsss</button>
 					</div>
 				</form>
-			</div></div>
+			</div>
 			<%--  </c:if> --%>
 		</div>
 		</div>
-	
+	</div>
 	<!--        End of Banner part-->
 
 
-	<!--        Start of menu list div-->
+	<!--        Start of menu list div
 
 	<div class="container" id="vendorsList">
 		<h4 class="menu_card_heading" id = "resultText">Tiffins in Your Area </h4>
@@ -237,7 +233,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</div>
 	</div>
 	
-	<!--  <div class="container">
+	<div class="container">
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/hourglass.svg"/>">
 		<p class="inShortContent">Order a meal in seconds</p>
@@ -254,7 +250,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<img class="inShortContentImages"
 			src="<c:url value = "${resources}/img/jumping_man.svg"/>">
 		<p class="inShortContent">Enjoy your free time!</p>-->
-<!--  <div class="container">
+
+<div class="container">
 		<h1 class="FAQTitle">FAQs</h1>
 
 		<div class="FAQCard">
@@ -306,7 +303,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					href="mailto:contact@tiffeat.com" class="universal_link">contact@tiffeat.com</a>
 				and help us so that this wont happen again.
 			</p>
-		</div>-->
+		</div>
 		<p class="weAreFlattered">Thank you for checking us out. We are
 			flattered!</p>
 	</div>
@@ -315,7 +312,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<ul >
 			<li><a href="<%=Constants.TERMS_URL_GET%>">Privacy Policy</a></li>
 			<li><a href="<%=Constants.ABOUT_US_URL_GET%>">About Us</a></li>
-			
 		</ul>
 	</div>
 	<div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="myLabel">
@@ -343,7 +339,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$("#areas").geocomplete({
 				types : [ "geocode", "establishment" ],
 			});
-
 		});
 	</script>
 </body>

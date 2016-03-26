@@ -17,7 +17,7 @@ public interface Constants {
     }});
 	
 	String PAYMENT_PREFIX = "T";
-	String HOST_URL = "192.168.0.7:8080/tiffeat-web";
+	String HOST_URL = "192.168.0.5:8080/tiffeat-web";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
 	String MERCHANT_KEY = "gtKFFx"; // DEV
@@ -161,7 +161,7 @@ public interface Constants {
 	String INDEX_URL_GET = "home.htm";
 	String CUSTOMER_ACTIVATION_URL_GET = "activation.htm";
 	String NEW_ACTIVATION_URL_GET = "newActivation";
-	String FAQ_URL_GET = "faq.htm";
+	
 	
 	String REGISTER_CUSTOMER_URL_POST = "registerCustomer";
 	String QUICK_ORDER_URL_POST = "quickOrder";
@@ -201,7 +201,6 @@ public interface Constants {
 	String ABOUT_US_PAGE = "customer_about_us";
 	String TERMS_PAGE = "customer_terms";
 	String CUSTOMER_ACTIVATION_PAGE = "customer_activation";
-	String FAQ_PAGE = "faq";
 	
 	
 	//5123456789012346
