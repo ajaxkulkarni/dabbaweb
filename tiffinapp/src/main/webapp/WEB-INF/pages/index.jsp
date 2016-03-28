@@ -258,21 +258,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 			<h3 class="faq_question">What is TiffEat?</h3>
 			<p class="faq_answer">TiffEat is a tiffin delivery service that
-				brings you a meal from your chosen kitchen.</p>
-
+				brings you a home made meal from your chosen kitchen. We thrive to solve your 'roj ke khane ka' problem by giving you the most flexible system there is for daily meals.</p>
+			
+			<h3 class="faq_question">How do I start regular Tiffin?</h3>
+			<p class="faq_answer">This is the best part. Register. Select a meal of your choice. Add any amount in your tiffeat wallet. Get started. As and when you get your tiffin, amount will be deducted from your balance. You can also cancel your order whenever not required, and save money. No monthly tiffin hassle!</p>
+	
 			<h3 class="faq_question">When do I get my meal?</h3>
 			<p class="faq_answer">We deliver your tiffin(s) for LUNCH between
 				12pm - 2pm and for DINNER between 8pm - 10pm.</p>
-
+	
+			<h3 class="faq_question">What if I get bored with my current meal?</h3>
+			<p class="faq_answer">You chose a different meal. Simple. You can do this everyday you know.</p>
+	
 			<h3 class="faq_question">Why do I need TiffEat?</h3>
 			<p class="faq_answer">Well, that's a subjective question. If you
 				prefer affordable home cooked meals that remind you of your mother's
 				cooking then we are glad to serve you. You eat at home usually, you
 				eat in restaurants occasionally. Right?</p>
 
-			<h3 class="faq_question">I can't find my area in your list.</h3>
+			<h3 class="faq_question">I can't find any tiffins in my area.</h3>
 			<p class="faq_answer">
-				In that case, we are not yet available in your area. But be assured
+				In that case, we are not yet available in your area or the order timing is over (Lunch - till 12 PM, Dinner - till 7 PM). But be assured
 				that we are tucking our shirts in, folding our cuffs and tying back
 				our hair to come serve you in your area. If you want to suggest us
 				your area, please shoot us a mail at <a
