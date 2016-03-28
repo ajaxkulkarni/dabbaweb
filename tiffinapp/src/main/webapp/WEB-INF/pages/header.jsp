@@ -50,6 +50,7 @@
 				<c:if test="${customer.email != null }">
 					<li><a href="<%=Constants.SCHEDULED_ORDERS_URL_GET%>">My Daily Tiffin</a></li>
 					<li><a href="<%=Constants.QUICK_ORDERS_HOME_URL_GET%>">My Quick Orders</a></li>
+					<li><a href="<%=Constants.ADD_MONEY_TO_WALLET_URL_GET%>">My Wallet</a></li>
 					<li><a href="<%=Constants.LOGOUT_URL_GET%>">Logout</a></li>
 					<li class="navbar-text" id="navbar_link1" title="How are you today?">Welcome
 						${customer.name}</li>
