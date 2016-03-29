@@ -39,7 +39,6 @@ import com.rns.tiffeat.web.bo.domain.OrderStatus;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
 import com.rns.tiffeat.web.bo.domain.Vendor;
-import com.rns.tiffeat.web.bo.domain.VendorStatus;
 import com.rns.tiffeat.web.google.GoogleUtil;
 import com.rns.tiffeat.web.google.Location;
 import com.rns.tiffeat.web.util.CommonUtil;

@@ -15,14 +15,44 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link
 	href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500'
 	rel='stylesheet' type='text/css'>
 <link href="<c:url value = "${resources}/css/customer_add_to_wallet.css"/>"
 	rel="stylesheet">
 <title>TiffEat | Add Money To Wallet</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	calculateNoOfTiffins();
+    $("input").keyup(function(){
+    	calculateNoOfTiffins();
+    });
+});
+
+function calculateNoOfTiffins() {
+	var price1 = parseFloat($("#meal1").val());
+	var price2 = parseFloat($("#meal2").val());
+	var dailyPrice;
+	if(isNaN(price2)) {
+		dailyPrice = price1;
+	} else {
+		dailyPrice = price1 + price2;
+	}
+	var currentBalance = parseFloat($("#customerBalance").val());
+	var balance = parseFloat( $("input").val());
+	var total;
+	if(!isNaN(balance)) {
+		total = Math.floor((currentBalance + balance)/(dailyPrice));
+	} else {
+		total = Math.floor((currentBalance)/(dailyPrice));
+	}
+	$("#noOfTiffins").text("No of Tiffins:" + total);
+}
+
+</script>
+
 </head>
 <body>
 
@@ -43,7 +73,7 @@
 						<label id="rupee_label"> Rs. </label> ${customer.balance}
 					</h6>
 					<form action="<%=Constants.ADD_MONEY_TO_WALLET_URL_POST%>" method="post">
-						<input type="text" class="form-control" placeholder="Amount (Rs) " pattern="[0-9.]*" maxlength="4" required  name="amount">
+						<input id="balace" type="text"  class="form-control" placeholder="Amount (Rs) " pattern="[0-9.]*" maxlength="4" required  name="amount">
 						<button type="submit" name="amount" class="btn  add_money_button">Add Money</button>
 					</form>
 					<c:if test="${customer.balance > 100 }">
@@ -52,12 +82,15 @@
 								Later</button>
 						</form>
 					</c:if>
+					<input type = "hidden" id = "meal1" value = "${customer.scheduledOrder[0].meal.price}"  />
+					<input type = "hidden" id = "meal2" value = "${customer.scheduledOrder[1].meal.price}" />
+					<input type = "hidden" id = "customerBalance" value = "${customer.balance}" />
+					<div id="noOfTiffins"></div>
 				</div>
 			</div>
 
 		</div>
 
-		</form>
 	</div>
 	<%@include file="footer.jsp"%>
 </body>
