@@ -48,7 +48,7 @@ function calculateNoOfTiffins() {
 	} else {
 		total = Math.floor((currentBalance)/(dailyPrice));
 	}
-	$("#noOfTiffins").text("No of Tiffins:" + total);
+	$("#noOfTiffins").text("Number of Tiffins : "  +  total);
 }
 
 </script>
@@ -72,6 +72,11 @@ function calculateNoOfTiffins() {
 					<h6 class="wallet_balance1">
 						<label id="rupee_label"> Rs. </label> ${customer.balance}
 					</h6>
+					<input type = "hidden" id = "meal1" value = "${customer.scheduledOrder[0].meal.price}"  />
+					<input type = "hidden" id = "meal2" value = "${customer.scheduledOrder[1].meal.price}" />
+					<input type = "hidden" id = "customerBalance" value = "${customer.balance}" />
+					<div id="noOfTiffins"></div>
+					<br/>
 					<form action="<%=Constants.ADD_MONEY_TO_WALLET_URL_POST%>" method="post">
 						<input id="balace" type="text"  class="form-control" placeholder="Amount (Rs) " pattern="[0-9.]*" maxlength="4" required  name="amount">
 						<button type="submit" name="amount" class="btn  add_money_button">Add Money</button>
@@ -82,10 +87,7 @@ function calculateNoOfTiffins() {
 								Later</button>
 						</form>
 					</c:if>
-					<input type = "hidden" id = "meal1" value = "${customer.scheduledOrder[0].meal.price}"  />
-					<input type = "hidden" id = "meal2" value = "${customer.scheduledOrder[1].meal.price}" />
-					<input type = "hidden" id = "customerBalance" value = "${customer.balance}" />
-					<div id="noOfTiffins"></div>
+					
 				</div>
 			</div>
 

@@ -44,3 +44,9 @@ margin-bottom: 64px;
 	color: white;
 	background-color: rgba(255, 85, 53, 0.70);
 }
+
+#noOfTiffins{
+	font-size: 20px;
+	text-align : center;
+	color: #FF5535;
+}
