@@ -23,18 +23,25 @@ public class MailUtil implements Runnable {
 
 	private static final String ACTIVATION_MAIL_SUBJECT = "Just A few steps away from becoming a TiffEater...";
 	private static final String ORDER_MAIL_SUBJECT = "Thank you for ordering tiffin...";
-	private static final String MAIL_NEW_LINE = "\n";
+	//private static final String MAIL_NEW_LINE = "\n";
 	private static final String MAIL_PORT = "25";
 	private static final String MAIL_HOST = "115.124.124.220";
 	private static final String MAIL_AUTH = "true";
 	private static final String MAIL_PASSWORD = "support_tiffeat";
 	private static final String MAIL_ID = "support@tiffeat.com";
 	public static final String SENDER_ID = "v=spf1 a ptr ip4:115.124.124.220 ~all";
+	public static final String MAIL_TYPE_QUICK = "quick";
+	public static final String MAIL_TYPE_SCHEDULED = "scheduled";
+	public static final String MAIL_TYPE_ACTIVATION = "activation";
+	public static final String MAIL_TYPE_WALLET = "wallet";
+	private static final String WALLET_MAIL_SUBJECT = "Money Added to TiffEat Wallet!";
 	
 	private CustomerOrder order;
+	private String type;
 	
-	public MailUtil(CustomerOrder customerOrder) {
+	public MailUtil(CustomerOrder customerOrder, String mailType) {
 		this.order = customerOrder;
+		this.type = mailType;
 	}
 
 	public void sendMail(CustomerOrder order) {
@@ -49,13 +56,7 @@ public class MailUtil implements Runnable {
 
 			message.setFrom(new InternetAddress(MAIL_ID));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(order.getCustomer().getEmail()));
-			
-			//String msgText = "";
-			//if (MealFormat.SCHEDULED.equals(order.getMealFormat())) {
-			//	msgText = prepareScheduledMailContent(order);
-			//} else {
 			prepareMailContent(message, order);
-			//}
 			Transport.send(message);
 
 		} catch (MessagingException e) {
@@ -79,42 +80,8 @@ public class MailUtil implements Runnable {
 		return session;
 	}
 
-	private String prepareScheduledMailContent(CustomerOrder order) {
-		StringBuilder mailBuilder = new StringBuilder();
-		if (order.getMealType() == null) {
-			return mailBuilder.toString();
-		}
-		mailBuilder.append("<h1>Greetings ").append(order.getCustomer().getName()).append("</h1>").append(MAIL_NEW_LINE);
-		mailBuilder.append("You have scheduled ").append(order.getMeal().getTitle()).append(" for ").append(order.getMealType().getDescription())
-				.append(" starting from ").append(CommonUtil.convertDateToString(order.getDate())).append(MAIL_NEW_LINE)
-				.append("Your order ID is - ").append(order.getId()).append(MAIL_NEW_LINE)
-				.append("You can track your order status everyday from www.tiffeat.com").append(MAIL_NEW_LINE)
-				.append("You can also choose to change or cancel your tiffin everyday as you wish, also track your everyday menu, all from www.tiffeat.com").append(MAIL_NEW_LINE)
-				.append("You will need to have sufficient amount of money in your wallet in order to get tiffin everyday.").append(MAIL_NEW_LINE)
-				.append("Thank you for ordering tiffin from us!!").append(MAIL_NEW_LINE)
-				.append("For any queries please feel free to contact us at support@tiffeat.com or 8087538194");
-
-		
-		
-		return mailBuilder.toString();
-	}
 
 	private String prepareMailContent(Message message, CustomerOrder order) {
-		/*StringBuilder mailBuilder = new StringBuilder();
-		if (order.getMealType() == null) {
-			return mailBuilder.toString();
-		}
-		mailBuilder.append("<h1>Hello ").append(order.getCustomer().getName()).append("!</h1>").append(MAIL_NEW_LINE);
-		mailBuilder.append("You have ordered ").append(order.getQuantity()).append(" ").append(order.getMeal().getTitle()).append(" for ")
-				.append(order.getMealType().getDescription()).append(" for the date ")
-				.append(CommonUtil.convertDateToString(order.getDate())).append(MAIL_NEW_LINE)
-				.append("Your order ID is - ").append(order.getId()).append(MAIL_NEW_LINE)
-				.append("The total payable amount is :").append(CommonUtil.calculatePrice(order)).append(MAIL_NEW_LINE)
-				.append("You can track your order status from www.tiffeat.com").append(MAIL_NEW_LINE)
-				.append("Thank you for ordering your meal from us!!").append(MAIL_NEW_LINE)
-				.append("For any queries please feel free to contact us at support@tiffeat.com or 8087538194").append(MAIL_NEW_LINE).append(MAIL_NEW_LINE)
-				.append("We would love it if you like us on Facebook at: https://www.facebook.com/tiffeat/").append(MAIL_NEW_LINE)
-				.append("<i>We often post something that you will find interesting.</i>");*/
 
 		try {
 			String result = readMailContent(message, order);
@@ -150,6 +117,9 @@ public class MailUtil implements Runnable {
 				result = StringUtils.replace(result, "${balance}", "0");
 			}
 			result = StringUtils.replace(result, "${link}", prepareActivationMailContent(order));
+			result = StringUtils.replace(result, "${amount}", String.valueOf(order.getPrice()));
+			CommonUtil.calculateTiffinsRemaining(order.getCustomer());
+			result = StringUtils.replace(result, "${noOfTiffins}", String.valueOf(order.getCustomer().getNoOfTiffinsRemaining()));
 			message.setContent(result, "text/html");
 			return result;
 			
@@ -164,28 +134,8 @@ public class MailUtil implements Runnable {
 		if(order == null) {
 			return;
 		}
-		/*if (order.getCustomer()!=null && order.getCustomer().getId() == 0) {
-			sendActivationMail(order);
-		} else {*/
 		sendMail(order);
-		//}
 	}
-
-	/*private void sendActivationMail(CustomerOrder order2) {
-		Session session = prepareMailSession();
-		try {
-			Message message = new MimeMessage(session);
-
-			message.setFrom(new InternetAddress(MAIL_ID));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(order.getCustomer().getEmail()));
-			message.setSubject(ACTIVATION_MAIL_SUBJECT);
-			message.setText(prepareActivationMailContent(order));
-			Transport.send(message);
-
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-	}*/
 
 	private String prepareActivationMailContent(CustomerOrder order) {
 		StringBuilder builder = new StringBuilder();
@@ -199,12 +149,14 @@ public class MailUtil implements Runnable {
 		ClassLoader classLoader = getClass().getClassLoader();
 		String contentPath = "invoice_mail.html";
 		message.setSubject(ORDER_MAIL_SUBJECT);
-		if(order.getCustomer()!= null && order.getCustomer().getId() == 0) {
+		if(MAIL_TYPE_ACTIVATION.equals(type)) {
 			contentPath = "activation_email.html";
 			message.setSubject(ACTIVATION_MAIL_SUBJECT);
-		}
-		else if(MealFormat.SCHEDULED.equals(order.getMealFormat())) {
+		} else if(MAIL_TYPE_SCHEDULED.equals(type)) {
 			contentPath = "scheduled_email.html";
+		} else if (MAIL_TYPE_WALLET.equals(type)) {
+			contentPath = "add_to_wallet_mail.html";
+			message.setSubject(WALLET_MAIL_SUBJECT);
 		}
 		File file = new File(classLoader.getResource(contentPath).getFile());
 		Scanner scanner = new Scanner(file);

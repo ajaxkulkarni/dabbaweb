@@ -1,3 +1,4 @@
+<%@page import="com.rns.tiffeat.web.bo.domain.MealType"%>
 <%@page import="com.rns.tiffeat.web.util.Constants"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -71,24 +72,23 @@
 									<c:choose>
 										<c:when test="${meal.lunchMenu == null}">
 											<div class="card-block">
-												<a
-													href="addDailyContent.htm?mealId=${meal.id}&mealType=LUNCH"
-													class="btn btn-primary">Add Menu</a>
+												<a href="addDailyContent.htm?mealId=${meal.id}&mealType=LUNCH" class="btn btn-primary" style="background-color: #4CAF50;" >Add Menu</a>
+												<a href="getLastDailyContent.htm?mealId=${meal.id}&mealType=LUNCH" class="btn btn-primary" style="background-color: #4CAF50;" >Recent Menu</a>
 											</div>
 										</c:when>
 										<c:when test="${meal.lunchStatus == 'PREPARE'}">
 											<div class="card-block">
 												<a
 													href="updateDailyContent.htm?contentId=${meal.lunchMenu.id}&mealType='LUNCH'"
-													class="btn btn-primary">Edit Content</a> <a
+													class="btn btn-primary" style="background-color: #f44336;">Edit Content</a> <a
 													href="startCooking.htm?mealId=${meal.id}&mealType=LUNCH"
-													class="btn btn-primary">Start Cooking</a>
+													class="btn btn-primary" style="background-color: #f44336;">Start Cooking</a>
 											</div>
 										</c:when>
 										<c:when test="${meal.lunchStatus == 'COOKING'}">
 											<div class="card-block">
 												<a href="startDispatch.htm?mealId=${meal.id}&mealType=LUNCH"
-													class="btn btn-primary">Dispatch</a>
+													class="btn btn-primary" style="background-color: #008CBA;">Dispatch</a>
 											</div>
 										</c:when>
 									</c:choose>
@@ -107,34 +107,59 @@
 									<c:choose>
 										<c:when test="${meal.dinnerMenu == null}">
 											<div class="card-block">
-												<a
-													href="addDailyContent.htm?mealId=${meal.id}&mealType=DINNER"
-													class="btn btn-primary">Add Menu</a>
+												<a href="addDailyContent.htm?mealId=${meal.id}&mealType=DINNER" class="btn btn-primary" style="background-color: #4CAF50;" >Add Menu</a>
+												<a href="getLastDailyContent.htm?mealId=${meal.id}&mealType=DINNER" class="btn btn-primary" style="background-color: #4CAF50;" >Recent Menu</a>
+											
 											</div>
 										</c:when>
 										<c:when test="${meal.dinnerStatus == 'PREPARE'}">
 											<div class="card-block">
 												<a
 													href="updateDailyContent.htm?contentId=${meal.dinnerMenu.id}&mealType='DINNER'"
-													class="btn btn-primary">Edit Content</a> <a
+													class="btn btn-primary" style="background-color: #f44336;">Edit Content</a> <a
 													href="startCooking.htm?mealId=${meal.id}&mealType=DINNER"
-													class="btn btn-primary">Start Cooking</a>
+													class="btn btn-primary" style="background-color: #f44336;">Start Cooking</a>
 											</div>
 										</c:when>
 										<c:when test="${meal.dinnerStatus == 'COOKING'}">
 											<div class="card-block">
 												<a href="startDispatch.htm?mealId=${meal.id}&mealType=DINNER"
-													class="btn btn-primary">Dispatch</a>
+													class="btn btn-primary" style="background-color: #008CBA;">Dispatch</a>
 											</div>
 										</c:when>
 									</c:choose>
 								</c:if>
 								</td>
 								<td><a href="editMeal.htm?mealId=${meal.id}">Edit Meal</a></td>
-						</tr>
+							
 						</c:if>
 					</c:forEach>
-
+					<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+					<td>
+							<form method="post" action="startDispatchAll">
+								<input type="hidden" name="mealType" value="<%=MealType.LUNCH%>"/>
+								<input type="submit" value="DISPATCH ALL"/>
+							</form>
+							<form method="post" action="startCookingAll">
+								<input type="hidden" name="mealType" value="<%=MealType.LUNCH%>"/>
+								<input type="submit" value="COOK ALL"/>
+							</form>
+							</td>
+							<td>
+							<form method="post" action="startDispatchAll">
+								<input type="hidden" name="mealType" value="<%=MealType.DINNER%>"/>
+								<input type="submit" value="DISPATCH ALL"/>
+							</form>
+							<form method="post" action="startCookingAll">
+								<input type="hidden" name="mealType" value="<%=MealType.DINNER%>"/>
+								<input type="submit" value="COOK ALL"/>
+							</form>
+							</td>
+						</tr>
 				</table>
 			</div>
 		</div>

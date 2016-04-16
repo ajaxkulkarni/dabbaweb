@@ -35,6 +35,7 @@ import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PayUDetails;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.util.CommonUtil;
 import com.rns.tiffeat.web.util.Constants;
 import com.rns.tiffeat.web.util.ImageUtil;
 import com.rns.tiffeat.web.util.PaymentUtils;
@@ -107,22 +108,13 @@ public class CustomerContollerAndroid implements Constants {
 			customerOrderObject.setDate(new Date());
 		}
 		Map<String,Object> availableMealsMap = new HashMap<String, Object>();
-		removeCircularReferences(customerOrderObject);
+		CommonUtil.removeCircularReferences(customerOrderObject);
 		availableMealsMap.put(MODEL_CUSTOMER_ORDER, new Gson().toJson(customerOrderObject));
 		availableMealsMap.put(MODEL_MEAL_TYPE, new Gson().toJson(availableMealTypes));
 		return new Gson().toJson(availableMealsMap);
 	}
 	
 
-	private void removeCircularReferences(CustomerOrder customerOrderObject) {
-		if(customerOrderObject == null || customerOrderObject.getMeal() == null || customerOrderObject.getCustomer() == null) {
-			return;
-		}
-		if(customerOrderObject.getMeal().getVendor() != null) {
-			customerOrderObject.getMeal().getVendor().setMeals(null);
-		}
-		removeCircularReferences(customerOrderObject.getCustomer());
-	}
 	
 	@RequestMapping(value = "/validateQuickOrderAndroid", method = RequestMethod.POST)
 	public @ResponseBody String validateQuickOrder(@RequestParam(value = MODEL_CUSTOMER_ORDER) String customerOrder,
@@ -131,7 +123,7 @@ public class CustomerContollerAndroid implements Constants {
 		String result = customerBo.validateQuickOrder(customerOrderObject);
 		Map<MealType, Date> availableMealTypes = customerBo.getAvailableMealTypeDates(customerOrderObject);
 		Map<String,Object> availableMealsMap = new HashMap<String, Object>();
-		removeCircularReferences(customerOrderObject);
+		CommonUtil.removeCircularReferences(customerOrderObject);
 		availableMealsMap.put(MODEL_CUSTOMER_ORDER, new Gson().toJson(customerOrderObject));
 		availableMealsMap.put(MODEL_MEAL_TYPE, new Gson().toJson(availableMealTypes));
 		availableMealsMap.put(MODEL_RESULT, result);
@@ -184,7 +176,7 @@ public class CustomerContollerAndroid implements Constants {
 			return ERROR_INVALID_CUSTOMER_DETAILS;
 		}
 		customerBo.setCurrentCustomer(customerObject);
-		removeCircularReferences(customerObject);
+		CommonUtil.removeCircularReferences(customerObject);
 		return new Gson().toJson(customerObject);
 	}
 	
@@ -195,7 +187,7 @@ public class CustomerContollerAndroid implements Constants {
 			return ERROR_INVALID_CUSTOMER_DETAILS;
 		}
 		customerBo.setCurrentCustomer(customerObject);
-		removeCircularReferences(customerObject);
+		CommonUtil.removeCircularReferences(customerObject);
 		return new Gson().toJson(customerObject);
 	}
 	
@@ -203,7 +195,7 @@ public class CustomerContollerAndroid implements Constants {
 	public @ResponseBody String getCurrentCustomer(@RequestParam(value = MODEL_CUSTOMER) String customer, ModelMap model) {
 		Customer customerObject = new Gson().fromJson(customer, Customer.class);
 		customerBo.setCurrentCustomer(customerObject);
-		removeCircularReferences(customerObject);
+		CommonUtil.removeCircularReferences(customerObject);
 		return new Gson().toJson(customerObject);
 	}
 	
@@ -231,23 +223,6 @@ public class CustomerContollerAndroid implements Constants {
 		return new Gson().toJson(customerBo.getDailyContentForCustomerOrder(order));
 	}
 
-	private void removeCircularReferences(Customer customerObject) {
-		if(customerObject == null) {
-			return;
-		}
-		removeCircularReferncesCustomerOrders(customerObject.getScheduledOrder());
-		removeCircularReferncesCustomerOrders(customerObject.getPreviousOrders());
-		removeCircularReferncesCustomerOrders(customerObject.getQuickOrders());
-	}
-	
-	private void removeCircularReferncesCustomerOrders(List<CustomerOrder> orders) {
-		if(CollectionUtils.isEmpty(orders)) {
-			return;
-		}
-		for(CustomerOrder order:orders) {
-			order.setCustomer(null);
-		}
-	}
 
 	@RequestMapping(value = "/downloadVendorImageAndroid", method = RequestMethod.GET)
 	public void downloadDocument(@RequestParam(value = MODEL_VENDOR) String vendor, HttpServletResponse response,

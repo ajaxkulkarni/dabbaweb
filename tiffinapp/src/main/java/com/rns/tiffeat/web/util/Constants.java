@@ -17,19 +17,14 @@ public interface Constants {
     }});
 	
 	String PAYMENT_PREFIX = "T";
-	String HOST_URL = "192.168.0.5:8080/tiffeat-web";
+	String HOST_URL = "http://cd52b877.ngrok.io/tiffeat-web";
 	String RESULT_URL_QUICK = "http://"+ HOST_URL + "/paymentResult";
 	String PRODUCT_INFO = "Tiffeat";
 	String MERCHANT_KEY = "gtKFFx"; // DEV
-	//String MERCHANT_KEY = "SvGyqj";
 	String MERCHANT_SALT = "eCwWELxi"; // DEV
-	//String MERCHANT_SALT = "3pfnUWXj";
-	String ROOT_DIRECTORY = "D:/Resoneuronance/TiffEat/Data/Images/";
-	//String ROOT_DIRECTORY = "/home/tiffeat/Images/";
+	String ROOT_DIRECTORY = "F:/Resoneuronance/TiffEat/Data/Images/";
 	String ASSETS_ROOT = "/resources"; //DEV
-	//String ASSETS_ROOT = "../../resources/assets";
 	String PAYMENT_URL = "https://test.payu.in/_payment"; //DEV
-	//String PAYMENT_URL = "https://secure.payu.in/_payment";
 	
 	/*String PAYMENT_PREFIX = "T";
 	String HOST_URL = "www.tiffeat.com";

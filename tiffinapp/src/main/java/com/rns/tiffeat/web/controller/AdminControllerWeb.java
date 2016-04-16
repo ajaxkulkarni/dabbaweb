@@ -363,6 +363,26 @@ public class AdminControllerWeb implements Constants {
 		}
 		return redirectToMealsScreen();
 	}
+	
+	@RequestMapping(value = "/getLastDailyContent.htm", method = RequestMethod.GET)
+	public RedirectView getLastDailyContent(MealType mealType, long mealId, ModelMap model) {
+		Meal meal = new Meal();
+		meal.setId(mealId);
+		DailyContent dailyMeal = vendorBo.getLastDailyContent(meal,mealType);
+		if(dailyMeal == null) {
+			return redirectToMealsScreen();
+		}
+		CustomerOrder order = new CustomerOrder();
+		order.setMeal(meal);
+		dailyMeal.setMeal(meal);
+		dailyMeal.setDate(customerBo.getAvailableMealTypeDates(order).get(dailyMeal.getMealType()));
+		String resultMsg = vendorBo.addDailyContent(dailyMeal);
+		/*if (!RESPONSE_OK.equals(resultMsg)) {
+			manager.setResult(resultMsg);
+			return new RedirectView("addDailyContent.htm?mealId=" + mealId);
+		}*/
+		return redirectToMealsScreen();
+	}
 
 	private RedirectView redirectToMealsScreen() {
 		if (manager.getAdmin().getCurrentVendor() == null) {
@@ -403,12 +423,24 @@ public class AdminControllerWeb implements Constants {
 		vendorBo.startCooking(meal, mealType);
 		return redirectToMealsScreen();
 	}
+	
+	@RequestMapping(value = "/startCookingAll", method = RequestMethod.POST)
+	public RedirectView startCookingAll(MealType mealType, ModelMap model) {
+		vendorBo.startCookingAll(mealType);
+		return redirectToMealsScreen();
+	}
 
 	@RequestMapping(value = "/startDispatch", method = RequestMethod.GET)
 	public RedirectView startDispatch(long mealId, MealType mealType, ModelMap model) {
 		Meal meal = new Meal();
 		meal.setId(mealId);
 		vendorBo.startDispatch(meal, mealType);
+		return redirectToMealsScreen();
+	}
+	
+	@RequestMapping(value = "/startDispatchAll", method = RequestMethod.POST)
+	public RedirectView startDispatchAll(MealType mealType, ModelMap model) {
+		vendorBo.startDispatchAll(mealType);
 		return redirectToMealsScreen();
 	}
 

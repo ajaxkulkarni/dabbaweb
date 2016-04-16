@@ -129,5 +129,22 @@ public class DailyMealDaoImpl implements DailyMealDao {
 		}
 		return meals.get(0);
 	}
+	
+	public DailyMeal getLastDailyMeal(long mealId, MealType mealType) {
+		List<DailyMeal> meals = new ArrayList<DailyMeal>();
+		if(mealType == null) {
+			return null;
+		}
+		Session session = this.sessionFactory.openSession();
+		Query createQuery = session.createQuery("from DailyMeal where meal.id=:meal_id AND type=:meal_type ORDER By id DESC");
+		createQuery.setLong("meal_id", mealId);
+		createQuery.setString("meal_type", mealType.name());
+		meals = createQuery.list();
+		session.close();
+		if (CollectionUtils.isEmpty(meals)) {
+			return null;
+		}
+		return meals.get(0);
+	}
 
 }

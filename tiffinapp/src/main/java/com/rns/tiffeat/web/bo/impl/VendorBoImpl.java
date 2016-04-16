@@ -361,6 +361,16 @@ public class VendorBoImpl implements VendorBo, Constants {
 		updateCustomerBalances(orders);
 		mealDao.editMeal(mealToCook, orders);
 	}
+	
+	public void startCookingAll(MealType mealType) {
+		if (mealType == null) {
+			return;
+		}
+		List<com.rns.tiffeat.web.dao.domain.Meal> meals = mealDao.getAllMeals();
+		for(com.rns.tiffeat.web.dao.domain.Meal mealToCook: meals) {
+			startCooking(DataToBusinessConverters.convertMeal(mealToCook), mealType);
+		}
+	}
 
 	private void updateCustomerBalances(List<Order> orders) {
 		for (Order order : orders) {
@@ -398,6 +408,16 @@ public class VendorBoImpl implements VendorBo, Constants {
 		CommonUtil.setMealStatus(mealToDispatch, mealType, MealStatus.DISPATCH);
 		mealDao.editMeal(mealToDispatch);
 		return RESPONSE_OK;
+	}
+	
+	public void startDispatchAll(MealType mealType) {
+		if (mealType == null) {
+			return;
+		}
+		List<com.rns.tiffeat.web.dao.domain.Meal> meals = mealDao.getAllMeals();
+		for(com.rns.tiffeat.web.dao.domain.Meal mealToCook: meals) {
+			startDispatch(DataToBusinessConverters.convertMeal(mealToCook), mealType);
+		}
 	}
 
 	public void delieverTiffins(List<CustomerOrder> orders) {
@@ -658,6 +678,13 @@ public class VendorBoImpl implements VendorBo, Constants {
 		dates.add(calendar.getTime());
 		dates.add(new Date());
 		return dates;
+	}
+
+	public DailyContent getLastDailyContent(Meal meal, MealType mealType) {
+		if(meal == null || mealType == null) {
+			return null;
+		}
+		return DataToBusinessConverters.convertDailyContent(dailyMealDao.getLastDailyMeal(meal.getId(), mealType));
 	}
 
 }

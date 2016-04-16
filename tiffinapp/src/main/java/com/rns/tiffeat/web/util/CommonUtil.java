@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -425,5 +426,64 @@ public class CommonUtil implements Constants {
 		return value;
 	}
 	
+	public static void removeCircularReferences(Customer customerObject) {
+		if(customerObject == null) {
+			return;
+		}
+		removeCircularReferncesCustomerOrders(customerObject.getScheduledOrder());
+		removeCircularReferncesCustomerOrders(customerObject.getPreviousOrders());
+		removeCircularReferncesCustomerOrders(customerObject.getQuickOrders());
+	}
+	
+	public static void removeCircularReferncesCustomerOrders(List<CustomerOrder> orders) {
+		if(CollectionUtils.isEmpty(orders)) {
+			return;
+		}
+		for(CustomerOrder order:orders) {
+			order.setCustomer(null);
+		}
+	}
+	
+	public static void removeCircularReferences(CustomerOrder customerOrderObject) {
+		if(customerOrderObject == null || customerOrderObject.getMeal() == null || customerOrderObject.getCustomer() == null) {
+			return;
+		}
+		if(customerOrderObject.getMeal().getVendor() != null) {
+			customerOrderObject.getMeal().getVendor().setMeals(null);
+		}
+		removeCircularReferences(customerOrderObject.getCustomer());
+	}
+	
+	public static void calculateTiffinsRemaining(Customer currentCustomer) {
 
+		if (currentCustomer.getBalance() == null || currentCustomer.getBalance().compareTo(BigDecimal.ZERO) == 0 || currentCustomer.getBalance().compareTo(BigDecimal.ZERO) == -1) {
+			currentCustomer.setNoOfTiffinsRemaining(0);
+			return;
+		}
+		BigDecimal totalDailyCost = BigDecimal.ZERO;
+		for (CustomerOrder order : currentCustomer.getScheduledOrder()) {
+			if (order.getMeal() == null || order.getMeal().getPrice() == null) {
+				continue;
+			}
+			totalDailyCost = totalDailyCost.add(order.getMeal().getPrice());
+		}
+		if (totalDailyCost.compareTo(BigDecimal.ZERO) == 1) {
+			BigDecimal tiffins = (currentCustomer.getBalance()).divideToIntegralValue(totalDailyCost);
+			currentCustomer.setNoOfTiffinsRemaining(tiffins.intValue());
+			return;
+		}
+		currentCustomer.setNoOfTiffinsRemaining(0);
+	}
+	
+	/*public static Integer calculateNoOfTiffinDays(Customer customer) {
+		if(customer == null || CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+			return null;
+		}
+		BigDecimal costPerDay = BigDecimal.ZERO;
+		for(CustomerOrder order: customer.getScheduledOrder()) {
+			costPerDay = costPerDay.add(order.getMeal().getPrice());
+		}
+		return Math.round(customer.getBalance().divide(costPerDay).floatValue());
+	}*/
+	
 }

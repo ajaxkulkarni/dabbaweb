@@ -129,9 +129,14 @@ rel="stylesheet">
 							</thead>
 								<div class="table-sort">
 									<td style="padding: 0 18px">${order.customerOrderId}</td>
-
-									<td style="padding: 0 35px">${order.customer.name}</td>
-
+									<c:choose>
+										<c:when test="${order.customer.balance < 150 && order.mealFormat == 'SCHEDULED' }">
+											<td style="padding: 0 35px;background-color: #f44336;">${order.customer.name}(${order.customer.balance})</td>
+										</c:when>
+										<c:otherwise>
+											<td style="padding: 0 35px">${order.customer.name}</td>
+										</c:otherwise>
+									</c:choose>
 									<td style="padding: 0 35px">${order.customer.phone}</td>
 
 									<td style="padding: 0 35px">${order.meal.vendor.name}</td>

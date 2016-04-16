@@ -262,7 +262,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		addOrder(mealToBeAdded, customerOrder);
 		customerOrder.setId(customerMealDao.addCustomerMeal(mealToBeAdded));
 		//MailUtil.sendMail(customerOrder, threadPoolTaskExecutor);
-		threadPoolTaskExecutor.execute(new MailUtil(customerOrder));
+		threadPoolTaskExecutor.execute(new MailUtil(customerOrder, MailUtil.MAIL_TYPE_QUICK));
 		return RESPONSE_OK;
 	}
 
@@ -383,28 +383,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			prepareScheduledOrderDetails(currentCustomer, customerOrder);
 			currentCustomer.getScheduledOrder().add(customerOrder);
 		}
-		calculateTiffinsRemaining(currentCustomer);
-	}
-
-	private void calculateTiffinsRemaining(Customer currentCustomer) {
-
-		if (currentCustomer.getBalance() == null || currentCustomer.getBalance().compareTo(BigDecimal.ZERO) == 0 || currentCustomer.getBalance().compareTo(BigDecimal.ZERO) == -1) {
-			currentCustomer.setNoOfTiffinsRemaining(0);
-			return;
-		}
-		BigDecimal totalDailyCost = BigDecimal.ZERO;
-		for (CustomerOrder order : currentCustomer.getScheduledOrder()) {
-			if (order.getMeal() == null || order.getMeal().getPrice() == null) {
-				continue;
-			}
-			totalDailyCost = totalDailyCost.add(order.getMeal().getPrice());
-		}
-		if (totalDailyCost.compareTo(BigDecimal.ZERO) == 1) {
-			BigDecimal tiffins = (currentCustomer.getBalance()).divideToIntegralValue(totalDailyCost);
-			currentCustomer.setNoOfTiffinsRemaining(tiffins.intValue());
-			return;
-		}
-		currentCustomer.setNoOfTiffinsRemaining(0);
+		CommonUtil.calculateTiffinsRemaining(currentCustomer);
 	}
 
 	private void prepareScheduledOrderDetails(Customer currentCustomer, CustomerOrder customerOrder) {
@@ -500,7 +479,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 		customerOrder.setId(customerMealDao.addCustomerMeals(customerMealsToBeAdded));
 		//MailUtil.sendMail(customerOrder);
-		threadPoolTaskExecutor.execute(new MailUtil(customerOrder));
+		threadPoolTaskExecutor.execute(new MailUtil(customerOrder, MailUtil.MAIL_TYPE_SCHEDULED));
 		return RESPONSE_OK;
 	}
 
@@ -702,6 +681,10 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 			customer.setBalance((currentCustomer.getBalance()).add(customer.getBalance()));
 		}
 		customerDao.editCustomer(customer);
+		CustomerOrder customerOrder = new CustomerOrder();
+		customerOrder.setCustomer(currentCustomer);
+		customerOrder.setPrice(currentCustomer.getBalance());
+		threadPoolTaskExecutor.execute(new MailUtil(customerOrder, MailUtil.MAIL_TYPE_WALLET));
 		return RESPONSE_OK;
 	}
 
@@ -967,7 +950,7 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		activation.setEmail(customer.getEmail());
 		customerDao.addActivationCode(activation);
 		customer.setActivationCode(code);
-		threadPoolTaskExecutor.execute(new MailUtil(order));
+		threadPoolTaskExecutor.execute(new MailUtil(order, MailUtil.MAIL_TYPE_ACTIVATION));
 		return RESPONSE_OK;
 	}
 

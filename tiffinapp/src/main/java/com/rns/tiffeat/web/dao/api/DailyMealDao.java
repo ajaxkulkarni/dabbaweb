@@ -16,5 +16,6 @@ public interface DailyMealDao {
 	DailyMeal getDailyMealsForMealType(long mealId,Date date,MealType mealType);
 	DailyMeal getDailyMealsForMealType(long mealId,MealType mealType);
 	DailyMeal getDailyMeal(long id);
+	DailyMeal getLastDailyMeal(long mealId, MealType mealType);
 }
 

@@ -1,15 +1,15 @@
 package com.rns.tiffeat.web.util;
 
-//import org.apache.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class LoggingUtil {
 
-	//private static Logger reportLogger = Logger.getLogger(LoggingUtil.class);
+	private static Logger reportLogger = Logger.getLogger(LoggingUtil.class);
 
 	public static void logMessage(String message) {
-		//reportLogger.info(message);
+		reportLogger.info(message);
 	}
 
 	public static void logOrderDetails(CustomerOrder order) {
@@ -21,7 +21,7 @@ public class LoggingUtil {
 		if (order.getMeal() != null) {
 			builder.append(" Meal :" + order.getMeal().getTitle());
 		}
-		//reportLogger.info(builder);
+		reportLogger.info(builder);
 	}
 
 }

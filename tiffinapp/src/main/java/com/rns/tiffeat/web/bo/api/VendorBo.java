@@ -34,7 +34,11 @@ public interface VendorBo {
 	Meal getMeal(Meal meal);
 	
 	void startCooking(Meal meal, MealType mealType);
+	void startCookingAll(MealType mealType);
+	
 	String startDispatch(Meal meal, MealType mealType);
+	void startDispatchAll(MealType mealType);
+	
 	void delieverTiffins(List<CustomerOrder> orders);
 	
 	List<Vendor> getAllVendors();
@@ -50,5 +54,6 @@ public interface VendorBo {
 	String cancelOrder(CustomerOrder order);
 	List<Meal> getAllMeals();
 	List<VendorInvoice> generateInvoices(String dateRange);
+	DailyContent getLastDailyContent(Meal meal, MealType mealType);
 	
 }
