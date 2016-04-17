@@ -2,6 +2,7 @@ package com.rns.tiffeat.web.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,7 @@ import com.rns.tiffeat.web.bo.api.CustomerBo;
 import com.rns.tiffeat.web.bo.api.SessionManager;
 import com.rns.tiffeat.web.bo.api.VendorBo;
 import com.rns.tiffeat.web.bo.domain.Admin;
+import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.DailyContent;
 import com.rns.tiffeat.web.bo.domain.Meal;
@@ -476,6 +478,15 @@ public class AdminControllerWeb implements Constants {
 		model.addAttribute(MODEL_INVOICES, vendorInvoices);
 		model.addAttribute(MODEL_RESOURCES, ASSETS_ROOT);
 		return "admin_billing";
+	}
+	
+	@RequestMapping(value = "/addToWallet", method = RequestMethod.POST)
+	public RedirectView addToWallet(BigDecimal amount, ModelMap model, long customerId) {
+		Customer currentCustomer = new Customer();
+		currentCustomer.setId(customerId);
+		currentCustomer.setBalance(amount);
+		customerBo.addMoneyToWallet(currentCustomer);
+		return new RedirectView("customers.htm");
 	}
 
 	@RequestMapping(value = "/getVendorProfilePic.htm", method = RequestMethod.GET)

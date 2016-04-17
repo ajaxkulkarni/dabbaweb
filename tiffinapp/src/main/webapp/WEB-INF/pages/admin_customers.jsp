@@ -51,6 +51,7 @@ src="<c:url value = "${resources}/js/tablesort.js"/>"></script>
 						<th class="table-sort">Quick Order</th>
 						<th class="table-sort">Schdule Order</th>
 						<th class="table-sort">Balance</th>
+						<th class="table-sort">Add Balance</th>
 							<!--<th>Email</th>
 							<th>Name</th>
 							<th>Phone</th>
@@ -68,6 +69,13 @@ src="<c:url value = "${resources}/js/tablesort.js"/>"></script>
 							<td>${fn:length(customer.previousOrders)}</td>
 							<td>${fn:length(customer.scheduledOrder)}</td>
 							<td>${customer.balance}</td>
+							<td>
+								<form action="addToWallet" method="POST">
+									<input type="text" name="amount"/>
+									<input type="hidden" name="customerId" value="${customer.id}"/>
+									<input type="submit" value="ADD"/>
+								</form>
+							</td>
 						</tr>
 					</c:forEach>
 </tbody>
