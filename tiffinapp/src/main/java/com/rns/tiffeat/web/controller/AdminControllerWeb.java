@@ -481,11 +481,12 @@ public class AdminControllerWeb implements Constants {
 	}
 	
 	@RequestMapping(value = "/addToWallet", method = RequestMethod.POST)
-	public RedirectView addToWallet(BigDecimal amount, ModelMap model, long customerId) {
-		Customer currentCustomer = new Customer();
-		currentCustomer.setId(customerId);
-		currentCustomer.setBalance(amount);
-		customerBo.addMoneyToWallet(currentCustomer);
+	public RedirectView addToWallet(Customer customer, ModelMap modelMap) {
+		/*Customer currentCustomer = new Customer();
+		currentCustomer.setId(customer.getId());
+		currentCustomer.setBalance(customer.getBalance());
+		currentCustomer.setEmail(customer.getEmail());*/
+		customerBo.addMoneyToWallet(customer);
 		return new RedirectView("customers.htm");
 	}
 

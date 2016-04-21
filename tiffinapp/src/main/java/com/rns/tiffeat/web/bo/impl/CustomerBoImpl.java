@@ -682,8 +682,11 @@ public class CustomerBoImpl implements CustomerBo, Constants {
 		}
 		customerDao.editCustomer(customer);
 		CustomerOrder customerOrder = new CustomerOrder();
-		customerOrder.setCustomer(currentCustomer);
 		customerOrder.setPrice(currentCustomer.getBalance());
+		if(CollectionUtils.isEmpty(currentCustomer.getScheduledOrder())) {
+			setCurrentCustomer(currentCustomer);
+		}
+		customerOrder.setCustomer(currentCustomer);
 		threadPoolTaskExecutor.execute(new MailUtil(customerOrder, MailUtil.MAIL_TYPE_WALLET));
 		return RESPONSE_OK;
 	}

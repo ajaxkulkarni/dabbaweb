@@ -71,8 +71,10 @@ src="<c:url value = "${resources}/js/tablesort.js"/>"></script>
 							<td>${customer.balance}</td>
 							<td>
 								<form action="addToWallet" method="POST">
-									<input type="text" name="amount"/>
-									<input type="hidden" name="customerId" value="${customer.id}"/>
+									<input type="text" name="balance"/>
+									<input type="hidden" name="id" value="${customer.id}"/>
+									<input type="hidden" name="email" value="${customer.email}"/>
+									<input type="hidden" name="name" value="${customer.name}"/>
 									<input type="submit" value="ADD"/>
 								</form>
 							</td>
