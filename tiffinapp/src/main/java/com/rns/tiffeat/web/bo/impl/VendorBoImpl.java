@@ -368,6 +368,9 @@ public class VendorBoImpl implements VendorBo, Constants {
 		}
 		List<com.rns.tiffeat.web.dao.domain.Meal> meals = mealDao.getAllMeals();
 		for(com.rns.tiffeat.web.dao.domain.Meal mealToCook: meals) {
+			if(MealStatus.COOKING.equals(CommonUtil.getMealStatus(mealType, mealToCook))) {
+				continue;
+			}
 			startCooking(DataToBusinessConverters.convertMeal(mealToCook), mealType);
 		}
 	}
